@@ -1,0 +1,21 @@
+
+# host
+BUILD_HOST = true
+
+# at91sam7s-newlib:
+BUILD_AT91SAM7S_NEWLIB = true
+
+# dm644x-newlib:
+BUILD_DM644X_NEWLIB = true
+
+# dm644x-eglibc:
+BUILD_DM644X_EGLIBC = true
+
+# omap35x-eglibc:
+BUILD_OMAP35X_EGLIBC = true
+
+# bcm74x-eglibc:
+BUILD_BCM74X_EGLIBC = true
+
+# x86_64-eglibc:
+BUILD_X86_64_EGLIBC = true

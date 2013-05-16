@@ -1,0 +1,30 @@
+
+# Target build dirs
+.host/
+.at91sam7s-newlib/
+.dm644x-newlib/
+.dm644x-eglibc/
+.omap35x-eglibc/
+.bcm74x-eglibc/
+.x86_64-eglibc/
+
+# Hidden files (each file)
+.makefile
+
+# Tarballs
+*.gz
+*.bz2
+*.tgz
+*.txz
+
+# Signatures
+*.asc
+*.sig
+*.sign
+*.sha1sum
+
+# Default linux config files
+*.defconfig
+
+# backup copies
+*~

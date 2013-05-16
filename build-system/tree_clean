@@ -1,0 +1,149 @@
+#!/usr/bin/perl
+
+use FindBin;
+use lib $FindBin::Bin;
+
+use strict;
+use warnings FATAL => 'all';
+
+use File::Find;
+use _kxLab;
+
+
+# Global variables
+my $header_printed = 0;
+
+my $top_dir;
+my @targets;
+my $verbose = $ENV{VERBOSE};
+
+my %seen;
+my ( @dist_clean_dirs, @clean_dirs, @dist_clean_dirs_all, @clean_dirs_all );
+my ( $dist_clean_count, $clean_count );
+
+sub do_clean
+{
+  unlink "$top_dir/.makefile";
+
+  foreach my $d ( @dist_clean_dirs )
+  {
+    my $printed_d;
+
+    $printed_d = $d;
+    $printed_d =~ s/^$top_dir\///;
+
+    print "\n===\n" if ( $verbose );
+    print "=== Dist cleaning in $printed_d...\n" if ( $verbose );
+    print "===\n" if ( $verbose );
+    _kxLab::system( "make -C $d dist_clean" );
+  }
+
+  foreach my $d ( @clean_dirs )
+  {
+    my $printed_d;
+
+    $printed_d = $d;
+    $printed_d =~ s/^$top_dir\///;
+
+    print "\n===\n" if ( $verbose );
+    print "=== Cleaning in $printed_d...\n" if ( $verbose );
+    print "===\n" if ( $verbose );
+    _kxLab::system( "make -C $d local_clean" );
+    unlink "$d/.makefile";
+  }
+}
+
+sub do_clean_list
+{
+  my $dir = shift;
+  my $cwd = `pwd`;
+
+  chomp $cwd;
+
+  return if( ! -f "$cwd/Makefile" );
+
+  # needs dist clean:
+  if( -f "$cwd/.dist" ) { push @dist_clean_dirs_all, $cwd; }
+
+  # needs clean:
+  push @clean_dirs_all, $cwd;
+}
+
+sub process_clean
+{
+  # add directory which contains '.makefile' too.
+  if( $_ eq ".makefile" ) { do_clean_list( $File::Find::dir ); }
+
+  return if( ! -d $_ );
+
+  return if( $File::Find::name =~ m/build-system/ );
+  return if( $File::Find::name =~ m/dist/ );
+  return if( $File::Find::name =~ m/sources/ );
+
+  foreach my $d ( @targets )
+  {
+    if( $d eq $_ ) { do_clean_list( $File::Find::dir ); }
+  }
+}
+
+
+foreach ( @ARGV )
+{
+  push @targets, $_;
+}
+$top_dir = pop @targets;
+
+if( ! -d $top_dir )
+{
+  die "\nTop: $top_dir: is not a directory\n\n";
+}
+if( ! $top_dir =~ m/^\// )
+{
+  die "\nTop: $top_dir: is not absolute path\n\n";
+}
+
+find( \&process_clean, "$top_dir" );
+
+# get unique names:
+%seen = ();
+@dist_clean_dirs = grep { ! $seen{ $_ }++ } @dist_clean_dirs_all;
+# delete subdirs which already contains TARGET name:
+foreach my $target ( @targets )
+{
+  my @match = ();
+  @match = grep { /$target/ } keys %seen;
+  foreach my $subdir ( @match ) { delete( $seen{"$subdir"} ); }
+}
+@dist_clean_dirs = reverse( keys %seen );
+
+# get unique names:
+%seen = ();
+@clean_dirs = grep { ! $seen{ $_ }++ } @clean_dirs_all;
+foreach my $target ( @targets )
+{
+  my @match = ();
+  @match = grep { /$target/ } keys %seen;
+  foreach my $subdir ( @match ) { delete( $seen{"$subdir"} ); }
+}
+@clean_dirs = reverse( keys %seen );
+
+$dist_clean_count = @dist_clean_dirs;
+$clean_count = @clean_dirs;
+
+if( $dist_clean_count != 0 || $clean_count != 0 )
+{
+  if( !$header_printed )
+  {
+    print "\n======= Cleaning build tree =======\n";
+    $header_printed = 1;
+  }
+
+  do_clean();
+
+  print "\n";
+}
+else
+{
+  print "Cleaning...   (nothing to be done).\n";
+}
+
