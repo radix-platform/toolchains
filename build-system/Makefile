@@ -16,4 +16,3 @@ include core.mk
 $(targets_config_mk):
 	@echo "Creating $(targets_config_mk) ..."
 	@cp $(targets_config_mk).template $@
-	echo $(TOOLCHAIN_NAMES)
