@@ -33,7 +33,7 @@ $(tarballs):
 	  wget $(WGET_OPTIONS) -N $(url)/$$tarball ; \
 	done
 
-$(sha1s): %.tar.gz.sha1sum : %.tar.gz
+$(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
 	@for sha in $@ ; do \
 	  echo -e "\n======= Downloading '$$sha' signature =======\n" ; \
 	  wget $(WGET_OPTIONS) -N $(url)/$$sha ; \

@@ -34,6 +34,7 @@ $(tarballs):
 	@echo -e "\n======= Create Patches =======\n"
 	@( cd create-patch-4.7.2-at91sam7s-newlib && ./create.patch.sh )
 	@( cd create-patch-4.7.2-dm644x-newlib && ./create.patch.sh )
+	@( cd create-patch-4.7.2-a1x-newlib && ./create.patch.sh )
 
 $(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
 	@for sha in $@ ; do \
@@ -52,3 +53,4 @@ downloads_clean:
 	@rm -f $(tarballs) $(sha1s)
 	@rm -f ../patches/gcc-4.7.2-at91sam7s-newlib.patch
 	@rm -f ../patches/gcc-4.7.2-dm644x-newlib.patch
+	@rm -f ../patches/gcc-4.7.2-a1x-newlib.patch
