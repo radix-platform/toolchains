@@ -1,8 +1,10 @@
 
 # Target build dirs
 .host/
+.a1x-newlib/
 .at91sam7s-newlib/
 .dm644x-newlib/
+.a1x-eglibc/
 .dm644x-eglibc/
 .omap35x-eglibc/
 .bcm74x-eglibc/

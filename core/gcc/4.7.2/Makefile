@@ -1,7 +1,9 @@
 
+COMPONENT_TARGETS += $(TOOLCHAIN_A1X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_NEWLIB)
 
+COMPONENT_TARGETS += $(TOOLCHAIN_A1X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_BCM74X_EGLIBC)
@@ -38,7 +40,11 @@ else
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_DM644X_NEWLIB))
 PATCHES = PATCHES.dm644x
 else
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB))
+PATCHES = PATCHES.a1x
+else
 PATCHES = PATCHES
+endif
 endif
 endif
 endif
@@ -73,6 +79,24 @@ endif
 
 
 include ../../../build-system/core.mk
+
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB))
+extra_configure_switches += --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-cpu=cortex-a8
+extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-fpu=neon
+extra_configure_switches += --with-abi=aapcs
+extra_configure_switches += --with-dwarf2
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-shared
+extra_configure_switches += --with-newlib
+endif
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_AT91SAM7S_NEWLIB))
@@ -118,6 +142,45 @@ extra_configure_switches += --disable-libquadmath
 extra_configure_switches += --enable-languages=c
 extra_configure_switches += --disable-shared
 extra_configure_switches += --with-newlib
+endif
+
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_EGLIBC))
+extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches += --with-cpu=cortex-a8
+extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-fpu=neon
+extra_configure_switches += --with-abi=aapcs
+extra_configure_switches += --with-dwarf2
+ifeq ($(FLAVOUR),static)
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-threads
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-shared
+extra_configure_switches += --disable-nls
+# without-headers replacement, to make libgcc independed from glibc:
+extra_configure_switches += --with-newlib
+endif
+ifeq ($(FLAVOUR),second)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-nls
+endif
+ifeq ($(FLAVOUR),full)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --enable-languages=c,c++
+extra_configure_switches += --enable-__cxa_atexit
+extra_configure_switches += --enable-shared
+extra_configure_switches += --enable-nls
+extra_configure_switches += --with-included-gettext
+endif
 endif
 
 

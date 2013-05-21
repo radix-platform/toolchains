@@ -2,11 +2,19 @@
 # host
 BUILD_HOST = true
 
+
+# a1x-newlib:
+BUILD_A1X_NEWLIB = true
+
 # at91sam7s-newlib:
 BUILD_AT91SAM7S_NEWLIB = true
 
 # dm644x-newlib:
 BUILD_DM644X_NEWLIB = true
+
+
+# a1x-eglibc:
+BUILD_A1X_EGLIBC = true
 
 # dm644x-eglibc:
 BUILD_DM644X_EGLIBC = true
