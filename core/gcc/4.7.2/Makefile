@@ -15,7 +15,10 @@ FLAVOURS = static second full
 include ../../../build-system/config.mk
 
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/GNU/gcc
+SOURCE_REQUIRES  = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.7.2
+SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/gmp
+SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/mpfr
+SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/mpc
 
 tar_bz2_archive       = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2
 tar_bz2_archive_gmp   = $(SRC_PACKAGE_DIR)/GNU/gmp/gmp-5.0.5.tar.bz2
