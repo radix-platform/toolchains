@@ -46,7 +46,7 @@ extra_configure_switches += --with-float=soft
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_EGLIBC))
-extra_configure_switches += --with-cpu=cortex-a8
+extra_configure_switches  = --with-cpu=cortex-a8
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
@@ -62,7 +62,7 @@ extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_BCM74X_EGLIBC))
-extra_configure_switches += --enable-multilib
+extra_configure_switches  = --enable-multilib
 extra_configure_switches += --with-arch=mips32
 extra_configure_switches += --disable-werror
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
@@ -70,7 +70,7 @@ endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
 # experimental gold linker( DEFAULT_LD=ld.bfd ):
-extra_configure_switches += --enable-gold=yes
+extra_configure_switches  = --enable-gold=yes
 extra_configure_switches += --enable-ld=default
 extra_configure_switches += --enable-werror=no
 # The --enable-initfini-array option was added in binutils-2.21.51.0.3.

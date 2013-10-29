@@ -46,7 +46,7 @@ extra_configure_switches += --with-float=soft
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_EGLIBC))
-extra_configure_switches += --with-cpu=cortex-a8
+extra_configure_switches  = --with-cpu=cortex-a8
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
@@ -62,14 +62,14 @@ extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_BCM74X_EGLIBC))
-extra_configure_switches += --enable-multilib
+extra_configure_switches  = --enable-multilib
 extra_configure_switches += --with-arch=mips32
 extra_configure_switches += --disable-werror
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
-extra_configure_switches += --enable-targets=x86_64-kxLab-linux,x86_64-kxLab-linux-gnulibc1,x86_64-kxLab-linux-gnuaout
+extra_configure_switches  = --enable-targets=x86_64-kxLab-linux,x86_64-kxLab-linux-gnulibc1,x86_64-kxLab-linux-gnuaout
 extra_configure_switches += --enable-64-bit-bfd
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif

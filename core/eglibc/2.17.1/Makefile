@@ -1,6 +1,6 @@
 
 COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_EGLIBC)
-COMPONENT_TARGETS  = $(TOOLCHAIN_OMAP35X_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_BCM74X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_EGLIBC)
@@ -79,7 +79,7 @@ include ../../../build-system/core.mk
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_EGLIBC))
 extra_configure_switches   = --libdir=/usr/lib$(LIBSUFFIX)
-extra_configure_switches   = --with-headers=$(sysroot_dir)/usr/include
+extra_configure_switches  += --with-headers=$(sysroot_dir)/usr/include
 extra_configure_switches  += --enable-add-ons=libidn,nptl,ports
 ifeq ($(FLAVOUR),headers)
 extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin
@@ -103,7 +103,7 @@ endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_EGLIBC))
 extra_configure_switches   = --libdir=/usr/lib$(LIBSUFFIX)
-extra_configure_switches   = --with-headers=$(sysroot_dir)/usr/include
+extra_configure_switches  += --with-headers=$(sysroot_dir)/usr/include
 extra_configure_switches  += --enable-add-ons=libidn,nptl,ports
 ifeq ($(FLAVOUR),headers)
 extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin
@@ -127,7 +127,7 @@ endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_DM644X_EGLIBC))
 extra_configure_switches   = --libdir=/usr/lib$(LIBSUFFIX)
-extra_configure_switches   = --with-headers=$(sysroot_dir)/usr/include
+extra_configure_switches  += --with-headers=$(sysroot_dir)/usr/include
 extra_configure_switches  += --enable-add-ons=libidn,nptl,ports
 ifeq ($(FLAVOUR),headers)
 extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin
@@ -153,7 +153,7 @@ endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_BCM74X_EGLIBC))
 extra_configure_switches   = --libdir=/usr/lib$(LIBSUFFIX)
-extra_configure_switches   = --with-headers=$(sysroot_dir)/usr/include
+extra_configure_switches  += --with-headers=$(sysroot_dir)/usr/include
 extra_configure_switches  += --enable-add-ons=libidn,nptl,ports
 ifeq ($(FLAVOUR),headers)
 extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin

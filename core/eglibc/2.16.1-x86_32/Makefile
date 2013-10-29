@@ -59,8 +59,8 @@ include ../../../build-system/core.mk
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
-extra_configure_switches  += --libdir=/usr/lib$(LIBSUFFIX)
-extra_configure_switches   = --with-headers=$(sysroot_dir)/usr/include
+extra_configure_switches   = --libdir=/usr/lib$(LIBSUFFIX)
+extra_configure_switches  += --with-headers=$(sysroot_dir)/usr/include
 extra_configure_switches  += --enable-add-ons=libidn,nptl
 ifeq ($(FLAVOUR),headers)
 extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin

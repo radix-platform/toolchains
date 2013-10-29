@@ -1,8 +1,8 @@
 
 NO_PARALLEL = true
 
-COMPONENT_TARGETS += $(TOOLCHAIN_A1X_NEWLIB)
-COMPONENT_TARGETS  = $(TOOLCHAIN_AT91SAM7S_NEWLIB)
+COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_NEWLIB)
 
 FLAVOURS = headers full
@@ -52,7 +52,7 @@ include ../../../build-system/core.mk
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB))
-extra_configure_switches += --enable-multilib
+extra_configure_switches  = --enable-multilib
 extra_configure_switches += --with-gnu-as
 extra_configure_switches += --with-gnu-ld
 extra_configure_switches += --disable-nls

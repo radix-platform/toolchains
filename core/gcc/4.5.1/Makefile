@@ -118,7 +118,7 @@ endif
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_EGLIBC))
-extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-cpu=cortex-a8
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-dwarf2
@@ -153,7 +153,7 @@ endif
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_DM644X_EGLIBC))
-extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-float=soft
 extra_configure_switches += --with-cpu=arm926ej-s
 extra_configure_switches += --with-tune=arm926ej-s
@@ -201,7 +201,7 @@ endif
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_BCM74X_EGLIBC))
-extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-arch=mips32
 extra_configure_switches += --with-float=hard
 extra_configure_switches += --enable-target-optspace
@@ -238,7 +238,7 @@ endif
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
-extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-dwarf2
 ifeq ($(FLAVOUR),static)
 extra_configure_switches += --disable-libmudflap
