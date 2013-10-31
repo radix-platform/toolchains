@@ -3,8 +3,12 @@ COMPONENT_TARGETS = $(TOOLCHAIN_DM644X_NEWLIB)
 
 FLAVOURS = secure nonsecure
 
+include ../../../../build-system/config.mk
+
+SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/dm644x/flash-tools/IRAM-loader
+
 VERSION = 0.0.1
-tar_bz2_archive = $(SRC_PACKAGE_DIR)/dm644x/flash-tools//IRAM-loader/IRAM-loader-$(VERSION).tar.bz2
+tar_bz2_archive = $(SRC_PACKAGE_DIR)/dm644x/flash-tools/IRAM-loader/IRAM-loader-$(VERSION).tar.bz2
 install_dir    = $(TOOLCHAIN_PATH)
 
 SRC_DIR = $(TARGET_BUILD_DIR)/IRAM-loader-$(VERSION)

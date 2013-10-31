@@ -293,7 +293,6 @@ ifneq ($(shell pwd),$(TOP_BUILD_DIR_ABS))
 	@echo "======="
 	@echo "======= Start of building source requires for: `pwd`:"
 	@echo "=======" ; \
-	export FLAVOUR= ; \
 	$(foreach part,$(SOURCE_REQUIRES),\
 	  $(MAKE) -C $(part) TOOLCHAIN=$(TOOLCHAIN_NOARCH) FLAVOUR= local_all &&) true
 	@if [ ! -s .src_requires ]; then \

@@ -1,19 +1,20 @@
 
 NO_PARALLEL = true
 
-COMPONENT_TARGETS = $(TOOLCHAIN_A1X_EGLIBC)
+COMPONENT_TARGETS = $(TOOLCHAIN_DM644X_NEWLIB)
 
 include ../../../build-system/config.mk
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_EGLIBC))
-REQUIRES  = core/binutils/2.23.2
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_DM644X_NEWLIB))
+REQUIRES  = core/binutils/2.21.1
+REQUIRES += core/newlib/1.20.0:headers
 REQUIRES += core/gcc/4.7.2:static
-REQUIRES += core/linux/sunxi/3.0.52-r2
-REQUIRES += core/eglibc/2.17.1:headers
-REQUIRES += core/gcc/4.7.2:second
-REQUIRES += core/eglibc/2.17.1:full
+REQUIRES += core/newlib/1.20.0:full
 REQUIRES += core/gcc/4.7.2:full
-REQUIRES += core/gdb/7.2
+REQUIRES += tools/dm644x/modSign
+REQUIRES += tools/dm644x/flash-tools/IRAM-flasher
+REQUIRES += tools/dm644x/flash-tools/IRAM-loader
+REQUIRES += tools/dm644x/flash-tools/NOR-flasher
 endif
 
 export TOOLCHAIN_VERSION = 1.0.4

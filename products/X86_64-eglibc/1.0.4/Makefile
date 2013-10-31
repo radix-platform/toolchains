@@ -1,19 +1,20 @@
 
 NO_PARALLEL = true
 
-COMPONENT_TARGETS = $(TOOLCHAIN_A1X_EGLIBC)
+COMPONENT_TARGETS = $(TOOLCHAIN_X86_64_EGLIBC)
 
 include ../../../build-system/config.mk
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_EGLIBC))
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
 REQUIRES  = core/binutils/2.23.2
 REQUIRES += core/gcc/4.7.2:static
-REQUIRES += core/linux/sunxi/3.0.52-r2
+REQUIRES += core/linux/3.5.4
+REQUIRES += core/eglibc/2.17.1-x86_32:headers
 REQUIRES += core/eglibc/2.17.1:headers
 REQUIRES += core/gcc/4.7.2:second
+REQUIRES += core/eglibc/2.17.1-x86_32:full
 REQUIRES += core/eglibc/2.17.1:full
 REQUIRES += core/gcc/4.7.2:full
-REQUIRES += core/gdb/7.2
 endif
 
 export TOOLCHAIN_VERSION = 1.0.4
