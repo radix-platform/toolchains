@@ -10,28 +10,50 @@ COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_EGLIBC)
 
+COMPONENT_TARGETS += $(TOOLCHAIN_LPC17XX_UCLIBC)
+
+FLAVOURS = flat
+
 
 include ../../../build-system/config.mk
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/GNU/binutils
 
-tar_bz2_archive = $(SRC_PACKAGE_DIR)/GNU/binutils/binutils-2.23.2.tar.bz2
-src_dir         = binutils-2.23.2
-build_dir       = $(TARGET_BUILD_DIR)/build
-install_dir     = $(TOOLCHAIN_PATH)
+SOURCE_REQUIRES  = $(SRC_PACKAGE_DIR)/GNU/binutils
+SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/uClinux/elf2flt
 
-sysroot_dir     = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 
-src_done    = $(SRC_DIR)/.source-done
-SRC_DIR     = $(TARGET_BUILD_DIR)/binutils-2.23.2
-SRC_ARCHIVE = $(tar_bz2_archive)
-PATCHES     = PATCHES
+tar_bz2_archive      = $(SRC_PACKAGE_DIR)/GNU/binutils/binutils-2.23.2.tar.bz2
+tar_bz2_archive_flat = $(SRC_PACKAGE_DIR)/uClinux/elf2flt/elf2flt-1.64.tar.bz2
+src_dir              = binutils-2.23.2
+flat_src_dir         = elf2flt-1.64
+build_dir            = $(TARGET_BUILD_DIR)/build
+flat_build_dir       = $(TARGET_BUILD_DIR)/build-flat
+install_dir          = $(TOOLCHAIN_PATH)
+
+sysroot_dir   = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
+
+src_done      = $(SRC_DIR)/.source-done
+flat_src_done = $(SRC_DIR)/.flat-source-done
+SRC_DIR       = $(TARGET_BUILD_DIR)/binutils-2.23.2
+SRC_ARCHIVE   = $(tar_bz2_archive)
+PATCHES       = PATCHES
+
+ifeq ($(FLAVOUR),flat)
+OPT_PATCHES   = PATCHES.elf2flt
+endif
 
 build_target = $(TARGET_BUILD_DIR)/.built
 install_target = $(TARGET_BUILD_DIR)/.installed
 
+flat_build_target = $(TARGET_BUILD_DIR)/.flat-built
+flat_install_target = $(TARGET_BUILD_DIR)/.flat-installed
 
+
+ifeq ($(FLAVOUR),flat)
+BUILD_TARGETS = $(flat_install_target)
+else
 BUILD_TARGETS = $(install_target)
+endif
 
 include ../../../build-system/core.mk
 
@@ -96,6 +118,16 @@ extra_configure_switches += --disable-werror
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
+extra_configure_switches  = --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-float=soft
+extra_configure_switches += --with-cpu=cortex-m3
+extra_configure_switches += --with-arch=armv7-m
+extra_configure_switches += --with-tune=armv7-m
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+endif
+
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
 # experimental gold linker( DEFAULT_LD=ld.bfd ):
 extra_configure_switches  = --enable-gold=yes
@@ -124,6 +156,9 @@ endif
 $(build_target): $(build_dir)
 	@touch $@
 
+$(flat_build_target): $(flat_build_dir)
+	@touch $@
+
 $(install_target): full
 	@touch $@
 
@@ -132,6 +167,14 @@ $(src_dir): $(src_done)
 $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 	$(UNPACK_SRC_ARCHIVE)
 	$(APPLY_PATCHES)
+	@touch $@
+
+$(flat_src_dir): $(flat_src_done)
+
+$(flat_src_done): $(src_done)
+	@echo "Expanding $(tar_bz2_archive_flat)"
+	@tar xjf $(tar_bz2_archive_flat) -C $(TARGET_BUILD_DIR)
+	$(APPLY_OPT_PATCHES)
 	@touch $@
 
 $(build_dir): $(src_dir)
@@ -146,9 +189,25 @@ $(build_dir): $(src_dir)
 	$(MAKE) -C $@
 	$(MAKE) -C $@ info
 
+$(flat_build_dir): $(flat_src_dir) $(build_dir)
+	mkdir -p $@
+	cd $@ && ../$</configure           \
+	  --prefix=$(TOOLCHAIN_PATH)       \
+	  --target=$(TARGET)               \
+	  --with-binutils-include-dir=../$(src_dir)/include/     \
+	  --with-bfd-include-dir=../build/bfd/            \
+	  --with-libbfd=../build/bfd/libbfd.a             \
+	  --with-libiberty=../build/libiberty/libiberty.a \
+	  --disable-got-check
+	$(MAKE) -C $@
+
 $(install_dir): $(build_dir)
 	mkdir -p $@
 	$(MAKE) -C $< install
 	$(MAKE) -C $< install-info
+
+$(flat_install_target): $(flat_build_dir) $(install_dir)
+	$(MAKE) -C $< install
+	@touch $@
 
 full: $(install_dir)

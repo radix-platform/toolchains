@@ -398,6 +398,11 @@ UNPACK_SRC_ARCHIVE = \
 APPLY_PATCHES = $(quiet)$(foreach patch,$(PATCHES),\
 	$(BUILDSYSTEM)/apply_patches $(patch) $(SRC_DIR_BASE) &&) true
 
+# Apply optional patches in OPT_PATCHES on SRC_DIR_BASE:
+APPLY_OPT_PATCHES = $(quiet)$(foreach patch,$(OPT_PATCHES),\
+	$(BUILDSYSTEM)/apply_patches $(patch) $(SRC_DIR_BASE) &&) true
+
+
 # Example rule:
 #
 # src_done = $(SRC_DIR)/.source-done
