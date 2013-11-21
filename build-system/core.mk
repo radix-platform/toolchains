@@ -108,6 +108,14 @@ endif
 # End if no TARGET set
 endif
 
+# Error ff TOOLCHAIN is invalid
+ifneq ($(TOOLCHAIN),)
+ifeq ($(filter $(TOOLCHAIN), $(TOOLCHAIN_ALL)),)
+$(error Error: TOOLCHAIN is invalid)
+endif
+endif
+
+
 #######
 ####### Filter out disabled targets
 #######
