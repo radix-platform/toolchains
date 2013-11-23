@@ -285,17 +285,17 @@ install: .install
 .src_requires: $(SOURCE_REQUIRES)
 ifdef SOURCE_REQUIRES
 ifneq ($(shell pwd),$(TOP_BUILD_DIR_ABS))
-	@rm -f .src_requires
-	@touch .src_requires
+	@rm -f $(TARGET_BUILD_DIR)/.src_requires
+	@touch $(TARGET_BUILD_DIR)/.src_requires
 	@for part in $(SOURCE_REQUIRES) ; do \
-	  echo $$part >> .src_requires ; \
+	  echo $$part >> $(TARGET_BUILD_DIR)/.src_requires ; \
 	done
 	@echo "======="
 	@echo "======= Start of building source requires for: `pwd`:"
 	@echo "=======" ; \
 	$(foreach part,$(SOURCE_REQUIRES),\
 	  $(MAKE) -C $(part) TOOLCHAIN=$(TOOLCHAIN_NOARCH) FLAVOUR= local_all &&) true
-	@if [ ! -s .src_requires ]; then \
+	@if [ ! -s $(TARGET_BUILD_DIR)/.src_requires ]; then \
 	  echo -e "======= ... Nothing to be done (there are no source requires) ..." ; \
 	fi
 	@echo "======="
