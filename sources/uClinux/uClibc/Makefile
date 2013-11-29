@@ -33,16 +33,16 @@ $(tarballs):
 	@for tarball in $(tarballs) ; do \
 	  wget $(WGET_OPTIONS) -N $(url)/$$tarball ; \
 	done
-	@echo -e "\n======= Create Patches =======\n"
-	@( cd create-patch-0.9.33.2-pth-spinlock && ./create.patch.sh )
-	@( cd create-patch-0.9.33.2-out-of-tree && ./create.patch.sh )
-	@( cd create-patch-0.9.33.2-030818-locale && ./create.patch.sh )
 
 $(locale_tarballs):
 	@echo -e "\n======= Downloading source tarballs =======\n"
 	@for tarball in $(locale_tarballs) ; do \
 	  wget $(WGET_OPTIONS) -N $(url)/$$tarball ; \
 	done
+	@echo -e "\n======= Create Patches =======\n"
+	@( cd create-patch-0.9.33.2-pth-spinlock && ./create.patch.sh )
+	@( cd create-patch-0.9.33.2-out-of-tree && ./create.patch.sh )
+	@( cd create-patch-0.9.33.2-030818-locale && ./create.patch.sh )
 
 $(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
 	@for sha in $@ ; do \
