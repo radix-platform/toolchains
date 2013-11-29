@@ -108,6 +108,14 @@ endif
 # End if no TARGET set
 endif
 
+# Error ff TOOLCHAIN is invalid
+ifneq ($(TOOLCHAIN),)
+ifeq ($(filter $(TOOLCHAIN), $(TOOLCHAIN_ALL)),)
+$(error Error: TOOLCHAIN is invalid)
+endif
+endif
+
+
 #######
 ####### Filter out disabled targets
 #######
@@ -301,7 +309,6 @@ ifneq ($(shell pwd),$(TOP_BUILD_DIR_ABS))
 	@echo "======="
 	@echo "======= End of building source requires for `pwd`."
 	@echo "======="
-	@touch $@
 endif
 endif
 
@@ -397,6 +404,11 @@ UNPACK_SRC_ARCHIVE = \
 # Apply patches in PATCHES on SRC_DIR_BASE:
 APPLY_PATCHES = $(quiet)$(foreach patch,$(PATCHES),\
 	$(BUILDSYSTEM)/apply_patches $(patch) $(SRC_DIR_BASE) &&) true
+
+# Apply optional patches in OPT_PATCHES on SRC_DIR_BASE:
+APPLY_OPT_PATCHES = $(quiet)$(foreach patch,$(OPT_PATCHES),\
+	$(BUILDSYSTEM)/apply_patches $(patch) $(SRC_DIR_BASE) &&) true
+
 
 # Example rule:
 #

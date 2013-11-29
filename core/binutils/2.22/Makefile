@@ -2,6 +2,9 @@
 
 COMPONENT_TARGETS  = $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_NEWLIB)
+
+COMPONENT_TARGETS += $(TOOLCHAIN_LPC17XX_UCLIBC)
+
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_BCM74X_EGLIBC)
@@ -44,6 +47,15 @@ extra_configure_switches  = --enable-interwork
 extra_configure_switches += --enable-multilib
 extra_configure_switches += --with-float=soft
 endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches  = '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+endif
+
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_EGLIBC))
 extra_configure_switches  = --with-cpu=cortex-a8

@@ -19,6 +19,9 @@ BUILD_A1X_EGLIBC = true
 # dm644x-eglibc:
 BUILD_DM644X_EGLIBC = true
 
+# lpc17xx-uclibc:
+BUILD_LPC17XX_UCLIBC = true
+
 # omap35x-eglibc:
 BUILD_OMAP35X_EGLIBC = true
 
