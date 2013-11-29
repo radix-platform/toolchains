@@ -7,9 +7,9 @@ mv elf2flt-$VERSION elf2flt-$VERSION-orig
 
 cp -rf ./elf2flt-$VERSION-new ./elf2flt-$VERSION
 
-diff -b --unified -Nr  elf2flt-$VERSION-orig  elf2flt-$VERSION > elf2flt-$VERSION-verbose.patch
+diff -b --unified -Nr  elf2flt-$VERSION-orig  elf2flt-$VERSION > elf2flt-$VERSION-arm.patch
 
-mv elf2flt-$VERSION-verbose.patch ../patches
+mv elf2flt-$VERSION-arm.patch ../patches
 
 rm -rf ./elf2flt-$VERSION
 rm -rf ./elf2flt-$VERSION-orig

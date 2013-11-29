@@ -81,7 +81,7 @@ endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
-extra_configure_switches  = '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
 extra_configure_switches += --enable-interwork
 extra_configure_switches += --enable-multilib
 extra_configure_switches += --with-sysroot=$(sysroot_dir)

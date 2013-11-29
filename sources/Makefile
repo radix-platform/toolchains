@@ -22,7 +22,8 @@ SUBDIRS := GNU/EGLIBC/2.12.1    \
            dm644x/flash-tools/NOR-flasher  \
            dm644x/modSign                  \
            newlib               \
-           uClinux/elf2flt
+           uClinux/elf2flt      \
+           uClinux/uClibc
 
 
 all-recursive downloads_clean-recursive:

@@ -57,7 +57,7 @@ $(tarballs):
 	done
 	@echo -e "\n======= Create Patches =======\n"
 	@( cd create-patch-1.6-verbose && ./create.patch.sh )
-	@( cd create-patch-1.64-verbose && ./create.patch.sh )
+	@( cd create-patch-1.64-arm && ./create.patch.sh )
 
 $(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
 	@for sha in $@ ; do \
@@ -75,4 +75,4 @@ $(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
 downloads_clean:
 	@rm -f $(tarballs) $(sha1s)
 	@rm -f ./patches/elf2flt-1.6-verbose.patch
-	@rm -f ./patches/elf2flt-1.64-verbose.patch
+	@rm -f ./patches/elf2flt-1.64-arm.patch

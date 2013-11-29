@@ -44,7 +44,7 @@ NOARCH_PATH = $(TOOLCHAINS_BASE_PATH)/noarch
 TOOLCHAIN_HOST = host
 
 HOST_ARCH = $(BUILD_ARCH)
-HOST_DIR  = $(word 1, $subst -, ,$(BUILD_ARCH))
+HOST_DIR  = $(word 1, $(subst -, ,$(BUILD_ARCH)))
 HOST_PATH = $(TOOLCHAINS_BASE_PATH)/$(HOST_DIR)
 
 

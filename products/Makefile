@@ -3,6 +3,7 @@ SUBDIRS := ../build-system      \
            A1X-boot/1.0.4       \
            AT91SAM7S-boot/1.0.4 \
            DM644X-boot/1.0.4    \
+           LPC17XX-uclibc/1.0.4 \
            A1X-eglibc/1.0.4     \
            DM644X-eglibc/1.0.4  \
            OMAP35X-eglibc/1.0.4 \

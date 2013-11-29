@@ -12,6 +12,8 @@
 
    gcc-4.5.1-mips-dspr2.patch        - doesn't need for 4.7.2 version.
 
+   gcc-4.7.2-lpc17xx-multilib.patch  - adds --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m configure switch.
+
    README.TXT                        - this file.
 
  * end */
