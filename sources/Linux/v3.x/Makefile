@@ -8,7 +8,7 @@ COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
 url         = ftp://ftp.radix.pro/sources/Linux/v3.x
 
-versions    = 3.5.4 3.8.5
+versions    = 3.5.4 3.8.5 3.10.17
 
 tarballs    = $(addsuffix .tar.bz2, $(addprefix linux-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))

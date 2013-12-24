@@ -8,7 +8,7 @@ include ../../../build-system/config.mk
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
 REQUIRES  = core/binutils/2.23.2
 REQUIRES += core/gcc/4.7.2:static
-REQUIRES += core/linux/3.5.4
+REQUIRES += core/linux/3.10.17
 REQUIRES += core/eglibc/2.17.1-x86_32:headers
 REQUIRES += core/eglibc/2.17.1:headers
 REQUIRES += core/gcc/4.7.2:second
