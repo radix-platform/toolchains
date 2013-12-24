@@ -41,7 +41,7 @@ LIBSUFFIX    =
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
 environment += CFLAGS="-g -O3 -march=i486 -mtune=i686"
-LIBSUFFIX    =
+LIBSUFFIX    = 32
 endif
 
 TARGET32 = $(shell echo $(TARGET) | sed 's/x86_64/i486/')
@@ -118,6 +118,7 @@ headers_install: $(headers_dir)
 
 $(full_dir): $(src_done)
 	mkdir -p $@
+	echo "slibdir=/lib$(LIBSUFFIX)" >> $@/configparms
 	cd $@ && $(env_sysroot) $(environment) ../$(src_dir_name)/configure \
 	  --prefix=/usr                \
 	  --build=$(BUILD)             \

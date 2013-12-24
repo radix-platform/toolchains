@@ -51,7 +51,11 @@ else
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
 PATCHES = PATCHES.lpc17xx
 else
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
+PATCHES = PATCHES.x86_64
+else
 PATCHES = PATCHES
+endif
 endif
 endif
 endif
@@ -70,7 +74,7 @@ environment  = PATH=$(TOOLCHAIN_PATH)/bin:$(PATH)
 LIBSUFFIX    =
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
-LIBSUFFIX    = 64
+#LIBSUFFIX    = 64
 endif
 
 
@@ -363,7 +367,8 @@ endif
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
-extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+#extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches  = --with-multilib-list=m64,m32
 ifeq ($(FLAVOUR),static)
 extra_configure_switches += --disable-libmudflap
 extra_configure_switches += --disable-libssp
@@ -484,8 +489,8 @@ ifneq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
 	cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib/libgcc_s.so.1 $(sysroot_dir)/usr/lib
 endif
 ifneq ($(findstring x86_64, $(TOOLCHAIN)),)
-	cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib64/libgcc_s.so $(sysroot_dir)/usr/lib64
-	cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib64/libgcc_s.so.1 $(sysroot_dir)/usr/lib64
+	cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so $(sysroot_dir)/usr/lib32
+	cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so.1 $(sysroot_dir)/usr/lib32
 endif
 
 full_build: $(build_dir) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
@@ -504,18 +509,18 @@ full_build: $(build_dir) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 
 #
 # Before installing final GCC we remove libgcc builded with second GCC.
-# The final gcc doesn't install libgcc_s.so, libstdc++.so into $(sysroot_dir)/usr/{lib|lib64}
+# The final gcc doesn't install libgcc_s.so, libstdc++.so into $(sysroot_dir)/usr/{lib|lib32}
 # and it is not needed.
 # NOTE: if you want to install libgcc_s.so, libstdc++.so and other libraries builded with GCC
-#       and placed into $(TOOLCHAIN_PATH)/{lib|lib64} during GCC installation into TARGET
+#       and placed into $(TOOLCHAIN_PATH)/{lib|lib32} during GCC installation into TARGET
 #       root file system then you should change *.la files. So the lines
 #
-# libdir='/opt/toolchain/x86_64-PC-linux-eglibc/1.0.0/x86_64-kxLab-linux-gnu/lib/../lib64'
+# libdir='/opt/toolchain/x86_64-PC-linux-eglibc/1.0.0/x86_64-kxLab-linux-gnu/lib/../lib32'
 #
 # where '/opt/toolchain/x86_64-PC-linux-eglibc/1.0.0/x86_64-kxLab-linux-gnu' is the same
 #    as '$(TOOLCHAIN_PATH)/$(TARGET)'
 # should be replaced by
-# libdir='/usr/lib/../lib64'
+# libdir='/usr/lib/../lib32'
 #
 # In the other words we hould do following
 #
@@ -525,14 +530,14 @@ full_build: $(build_dir) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 #	  mv $(TOOLCHAIN_PATH)/$(TARGET)/lib$(LIBSUFFIX)/*.la.tmp \
 #	     $(target_rootfs)/usr/lib$(LIBSUFFIX)/*.la
 #
-# for each *.la file in the $(TOOLCHAIN_PATH)/$(TARGET)/{lib|lib64} directory.
+# for each *.la file in the $(TOOLCHAIN_PATH)/$(TARGET)/{lib|lib32} directory.
 #
 full_install: full_build
 	rm -f $(sysroot_dir)/usr/lib/libgcc_s.so
 	rm -f $(sysroot_dir)/usr/lib/libgcc_s.so.1
 ifneq ($(findstring x86_64, $(TOOLCHAIN)),)
-	rm -f $(sysroot_dir)/usr/lib64/libgcc_s.so
-	rm -f $(sysroot_dir)/usr/lib64/libgcc_s.so.1
+	rm -f $(sysroot_dir)/usr/lib32/libgcc_s.so
+	rm -f $(sysroot_dir)/usr/lib32/libgcc_s.so.1
 endif
 	$(MAKE) $(environment) -C $(build_dir) install
 	rm -f $(TOOLCHAIN_PATH)/share/info/dir

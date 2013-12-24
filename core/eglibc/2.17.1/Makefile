@@ -62,7 +62,6 @@ endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
 environment += CFLAGS="-g -O2"
-LIBSUFFIX    = 64
 endif
 
 
@@ -237,11 +236,13 @@ headers_install: $(headers_dir)
 
 $(full_dir): $(src_done)
 	mkdir -p $@
+	echo "slibdir=/lib$(LIBSUFFIX)" >> $@/configparms
 	cd $@ && $(env_sysroot) $(environment) ../$(src_dir_name)/configure \
 	  --prefix=/usr                \
 	  --build=$(BUILD)             \
 	  --host=$(TARGET)             \
 	  $(extra_configure_switches)
 	cd $@ && $(environment) $(MAKE) all install $(env_sysroot)
+	rm -f $(sysroot_dir)/usr/share/info/dir
 
 full_install: $(full_dir)

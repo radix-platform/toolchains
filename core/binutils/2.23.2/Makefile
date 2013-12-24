@@ -202,6 +202,7 @@ $(install_dir): $(build_dir)
 	mkdir -p $@
 	$(MAKE) -C $< install
 	$(MAKE) -C $< install-info
+	rm -f $(TOOLCHAIN_PATH)/share/info/dir
 
 $(flat_install_target): $(flat_build_dir) $(install_dir)
 	$(MAKE) -C $< install
