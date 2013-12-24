@@ -126,8 +126,10 @@ extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
 # experimental gold linker( DEFAULT_LD=ld.bfd ):
-extra_configure_switches  = --enable-gold=yes
+extra_configure_switches += --enable-gold=yes
 extra_configure_switches += --enable-ld=default
 extra_configure_switches += --enable-werror=no
 # The --enable-initfini-array option was added in binutils-2.21.51.0.3.
@@ -141,7 +143,7 @@ extra_configure_switches += --enable-werror=no
 # http://gcc.gnu.org/bugzilla/show_bug.cgi?id=46770
 extra_configure_switches += --disable-initfini-array
 # standard options:
-extra_configure_switches += --enable-targets=x86_64-kxLab-linux,x86_64-kxLab-linux-gnulibc1,x86_64-kxLab-linux-gnuaout
+extra_configure_switches += --enable-targets=x86_64-kxLab-linux,x86_64-radix-linux,x86_64-kxLab-linux-gnulibc1,x86_64-kxLab-linux-gnuaout
 extra_configure_switches += --enable-64-bit-bfd
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif

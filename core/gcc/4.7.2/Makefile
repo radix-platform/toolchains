@@ -367,8 +367,10 @@ endif
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
-#extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
-extra_configure_switches  = --with-multilib-list=m64,m32
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches += --with-multilib-list=m64,m32
 ifeq ($(FLAVOUR),static)
 extra_configure_switches += --disable-libmudflap
 extra_configure_switches += --disable-libssp
@@ -515,9 +517,9 @@ full_build: $(build_dir) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 #       and placed into $(TOOLCHAIN_PATH)/{lib|lib32} during GCC installation into TARGET
 #       root file system then you should change *.la files. So the lines
 #
-# libdir='/opt/toolchain/x86_64-PC-linux-eglibc/1.0.0/x86_64-kxLab-linux-gnu/lib/../lib32'
+# libdir='/opt/toolchain/x86_64-PC-linux-eglibc/1.0.0/x86_64-radix-linux-gnu/lib/../lib32'
 #
-# where '/opt/toolchain/x86_64-PC-linux-eglibc/1.0.0/x86_64-kxLab-linux-gnu' is the same
+# where '/opt/toolchain/x86_64-PC-linux-eglibc/1.0.0/x86_64-radix-linux-gnu' is the same
 #    as '$(TOOLCHAIN_PATH)/$(TARGET)'
 # should be replaced by
 # libdir='/usr/lib/../lib32'

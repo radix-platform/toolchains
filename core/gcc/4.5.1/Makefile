@@ -380,9 +380,9 @@ full_build: $(build_dir) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 #       and placed into $(TOOLCHAIN_PATH)/{lib|lib64} during GCC installation into TARGET
 #       root file system then you should change *.la files. So the lines
 #
-# libdir='/opt/toolchain/x86_64-PC-linux-eglibc/1.0.0/x86_64-kxLab-linux-gnu/lib/../lib64'
+# libdir='/opt/toolchain/x86_64-PC-linux-eglibc/1.0.0/x86_64-radix-linux-gnu/lib/../lib64'
 #
-# where '/opt/toolchain/x86_64-PC-linux-eglibc/1.0.0/x86_64-kxLab-linux-gnu' is the same
+# where '/opt/toolchain/x86_64-PC-linux-eglibc/1.0.0/x86_64-radix-linux-gnu' is the same
 #    as '$(TOOLCHAIN_PATH)/$(TARGET)'
 # should be replaced by
 # libdir='/usr/lib/../lib64'
