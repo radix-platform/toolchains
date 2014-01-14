@@ -31,6 +31,7 @@ $(tarballs):
 	@for tarball in $(tarballs) ; do \
 	  wget $(WGET_OPTIONS) -N $(url)/$$tarball ; \
 	done
+	@( cd create-patch-7.2-bfdio && ./create.patch.sh )
 
 $(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
 	@for sha in $@ ; do \
@@ -47,3 +48,4 @@ $(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
 
 downloads_clean:
 	@rm -f $(tarballs) $(sha1s)
+	@rm -f ./patches/gdb-7.2-bfdio.patch

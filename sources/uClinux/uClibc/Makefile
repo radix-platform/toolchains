@@ -43,6 +43,7 @@ $(locale_tarballs):
 	@( cd create-patch-0.9.33.2-pth-spinlock && ./create.patch.sh )
 	@( cd create-patch-0.9.33.2-out-of-tree && ./create.patch.sh )
 	@( cd create-patch-0.9.33.2-030818-locale && ./create.patch.sh )
+	@( cd create-patch-0.9.33.2-reduce-execvp-env && ./create.patch.sh )
 
 $(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
 	@for sha in $@ ; do \
@@ -75,3 +76,4 @@ downloads_clean:
 	@rm -f ./patches/uClibc-0.9.33.2-pth-spinlock.patch
 	@rm -f ./patches/uClibc-0.9.33.2-out-of-tree.patch
 	@rm -f ./patches/uClibc-0.9.33.2-locale.patch
+	@rm -f ./patches/uClibc-0.9.33.2-reduce-execvp-env.patch

@@ -6,6 +6,7 @@ SUBDIRS := GNU/EGLIBC/2.12.1    \
            GNU/gcc              \
            GNU/gcc/gcc-4.5.1    \
            GNU/gcc/gcc-4.7.2    \
+           GNU/gcc/gcc-4.7.3    \
            GNU/gdb              \
            GNU/gmp              \
            GNU/mpc              \

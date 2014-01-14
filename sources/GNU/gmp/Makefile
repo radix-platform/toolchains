@@ -11,7 +11,7 @@ COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
 url         = ftp://ftp.radix.pro/sources/GNU/gmp
 
-versions    = 4.3.1 5.0.5
+versions    = 4.3.1 5.0.5 5.1.3
 
 tarballs    = $(addsuffix .tar.bz2, $(addprefix gmp-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
