@@ -15,6 +15,7 @@ SUBDIRS := GNU/EGLIBC/2.12.1    \
            Linux/dm644x         \
            Linux/mips           \
            Linux/omap           \
+           Linux/omap5          \
            Linux/sunxi          \
            Linux/v2.6           \
            Linux/v3.x           \

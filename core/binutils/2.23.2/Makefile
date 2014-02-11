@@ -10,6 +10,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_A1X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_BCM74X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_EGLIBC)
 
 FLAVOURS = flat
@@ -107,6 +108,22 @@ extra_configure_switches  = --with-cpu=cortex-a8
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_EGLIBC))
+# experimental gold linker( DEFAULT_LD=ld.bfd ):
+extra_configure_switches  = --enable-gold=yes
+extra_configure_switches += --enable-ld=default
+extra_configure_switches += --enable-werror=no
+# standard options:
+extra_configure_switches += --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-cpu=cortex-a15
+extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-fpu=neon-vfpv4
+extra_configure_switches += --with-abi=aapcs
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+endif
+
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_DM644X_EGLIBC))
 extra_configure_switches  = --enable-interwork

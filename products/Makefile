@@ -1,13 +1,14 @@
 
-SUBDIRS := ../build-system      \
-           A1X-boot/1.0.5       \
-           AT91SAM7S-boot/1.0.5 \
-           DM644X-boot/1.0.5    \
-           LPC17XX-uclibc/1.0.5 \
-           A1X-eglibc/1.0.5     \
-           DM644X-eglibc/1.0.5  \
-           OMAP35X-eglibc/1.0.5 \
-           BCM74X-eglibc/1.0.5  \
+SUBDIRS := ../build-system       \
+           A1X-boot/1.0.5        \
+           AT91SAM7S-boot/1.0.5  \
+           DM644X-boot/1.0.5     \
+           LPC17XX-uclibc/1.0.5  \
+           A1X-eglibc/1.0.5      \
+           DM644X-eglibc/1.0.5   \
+           OMAP35X-eglibc/1.0.5  \
+           OMAP543X-eglibc/1.0.5 \
+           BCM74X-eglibc/1.0.5   \
            X86_64-eglibc/1.0.5
 
 all-recursive:
