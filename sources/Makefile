@@ -19,6 +19,8 @@ SUBDIRS := GNU/EGLIBC/2.12.1    \
            Linux/sunxi          \
            Linux/v2.6           \
            Linux/v3.x           \
+           U-Boot/denx          \
+           U-Boot/sunxi         \
            dm644x/flash-tools/IRAM-flasher \
            dm644x/flash-tools/IRAM-loader  \
            dm644x/flash-tools/NOR-flasher  \
