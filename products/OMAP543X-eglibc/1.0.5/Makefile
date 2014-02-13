@@ -13,6 +13,7 @@ REQUIRES += core/eglibc/2.17.1:headers
 REQUIRES += core/gcc/4.7.3:second
 REQUIRES += core/eglibc/2.17.1:full
 REQUIRES += core/gcc/4.7.3:full
+REQUIRES += tools/u-boot/denx
 endif
 
 export TOOLCHAIN_VERSION = 1.0.5
