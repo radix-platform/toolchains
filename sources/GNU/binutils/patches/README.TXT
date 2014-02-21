@@ -11,6 +11,7 @@
    binutils-2.21.1-x86_64-multilib.patch - related to linker script search path;
    binutils-2.22-x86_64-multilib.patch   - related to linker script search path;
    binutils-2.23.2-x86_64-multilib.patch - related to linker script search path;
+   binutils-2.24-x86_64-multilib.patch   - related to linker script search path;
 
    README.TXT                            - this file.
 
