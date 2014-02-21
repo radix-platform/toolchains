@@ -2,11 +2,13 @@
 SUBDIRS := GNU/EGLIBC/2.12.1    \
            GNU/EGLIBC/2.16.1    \
            GNU/EGLIBC/2.17.1    \
+           GNU/EGLIBC/2.18.1    \
            GNU/binutils         \
            GNU/gcc              \
            GNU/gcc/gcc-4.5.1    \
            GNU/gcc/gcc-4.7.2    \
            GNU/gcc/gcc-4.7.3    \
+           GNU/gcc/gcc-4.8.2    \
            GNU/gdb              \
            GNU/gmp              \
            GNU/mpc              \
