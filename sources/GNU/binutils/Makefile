@@ -9,7 +9,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url         = ftp://ftp.radix.pro/sources/GNU/binutils
+
+include ../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/GNU/binutils
 
 versions    = 2.16.1a 2.20.1a 2.21.1a 2.22 2.23.2 2.24
 

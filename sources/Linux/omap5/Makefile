@@ -6,7 +6,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url         = ftp://ftp.spbtsc.luxoft.com/sources/Linux/omap5
+
+include ../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/Linux/omap5
 
 versions    = 3.8-6AJ.1.1-RC0 3.8-6AJ.1.2-RC3
 

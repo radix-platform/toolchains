@@ -6,7 +6,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url         = ftp://ftp.radix.pro/sources/Linux/omap
+
+include ../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/Linux/omap
 
 versions    = 2.6.32 2.6.36 3.8.3
 

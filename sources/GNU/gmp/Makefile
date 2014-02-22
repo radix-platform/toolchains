@@ -9,7 +9,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url         = ftp://ftp.radix.pro/sources/GNU/gmp
+
+include ../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/GNU/gmp
 
 versions    = 4.3.1 5.0.5 5.1.3
 

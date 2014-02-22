@@ -9,7 +9,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url         = ftp://ftp.radix.pro/sources/GNU/gdb
+
+include ../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/GNU/gdb
 
 versions    = 6.4a 6.5a 7.0a 7.2a 7.5
 

@@ -6,7 +6,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url         = ftp://ftp.radix.pro/sources/Linux/dm644x
+
+include ../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/Linux/dm644x
 
 versions    = 2.6.36 3.8
 

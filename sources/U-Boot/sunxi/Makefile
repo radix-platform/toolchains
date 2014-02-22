@@ -6,7 +6,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url         = ftp://ftp.radix.pro/sources/U-Boot/sunxi
+
+include ../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/U-Boot/sunxi
 
 versions    = 2013.04-sunxi
 

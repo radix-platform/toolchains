@@ -6,7 +6,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url         = ftp://ftp.radix.pro/sources/U-Boot/denx
+
+include ../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/U-Boot/denx
 
 versions    = 2013.10 2014.01
 

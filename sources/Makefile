@@ -18,6 +18,7 @@ SUBDIRS := GNU/EGLIBC/2.12.1    \
            Linux/mips           \
            Linux/omap           \
            Linux/omap5          \
+           Linux/omap5-glsdk    \
            Linux/sunxi          \
            Linux/v2.6           \
            Linux/v3.x           \
