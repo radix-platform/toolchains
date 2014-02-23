@@ -8,7 +8,7 @@ include ../../../build-system/config.mk
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_EGLIBC))
 REQUIRES  = core/binutils/2.23.2
 REQUIRES += core/gcc/4.7.3:static
-REQUIRES += core/linux/omap5/3.8-6AJ.1.2-RC3
+REQUIRES += core/linux/omap5-glsdk/3.8.y-20140222
 REQUIRES += core/eglibc/2.17.1:headers
 REQUIRES += core/gcc/4.7.3:second
 REQUIRES += core/eglibc/2.17.1:full
