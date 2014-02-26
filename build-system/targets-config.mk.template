@@ -31,5 +31,8 @@ BUILD_OMAP543X_EGLIBC = true
 # bcm74x-eglibc:
 BUILD_BCM74X_EGLIBC = true
 
+# i486-eglibc:
+BUILD_I486_EGLIBC = true
+
 # x86_64-eglibc:
 BUILD_X86_64_EGLIBC = true
