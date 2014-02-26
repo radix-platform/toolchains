@@ -9,6 +9,7 @@ SUBDIRS := ../build-system       \
            OMAP35X-eglibc/1.0.6  \
            OMAP543X-eglibc/1.0.6 \
            BCM74X-eglibc/1.0.6   \
+           I486-eglibc/1.0.6     \
            X86_64-eglibc/1.0.6
 
 all-recursive:

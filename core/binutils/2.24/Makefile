@@ -11,6 +11,8 @@ COMPONENT_TARGETS += $(TOOLCHAIN_BCM74X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_EGLIBC)
+
+COMPONENT_TARGETS += $(TOOLCHAIN_I486_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_EGLIBC)
 
 
@@ -163,6 +165,28 @@ extra_configure_switches += --disable-initfini-array
 # standard options:
 extra_configure_switches += --enable-targets=x86_64-kxLab-linux,x86_64-radix-linux,x86_64-kxLab-linux-gnulibc1,x86_64-kxLab-linux-gnuaout
 extra_configure_switches += --enable-64-bit-bfd
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I486_EGLIBC))
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+# experimental gold linker( DEFAULT_LD=ld.bfd ):
+extra_configure_switches += --enable-gold=yes
+extra_configure_switches += --enable-ld=default
+extra_configure_switches += --enable-werror=no
+# The --enable-initfini-array option was added in binutils-2.21.51.0.3.
+# This option currently causes a world of hurt trying to compile glibc,
+# and might break static libraries or cause other ill effects.  There
+# is an upstream patch for glibc but it does not avoid all of the known
+# problems (and there may be some unknown ones, too), so we will avoid
+# introducing this feature for now.
+# References:
+# http://sourceware.org/bugzilla/show_bug.cgi?id=12343
+# http://gcc.gnu.org/bugzilla/show_bug.cgi?id=46770
+extra_configure_switches += --disable-initfini-array
+# standard options:
+extra_configure_switches += --enable-targets=i486-kxLab-linux,i486-radix-linux,i486-kxLab-linux-gnulibc1,i486-kxLab-linux-gnuaout
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
