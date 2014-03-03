@@ -120,10 +120,11 @@ extra_configure_switches += --enable-werror=no
 # standard options:
 extra_configure_switches += --enable-interwork
 extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-cpu=cortex-a15
 extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-tune=cortex-a15
 extra_configure_switches += --with-fpu=neon-vfpv4
-extra_configure_switches += --with-abi=aapcs
+extra_configure_switches += --with-float=hard
+extra_configure_switches += --with-abi=aapcs-linux
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
