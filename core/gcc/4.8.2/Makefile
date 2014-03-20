@@ -216,8 +216,7 @@ extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-cpu=cortex-a8
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-fpu=neon
-extra_configure_switches += --with-abi=aapcs
-extra_configure_switches += --with-dwarf2
+extra_configure_switches += --with-abi=aapcs-linux
 ifeq ($(FLAVOUR),static)
 extra_configure_switches += --disable-libatomic
 extra_configure_switches += --disable-libgomp
