@@ -6,6 +6,7 @@ SUBDIRS := ../build-system       \
            LPC17XX-uclibc/1.0.6  \
            A1X-eglibc/1.0.6      \
            DM644X-eglibc/1.0.6   \
+           IMX6-eglibc/1.0.6     \
            OMAP35X-eglibc/1.0.6  \
            OMAP543X-eglibc/1.0.6 \
            BCM74X-eglibc/1.0.6   \

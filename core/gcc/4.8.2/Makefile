@@ -6,6 +6,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_LPC17XX_UCLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_A1X_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_EGLIBC)
@@ -253,6 +254,63 @@ extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-nls
 extra_configure_switches += --with-included-gettext
+endif
+endif
+
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_IMX6_EGLIBC))
+extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-tune=cortex-a9
+extra_configure_switches += --with-fpu=vfpv3-d16
+extra_configure_switches += --with-abi=aapcs-linux
+# add
+extra_configure_switches += --with-float=softfp
+extra_configure_switches += --with-mode=thumb
+extra_configure_switches += --enable-gold
+extra_configure_switches += --enable-c99
+extra_configure_switches += --enable-long-long
+ifeq ($(FLAVOUR),static)
+extra_configure_switches += --disable-libatomic
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libitm
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-libsanitizer
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --disable-threads
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-shared
+extra_configure_switches += --disable-nls
+# --without-headers replacement for --with-newlib, to make libgcc independed from glibc:
+extra_configure_switches += --without-headers
+endif
+ifeq ($(FLAVOUR),second)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --disable-libatomic
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libitm
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-libsanitizer
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-nls
+endif
+ifeq ($(FLAVOUR),full)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --enable-languages=c,c++
+extra_configure_switches += --enable-__cxa_atexit
+extra_configure_switches += --enable-shared
+extra_configure_switches += --enable-nls
+extra_configure_switches += --with-included-gettext
+# add
+extra_configure_switches += --enable-threads=posix
+extra_configure_switches += --disable-libstdcxx-pch
+extra_configure_switches += --enable-linker-build-id
+extra_configure_switches += --enable-gnu-unique-object
 endif
 endif
 

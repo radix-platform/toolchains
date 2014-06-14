@@ -9,6 +9,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_LPC17XX_UCLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A1X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_BCM74X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_EGLIBC)
 
@@ -102,7 +103,22 @@ extra_configure_switches += --enable-multilib
 extra_configure_switches += --with-cpu=cortex-a8
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-fpu=neon
-extra_configure_switches += --with-abi=aapcs
+extra_configure_switches += --with-abi=aapcs-linux
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_IMX6_EGLIBC))
+# experimental gold linker( DEFAULT_LD=ld.bfd ):
+extra_configure_switches  = --enable-gold=yes
+extra_configure_switches += --enable-ld=default
+extra_configure_switches += --enable-werror=no
+# standard options:
+extra_configure_switches += --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-tune=cortex-a9
+extra_configure_switches += --with-fpu=vfpv3-d16
+extra_configure_switches += --with-abi=aapcs-linux
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 

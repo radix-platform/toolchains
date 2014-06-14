@@ -16,6 +16,7 @@ SUBDIRS := GNU/EGLIBC/2.12.1    \
            GNU/mpfr             \
            GNU/multiprecision   \
            Linux/dm644x         \
+           Linux/imx6           \
            Linux/mips           \
            Linux/omap           \
            Linux/omap5-glsdk    \

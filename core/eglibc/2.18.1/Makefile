@@ -1,5 +1,6 @@
 
 COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_EGLIBC)
@@ -48,6 +49,10 @@ environment += BUILD_CC=gcc
 LIBSUFFIX    =
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_EGLIBC))
+environment += CFLAGS="-g -O2"
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_IMX6_EGLIBC))
 environment += CFLAGS="-g -O2"
 endif
 
@@ -104,6 +109,30 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin
 extra_configure_switches  += --enable-kernel=3.0.52
+extra_configure_switches  += --disable-profile
+extra_configure_switches  += --without-gd
+extra_configure_switches  += --without-cvs
+extra_configure_switches  += --with-tls
+extra_configure_switches  += --with-__thread
+endif
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_IMX6_EGLIBC))
+extra_configure_switches   = --libdir=/usr/lib$(LIBSUFFIX)
+extra_configure_switches  += --with-headers=$(sysroot_dir)/usr/include
+extra_configure_switches  += --enable-add-ons=libidn,nptl,ports
+ifeq ($(FLAVOUR),headers)
+extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin
+extra_configure_switches  += --enable-kernel=3.0.35
+extra_configure_switches  += --disable-profile
+extra_configure_switches  += --without-gd
+extra_configure_switches  += --without-cvs
+extra_configure_switches  += --with-tls
+extra_configure_switches  += --with-__thread
+endif
+ifeq ($(FLAVOUR),full)
+extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin
+extra_configure_switches  += --enable-kernel=3.0.35
 extra_configure_switches  += --disable-profile
 extra_configure_switches  += --without-gd
 extra_configure_switches  += --without-cvs
