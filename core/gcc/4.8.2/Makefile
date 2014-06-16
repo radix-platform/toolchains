@@ -364,8 +364,14 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_EGLIBC))
 extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-tune=cortex-a15
-extra_configure_switches += --with-fpu=neon-vfpv4
+extra_configure_switches += --with-fpu=vfpv4
 extra_configure_switches += --with-abi=aapcs-linux
+# add
+extra_configure_switches += --with-float=hard
+extra_configure_switches += --with-mode=thumb
+extra_configure_switches += --enable-gold
+extra_configure_switches += --enable-c99
+extra_configure_switches += --enable-long-long
 ifeq ($(FLAVOUR),static)
 extra_configure_switches += --disable-libatomic
 extra_configure_switches += --disable-libgomp
@@ -402,6 +408,11 @@ extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-nls
 extra_configure_switches += --with-included-gettext
+# add
+extra_configure_switches += --enable-threads=posix
+extra_configure_switches += --disable-libstdcxx-pch
+extra_configure_switches += --enable-linker-build-id
+extra_configure_switches += --enable-gnu-unique-object
 endif
 endif
 
