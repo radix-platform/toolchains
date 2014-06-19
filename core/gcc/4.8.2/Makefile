@@ -364,7 +364,7 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_EGLIBC))
 extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-tune=cortex-a15
-extra_configure_switches += --with-fpu=vfpv4-d16
+extra_configure_switches += --with-fpu=vfpv3-d16
 extra_configure_switches += --with-abi=aapcs-linux
 # add
 extra_configure_switches += --with-float=hard
