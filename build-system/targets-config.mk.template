@@ -16,6 +16,9 @@ BUILD_DM644X_NEWLIB = true
 # a1x-eglibc:
 BUILD_A1X_EGLIBC = true
 
+# a2x-eglibc:
+BUILD_A2X_EGLIBC = true
+
 # dm644x-eglibc:
 BUILD_DM644X_EGLIBC = true
 

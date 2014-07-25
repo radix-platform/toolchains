@@ -22,16 +22,16 @@ FLAVOURS = static second full
 include ../../../build-system/config.mk
 
 
-SOURCE_REQUIRES  = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.8.2
+SOURCE_REQUIRES  = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.9.1
 SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/gmp
 SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/mpfr
 SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/mpc
 
-tar_bz2_archive       = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.8.2/gcc-4.8.2.tar.bz2
+tar_bz2_archive       = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.9.1/gcc-4.9.1.tar.bz2
 tar_bz2_archive_gmp   = $(SRC_PACKAGE_DIR)/GNU/gmp/gmp-5.1.3.tar.bz2
 tar_bz2_archive_mpfr  = $(SRC_PACKAGE_DIR)/GNU/mpfr/mpfr-3.1.2.tar.bz2
 tar_gz_archive_mpc    = $(SRC_PACKAGE_DIR)/GNU/mpc/mpc-1.0.2.tar.gz
-src_dir               = gcc-4.8.2
+src_dir               = gcc-4.9.1
 build_dir             = $(TARGET_BUILD_DIR)/build
 
 sysroot_dir   = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
@@ -40,7 +40,7 @@ src_done      = $(TARGET_BUILD_DIR)/.source-done
 gmp_src_done  = $(TARGET_BUILD_DIR)/.gmp-source-done
 mpfr_src_done = $(TARGET_BUILD_DIR)/.mpfr-source-done
 mpc_src_done  = $(TARGET_BUILD_DIR)/.mpc-source-done
-SRC_DIR       = $(TARGET_BUILD_DIR)/gcc-4.8.2
+SRC_DIR       = $(TARGET_BUILD_DIR)/gcc-4.9.1
 SRC_ARCHIVE   = $(tar_bz2_archive)
 
 ifneq ($(TOOLCHAIN),)
