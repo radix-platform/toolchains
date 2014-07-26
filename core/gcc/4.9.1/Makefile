@@ -1,5 +1,6 @@
 
 COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_A2X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_NEWLIB)
 
@@ -53,6 +54,9 @@ else
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB))
 PATCHES = PATCHES.a1x
 else
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A2X_NEWLIB))
+PATCHES = PATCHES.a2x
+else
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
 PATCHES = PATCHES.lpc17xx
 else
@@ -60,6 +64,7 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
 PATCHES = PATCHES.x86_64
 else
 PATCHES = PATCHES
+endif
 endif
 endif
 endif
@@ -105,6 +110,27 @@ extra_configure_switches += --enable-multilib
 extra_configure_switches += --with-cpu=cortex-a8
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-fpu=neon
+extra_configure_switches += --with-abi=aapcs
+extra_configure_switches += --with-dwarf2
+extra_configure_switches += --disable-libatomic
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libitm
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-libsanitizer
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-shared
+extra_configure_switches += --with-newlib
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A2X_NEWLIB))
+extra_configure_switches  = --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-cpu=cortex-a7
+extra_configure_switches += --with-arch=armv7ve
+extra_configure_switches += --with-fpu=neon-vfpv4
 extra_configure_switches += --with-abi=aapcs
 extra_configure_switches += --with-dwarf2
 extra_configure_switches += --disable-libatomic
@@ -322,7 +348,7 @@ extra_configure_switches += --with-tune=cortex-a9
 extra_configure_switches += --with-fpu=vfpv3-d16
 extra_configure_switches += --with-abi=aapcs-linux
 # add
-extra_configure_switches += --with-float=softfp
+extra_configure_switches += --with-float=hard
 extra_configure_switches += --with-mode=thumb
 extra_configure_switches += --enable-gold
 extra_configure_switches += --enable-c99
@@ -376,7 +402,13 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_EGLIBC))
 extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-cpu=cortex-a8
 extra_configure_switches += --with-arch=armv7-a
-extra_configure_switches += --with-dwarf2
+extra_configure_switches += --with-fpu=neon
+extra_configure_switches += --with-abi=aapcs-linux
+# add
+extra_configure_switches += --with-float=hard
+extra_configure_switches += --enable-gold
+extra_configure_switches += --enable-c99
+extra_configure_switches += --enable-long-long
 ifeq ($(FLAVOUR),static)
 extra_configure_switches += --disable-libatomic
 extra_configure_switches += --disable-libgomp

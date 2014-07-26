@@ -6,6 +6,9 @@ BUILD_HOST = true
 # a1x-newlib:
 BUILD_A1X_NEWLIB = true
 
+# a2x-newlib:
+BUILD_A2X_NEWLIB = true
+
 # at91sam7s-newlib:
 BUILD_AT91SAM7S_NEWLIB = true
 

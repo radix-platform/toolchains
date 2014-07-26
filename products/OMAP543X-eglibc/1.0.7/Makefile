@@ -7,12 +7,12 @@ include ../../../build-system/config.mk
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_EGLIBC))
 REQUIRES  = core/binutils/2.24
-REQUIRES += core/gcc/4.8.2:static
+REQUIRES += core/gcc/4.9.1:static
 REQUIRES += core/linux/omap5-glsdk/3.8.y-20140222
 REQUIRES += core/eglibc/2.19.1:headers
-REQUIRES += core/gcc/4.8.2:second
+REQUIRES += core/gcc/4.9.1:second
 REQUIRES += core/eglibc/2.19.1:full
-REQUIRES += core/gcc/4.8.2:full
+REQUIRES += core/gcc/4.9.1:full
 REQUIRES += tools/u-boot/denx
 endif
 

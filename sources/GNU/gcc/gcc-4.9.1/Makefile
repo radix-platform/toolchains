@@ -39,6 +39,7 @@ $(tarballs):
 	@( cd create-patch-4.9.1-at91sam7s-newlib && ./create.patch.sh )
 	@( cd create-patch-4.9.1-dm644x-newlib && ./create.patch.sh )
 	@( cd create-patch-4.9.1-a1x-newlib && ./create.patch.sh )
+	@( cd create-patch-4.9.1-a2x-newlib && ./create.patch.sh )
 	@( cd create-patch-4.9.1-lpc17xx-multilib && ./create.patch.sh )
 	@( cd create-patch-4.9.1-x86_64-multilib && ./create.patch.sh )
 
@@ -60,5 +61,6 @@ downloads_clean:
 	@rm -f ../patches/gcc-4.9.1-at91sam7s-newlib.patch
 	@rm -f ../patches/gcc-4.9.1-dm644x-newlib.patch
 	@rm -f ../patches/gcc-4.9.1-a1x-newlib.patch
+	@rm -f ../patches/gcc-4.9.1-a2x-newlib.patch
 	@rm -f ../patches/gcc-4.9.1-lpc17xx-multilib.patch
 	@rm -f ../patches/gcc-4.9.1-x86_64-multilib.patch
