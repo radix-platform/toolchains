@@ -1,35 +1,37 @@
 #
 # Project Home:
 # ============
-# git.radix.pro/sources.git
+# https://github.com/kosteltsev/sunxi-tools
+#
+# Clone:
+# =====
+# $ git clone git://github.com/kosteltsev/sunxi-tools.git
 #
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
 
-include ../../../build-system/config.mk
+include ../../../../build-system/config.mk
 
 
-url         = $(DOWNLOAD_SERVER)/sources/U-Boot/sunxi/sunxi
+url         = $(DOWNLOAD_SERVER)/sources/tools/allwinner/sunxi-tools-kx
 
-versions    = 20140713-sunxi
+versions    = 1.3
+pkg_name    = sunxi-tools
+suffix      = tar.bz2
 
-description = u-boot-sunxi.txt
-tarballs    = $(addsuffix .tar.bz2, $(addprefix u-boot-, $(versions)))
+tarballs    = $(addsuffix .$(suffix), $(addprefix $(pkg_name)-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
 
-BUILD_TARGETS = $(description) $(tarballs) $(sha1s)
+BUILD_TARGETS = $(tarballs) $(sha1s)
 
 
-include ../../../build-system/core.mk
+include ../../../../build-system/core.mk
 
 
 .PHONY: downloads_clean
 
-
-$(description):
-	wget $(WGET_OPTIONS) -N $(url)/$(description)
 
 $(tarballs):
 	@echo -e "\n======= Downloading source tarballs ======="
@@ -37,7 +39,7 @@ $(tarballs):
 	  wget $(WGET_OPTIONS) -N $(url)/$$tarball ; \
 	done
 
-$(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
+$(sha1s): %.$(suffix).sha1sum : %.$(suffix)
 	@for sha in $@ ; do \
 	  echo -e "\n======= Downloading '$$sha' signature =======\n" ; \
 	  wget $(WGET_OPTIONS) -N $(url)/$$sha ; \
@@ -51,4 +53,4 @@ $(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
 	done
 
 downloads_clean:
-	@rm -f $(description) $(tarballs) $(sha1s)
+	@rm -f $(tarballs) $(sha1s)

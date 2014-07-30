@@ -33,6 +33,7 @@ SUBDIRS := GNU/EGLIBC/2.12.1      \
            dm644x/flash-tools/NOR-flasher  \
            dm644x/modSign                  \
            newlib                 \
+           tools/allwinner/sunxi-tools-kx  \
            uClinux/elf2flt        \
            uClinux/uClibc
 
