@@ -13,6 +13,7 @@ REQUIRES += core/eglibc/2.19.1:headers
 REQUIRES += core/gcc/4.9.1:second
 REQUIRES += core/eglibc/2.19.1:full
 REQUIRES += core/gcc/4.9.1:full
+REQUIRES += core/gdb/7.5
 REQUIRES += tools/u-boot/denx
 endif
 
