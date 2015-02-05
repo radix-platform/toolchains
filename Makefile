@@ -1,5 +1,5 @@
 
-COMPONENT_TARGETS  =  $(TOOLCHAIN_NOARCH)
+COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
 # Always include build-system/core.mk using relative path:
 include build-system/core.mk
