@@ -10,7 +10,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url         = ftp://ftp.radix.pro/sources/dm644x/flash-tools/NOR-flasher
+
+include ../../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/dm644x/flash-tools/NOR-flasher
 
 versions    = 0.0.1
 

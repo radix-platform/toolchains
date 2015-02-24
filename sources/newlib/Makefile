@@ -10,8 +10,12 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
+
+include ../../build-system/config.mk
+
+
 main_url    = ftp://sources.redhat.com/pub/newlib
-url         = ftp://ftp.radix.pro/sources/newlib
+url         = $(DOWNLOAD_SERVER)/sources/newlib
 
 versions    = 1.14.0 1.18.0 1.20.0
 

@@ -7,6 +7,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_LPC17XX_UCLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_A1X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_BCM74X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_EGLIBC)
@@ -256,6 +257,44 @@ extra_configure_switches += --disable-shared
 extra_configure_switches += --disable-nls
 # without-headers replacement, to make libgcc independed from glibc:
 extra_configure_switches += --with-newlib
+endif
+ifeq ($(FLAVOUR),second)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-nls
+endif
+ifeq ($(FLAVOUR),full)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --enable-languages=c,c++
+extra_configure_switches += --enable-__cxa_atexit
+extra_configure_switches += --enable-shared
+extra_configure_switches += --enable-nls
+extra_configure_switches += --with-included-gettext
+endif
+endif
+
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_EGLIBC))
+extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches += --with-cpu=cortex-a15
+extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-fpu=neon-vfpv4
+extra_configure_switches += --with-abi=aapcs-linux
+ifeq ($(FLAVOUR),static)
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-threads
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-shared
+extra_configure_switches += --disable-nls
+# --without-headers replacement for --with-newlib, to make libgcc independed from glibc:
+extra_configure_switches += --without-headers
 endif
 ifeq ($(FLAVOUR),second)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)

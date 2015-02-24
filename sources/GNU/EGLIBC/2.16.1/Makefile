@@ -1,7 +1,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url         = ftp://ftp.radix.pro/sources/GNU/EGLIBC/2.16.1
+
+include ../../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/GNU/EGLIBC/2.16.1
 
 versions    = 2.16.1
 

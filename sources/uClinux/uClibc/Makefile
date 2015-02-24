@@ -7,7 +7,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url               = ftp://ftp.radix.pro/sources/uClinux/uClibc
+
+include ../../../build-system/config.mk
+
+
+url               = $(DOWNLOAD_SERVER)/sources/uClinux/uClibc
 
 versions          = 0.9.33.1 0.9.33.2
 locale_versions   = 030818

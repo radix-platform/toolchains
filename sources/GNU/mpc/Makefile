@@ -9,9 +9,13 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url         = ftp://ftp.radix.pro/sources/GNU/mpc
 
-versions    = 1.0.1
+include ../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/GNU/mpc
+
+versions    = 1.0.1 1.0.2
 
 tarballs    = $(addsuffix .tar.gz, $(addprefix mpc-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))

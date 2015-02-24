@@ -1,8 +1,12 @@
 
 
-COMPONENT_TARGETS = $(TOOLCHAIN_A1X_NEWLIB)
+COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_A2X_NEWLIB)
 
-COMPONENT_TARGETS = $(TOOLCHAIN_A1X_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_A1X_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_A2X_EGLIBC)
+
+COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_EGLIBC)
 
 
 include ../../../build-system/config.mk
@@ -49,10 +53,31 @@ extra_configure_switches += --disable-libssp
 extra_configure_switches += --with-cpu=cortex-a8
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-fpu=neon
-extra_configure_switches += --with-abi=aapcs
+extra_configure_switches += --with-abi=aapcs-linux
 extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
 endif
 
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A2X_EGLIBC))
+extra_configure_switches  = --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --with-cpu=cortex-a7
+extra_configure_switches += --with-arch=armv7ve
+extra_configure_switches += --with-fpu=neon-vfpv4
+extra_configure_switches += --with-abi=aapcs-linux
+extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_EGLIBC))
+extra_configure_switches  = --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --with-cpu=cortex-a15
+extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-fpu=neon-vfpv4
+extra_configure_switches += --with-abi=aapcs-linux
+extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
+endif
 
 
 .PHONY: full

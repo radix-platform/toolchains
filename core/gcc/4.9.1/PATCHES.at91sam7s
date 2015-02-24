@@ -1,0 +1,2 @@
+
+../../../sources/GNU/gcc/patches/gcc-4.9.1-at91sam7s-newlib.patch -p0
