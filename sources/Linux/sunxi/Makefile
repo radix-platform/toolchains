@@ -6,7 +6,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url         = ftp://ftp.radix.pro/sources/Linux/sunxi
+
+include ../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/Linux/sunxi
 
 versions    = 3.0.52-r2 3.0.57-r2 3.0.76-r0 3.4.43-r0
 

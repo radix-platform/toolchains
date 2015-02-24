@@ -33,7 +33,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url         = ftp://ftp.radix.pro/sources/uClinux/elf2flt
+
+include ../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/uClinux/elf2flt
 
 versions    = 1.6 1.64
 

@@ -1,5 +1,6 @@
 
 
+COMPONENT_TARGETS = $(TOOLCHAIN_I486_EGLIBC)
 COMPONENT_TARGETS = $(TOOLCHAIN_X86_64_EGLIBC)
 
 
@@ -17,7 +18,7 @@ SRC_ARCHIVE = $(tar_bz2_archive)
 
 headers_target = $(TARGET_BUILD_DIR)/.headers-installed
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC) $(TOOLCHAIN_I486_EGLIBC)),)
 arch = x86
 endif
 

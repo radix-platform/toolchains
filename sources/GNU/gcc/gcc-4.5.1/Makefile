@@ -9,9 +9,13 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-version     = 4.5.1
 
-url         = ftp://ftp.radix.pro/sources/GNU/gcc/gcc-$(version)
+include ../../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/GNU/gcc/gcc-$(version)
+
+version     = 4.5.1
 
 tarballs    = $(addsuffix .tar.bz2, $(addprefix gcc-, $(version)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))

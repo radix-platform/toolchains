@@ -6,13 +6,22 @@
 
    gcc-4.5.1-at91sam7s-newlib.patch  -
    gcc-4.7.2-at91sam7s-newlib.patch  -
+   gcc-4.7.3-at91sam7s-newlib.patch  -
+   gcc-4.8.2-at91sam7s-newlib.patch  -
+   gcc-4.9.1-at91sam7s-newlib.patch  -
 
-   gcc-4.7.2-dm644x-newlib.patch     -
    gcc-4.5.1-dm644x-newlib.patch     -
+   gcc-4.7.2-dm644x-newlib.patch     -
+   gcc-4.7.3-dm644x-newlib.patch     -
+   gcc-4.8.2-dm644x-newlib.patch     -
+   gcc-4.9.1-dm644x-newlib.patch     -
 
    gcc-4.5.1-mips-dspr2.patch        - doesn't need for 4.7.2 version.
 
    gcc-4.7.2-lpc17xx-multilib.patch  - adds --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m configure switch.
+   gcc-4.7.3-lpc17xx-multilib.patch  - adds --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m configure switch.
+   gcc-4.8.2-lpc17xx-multilib.patch  - adds --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m configure switch.
+   gcc-4.9.1-lpc17xx-multilib.patch  - adds --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m configure switch.
 
    README.TXT                        - this file.
 

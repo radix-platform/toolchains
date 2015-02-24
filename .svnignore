@@ -7,6 +7,7 @@
 .a1x-eglibc/
 .dm644x-eglibc/
 .omap35x-eglibc/
+.omap543x-eglibc/
 .bcm74x-eglibc/
 .x86_64-eglibc/
 

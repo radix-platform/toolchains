@@ -6,12 +6,16 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url         = ftp://ftp.radix.pro/sources/U-Boot/sunxi
 
-versions    = 2013.04-sunxi
+include ../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/U-Boot/sunxi/sunxi
+
+versions    = 20140713
 
 description = u-boot-sunxi.txt
-tarballs    = $(addsuffix .tar.bz2, $(addprefix u-boot-, $(versions)))
+tarballs    = $(addsuffix .tar.bz2, $(addprefix u-boot-sunxi-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
 

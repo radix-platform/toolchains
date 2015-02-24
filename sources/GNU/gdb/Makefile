@@ -9,7 +9,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-url         = ftp://ftp.radix.pro/sources/GNU/gdb
+
+include ../../../build-system/config.mk
+
+
+url         = $(DOWNLOAD_SERVER)/sources/GNU/gdb
 
 versions    = 6.4a 6.5a 7.0a 7.2a 7.5
 
@@ -31,6 +35,7 @@ $(tarballs):
 	@for tarball in $(tarballs) ; do \
 	  wget $(WGET_OPTIONS) -N $(url)/$$tarball ; \
 	done
+	@( cd create-patch-7.2-bfdio && ./create.patch.sh )
 
 $(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
 	@for sha in $@ ; do \
@@ -47,3 +52,4 @@ $(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
 
 downloads_clean:
 	@rm -f $(tarballs) $(sha1s)
+	@rm -f ./patches/gdb-7.2-bfdio.patch

@@ -1,14 +1,19 @@
 
-SUBDIRS := ../build-system      \
-           A1X-boot/1.0.4       \
-           AT91SAM7S-boot/1.0.4 \
-           DM644X-boot/1.0.4    \
-           LPC17XX-uclibc/1.0.4 \
-           A1X-eglibc/1.0.4     \
-           DM644X-eglibc/1.0.4  \
-           OMAP35X-eglibc/1.0.4 \
-           BCM74X-eglibc/1.0.4  \
-           X86_64-eglibc/1.0.4
+SUBDIRS := ../build-system       \
+           A1X-boot/1.0.7        \
+           A2X-boot/1.0.7        \
+           AT91SAM7S-boot/1.0.7  \
+           DM644X-boot/1.0.7     \
+           LPC17XX-uclibc/1.0.7  \
+           A1X-eglibc/1.0.7      \
+           A2X-eglibc/1.0.7      \
+           DM644X-eglibc/1.0.7   \
+           IMX6-eglibc/1.0.7     \
+           OMAP35X-eglibc/1.0.7  \
+           OMAP543X-eglibc/1.0.7 \
+           BCM74X-eglibc/1.0.7   \
+           I486-eglibc/1.0.7     \
+           X86_64-eglibc/1.0.7
 
 all-recursive:
 	@set fnord $(MAKEFLAGS); amf=$$2; \
