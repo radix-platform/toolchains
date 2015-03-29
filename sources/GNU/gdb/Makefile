@@ -15,9 +15,9 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/GNU/gdb
 
-versions    = 6.4a 6.5a 7.0a 7.2a 7.5
+versions    = 6.4a 6.5a 7.0a 7.2a 7.5 7.9
 
-tarballs    = $(addsuffix .tar.bz2, $(addprefix gdb-, $(versions)))
+tarballs    = $(addsuffix .tar.gz, $(addprefix gdb-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
 
@@ -37,7 +37,7 @@ $(tarballs):
 	done
 	@( cd create-patch-7.2-bfdio && ./create.patch.sh )
 
-$(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
+$(sha1s): %.tar.gz.sha1sum : %.tar.gz
 	@for sha in $@ ; do \
 	  echo -e "\n======= Downloading '$$sha' signature =======\n" ; \
 	  wget $(WGET_OPTIONS) -N $(url)/$$sha ; \

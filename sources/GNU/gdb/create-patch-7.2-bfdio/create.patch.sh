@@ -2,7 +2,7 @@
 
 VERSION=7.2
 
-tar --files-from=file.list -xjvf ../gdb-${VERSION}a.tar.bz2
+tar --files-from=file.list -xzvf ../gdb-${VERSION}a.tar.gz
 mv gdb-$VERSION gdb-$VERSION-orig
 
 cp -rf ./gdb-$VERSION-new ./gdb-$VERSION

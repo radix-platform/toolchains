@@ -7,13 +7,13 @@ include ../../../build-system/config.mk
 
 SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/GNU/gdb
 
-tar_bz2_archive  = $(SRC_PACKAGE_DIR)/GNU/gdb/gdb-6.4.tar.bz2
+tar_gz_archive   = $(SRC_PACKAGE_DIR)/GNU/gdb/gdb-6.4.tar.gz
 src_dir          = gdb-6.4
 build_dir        = $(TARGET_BUILD_DIR)/build
 
 src_done = $(SRC_DIR)/.source-done
 SRC_DIR = $(TARGET_BUILD_DIR)/gdb-6.4
-SRC_ARCHIVE = $(tar_bz2_archive)
+SRC_ARCHIVE = $(tar_gz_archive)
 
 
   build_target = $(TARGET_BUILD_DIR)/.built

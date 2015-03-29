@@ -397,7 +397,9 @@ UNPACK_SRC_ARCHIVE = \
 	  cd $(SRC_DIR_BASE) && rpm2cpio $(SRC_ARCHIVE) | cpio -id --quiet, \
 	  $(if $(findstring .zip,$(SRC_ARCHIVE)), \
 	    unzip -q -d $(SRC_DIR_BASE) $(SRC_ARCHIVE), \
-	    tar $(if $(findstring .bz2,$(SRC_ARCHIVE)),-xjf,-xzf) \
+	    tar $(if $(findstring .bz2,$(SRC_ARCHIVE)),-xjf, \
+	             $(if $(findstring .xz,$(SRC_ARCHIVE)),-xJf, \
+	             $(if $(findstring .txz,$(SRC_ARCHIVE)),-xJf,-xzf))) \
 	      $(SRC_ARCHIVE) -C $(SRC_DIR_BASE))); \
 	chmod -R u+w $(SRC_DIR)
 
