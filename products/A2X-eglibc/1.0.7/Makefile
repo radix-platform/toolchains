@@ -14,8 +14,8 @@ REQUIRES += core/gcc/4.9.1:second
 REQUIRES += core/eglibc/2.19.1:full
 REQUIRES += core/gcc/4.9.1:full
 REQUIRES += core/gdb/7.5
-REQUIRES += tools/u-boot/denx
-REQUIRES += tools/sunxi/sunxi-tools
+REQUIRES += tools/u-boot/denx/2014.01
+REQUIRES += tools/sunxi/sunxi-tools/1.3
 endif
 
 export TOOLCHAIN_VERSION = 1.0.7

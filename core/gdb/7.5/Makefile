@@ -11,26 +11,28 @@ COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_EGLIBC)
 
 include ../../../build-system/config.mk
 
+
 SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/GNU/gdb
 
 tar_gz_archive   = $(SRC_PACKAGE_DIR)/GNU/gdb/gdb-7.5.tar.gz
-src_dir          = gdb-7.5
+SRC_ARCHIVE      = $(tar_gz_archive)
+SRC_DIR          = $(TARGET_BUILD_DIR)/gdb-7.5
+src_dir_name     = gdb-7.5
+src_done         = $(TARGET_BUILD_DIR)/.source-done
+
 build_dir        = $(TARGET_BUILD_DIR)/build
 
-sysroot_dir   = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
+sysroot_dir      = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 
-src_done = $(SRC_DIR)/.source-done
-SRC_DIR = $(TARGET_BUILD_DIR)/gdb-7.5
-SRC_ARCHIVE = $(tar_gz_archive)
+build_target     = $(TARGET_BUILD_DIR)/.built
+install_target   = $(TARGET_BUILD_DIR)/.installed
 
-
-  build_target = $(TARGET_BUILD_DIR)/.built
-install_target = $(TARGET_BUILD_DIR)/.installed
 
 environment  = PATH=$(TOOLCHAIN_PATH)/bin:$(PATH)
 
 
 BUILD_TARGETS = $(install_target)
+
 
 include ../../../build-system/core.mk
 
@@ -80,29 +82,23 @@ extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
 endif
 
 
-.PHONY: full
-
-
-$(build_target): $(build_dir)
-	@touch $@
-
-$(install_target): full
-	@touch $@
 
 $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 	$(UNPACK_SRC_ARCHIVE)
 	@touch $@
 
-$(build_dir): $(src_done)
-	mkdir -p $@
-	cd $@ && $(environment) ../$(src_dir)/configure \
+$(build_target): $(src_done)
+	mkdir -p $(build_dir)
+	cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
 	  --prefix=$(TOOLCHAIN_PATH)       \
 	  --target=$(TARGET)               \
 	  --datadir=$(TOOLCHAIN_PATH)/share       \
 	  --infodir=$(TOOLCHAIN_PATH)/share/info  \
 	  --mandir=$(TOOLCHAIN_PATH)/share/man    \
 	  $(extra_configure_switches)
-	$(MAKE) $(environment) -C $@ all
+	$(MAKE) $(environment) -C $(build_dir) all
+	@touch $@
 
-full: $(build_target)
-	$(MAKE) $(environment) -C $(build_dir) install
+$(install_target): $(build_target)
+	$(MAKE) $(environment) -j1 -C $(build_dir) install
+	@touch $@

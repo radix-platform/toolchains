@@ -8,19 +8,20 @@ include ../../../build-system/config.mk
 SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/GNU/EGLIBC/2.12.1
 
 tar_bz2_archive       = $(SRC_PACKAGE_DIR)/GNU/EGLIBC/2.12.1/eglibc-2.12.1.tar.bz2
+SRC_ARCHIVE           = $(tar_bz2_archive)
+SRC_DIR               = $(TARGET_BUILD_DIR)/eglibc-2.12.1
+src_dir_name          = eglibc-2.12.1
+src_done              = $(TARGET_BUILD_DIR)/.source-done
+
+PATCHES      = PATCHES
+
 full_dir              = $(TARGET_BUILD_DIR)/build-full
 headers_dir           = $(TARGET_BUILD_DIR)/build-headers
 
-sysroot_dir  = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
+sysroot_dir           = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 
-src_done     = $(TARGET_BUILD_DIR)/.source-done
-src_dir_name = eglibc-2.12.1
-SRC_DIR      = $(TARGET_BUILD_DIR)/eglibc-2.12.1
-SRC_ARCHIVE  = $(tar_bz2_archive)
-PATCHES      = PATCHES
-
-install_target = $(TARGET_BUILD_DIR)/.installed
-headers_target = $(TARGET_BUILD_DIR)/.headers-installed
+headers_target        = $(TARGET_BUILD_DIR)/.headers-installed
+full_target           = $(TARGET_BUILD_DIR)/.installed
 
 env_sysroot  = install_root=$(sysroot_dir)
 
@@ -52,7 +53,7 @@ BUILD_TARGETS = $(headers_target)
 endif
 
 ifeq ($(FLAVOUR),full)
-BUILD_TARGETS = $(install_target)
+BUILD_TARGETS = $(full_target)
 endif
 
 include ../../../build-system/core.mk
@@ -83,46 +84,35 @@ endif
 endif
 
 
-.PHONY: headers_install full_install
 
-
-$(headers_target): headers_install
-	@touch $@
-
-$(install_target): full_install
-	@touch $@
-
-$(SRC_DIR): $(SRC_ARCHIVE) $(PATCHES_DEP)
+$(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 	$(UNPACK_SRC_ARCHIVE)
 	$(APPLY_PATCHES)
 	@touch $@
 
-$(src_done): $(SRC_DIR)
-	touch $@
-
-$(headers_dir): $(src_done)
-	mkdir -p $@
-	cd $@ && $(env_sysroot) $(environment) ../$(src_dir_name)/configure \
+$(headers_target): $(src_done)
+	mkdir -p $(headers_dir)
+	cd $(headers_dir) && $(env_sysroot) $(environment) ../$(src_dir_name)/configure \
 	  --prefix=/usr                \
 	  --build=$(BUILD)             \
 	  --host=$(TARGET32)           \
 	  $(extra_configure_switches)
-	cd $@ && $(MAKE) install-headers \
-	                 install-bootstrap-headers=yes $(env_sysroot)
-	cd $@ && $(environment) $(MAKE) csu/subdir_lib
-	cd $@ && $(environment) $(MAKE) csu/subdir_install $(env_sysroot)
+	cd $(headers_dir) && $(MAKE) -j1 install-headers \
+	                                 install-bootstrap-headers=yes $(env_sysroot)
+	cd $(headers_dir) && $(environment) $(MAKE) -j1 csu/subdir_lib
+	cd $(headers_dir) && $(environment) $(MAKE) -j1 csu/subdir_install $(env_sysroot)
 	$(environment) $(CC) -nostdlib -nostartfiles -shared -x c /dev/null \
 	                     -o $(sysroot_dir)/usr/lib$(LIBSUFFIX)/libc.so
+	@touch $@
 
-headers_install: $(headers_dir)
-
-$(full_dir): $(src_done)
-	mkdir -p $@
-	cd $@ && $(env_sysroot) $(environment) ../$(src_dir_name)/configure \
+$(full_target): $(src_done)
+	mkdir -p $(full_dir)
+	echo "slibdir=/lib$(LIBSUFFIX)" >> $(full_dir)/configparms
+	cd $(full_dir) && $(env_sysroot) $(environment) ../$(src_dir_name)/configure \
 	  --prefix=/usr                \
 	  --build=$(BUILD)             \
 	  --host=$(TARGET32)           \
 	  $(extra_configure_switches)
-	cd $@ && $(environment) $(MAKE) all install $(env_sysroot)
-
-full_install: $(full_dir)
+	cd $(full_dir) && $(environment) $(MAKE) all
+	cd $(full_dir) && $(environment) $(MAKE) -j1 install $(env_sysroot)
+	@touch $@

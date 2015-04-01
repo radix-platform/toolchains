@@ -11,19 +11,21 @@ include ../../../build-system/config.mk
 
 SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/newlib
 
-tar_gz_archive = $(SRC_PACKAGE_DIR)/newlib/newlib-1.14.0.tar.gz
-src_dir         = newlib-1.14.0
+tar_gz_archive  = $(SRC_PACKAGE_DIR)/newlib/newlib-1.14.0.tar.gz
+SRC_ARCHIVE     = $(tar_gz_archive)
+SRC_DIR         = $(TARGET_BUILD_DIR)/newlib-1.14.0
+src_dir_name    = newlib-1.14.0
+src_done        = $(TARGET_BUILD_DIR)/.source-done
+
 build_dir       = $(TARGET_BUILD_DIR)/build
-install_dir     = $(TOOLCHAIN_PATH)
-headers_dir     = $(TOOLCHAIN_PATH)/include
 
-src_done = $(SRC_DIR)/.source-done
-SRC_DIR = $(TARGET_BUILD_DIR)/newlib-1.14.0
-SRC_ARCHIVE = $(tar_gz_archive)
+install_dir         = $(TOOLCHAIN_PATH)
+headers_install_dir = $(TOOLCHAIN_PATH)/include
 
-  build_target = $(TARGET_BUILD_DIR)/.built
-install_target = $(TARGET_BUILD_DIR)/.installed
-headers_target = $(TARGET_BUILD_DIR)/.headers-installed
+build_target    = $(TARGET_BUILD_DIR)/.built
+headers_target  = $(TARGET_BUILD_DIR)/.headers-installed
+full_target     = $(TARGET_BUILD_DIR)/.installed
+
 
 environment  = AS=$(TOOLCHAIN_PATH)/bin/$(TARGET)-as
 environment += LD=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ld
@@ -44,7 +46,7 @@ BUILD_TARGETS = $(headers_target)
 endif
 
 ifeq ($(FLAVOUR),full)
-BUILD_TARGETS = $(install_target)
+BUILD_TARGETS = $(full_target)
 endif
 
 include ../../../build-system/core.mk
@@ -66,33 +68,20 @@ extra_configure_switches += --without-mpfr
 extra_configure_switches += --without-gmp
 endif
 
-.PHONY: headers_install full_install
 
-$(headers_target): headers_install
-	@touch $@
-
-$(build_target): $(build_dir)
-	@touch $@
-
-$(install_target): full_install
-	@touch $@
-
-$(src_dir): $(src_done)
 
 $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 	$(UNPACK_SRC_ARCHIVE)
 	@touch $@
 
-$(headers_dir): $(src_dir)
-	mkdir -p $@
-	cp -ar $(TARGET_BUILD_DIR)/$(src_dir)/newlib/libc/include $(TOOLCHAIN_PATH)
+$(headers_target): $(src_done)
+	mkdir -p $(headers_install_dir)
+	cp -ar $(TARGET_BUILD_DIR)/$(src_dir_name)/newlib/libc/include $(TOOLCHAIN_PATH)
+	@touch $@
 
-headers_install: $(headers_dir)
-
-
-$(build_dir): $(src_dir)
-	mkdir -p $@
-	cd $@ && $(environment) ../$</newlib/configure \
+$(build_target): $(src_done)
+	mkdir -p $(build_dir)
+	cd $(build_dir) && $(environment) ../$(src_dir_name)/newlib/configure \
 	  --prefix=$(TOOLCHAIN_PATH)       \
 	  --build=$(BUILD)                 \
 	  --host=$(TARGET)                 \
@@ -102,12 +91,12 @@ $(build_dir): $(src_dir)
 	  --disable-libada                 \
 	  --disable-libssp                 \
 	  $(extra_configure_switches)
-	$(MAKE) -C $@ all
+	$(environment) $(MAKE) -C $(build_dir) all
+	@touch $@
 
-$(install_dir): $(build_dir)
-	mkdir -p $@
-#	$(MAKE) $(environment) -C $< install
-	$(MAKE) $(environment) -C $< info
-	$(MAKE) $(environment) -C $< install-info
-
-full_install: $(install_dir)
+$(full_target): $(build_target)
+	mkdir -p $(install_dir)
+#	$(environment) $(MAKE) -C $(build_dir) install
+	$(environment) $(MAKE) -C $(build_dir) info
+	$(environment) $(MAKE) -C $(build_dir) install-info
+	@touch $@

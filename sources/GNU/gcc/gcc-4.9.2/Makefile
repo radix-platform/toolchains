@@ -42,6 +42,7 @@ $(tarballs):
 	@( cd create-patch-4.9.2-a2x-newlib && ./create.patch.sh )
 	@( cd create-patch-4.9.2-lpc17xx-multilib && ./create.patch.sh )
 	@( cd create-patch-4.9.2-x86_64-multilib && ./create.patch.sh )
+	@( cd create-patch-4.9.2-bcm74x-libgo && ./create.patch.sh )
 
 $(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
 	@for sha in $@ ; do \
@@ -64,3 +65,4 @@ downloads_clean:
 	@rm -f ../patches/gcc-4.9.2-a2x-newlib.patch
 	@rm -f ../patches/gcc-4.9.2-lpc17xx-multilib.patch
 	@rm -f ../patches/gcc-4.9.2-x86_64-multilib.patch
+	@rm -f ../patches/gcc-4.9.2-bcm74x-libgo.patch

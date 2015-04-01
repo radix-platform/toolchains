@@ -16,6 +16,10 @@ BUILD_AT91SAM7S_NEWLIB = true
 BUILD_DM644X_NEWLIB = true
 
 
+# lpc17xx-uclibc:
+BUILD_LPC17XX_UCLIBC = true
+
+
 # a1x-eglibc:
 BUILD_A1X_EGLIBC = true
 
@@ -24,9 +28,6 @@ BUILD_A2X_EGLIBC = true
 
 # dm644x-eglibc:
 BUILD_DM644X_EGLIBC = true
-
-# lpc17xx-uclibc:
-BUILD_LPC17XX_UCLIBC = true
 
 # imx6-eglibc:
 BUILD_IMX6_EGLIBC = true
@@ -45,3 +46,31 @@ BUILD_I486_EGLIBC = true
 
 # x86_64-eglibc:
 BUILD_X86_64_EGLIBC = true
+
+
+# a1x-glibc:
+BUILD_A1X_GLIBC = true
+
+# a2x-glibc:
+BUILD_A2X_GLIBC = true
+
+# dm644x-glibc:
+BUILD_DM644X_GLIBC = true
+
+# imx6-glibc:
+BUILD_IMX6_GLIBC = true
+
+# omap35x-glibc:
+BUILD_OMAP35X_GLIBC = true
+
+# omap543x-glibc:
+BUILD_OMAP543X_GLIBC = true
+
+# bcm74x-glibc:
+BUILD_BCM74X_GLIBC = true
+
+# i486-eglibc:
+BUILD_I486_GLIBC = true
+
+# x86_64-glibc:
+BUILD_X86_64_GLIBC = true

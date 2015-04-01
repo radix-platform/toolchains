@@ -474,8 +474,8 @@ int main(int argc, char *argv[])
 {
 	const char *argv0 = argv[0];
 	const char *argv0_dir = make_relative_prefix(argv0, "/", "/");
-	char *tooldir = argv0_dir;
-	char *bindir = argv0_dir;
+	char *tooldir = (char *)argv0_dir;
+	char *bindir = (char *)argv0_dir;
 	char *tmp;
 	struct stat buf;
 	const char *have_exe = NULL;

@@ -13,7 +13,7 @@ REQUIRES += core/eglibc/2.19.1:headers
 REQUIRES += core/gcc/4.9.1:second
 REQUIRES += core/eglibc/2.19.1:full
 REQUIRES += core/gcc/4.9.1:full
-REQUIRES += tools/chrpath
+REQUIRES += tools/chrpath/0.16
 REQUIRES += tools/dm644x/modSign
 endif
 

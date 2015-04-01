@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TOOLCHAIN_PATH=/opt/toolchains/arm-DM644X-elf-newlib
+TOOLCHAIN_PATH=/opt/toolchains/arm-DM644X-eabi-newlib
 entry=`cat $TOOLCHAIN_PATH/bin/boot-data/IRAM-flasher.entry`
 TTY=/dev/ttyUSB0
 

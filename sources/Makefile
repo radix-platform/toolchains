@@ -12,7 +12,9 @@ SUBDIRS := GNU/EGLIBC/2.12.1      \
            GNU/gcc/gcc-4.7.3      \
            GNU/gcc/gcc-4.8.2      \
            GNU/gcc/gcc-4.9.1      \
+           GNU/gcc/gcc-4.9.2      \
            GNU/gdb                \
+           GNU/glibc              \
            GNU/gmp                \
            GNU/mpc                \
            GNU/mpfr               \
@@ -34,6 +36,7 @@ SUBDIRS := GNU/EGLIBC/2.12.1      \
            dm644x/modSign                  \
            newlib                 \
            tools/allwinner/sunxi-tools-kx  \
+           tools/chrpath          \
            uClinux/elf2flt        \
            uClinux/uClibc
 

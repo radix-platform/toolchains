@@ -31,17 +31,13 @@ tar_bz2_archive       = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.8.2/gcc-4.8.2.tar.bz2
 tar_bz2_archive_gmp   = $(SRC_PACKAGE_DIR)/GNU/gmp/gmp-5.1.3.tar.bz2
 tar_bz2_archive_mpfr  = $(SRC_PACKAGE_DIR)/GNU/mpfr/mpfr-3.1.2.tar.bz2
 tar_gz_archive_mpc    = $(SRC_PACKAGE_DIR)/GNU/mpc/mpc-1.0.2.tar.gz
-src_dir               = gcc-4.8.2
-build_dir             = $(TARGET_BUILD_DIR)/build
-
-sysroot_dir   = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
-
-src_done      = $(TARGET_BUILD_DIR)/.source-done
-gmp_src_done  = $(TARGET_BUILD_DIR)/.gmp-source-done
-mpfr_src_done = $(TARGET_BUILD_DIR)/.mpfr-source-done
-mpc_src_done  = $(TARGET_BUILD_DIR)/.mpc-source-done
-SRC_DIR       = $(TARGET_BUILD_DIR)/gcc-4.8.2
-SRC_ARCHIVE   = $(tar_bz2_archive)
+SRC_ARCHIVE           = $(tar_bz2_archive)
+SRC_DIR               = $(TARGET_BUILD_DIR)/gcc-4.8.2
+src_dir_name          = gcc-4.8.2
+src_done              = $(TARGET_BUILD_DIR)/.source-done
+gmp_src_done          = $(TARGET_BUILD_DIR)/.gmp-source-done
+mpfr_src_done         = $(TARGET_BUILD_DIR)/.mpfr-source-done
+mpc_src_done          = $(TARGET_BUILD_DIR)/.mpc-source-done
 
 ifneq ($(TOOLCHAIN),)
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_AT91SAM7S_NEWLIB))
@@ -67,12 +63,16 @@ endif
 endif
 endif
 
-  static_build_target = $(TARGET_BUILD_DIR)/.static-built
+build_dir             = $(TARGET_BUILD_DIR)/build
+
+sysroot_dir           = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
+
+static_build_target   = $(TARGET_BUILD_DIR)/.static-built
 static_install_target = $(TARGET_BUILD_DIR)/.static-installed
-  second_build_target = $(TARGET_BUILD_DIR)/.second-built
+second_build_target   = $(TARGET_BUILD_DIR)/.second-built
 second_install_target = $(TARGET_BUILD_DIR)/.second-installed
-    full_build_target = $(TARGET_BUILD_DIR)/.full-built
-  full_install_target = $(TARGET_BUILD_DIR)/.full-installed
+full_build_target     = $(TARGET_BUILD_DIR)/.full-built
+full_install_target   = $(TARGET_BUILD_DIR)/.full-installed
 
 environment  = PATH=$(TOOLCHAIN_PATH)/bin:$(PATH)
 
@@ -671,26 +671,7 @@ extra_configure_switches += --with-included-gettext
 endif
 endif
 
-.PHONY: static_build   second_build   full_build
-.PHONY: static_install second_install full_install
 
-$(static_build_target): static_build
-	@touch $@
-
-$(second_build_target): second_build
-	@touch $@
-
-$(full_build_target): full_build
-	@touch $@
-
-$(static_install_target): static_install
-	@touch $@
-
-$(second_install_target): second_install
-	@touch $@
-
-$(full_install_target): full_install
-	@touch $@
 
 $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 	$(UNPACK_SRC_ARCHIVE)
@@ -715,12 +696,9 @@ $(mpc_src_done): $(src_done)
 	@cd $(SRC_DIR); ln -sf ../mpc-1.0.2 mpc
 	@touch $@
 
-$(build_dir): $(src_done)
-	@mkdir -p $@
-
-
-static_build: $(build_dir) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
-	cd $< && $(environment) ../$(src_dir)/configure \
+$(static_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
+	@mkdir -p $(build_dir)
+	cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
 	  --prefix=$(TOOLCHAIN_PATH)       \
 	  --build=$(HOST)                  \
 	  --host=$(HOST)                   \
@@ -731,14 +709,17 @@ static_build: $(build_dir) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 	  --infodir=$(TOOLCHAIN_PATH)/share/info  \
 	  --mandir=$(TOOLCHAIN_PATH)/share/man    \
 	  $(extra_configure_switches)
-	$(environment) $(MAKE) -C $< all
+	$(environment) $(MAKE) -C $(build_dir) all
+	@touch $@
 
-static_install: static_build
-	$(MAKE) $(environment) -C $(build_dir) install
+$(static_install_target): $(static_build_target)
+	$(MAKE) $(environment) -j1 -C $(build_dir) install
 	rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@touch $@
 
-second_build: $(build_dir) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
-	cd $< && $(environment) ../$(src_dir)/configure \
+$(second_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
+	@mkdir -p $(build_dir)
+	cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
 	  --prefix=$(TOOLCHAIN_PATH)       \
 	  --build=$(HOST)                  \
 	  --host=$(HOST)                   \
@@ -749,10 +730,11 @@ second_build: $(build_dir) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 	  --infodir=$(TOOLCHAIN_PATH)/share/info  \
 	  --mandir=$(TOOLCHAIN_PATH)/share/man    \
 	  $(extra_configure_switches)
-	$(environment) $(MAKE) -C $< all
+	$(environment) $(MAKE) -C $(build_dir) all
+	@touch $@
 
-second_install: second_build
-	$(MAKE) $(environment) -C $(build_dir) install
+$(second_install_target): $(second_build_target)
+	$(MAKE) $(environment) -j1 -C $(build_dir) install
 	rm -f $(TOOLCHAIN_PATH)/share/info/dir
 ifneq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
 	cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib/libgcc_s.so $(sysroot_dir)/usr/lib
@@ -762,9 +744,11 @@ ifneq ($(findstring x86_64, $(TOOLCHAIN)),)
 	cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so $(sysroot_dir)/usr/lib32
 	cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so.1 $(sysroot_dir)/usr/lib32
 endif
+	@touch $@
 
-full_build: $(build_dir) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
-	cd $< && $(environment) ../$(src_dir)/configure \
+$(full_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
+	@mkdir -p $(build_dir)
+	cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
 	  --prefix=$(TOOLCHAIN_PATH)       \
 	  --build=$(HOST)                  \
 	  --host=$(HOST)                   \
@@ -775,7 +759,8 @@ full_build: $(build_dir) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 	  --infodir=$(TOOLCHAIN_PATH)/share/info  \
 	  --mandir=$(TOOLCHAIN_PATH)/share/man    \
 	  $(extra_configure_switches)
-	$(environment) $(MAKE) -C $< all
+	$(environment) $(MAKE) -C $(build_dir) all
+	@touch $@
 
 #
 # Before installing final GCC we remove libgcc builded with second GCC.
@@ -802,12 +787,14 @@ full_build: $(build_dir) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 #
 # for each *.la file in the $(TOOLCHAIN_PATH)/$(TARGET)/{lib|lib32} directory.
 #
-full_install: full_build
+
+$(full_install_target): $(full_build_target)
 	rm -f $(sysroot_dir)/usr/lib/libgcc_s.so
 	rm -f $(sysroot_dir)/usr/lib/libgcc_s.so.1
 ifneq ($(findstring x86_64, $(TOOLCHAIN)),)
 	rm -f $(sysroot_dir)/usr/lib32/libgcc_s.so
 	rm -f $(sysroot_dir)/usr/lib32/libgcc_s.so.1
 endif
-	$(MAKE) $(environment) -C $(build_dir) install
+	$(MAKE) $(environment) -j1 -C $(build_dir) install
 	rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@touch $@

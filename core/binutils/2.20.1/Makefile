@@ -13,15 +13,10 @@ include ../../../build-system/config.mk
 SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/GNU/binutils
 
 tar_bz2_archive = $(SRC_PACKAGE_DIR)/GNU/binutils/binutils-2.20.1a.tar.bz2
-src_dir         = binutils-2.20.1
-build_dir       = $(TARGET_BUILD_DIR)/build
-install_dir     = $(TOOLCHAIN_PATH)
-
-sysroot_dir     = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
-
-src_done = $(SRC_DIR)/.source-done
-SRC_DIR = $(TARGET_BUILD_DIR)/binutils-2.20.1
-SRC_ARCHIVE = $(tar_bz2_archive)
+SRC_ARCHIVE     = $(tar_bz2_archive)
+SRC_DIR         = $(TARGET_BUILD_DIR)/binutils-2.20.1
+src_dir_name    = binutils-2.20.1
+src_done        = $(SRC_DIR)/.source-done
 
 ifneq ($(TOOLCHAIN),)
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_BCM74X_EGLIBC))
@@ -31,8 +26,13 @@ PATCHES = PATCHES
 endif
 endif
 
-build_target = $(TARGET_BUILD_DIR)/.built
-install_target = $(TARGET_BUILD_DIR)/.installed
+build_dir       = $(TARGET_BUILD_DIR)/build
+install_dir     = $(TOOLCHAIN_PATH)
+
+sysroot_dir     = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
+
+build_target    = $(TARGET_BUILD_DIR)/.built
+install_target  = $(TARGET_BUILD_DIR)/.installed
 
 
 BUILD_TARGETS = $(install_target)
@@ -87,37 +87,27 @@ extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
 
-.PHONY: full
-
-
-$(build_target): $(build_dir)
-	@touch $@
-
-$(install_target): full
-	@touch $@
-
-$(src_dir): $(src_done)
 
 $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 	$(UNPACK_SRC_ARCHIVE)
 	$(APPLY_PATCHES)
 	@touch $@
 
-$(build_dir): $(src_dir)
-	mkdir -p $@
-	cd $@ && ../$</configure           \
-	  --prefix=$(TOOLCHAIN_PATH)       \
-	  --target=$(TARGET)               \
-	  --infodir=$(TOOLCHAIN_PATH)/share/info \
-	  --mandir=$(TOOLCHAIN_PATH)/share/man   \
-	  --disable-nls                    \
+$(build_target): $(src_done)
+	mkdir -p $(build_dir)
+	cd $(build_dir) && ../$(src_dir_name)/configure \
+	  --prefix=$(TOOLCHAIN_PATH)                    \
+	  --target=$(TARGET)                            \
+	  --infodir=$(TOOLCHAIN_PATH)/share/info        \
+	  --mandir=$(TOOLCHAIN_PATH)/share/man          \
+	  --disable-nls                                 \
 	  $(extra_configure_switches)
-	$(MAKE) -C $@
-	$(MAKE) -C $@ info
+	$(MAKE) -C $(build_dir)
+	$(MAKE) -C $(build_dir) info
+	@touch $@
 
-$(install_dir): $(build_dir)
-	mkdir -p $@
-	$(MAKE) -C $< install
-	$(MAKE) -C $< install-info
-
-full: $(install_dir)
+$(install_target): $(build_target)
+	mkdir -p $(install_dir)
+	$(MAKE) -C $(build_dir) install
+	$(MAKE) -C $(build_dir) install-info
+	@touch $@

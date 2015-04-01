@@ -25,29 +25,30 @@ SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/uClinux/elf2flt
 
 tar_bz2_archive      = $(SRC_PACKAGE_DIR)/GNU/binutils/binutils-2.23.2.tar.bz2
 tar_bz2_archive_flat = $(SRC_PACKAGE_DIR)/uClinux/elf2flt/elf2flt-1.64.tar.bz2
-src_dir              = binutils-2.23.2
-flat_src_dir         = elf2flt-1.64
-build_dir            = $(TARGET_BUILD_DIR)/build
-flat_build_dir       = $(TARGET_BUILD_DIR)/build-flat
-install_dir          = $(TOOLCHAIN_PATH)
+SRC_ARCHIVE          = $(tar_bz2_archive)
+SRC_DIR              = $(TARGET_BUILD_DIR)/binutils-2.23.2
+src_dir_name         = binutils-2.23.2
+flat_src_dir_name    = elf2flt-1.64
+src_done             = $(SRC_DIR)/.source-done
+flat_src_done        = $(SRC_DIR)/.flat-source-done
 
-sysroot_dir   = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
-
-src_done      = $(SRC_DIR)/.source-done
-flat_src_done = $(SRC_DIR)/.flat-source-done
-SRC_DIR       = $(TARGET_BUILD_DIR)/binutils-2.23.2
-SRC_ARCHIVE   = $(tar_bz2_archive)
 PATCHES       = PATCHES
 
 ifeq ($(FLAVOUR),flat)
 OPT_PATCHES   = PATCHES.elf2flt
 endif
 
-build_target = $(TARGET_BUILD_DIR)/.built
-install_target = $(TARGET_BUILD_DIR)/.installed
+build_dir            = $(TARGET_BUILD_DIR)/build
+flat_build_dir       = $(TARGET_BUILD_DIR)/build-flat
+install_dir          = $(TOOLCHAIN_PATH)
 
-flat_build_target = $(TARGET_BUILD_DIR)/.flat-built
-flat_install_target = $(TARGET_BUILD_DIR)/.flat-installed
+sysroot_dir          = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
+
+build_target         = $(TARGET_BUILD_DIR)/.built
+install_target       = $(TARGET_BUILD_DIR)/.installed
+
+flat_build_target    = $(TARGET_BUILD_DIR)/.flat-built
+flat_install_target  = $(TARGET_BUILD_DIR)/.flat-installed
 
 
 ifeq ($(FLAVOUR),flat)
@@ -166,26 +167,11 @@ extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
 
-.PHONY: full
-
-
-$(build_target): $(build_dir)
-	@touch $@
-
-$(flat_build_target): $(flat_build_dir)
-	@touch $@
-
-$(install_target): full
-	@touch $@
-
-$(src_dir): $(src_done)
 
 $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 	$(UNPACK_SRC_ARCHIVE)
 	$(APPLY_PATCHES)
 	@touch $@
-
-$(flat_src_dir): $(flat_src_done)
 
 $(flat_src_done): $(src_done)
 	@echo "Expanding $(tar_bz2_archive_flat)"
@@ -193,38 +179,39 @@ $(flat_src_done): $(src_done)
 	$(APPLY_OPT_PATCHES)
 	@touch $@
 
-$(build_dir): $(src_dir)
-	mkdir -p $@
-	cd $@ && ../$</configure           \
-	  --prefix=$(TOOLCHAIN_PATH)       \
-	  --target=$(TARGET)               \
-	  --infodir=$(TOOLCHAIN_PATH)/share/info \
-	  --mandir=$(TOOLCHAIN_PATH)/share/man   \
-	  --disable-nls                    \
+$(build_target): $(src_done)
+	mkdir -p $(build_dir)
+	cd $(build_dir) && ../$(src_dir_name)/configure \
+	  --prefix=$(TOOLCHAIN_PATH)                    \
+	  --target=$(TARGET)                            \
+	  --infodir=$(TOOLCHAIN_PATH)/share/info        \
+	  --mandir=$(TOOLCHAIN_PATH)/share/man          \
+	  --disable-nls                                 \
 	  $(extra_configure_switches)
-	$(MAKE) -C $@
-	$(MAKE) -C $@ info
-
-$(flat_build_dir): $(flat_src_dir) $(build_dir)
-	mkdir -p $@
-	cd $@ && ../$</configure           \
-	  --prefix=$(TOOLCHAIN_PATH)       \
-	  --target=$(TARGET)               \
-	  --with-binutils-include-dir=../$(src_dir)/include/     \
-	  --with-bfd-include-dir=../build/bfd/            \
-	  --with-libbfd=../build/bfd/libbfd.a             \
-	  --with-libiberty=../build/libiberty/libiberty.a \
-	  --disable-got-check
-	$(MAKE) -C $@
-
-$(install_dir): $(build_dir)
-	mkdir -p $@
-	$(MAKE) -C $< install
-	$(MAKE) -C $< install-info
-	rm -f $(TOOLCHAIN_PATH)/share/info/dir
-
-$(flat_install_target): $(flat_build_dir) $(install_dir)
-	$(MAKE) -C $< install
+	$(MAKE) -C $(build_dir)
+	$(MAKE) -C $(build_dir) info
 	@touch $@
 
-full: $(install_dir)
+$(install_target): $(build_target)
+	mkdir -p $(install_dir)
+	$(MAKE) -C $(build_dir) install
+	$(MAKE) -C $(build_dir) install-info
+	rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@touch $@
+
+$(flat_build_target): $(flat_src_done) $(build_target)
+	mkdir -p $(flat_build_dir)
+	cd $(flat_build_dir) && ../$(flat_src_dir_name)/configure \
+	  --prefix=$(TOOLCHAIN_PATH)                              \
+	  --target=$(TARGET)                                      \
+	  --with-binutils-include-dir=../$(src_dir_name)/include/ \
+	  --with-bfd-include-dir=../build/bfd/                    \
+	  --with-libbfd=../build/bfd/libbfd.a                     \
+	  --with-libiberty=../build/libiberty/libiberty.a         \
+	  --disable-got-check
+	$(MAKE) -C $(flat_build_dir)
+	@touch $@
+
+$(flat_install_target): $(flat_build_target) $(install_target)
+	$(MAKE) -C $(flat_build_dir) install
+	@touch $@

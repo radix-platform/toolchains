@@ -15,7 +15,7 @@ REQUIRES += core/gcc/4.9.1:second
 REQUIRES += core/eglibc/2.19.1-x86_32:full
 REQUIRES += core/eglibc/2.19.1:full
 REQUIRES += core/gcc/4.9.1:full
-REQUIRES += tools/chrpath
+REQUIRES += tools/chrpath/0.16
 endif
 
 export TOOLCHAIN_VERSION = 1.0.8
