@@ -98,7 +98,7 @@ $(headers_target): $(src_done)
 	cd $(headers_dir) && $(environment) $(MAKE) -j1 csu/subdir_lib
 	# ======= install 'lib-names-32.h' =======
 	mkdir -p $(sysroot_dir)/usr/include/gnu
-	install --mode=0644 $@/gnu/lib-names-32.h $(sysroot_dir)/usr/include/gnu
+	install --mode=0644 $(headers_dir)/gnu/lib-names-32.h $(sysroot_dir)/usr/include/gnu
 	# ========================================
 	cd $(headers_dir) && $(environment) $(MAKE) -j1 csu/subdir_install $(env_sysroot)
 	$(environment) $(CC) -nostdlib -nostartfiles -shared -x c /dev/null \

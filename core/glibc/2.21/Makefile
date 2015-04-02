@@ -317,7 +317,7 @@ $(headers_target): $(src_done)
 	cd $(headers_dir) && $(environment) $(MAKE) -j1 csu/subdir_lib
 	# ======= install 'lib-names-$(LIB_NAMES_SUFFIX).h' =======
 	mkdir -p $(sysroot_dir)/usr/include/gnu
-	install --mode=0644 $@/gnu/lib-names-$(LIB_NAMES_SUFFIX).h $(sysroot_dir)/usr/include/gnu
+	install --mode=0644 $(headers_dir)/gnu/lib-names-$(LIB_NAMES_SUFFIX).h $(sysroot_dir)/usr/include/gnu
 	install --mode=0644 $(SRC_DIR)/include/gnu/stubs.h $(sysroot_dir)/usr/include/gnu
 	# =========================================================
 	cd $(headers_dir) && $(environment) $(MAKE) -j1 csu/subdir_install $(env_sysroot)
