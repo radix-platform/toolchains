@@ -4,10 +4,15 @@ COMPONENT_TARGETS  = $(TOOLCHAIN_HOST)
 include ../../../build-system/config.mk
 
 
-SOURCE_REQUIRES  = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.9.2
-SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/gmp
-SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/mpfr
-SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/mpc
+#SOURCE_REQUIRES  = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.9.2
+#SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/gmp
+#SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/mpfr
+#SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/mpc
+
+SOURCE_REQUIRES  = sources/GNU/gcc/gcc-4.9.2
+SOURCE_REQUIRES += sources/GNU/gmp
+SOURCE_REQUIRES += sources/GNU/mpfr
+SOURCE_REQUIRES += sources/GNU/mpc
 
 tar_bz2_archive       = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2
 tar_bz2_archive_gmp   = $(SRC_PACKAGE_DIR)/GNU/gmp/gmp-6.0.0a.tar.bz2
@@ -66,7 +71,9 @@ $(mpc_src_done): $(src_done)
 $(build_dir): $(src_done)
 	@mkdir -p $@
 
-$(build_target): $(build_dir) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
+$(build_target): $(src_done) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
+	@mkdir -p $(build_dir)
+	exit 1
 	@cd $(build_dir) && ../$(src_dir)/configure       \
 	  --prefix=$(GNATTOOLS_DEST_DIR)                  \
 	  --build=$(shell $(BUILDSYSTEM)/canonical-build) \

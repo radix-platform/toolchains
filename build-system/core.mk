@@ -227,7 +227,7 @@ endif
 
 CLEANUP_FILES += .dist.*
 CLEANUP_FILES += $(addprefix ., $(TOOLCHAIN_NAMES))
-CLEANUP_FILES += .*requires
+CLEANUP_FILES += .*requires*
 CLEANUP_FILES += $(SRC_DIR)
 CLEANUP_FILES += $(SRC_DIR).back.??????
 
@@ -327,27 +327,36 @@ install: .install
 
 .install: .src_requires .install_builds .install_products
 
-.src_requires: $(SOURCE_REQUIRES)
-ifdef SOURCE_REQUIRES
+
+#######
+####### Build directory dependencies into .src_requires  which
+####### is used as a Makefile for srource tarballs downloading
+#######
+
+.sources: .src_requires
+
+.src_requires_depend: .src_requires ;
+
+.src_requires: .makefile
 ifneq ($(shell pwd),$(TOP_BUILD_DIR_ABS))
-	@rm -f $(TARGET_BUILD_DIR)/.src_requires
-	@touch $(TARGET_BUILD_DIR)/.src_requires
-	@for part in $(SOURCE_REQUIRES) ; do \
-	  echo $$part >> $(TARGET_BUILD_DIR)/.src_requires ; \
-	done
-	@echo "======="
-	@echo "======= Start of building source requires for: `pwd`:"
-	@echo "=======" ; \
-	$(foreach part,$(SOURCE_REQUIRES),\
-	  $(MAKE) -C $(part) TOOLCHAIN=$(TOOLCHAIN_NOARCH) FLAVOUR= local_all &&) true
-	@if [ ! -s $(TARGET_BUILD_DIR)/.src_requires ]; then \
-	  echo -e "======= ... Nothing to be done (there are no source requires) ..." ; \
-	fi
-	@echo "======="
-	@echo "======= End of building source requires for `pwd`."
-	@echo "======="
+ifeq ($(filter %_clean,$(MAKECMDGOALS)),)
+	@echo ""
+	@shtool echo -e "%B################################################################%b"
+	@shtool echo -e "%B#######%b"
+	@shtool echo -e "%B#######%b %BStart of building source requires for%b `pwd`%B:%b"
+	@shtool echo -e "%B#######%b"
+	@$(BUILDSYSTEM)/build_src_requires $(TOP_BUILD_DIR_ABS)
+	TREE_RULE=local_all $(MAKE) TOOLCHAIN=$(TOOLCHAIN_NOARCH) -f .src_requires
+	@shtool echo -e "%B#######%b"
+	@shtool echo -e "%B#######%b %BEnd of building source requires for%b `pwd`%B.%b"
+	@shtool echo -e "%B#######%b"
+	@shtool echo -e "%B################################################################%b"
+	@echo ""
+	@touch $@
+	@touch .src_requires_depend
 endif
 endif
+
 
 .install_builds: $(BUILD_TARGETS)
 # Do nothing
