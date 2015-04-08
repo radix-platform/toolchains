@@ -6,9 +6,9 @@ COMPONENT_TARGETS = $(TOOLCHAIN_A1X_EGLIBC)
 include ../../../../build-system/config.mk
 
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/Linux/sunxi
+SOURCE_REQUIRES = sources/Linux/sunxi
 
-tar_bz2_archive = $(SRC_PACKAGE_DIR)/Linux/sunxi/linux-3.0.52-r2.tar.bz2
+tar_bz2_archive = $(SRC_PACKAGE_PATH)/Linux/sunxi/linux-3.0.52-r2.tar.bz2
 SRC_ARCHIVE     = $(tar_bz2_archive)
 SRC_DIR         = $(TARGET_BUILD_DIR)/linux-3.0.52-r2
 src_done        = $(TARGET_BUILD_DIR)/.source-done

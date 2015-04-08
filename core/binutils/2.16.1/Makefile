@@ -5,9 +5,9 @@ COMPONENT_TARGETS = $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 
 include ../../../build-system/config.mk
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/GNU/binutils
+SOURCE_REQUIRES = sources/GNU/binutils
 
-tar_bz2_archive = $(SRC_PACKAGE_DIR)/GNU/binutils/binutils-2.16.1a.tar.bz2
+tar_bz2_archive = $(SRC_PACKAGE_PATH)/GNU/binutils/binutils-2.16.1a.tar.bz2
 SRC_ARCHIVE     = $(tar_bz2_archive)
 SRC_DIR         = $(TARGET_BUILD_DIR)/binutils-2.16.1
 src_dir_name    = binutils-2.16.1

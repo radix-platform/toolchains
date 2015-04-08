@@ -6,9 +6,9 @@ FLAVOURS = headers full
 
 include ../../../build-system/config.mk
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/GNU/EGLIBC/2.19.1
+SOURCE_REQUIRES = sources/GNU/EGLIBC/2.19.1
 
-tar_bz2_archive       = $(SRC_PACKAGE_DIR)/GNU/EGLIBC/2.19.1/eglibc-2.19.1.tar.bz2
+tar_bz2_archive       = $(SRC_PACKAGE_PATH)/GNU/EGLIBC/2.19.1/eglibc-2.19.1.tar.bz2
 SRC_ARCHIVE           = $(tar_bz2_archive)
 SRC_DIR               = $(TARGET_BUILD_DIR)/eglibc-2.19.1
 src_dir_name          = eglibc-2.19.1
@@ -50,7 +50,7 @@ environment += RANLIB=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ranlib
 
 environment += PATH=$(TOOLCHAIN_PATH)/bin:$(PATH)
 
-environment += BUILD_CC=$(CCACHE)/usr/bin/gcc
+environment += BUILD_CC="$(CCACHE)/usr/bin/gcc"
 
 LIBSUFFIX    =
 

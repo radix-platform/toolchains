@@ -37,12 +37,12 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
 FLAVOURS = flat
 endif
 
-SOURCE_REQUIRES  = $(SRC_PACKAGE_DIR)/GNU/binutils
-SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/uClinux/elf2flt
+SOURCE_REQUIRES  = sources/GNU/binutils
+SOURCE_REQUIRES += sources/uClinux/elf2flt
 
 
-tar_bz2_archive      = $(SRC_PACKAGE_DIR)/GNU/binutils/binutils-2.25.tar.bz2
-tar_bz2_archive_flat = $(SRC_PACKAGE_DIR)/uClinux/elf2flt/elf2flt-1.64.tar.bz2
+tar_bz2_archive      = $(SRC_PACKAGE_PATH)/GNU/binutils/binutils-2.25.tar.bz2
+tar_bz2_archive_flat = $(SRC_PACKAGE_PATH)/uClinux/elf2flt/elf2flt-1.64.tar.bz2
 SRC_ARCHIVE          = $(tar_bz2_archive)
 SRC_DIR              = $(TARGET_BUILD_DIR)/binutils-2.25
 src_dir_name         = binutils-2.25

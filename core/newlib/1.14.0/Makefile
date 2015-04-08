@@ -9,9 +9,9 @@ FLAVOURS = headers full
 
 include ../../../build-system/config.mk
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/newlib
+SOURCE_REQUIRES = sources/newlib
 
-tar_gz_archive  = $(SRC_PACKAGE_DIR)/newlib/newlib-1.14.0.tar.gz
+tar_gz_archive  = $(SRC_PACKAGE_PATH)/newlib/newlib-1.14.0.tar.gz
 SRC_ARCHIVE     = $(tar_gz_archive)
 SRC_DIR         = $(TARGET_BUILD_DIR)/newlib-1.14.0
 src_dir_name    = newlib-1.14.0
@@ -50,7 +50,7 @@ environment += PATH=$(TOOLCHAIN_PATH)/bin:$(PATH):$(PATH_FIG2DEV)
 #                                                   =============
 # need for fig2dev and documentation (see: ../.config).
 
-environment += BUILD_CC=$(CCACHE)/usr/bin/gcc
+environment += BUILD_CC="$(CCACHE)/usr/bin/gcc"
 environment += CFLAGS_FOR_TARGET=""
 
 

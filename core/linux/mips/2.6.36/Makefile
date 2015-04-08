@@ -7,12 +7,12 @@ COMPONENT_TARGETS += $(TOOLCHAIN_BCM74X_GLIBC)
 include ../../../../build-system/config.mk
 
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/Linux/mips
+SOURCE_REQUIRES = sources/Linux/mips
 
 ifneq ($(findstring bcm74x, $(TOOLCHAIN)),)
-tar_bz2_archive = $(SRC_PACKAGE_DIR)/Linux/mips/linux-2.6.36.tar.bz2
+tar_bz2_archive = $(SRC_PACKAGE_PATH)/Linux/mips/linux-2.6.36.tar.bz2
 else
-tar_bz2_archive = $(SRC_PACKAGE_DIR)/Linux/v2.6/linux-2.6.36.tar.bz2
+tar_bz2_archive = $(SRC_PACKAGE_PATH)/Linux/v2.6/linux-2.6.36.tar.bz2
 endif
 
 SRC_ARCHIVE     = $(tar_bz2_archive)

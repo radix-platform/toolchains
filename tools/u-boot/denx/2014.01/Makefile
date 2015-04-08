@@ -15,9 +15,9 @@ COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
 
 include ../../../../build-system/config.mk
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/U-Boot/denx
+SOURCE_REQUIRES = sources/U-Boot/denx
 
-tar_bz2_archive  = $(SRC_PACKAGE_DIR)/U-Boot/denx/u-boot-2014.01.tar.bz2
+tar_bz2_archive  = $(SRC_PACKAGE_PATH)/U-Boot/denx/u-boot-2014.01.tar.bz2
 SRC_ARCHIVE      = $(tar_bz2_archive)
 SRC_DIR          = $(TARGET_BUILD_DIR)/u-boot-2014.01
 src_dir_name     = u-boot-2014.01

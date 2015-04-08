@@ -27,9 +27,9 @@ COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
 include ../../../build-system/config.mk
 
 
-SOURCE_REQUIRES  = $(SRC_PACKAGE_DIR)/tools/chrpath
+SOURCE_REQUIRES  = sources/tools/chrpath
 
-tar_gz_archive   = $(SRC_PACKAGE_DIR)/tools/chrpath/chrpath-0.16.tar.gz
+tar_gz_archive   = $(SRC_PACKAGE_PATH)/tools/chrpath/chrpath-0.16.tar.gz
 SRC_ARCHIVE      = $(tar_gz_archive)
 SRC_DIR          = $(TARGET_BUILD_DIR)/chrpath-0.16
 src_dir_name     = chrpath-0.16

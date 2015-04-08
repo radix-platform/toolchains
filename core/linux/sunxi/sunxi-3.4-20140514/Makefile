@@ -10,9 +10,9 @@ COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
 include ../../../../build-system/config.mk
 
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/Linux/sunxi/sunxi-3.4
+SOURCE_REQUIRES = sources/Linux/sunxi/sunxi-3.4
 
-tar_bz2_archive = $(SRC_PACKAGE_DIR)/Linux/sunxi/sunxi-3.4/linux-sunxi-3.4-20140514.tar.bz2
+tar_bz2_archive = $(SRC_PACKAGE_PATH)/Linux/sunxi/sunxi-3.4/linux-sunxi-3.4-20140514.tar.bz2
 SRC_ARCHIVE     = $(tar_bz2_archive)
 SRC_DIR         = $(TARGET_BUILD_DIR)/linux-sunxi-3.4-20140514
 src_done        = $(TARGET_BUILD_DIR)/.source-done

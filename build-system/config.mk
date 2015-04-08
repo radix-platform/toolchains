@@ -15,6 +15,9 @@ CACHED_CC_OUTPUT     = /opt/extra/ccache
 TOOLCHAINS_BASE_PATH = /opt/toolchain
 TOOLCHAINS_VERSION   = 1.0.0
 
+
+GNAT_TOOLS_DIR       = env/gnattools/4.9.2
+
 # Build machine architrcture:
 
 BUILD_ARCH = x86_64-pc-linux-gnu

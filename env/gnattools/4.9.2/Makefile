@@ -4,31 +4,27 @@ COMPONENT_TARGETS  = $(TOOLCHAIN_HOST)
 include ../../../build-system/config.mk
 
 
-#SOURCE_REQUIRES  = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.9.2
-#SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/gmp
-#SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/mpfr
-#SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/mpc
-
 SOURCE_REQUIRES  = sources/GNU/gcc/gcc-4.9.2
 SOURCE_REQUIRES += sources/GNU/gmp
 SOURCE_REQUIRES += sources/GNU/mpfr
 SOURCE_REQUIRES += sources/GNU/mpc
 
-tar_bz2_archive       = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2
-tar_bz2_archive_gmp   = $(SRC_PACKAGE_DIR)/GNU/gmp/gmp-6.0.0a.tar.bz2
-tar_bz2_archive_mpfr  = $(SRC_PACKAGE_DIR)/GNU/mpfr/mpfr-3.1.2.tar.bz2
-tar_gz_archive_mpc    = $(SRC_PACKAGE_DIR)/GNU/mpc/mpc-1.0.3.tar.gz
-src_dir               = gcc-4.9.2
-build_dir             = $(TARGET_BUILD_DIR)/build
-
-src_done       = $(TARGET_BUILD_DIR)/.source-done
-gmp_src_done   = $(TARGET_BUILD_DIR)/.gmp-source-done
-mpfr_src_done  = $(TARGET_BUILD_DIR)/.mpfr-source-done
-mpc_src_done   = $(TARGET_BUILD_DIR)/.mpc-source-done
-SRC_DIR        = $(TARGET_BUILD_DIR)/gcc-4.9.2
-SRC_ARCHIVE    = $(tar_bz2_archive)
+tar_bz2_archive       = $(SRC_PACKAGE_PATH)/GNU/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2
+tar_bz2_archive_gmp   = $(SRC_PACKAGE_PATH)/GNU/gmp/gmp-6.0.0a.tar.bz2
+tar_bz2_archive_mpfr  = $(SRC_PACKAGE_PATH)/GNU/mpfr/mpfr-3.1.2.tar.bz2
+tar_gz_archive_mpc    = $(SRC_PACKAGE_PATH)/GNU/mpc/mpc-1.0.3.tar.gz
+SRC_ARCHIVE           = $(tar_bz2_archive)
+SRC_DIR               = $(TARGET_BUILD_DIR)/gcc-4.9.2
+src_dir_name          = gcc-4.9.2
+src_done              = $(TARGET_BUILD_DIR)/.source-done
+gmp_src_done          = $(TARGET_BUILD_DIR)/.gmp-source-done
+mpfr_src_done         = $(TARGET_BUILD_DIR)/.mpfr-source-done
+mpc_src_done          = $(TARGET_BUILD_DIR)/.mpc-source-done
 
 PATCHES        = PATCHES
+
+build_dir             = $(TARGET_BUILD_DIR)/build
+
 
   build_target = $(TARGET_BUILD_DIR)/.built
 install_target = $(TARGET_BUILD_DIR)/.installed
@@ -38,6 +34,11 @@ BUILD_TARGETS = $(install_target)
 
 
 include ../../../build-system/core.mk
+
+
+environment  = CC="$(CCACHE)/usr/bin/gcc"
+environment += CC_FOR_BUILD="$(CCACHE)/usr/bin/gcc"
+environment += CXX_FOR_BUILD="$(CCACHE)/usr/bin/g++"
 
 
 GNATTOOLS_DEST_DIR = $(TOOLCHAINS_BASE_PATH)/_gnattools/4.9.2/usr
@@ -68,13 +69,9 @@ $(mpc_src_done): $(src_done)
 	@cd $(SRC_DIR); ln -sf ../mpc-1.0.3 mpc
 	@touch $@
 
-$(build_dir): $(src_done)
-	@mkdir -p $@
-
 $(build_target): $(src_done) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 	@mkdir -p $(build_dir)
-	exit 1
-	@cd $(build_dir) && ../$(src_dir)/configure       \
+	@cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
 	  --prefix=$(GNATTOOLS_DEST_DIR)                  \
 	  --build=$(shell $(BUILDSYSTEM)/canonical-build) \
 	  --datadir=$(GNATTOOLS_DEST_DIR)/share           \

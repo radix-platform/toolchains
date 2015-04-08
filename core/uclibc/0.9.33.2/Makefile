@@ -5,10 +5,10 @@ FLAVOURS = headers full
 
 include ../../../build-system/config.mk
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/uClinux/uClibc
+SOURCE_REQUIRES = sources/uClinux/uClibc
 
-tar_bz2_archive       = $(SRC_PACKAGE_DIR)/uClinux/uClibc/uClibc-0.9.33.2.tar.bz2
-tar_gz_archive_locale = $(SRC_PACKAGE_DIR)/uClinux/uClibc/uClibc-locale-030818.tgz
+tar_bz2_archive       = $(SRC_PACKAGE_PATH)/uClinux/uClibc/uClibc-0.9.33.2.tar.bz2
+tar_gz_archive_locale = $(SRC_PACKAGE_PATH)/uClinux/uClibc/uClibc-locale-030818.tgz
 SRC_ARCHIVE           = $(tar_bz2_archive)
 SRC_DIR               = $(TARGET_BUILD_DIR)/uClibc-0.9.33.2
 src_dir_name          = uClibc-0.9.33.2

@@ -35,15 +35,15 @@ FLAVOURS = static second full
 include ../../../build-system/config.mk
 
 
-SOURCE_REQUIRES  = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.9.2
-SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/gmp
-SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/mpfr
-SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/mpc
+SOURCE_REQUIRES  = sources/GNU/gcc/gcc-4.9.2
+SOURCE_REQUIRES += sources/GNU/gmp
+SOURCE_REQUIRES += sources/GNU/mpfr
+SOURCE_REQUIRES += sources/GNU/mpc
 
-tar_bz2_archive       = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2
-tar_bz2_archive_gmp   = $(SRC_PACKAGE_DIR)/GNU/gmp/gmp-6.0.0a.tar.bz2
-tar_bz2_archive_mpfr  = $(SRC_PACKAGE_DIR)/GNU/mpfr/mpfr-3.1.2.tar.bz2
-tar_gz_archive_mpc    = $(SRC_PACKAGE_DIR)/GNU/mpc/mpc-1.0.3.tar.gz
+tar_bz2_archive       = $(SRC_PACKAGE_PATH)/GNU/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2
+tar_bz2_archive_gmp   = $(SRC_PACKAGE_PATH)/GNU/gmp/gmp-6.0.0a.tar.bz2
+tar_bz2_archive_mpfr  = $(SRC_PACKAGE_PATH)/GNU/mpfr/mpfr-3.1.2.tar.bz2
+tar_gz_archive_mpc    = $(SRC_PACKAGE_PATH)/GNU/mpc/mpc-1.0.3.tar.gz
 SRC_ARCHIVE           = $(tar_bz2_archive)
 SRC_DIR               = $(TARGET_BUILD_DIR)/gcc-4.9.2
 src_dir_name          = gcc-4.9.2

@@ -15,9 +15,9 @@ FLAVOURS = headers full
 
 include ../../../build-system/config.mk
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/GNU/glibc
+SOURCE_REQUIRES = sources/GNU/glibc
 
-tar_xz_archive  = $(SRC_PACKAGE_DIR)/GNU/glibc/glibc-2.21.tar.xz
+tar_xz_archive  = $(SRC_PACKAGE_PATH)/GNU/glibc/glibc-2.21.tar.xz
 SRC_ARCHIVE     = $(tar_xz_archive)
 SRC_DIR         = $(TARGET_BUILD_DIR)/glibc-2.21
 src_dir_name    = glibc-2.21
@@ -59,7 +59,7 @@ environment += RANLIB=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ranlib
 
 environment += PATH=$(TOOLCHAIN_PATH)/bin:$(PATH)
 
-environment += BUILD_CC=$(CCACHE)/usr/bin/gcc
+environment += BUILD_CC="$(CCACHE)/usr/bin/gcc"
 
 LIBSUFFIX    =
 

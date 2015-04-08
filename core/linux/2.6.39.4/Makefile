@@ -9,9 +9,9 @@ COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
 include ../../../build-system/config.mk
 
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/Linux/v2.6
+SOURCE_REQUIRES = sources/Linux/v2.6
 
-tar_bz2_archive = $(SRC_PACKAGE_DIR)/Linux/v2.6/linux-2.6.39.4.tar.bz2
+tar_bz2_archive = $(SRC_PACKAGE_PATH)/Linux/v2.6/linux-2.6.39.4.tar.bz2
 SRC_ARCHIVE     = $(tar_bz2_archive)
 SRC_DIR         = $(TARGET_BUILD_DIR)/linux-2.6.39.4
 src_done        = $(TARGET_BUILD_DIR)/.source-done

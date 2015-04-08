@@ -3,6 +3,15 @@
 ifndef CORE_MK
 
 #######
+####### helpful variables
+#######
+
+comma := ,
+empty :=
+space := $(empty) $(empty)
+
+
+#######
 ####### Set up TOP_BUILD_DIR, TOP_BUILD_DIR_ABS and BUILDSYSTEM variables
 #######
 
@@ -50,8 +59,9 @@ endif
 ####### Set up SOURCE PACKAGE directory:
 #######
 
-export SRC_PACKAGE_DIR := $(TOP_BUILD_DIR)/sources
-export SRC_PACKAGE_DIR_ABS := $(TOP_BUILD_DIR_ABS)/sources
+export SRC_PACKAGE_DIR      := sources
+export SRC_PACKAGE_PATH     := $(TOP_BUILD_DIR)/$(SRC_PACKAGE_DIR)
+export SRC_PACKAGE_PATH_ABS := $(TOP_BUILD_DIR_ABS)/$(SRC_PACKAGE_DIR)
 
 
 
@@ -233,6 +243,106 @@ CLEANUP_FILES += $(SRC_DIR).back.??????
 
 
 
+__quick_targets := help local_clean targets-config.mk $(HACK_TARGETS)
+
+
+ifeq ($(filter %_clean,$(MAKECMDGOALS)),)
+__setup_targets = .sources .build_system .gnat_tools $(SETUP_TARGETS)
+endif
+
+
+.setup:
+.setup: $(__setup_targets)
+.setup: .makefile
+
+
+# Check if Makefile has been changed:
+
+.makefile: Makefile
+ifneq ($(shell pwd),$(TOP_BUILD_DIR_ABS))
+ifneq ($(if $(MAKECMDGOALS),$(filter-out $(__quick_targets),$(MAKECMDGOALS)),true),)
+	@touch $@
+ifeq ($(shell pwd | grep $(TOP_BUILD_DIR_ABS)/$(SRC_PACKAGE_DIR))$(shell pwd | grep $(BUILDSYSTEM)/3pp/sources),)
+	@echo -e "\n======= New makefile ($(<F)), clean! ======="
+	$(MAKE) dist_clean
+	@if $(MAKE) local_clean; then true; else rm -f $@; fi
+else
+	@if $(MAKE) downloads_clean; then true; else rm -f $@; fi
+endif
+endif
+endif
+
+
+
+#######
+####### Build directory dependencies into .src_requires  which
+####### is used as a Makefile for srource tarballs downloading
+#######
+
+.sources: .src_requires
+
+.src_requires_depend: .src_requires ;
+
+.src_requires: .makefile
+ifneq ($(shell pwd),$(TOP_BUILD_DIR_ABS))
+ifeq ($(filter %_clean,$(MAKECMDGOALS)),)
+	@echo ""
+	@shtool echo -e "%B################################################################%b"
+	@shtool echo -e "%B#######%b"
+	@shtool echo -e "%B#######%b %BStart of building source requires for%b `pwd`%B:%b"
+	@shtool echo -e "%B#######%b"
+	@$(BUILDSYSTEM)/build_src_requires $(TOP_BUILD_DIR_ABS)
+	@TREE_RULE=local_all $(MAKE) TOOLCHAIN=$(TOOLCHAIN_NOARCH) -f .src_requires
+	@shtool echo -e "%B#######%b"
+	@shtool echo -e "%B#######%b %BEnd of building source requires for%b `pwd`%B.%b"
+	@shtool echo -e "%B#######%b"
+	@shtool echo -e "%B################################################################%b"
+	@echo ""
+	@touch $@
+	@touch .src_requires_depend
+endif
+endif
+
+
+
+.build_system: .src_requires
+ifneq ($(shell pwd),$(TOP_BUILD_DIR_ABS))
+ifeq ($(shell pwd | grep $(TOP_BUILD_DIR_ABS)/$(SRC_PACKAGE_DIR))$(shell pwd | grep $(BUILDSYSTEM)/3pp/sources),)
+ifeq ($(shell pwd | grep $(BUILDSYSTEM)),)
+	@shtool echo -e "%B################################################################%b"
+	@shtool echo -e "%B#######%b"
+	@shtool echo -e "%B#######%b %BStart to Check the BUILDSYSTEM is ready:%b"
+	@shtool echo -e "%B#######%b"
+	@( cd $(BUILDSYSTEM) ; FLAVOUR= $(MAKE) TOOLCHAIN=$(TOOLCHAIN_HOST) all )
+	@shtool echo -e "%B#######%b"
+	@shtool echo -e "%B#######%b %BEnd of checking the BUILDSYSTEM.%b"
+	@shtool echo -e "%B#######%b"
+	@shtool echo -e "%B################################################################%b"
+endif
+endif
+endif
+
+
+
+.gnat_tools: .src_requires
+ifneq ($(shell pwd),$(TOP_BUILD_DIR_ABS))
+ifeq ($(shell pwd | grep $(TOP_BUILD_DIR_ABS)/$(SRC_PACKAGE_DIR)),)
+ifeq ($(shell pwd | grep $(GNAT_TOOLS_DIR)),)
+	@shtool echo -e "%B################################################################%b"
+	@shtool echo -e "%B#######%b"
+	@shtool echo -e "%B#######%b %BStart to Check the GNAT TOOLS is ready:%b"
+	@shtool echo -e "%B#######%b"
+	@( cd $(TOP_BUILD_DIR_ABS)/$(GNAT_TOOLS_DIR) ; FLAVOUR= $(MAKE) TOOLCHAIN=$(TOOLCHAIN_HOST) all )
+	@shtool echo -e "%B#######%b"
+	@shtool echo -e "%B#######%b %BEnd of checking the GNAT TOOLS.%b"
+	@shtool echo -e "%B#######%b"
+	@shtool echo -e "%B################################################################%b"
+endif
+endif
+endif
+
+
+
 #######
 ####### Build rules:
 #######
@@ -259,6 +369,8 @@ __targets = $(foreach toolchain,                                                
                 .target_$(toolchain)                                                      \
              )
 endif
+
+$(__targets): .setup
 
 local_all: $(__targets)
 
@@ -328,34 +440,6 @@ install: .install
 .install: .src_requires .install_builds .install_products
 
 
-#######
-####### Build directory dependencies into .src_requires  which
-####### is used as a Makefile for srource tarballs downloading
-#######
-
-.sources: .src_requires
-
-.src_requires_depend: .src_requires ;
-
-.src_requires: .makefile
-ifneq ($(shell pwd),$(TOP_BUILD_DIR_ABS))
-ifeq ($(filter %_clean,$(MAKECMDGOALS)),)
-	@echo ""
-	@shtool echo -e "%B################################################################%b"
-	@shtool echo -e "%B#######%b"
-	@shtool echo -e "%B#######%b %BStart of building source requires for%b `pwd`%B:%b"
-	@shtool echo -e "%B#######%b"
-	@$(BUILDSYSTEM)/build_src_requires $(TOP_BUILD_DIR_ABS)
-	TREE_RULE=local_all $(MAKE) TOOLCHAIN=$(TOOLCHAIN_NOARCH) -f .src_requires
-	@shtool echo -e "%B#######%b"
-	@shtool echo -e "%B#######%b %BEnd of building source requires for%b `pwd`%B.%b"
-	@shtool echo -e "%B#######%b"
-	@shtool echo -e "%B################################################################%b"
-	@echo ""
-	@touch $@
-	@touch .src_requires_depend
-endif
-endif
 
 
 .install_builds: $(BUILD_TARGETS)
@@ -370,17 +454,6 @@ ifdef PRODUCT_TARGETS
 endif
 
 
-# Check if Makefile has been changed:
-
-__quick_targets := help local_clean targets-config.mk $(HACK_TARGETS)
-
-.makefile: Makefile
-ifneq ($(if $(MAKECMDGOALS),$(filter-out $(__quick_targets),$(MAKECMDGOALS)),true),)
-	@echo -e "\n======= New makefile ($(<F)), clean! ======="
-	@touch $@
-	$(MAKE) dist_clean
-	@if $(MAKE) local_clean; then true; else rm -f $@; fi
-endif
 
 
 #######
@@ -412,6 +485,7 @@ tree_clean: .tree_clean
 ### Declare some targets as phony
 
 .PHONY: .target*
+.PHONY: .setup .sources .build_system .gnat_tools
 .PHONY: all local_all .clean local_clean clean
 .PHONY: .install
 
@@ -469,6 +543,8 @@ APPLY_OPT_PATCHES = $(quiet)$(foreach patch,$(OPT_PATCHES),\
 # 	   should be empty in most cases>
 # 	@touch $@
 
+
+-include .src_requires_depend
 
 CORE_MK = 1
 endif

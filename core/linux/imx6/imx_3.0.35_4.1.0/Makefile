@@ -7,9 +7,9 @@ COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_GLIBC)
 include ../../../../build-system/config.mk
 
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/Linux/imx6
+SOURCE_REQUIRES = sources/Linux/imx6
 
-tar_bz2_archive = $(SRC_PACKAGE_DIR)/Linux/imx6/linux-imx_3.0.35_4.1.0-20140124.tar.bz2
+tar_bz2_archive = $(SRC_PACKAGE_PATH)/Linux/imx6/linux-imx_3.0.35_4.1.0-20140124.tar.bz2
 SRC_ARCHIVE     = $(tar_bz2_archive)
 SRC_DIR         = $(TARGET_BUILD_DIR)/linux-imx_3.0.35_4.1.0-20140124
 src_done        = $(TARGET_BUILD_DIR)/.source-done

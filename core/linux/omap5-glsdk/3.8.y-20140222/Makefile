@@ -7,9 +7,9 @@ COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
 include ../../../../build-system/config.mk
 
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/Linux/omap5-glsdk
+SOURCE_REQUIRES = sources/Linux/omap5-glsdk
 
-tar_bz2_archive = $(SRC_PACKAGE_DIR)/Linux/omap5-glsdk/linux-glsdk-3.8.y-20140222.tar.bz2
+tar_bz2_archive = $(SRC_PACKAGE_PATH)/Linux/omap5-glsdk/linux-glsdk-3.8.y-20140222.tar.bz2
 SRC_ARCHIVE     = $(tar_bz2_archive)
 SRC_DIR         = $(TARGET_BUILD_DIR)/linux-glsdk-3.8.y-20140222
 src_done        = $(TARGET_BUILD_DIR)/.source-done

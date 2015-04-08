@@ -7,9 +7,9 @@ COMPONENT_TARGETS = $(TOOLCHAIN_A1X_EGLIBC)
 
 include ../../../build-system/config.mk
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/GNU/gdb
+SOURCE_REQUIRES = sources/GNU/gdb
 
-tar_gz_archive   = $(SRC_PACKAGE_DIR)/GNU/gdb/gdb-7.2a.tar.gz
+tar_gz_archive   = $(SRC_PACKAGE_PATH)/GNU/gdb/gdb-7.2a.tar.gz
 SRC_ARCHIVE      = $(tar_gz_archive)
 SRC_DIR          = $(TARGET_BUILD_DIR)/gdb-7.2
 src_dir_name     = gdb-7.2

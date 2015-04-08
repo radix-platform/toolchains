@@ -3,10 +3,10 @@ COMPONENT_TARGETS = $(TOOLCHAIN_DM644X_NEWLIB) $(TOOLCHAIN_DM644X_EGLIBC)  $(TOO
 
 include ../../../build-system/config.mk
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/dm644x/modSign
+SOURCE_REQUIRES = sources/dm644x/modSign
 
 VERSION = 00.91
-tar_bz2_archive = $(SRC_PACKAGE_DIR)/dm644x/modSign/modSign-$(VERSION).tar.bz2
+tar_bz2_archive = $(SRC_PACKAGE_PATH)/dm644x/modSign/modSign-$(VERSION).tar.bz2
 install_dir    = $(TOOLCHAIN_PATH)
 
 SRC_DIR = $(TARGET_BUILD_DIR)/modSign-$(VERSION)

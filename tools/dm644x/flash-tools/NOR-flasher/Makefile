@@ -5,10 +5,10 @@ FLAVOURS = secure nonsecure
 
 include ../../../../build-system/config.mk
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/dm644x/flash-tools/NOR-flasher
+SOURCE_REQUIRES = sources/dm644x/flash-tools/NOR-flasher
 
 VERSION = 0.0.1
-tar_bz2_archive = $(SRC_PACKAGE_DIR)/dm644x/flash-tools/NOR-flasher/NOR-flasher-$(VERSION).tar.bz2
+tar_bz2_archive = $(SRC_PACKAGE_PATH)/dm644x/flash-tools/NOR-flasher/NOR-flasher-$(VERSION).tar.bz2
 install_dir    = $(TOOLCHAIN_PATH)
 
 SRC_DIR = $(TARGET_BUILD_DIR)/NOR-flasher-$(VERSION)

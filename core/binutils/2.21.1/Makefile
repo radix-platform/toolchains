@@ -10,9 +10,9 @@ COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_EGLIBC)
 
 include ../../../build-system/config.mk
 
-SOURCE_REQUIRES = $(SRC_PACKAGE_DIR)/GNU/binutils
+SOURCE_REQUIRES = sources/GNU/binutils
 
-tar_bz2_archive = $(SRC_PACKAGE_DIR)/GNU/binutils/binutils-2.21.1a.tar.bz2
+tar_bz2_archive = $(SRC_PACKAGE_PATH)/GNU/binutils/binutils-2.21.1a.tar.bz2
 SRC_ARCHIVE     = $(tar_bz2_archive)
 SRC_DIR         = $(TARGET_BUILD_DIR)/binutils-2.21.1
 src_dir_name    = binutils-2.21.1
