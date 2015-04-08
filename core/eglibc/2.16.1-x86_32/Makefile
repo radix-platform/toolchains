@@ -23,29 +23,6 @@ sysroot_dir           = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 headers_target        = $(TARGET_BUILD_DIR)/.headers-installed
 full_target           = $(TARGET_BUILD_DIR)/.installed
 
-env_sysroot  = install_root=$(sysroot_dir)
-
-
-CC           = $(TOOLCHAIN_PATH)/bin/$(TARGET)-gcc -m32
-
-environment  = AS=$(TOOLCHAIN_PATH)/bin/$(TARGET)-as
-environment += LD=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ld
-environment += CC="$(CC)"
-environment += AR=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ar
-environment += RANLIB=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ranlib
-
-environment += PATH=$(TOOLCHAIN_PATH)/bin:$(PATH)
-
-environment += BUILD_CC=gcc
-
-LIBSUFFIX    =
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
-environment += CFLAGS="-g -O3 -march=i486 -mtune=i686"
-LIBSUFFIX    =
-endif
-
-TARGET32 = $(shell echo $(TARGET) | sed 's/x86_64/i486/')
 
 
 ifeq ($(FLAVOUR),headers)
@@ -57,6 +34,32 @@ BUILD_TARGETS = $(full_target)
 endif
 
 include ../../../build-system/core.mk
+
+
+env_sysroot  = install_root=$(sysroot_dir)
+
+
+CC           = $(CCACHE)$(TOOLCHAIN_PATH)/bin/$(TARGET)-gcc -m32
+
+environment  = AS=$(TOOLCHAIN_PATH)/bin/$(TARGET)-as
+environment += LD=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ld
+environment += CC="$(CC)"
+environment += AR=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ar
+environment += RANLIB=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ranlib
+
+environment += PATH=$(TOOLCHAIN_PATH)/bin:$(PATH)
+
+environment += BUILD_CC=$(CCACHE)/usr/bin/gcc
+
+LIBSUFFIX    =
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
+environment += CFLAGS="-g -O3 -march=i486 -mtune=i686"
+LIBSUFFIX    =
+endif
+
+TARGET32 = $(shell echo $(TARGET) | sed 's/x86_64/i486/')
+
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))

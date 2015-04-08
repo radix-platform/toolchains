@@ -30,32 +30,33 @@ include ../../../../build-system/core.mk
 
 
 $(description):
-	wget $(WGET_OPTIONS) -N $(url)/$(description)
+	@echo -e "\n======= Downloading $(description) file =======" ; \
+	 echo "$(url)/$(description)" | xargs -n 1 -P 100 wget $(WGET_OPTIONS) -i & wait %1
 
 $(tarballs):
-	@echo -e "\n======= Downloading source tarballs ======="
-	@for tarball in $(tarballs) ; do \
-	  wget $(WGET_OPTIONS) -N $(url)/$$tarball ; \
-	done
+	@echo -e "\n======= Downloading source tarballs =======" ; \
+	 for tarball in $(tarballs) ; do \
+	   echo "$(url)/$$tarball" | xargs -n 1 -P 100 wget $(WGET_OPTIONS) -i & \
+	 done ; wait
 
-$(defconfigs):
-	@echo -e "\n======= Downloading default config files ======="
-	@for defconfig in $(defconfigs) ; do \
-	  wget $(WGET_OPTIONS) -N $(url)/$$defconfig ; \
-	done
+$(defconfigs): $(tarballs)
+	@echo -e "\n======= Downloading default config files =======" ; \
+	 for defconfig in $(defconfigs) ; do \
+	  echo "$(url)/$$defconfig" | xargs -n 1 -P 100 wget $(WGET_OPTIONS) -i & \
+	 done ; wait
 
-$(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
+$(sha1s): $(tarballs)
 	@for sha in $@ ; do \
-	  echo -e "\n======= Downloading '$$sha' signature =======\n" ; \
-	  wget $(WGET_OPTIONS) -N $(url)/$$sha ; \
-	  touch $$sha ; \
-	  echo -e "\n======= Check the '$$sha' sha1sum =======\n" ; \
-	  sha1sum --check $$sha ; ret="$$?" ; \
-	  if [ "$$ret" == "1" ]; then \
-	    echo -e "\n======= ERROR: Bad '$$sha' sha1sum =======\n" ; \
-	    exit 1 ; \
-	  fi ; \
-	done
+	   echo -e "\n======= Downloading '$$sha' signature =======\n" ; \
+	   echo "$(url)/$$sha" | xargs -n 1 -P 100 wget $(WGET_OPTIONS) -i & wait %1 ; \
+	   touch $$sha ; \
+	   echo -e "\n======= Check the '$$sha' sha1sum =======\n" ; \
+	   sha1sum --check $$sha ; ret="$$?" ; \
+	   if [ "$$ret" == "1" ]; then \
+	     echo -e "\n======= ERROR: Bad '$$sha' sha1sum =======\n" ; \
+	     exit 1 ; \
+	   fi ; \
+	 done
 
 downloads_clean:
 	@rm -f $(description) $(tarballs) $(defconfigs) $(sha1s)

@@ -8,6 +8,10 @@ ifndef CONFIG_MK
 
 DOWNLOAD_SERVER      = ftp://ftp.radix.pro
 
+WGET_OPTIONS         = -q -N
+
+CACHED_CC_OUTPUT     = /opt/extra/ccache
+
 TOOLCHAINS_BASE_PATH = /opt/toolchain
 TOOLCHAINS_VERSION   = 1.0.0
 

@@ -20,8 +20,18 @@ version     = 4.9.2
 tarballs    = $(addsuffix .tar.bz2, $(addprefix gcc-, $(version)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
+patches     = $(CURDIR)/../patches/gcc-4.9.2-at91sam7s-newlib.patch
+patches    += $(CURDIR)/../patches/gcc-4.9.2-dm644x-newlib.patch
+patches    += $(CURDIR)/../patches/gcc-4.9.2-a1x-newlib.patch
+patches    += $(CURDIR)/../patches/gcc-4.9.2-a2x-newlib.patch
+patches    += $(CURDIR)/../patches/gcc-4.9.2-lpc17xx-multilib.patch
+patches    += $(CURDIR)/../patches/gcc-4.9.2-x86_64-multilib.patch
+patches    += $(CURDIR)/../patches/gcc-4.9.2-bcm74x-libgo.patch
 
-BUILD_TARGETS = $(tarballs) $(sha1s)
+.NOTPARALLEL: $(patches)
+
+
+BUILD_TARGETS = $(tarballs) $(sha1s) $(patches)
 
 
 include ../../../../build-system/core.mk
@@ -31,38 +41,34 @@ include ../../../../build-system/core.mk
 
 
 $(tarballs):
-	@echo -e "\n======= Downloading source tarballs =======\n"
-	@for tarball in $(tarballs) ; do \
-	  wget $(WGET_OPTIONS) -N $(url)/$$tarball ; \
-	done
-	@echo -e "\n======= Create Patches =======\n"
-	@( cd create-patch-4.9.2-at91sam7s-newlib && ./create.patch.sh )
-	@( cd create-patch-4.9.2-dm644x-newlib && ./create.patch.sh )
-	@( cd create-patch-4.9.2-a1x-newlib && ./create.patch.sh )
-	@( cd create-patch-4.9.2-a2x-newlib && ./create.patch.sh )
-	@( cd create-patch-4.9.2-lpc17xx-multilib && ./create.patch.sh )
-	@( cd create-patch-4.9.2-x86_64-multilib && ./create.patch.sh )
-	@( cd create-patch-4.9.2-bcm74x-libgo && ./create.patch.sh )
+	@echo -e "\n======= Downloading source tarballs =======" ; \
+	 for tarball in $(tarballs) ; do \
+	   echo "$(url)/$$tarball" | xargs -n 1 -P 100 wget $(WGET_OPTIONS) -i & \
+	 done ; wait
 
-$(sha1s): %.tar.bz2.sha1sum : %.tar.bz2
+$(sha1s): $(tarballs)
 	@for sha in $@ ; do \
-	  echo -e "\n======= Downloading '$$sha' signature =======\n" ; \
-	  wget $(WGET_OPTIONS) -N $(url)/$$sha ; \
-	  touch $$sha ; \
-	  echo -e "\n======= Check the '$$sha' sha1sum =======\n" ; \
-	  sha1sum --check $$sha ; ret="$$?" ; \
-	  if [ "$$ret" == "1" ]; then \
-	    echo -e "\n======= ERROR: Bad '$$sha' sha1sum =======\n" ; \
-	    exit 1 ; \
-	  fi ; \
-	done
+	   echo -e "\n======= Downloading '$$sha' signature =======\n" ; \
+	   echo "$(url)/$$sha" | xargs -n 1 -P 100 wget $(WGET_OPTIONS) -i & wait %1 ; \
+	   touch $$sha ; \
+	   echo -e "\n======= Check the '$$sha' sha1sum =======\n" ; \
+	   sha1sum --check $$sha ; ret="$$?" ; \
+	   if [ "$$ret" == "1" ]; then \
+	     echo -e "\n======= ERROR: Bad '$$sha' sha1sum =======\n" ; \
+	     exit 1 ; \
+	   fi ; \
+	 done
+
+$(patches): $(sha1s)
+	@echo -e "\n======= Create Patches =======\n" ; \
+	 ( cd create-patch-4.9.2-at91sam7s-newlib ; ./create.patch.sh ) ; \
+	 ( cd create-patch-4.9.2-dm644x-newlib    ; ./create.patch.sh ) ; \
+	 ( cd create-patch-4.9.2-a1x-newlib       ; ./create.patch.sh ) ; \
+	 ( cd create-patch-4.9.2-a2x-newlib       ; ./create.patch.sh ) ; \
+	 ( cd create-patch-4.9.2-lpc17xx-multilib ; ./create.patch.sh ) ; \
+	 ( cd create-patch-4.9.2-x86_64-multilib  ; ./create.patch.sh ) ; \
+	 ( cd create-patch-4.9.2-bcm74x-libgo     ; ./create.patch.sh ) ; \
+	 echo -e "\n"
 
 downloads_clean:
-	@rm -f $(tarballs) $(sha1s)
-	@rm -f ../patches/gcc-4.9.2-at91sam7s-newlib.patch
-	@rm -f ../patches/gcc-4.9.2-dm644x-newlib.patch
-	@rm -f ../patches/gcc-4.9.2-a1x-newlib.patch
-	@rm -f ../patches/gcc-4.9.2-a2x-newlib.patch
-	@rm -f ../patches/gcc-4.9.2-lpc17xx-multilib.patch
-	@rm -f ../patches/gcc-4.9.2-x86_64-multilib.patch
-	@rm -f ../patches/gcc-4.9.2-bcm74x-libgo.patch
+	@rm -f $(tarballs) $(sha1s) $(patches)

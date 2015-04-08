@@ -183,6 +183,43 @@ endif
 PREFIX ?= $(DEST_DIR)
 
 
+#######
+####### Setup ccache:
+#######
+
+ifeq ($(NO_CCACHE),)
+CCACHE = /usr/bin/ccache$(space)
+
+ifeq ($(wildcard $(CCACHE)),)
+$(info )
+$(info #######)
+$(info ####### Please install 'ccache' package)
+$(info ####### or disable ccache with "NO_CCACHE=1 make ...")
+$(info #######)
+$(info )
+$(error Error: ccache not found)
+endif
+
+ifeq ($(wildcard $(CACHED_CC_OUTPUT)),)
+$(info )
+$(info #######)
+$(info ####### Please create directory $(CACHED_CC_OUTPUT) for cached compiler output)
+$(info ####### or disable ccache with "NO_CCACHE=1 make ...")
+$(info #######)
+$(info )
+$(error Error: cached compiler output directory doesn't exist)
+endif
+
+export CCACHE_BASEDIR = $(TOP_BUILD_DIR_ABS)
+export CCACHE_DIR     = $(CACHED_CC_OUTPUT)
+export CCACHE_UMASK   = 000
+
+unexport CCACHE_PREFIX
+else
+CCACHE =
+endif
+
+
 
 #######
 ####### Cleanup files:

@@ -28,10 +28,23 @@ sysroot_dir           = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 headers_target        = $(TARGET_BUILD_DIR)/.headers-installed
 full_target           = $(TARGET_BUILD_DIR)/.installed
 
+
+
+ifeq ($(FLAVOUR),headers)
+BUILD_TARGETS = $(headers_target)
+endif
+
+ifeq ($(FLAVOUR),full)
+BUILD_TARGETS = $(full_target)
+endif
+
+include ../../../build-system/core.mk
+
+
 env_sysroot  = install_root=$(sysroot_dir)
 
 
-CC           = $(TOOLCHAIN_PATH)/bin/$(TARGET)-gcc
+CC           = $(CCACHE)$(TOOLCHAIN_PATH)/bin/$(TARGET)-gcc
 
 environment  = AS=$(TOOLCHAIN_PATH)/bin/$(TARGET)-as
 environment += LD=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ld
@@ -41,7 +54,7 @@ environment += RANLIB=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ranlib
 
 environment += PATH=$(TOOLCHAIN_PATH)/bin:$(PATH)
 
-environment += BUILD_CC=gcc
+environment += BUILD_CC=$(CCACHE)/usr/bin/gcc
 
 LIBSUFFIX    =
 
@@ -66,16 +79,6 @@ environment += CFLAGS="-g -O2"
 LIBSUFFIX    = 64
 endif
 
-
-ifeq ($(FLAVOUR),headers)
-BUILD_TARGETS = $(headers_target)
-endif
-
-ifeq ($(FLAVOUR),full)
-BUILD_TARGETS = $(full_target)
-endif
-
-include ../../../build-system/core.mk
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_EGLIBC))

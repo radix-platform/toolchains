@@ -31,23 +31,23 @@ include ../../../build-system/core.mk
 
 
 $(tarballs):
-	@echo -e "\n======= Downloading source tarballs =======\n"
-	@for tarball in $(tarballs) ; do \
-	  wget $(WGET_OPTIONS) -N $(url)/$$tarball ; \
-	done
+	@echo -e "\n======= Downloading source tarballs =======" ; \
+	 for tarball in $(tarballs) ; do \
+	   echo "$(url)/$$tarball" | xargs -n 1 -P 100 wget $(WGET_OPTIONS) -i & \
+	 done ; wait
 
-$(sha1s): %.tar.gz.sha1sum : %.tar.gz
+$(sha1s): $(tarballs)
 	@for sha in $@ ; do \
-	  echo -e "\n======= Downloading '$$sha' signature =======\n" ; \
-	  wget $(WGET_OPTIONS) -N $(url)/$$sha ; \
-	  touch $$sha ; \
-	  echo -e "\n======= Check the '$$sha' sha1sum =======\n" ; \
-	  sha1sum --check $$sha ; ret="$$?" ; \
-	  if [ "$$ret" == "1" ]; then \
-	    echo -e "\n======= ERROR: Bad '$$sha' sha1sum =======\n" ; \
-	    exit 1 ; \
-	  fi ; \
-	done
+	   echo -e "\n======= Downloading '$$sha' signature =======\n" ; \
+	   echo "$(url)/$$sha" | xargs -n 1 -P 100 wget $(WGET_OPTIONS) -i & wait %1 ; \
+	   touch $$sha ; \
+	   echo -e "\n======= Check the '$$sha' sha1sum =======\n" ; \
+	   sha1sum --check $$sha ; ret="$$?" ; \
+	   if [ "$$ret" == "1" ]; then \
+	     echo -e "\n======= ERROR: Bad '$$sha' sha1sum =======\n" ; \
+	     exit 1 ; \
+	   fi ; \
+	 done
 
 downloads_clean:
 	@rm -f $(tarballs) $(sha1s)

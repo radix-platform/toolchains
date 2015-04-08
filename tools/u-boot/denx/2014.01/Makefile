@@ -30,7 +30,7 @@ sysroot_dir      = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 build_target     = $(TARGET_BUILD_DIR)/.built
 install_target   = $(TARGET_BUILD_DIR)/.installed
 
-environment      = HOSTCC=gcc CROSS_COMPILE=""
+environment      = HOSTCC=$(CCACHE)/usr/bin/gcc CROSS_COMPILE=""
 
 
 BUILD_TARGETS = $(install_target)

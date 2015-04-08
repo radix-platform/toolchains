@@ -30,19 +30,6 @@ headers_target  = $(TARGET_BUILD_DIR)/.headers-installed
 full_target     = $(TARGET_BUILD_DIR)/.installed
 
 
-environment  = AS=$(TOOLCHAIN_PATH)/bin/$(TARGET)-as
-environment += LD=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ld
-environment += CC=$(TOOLCHAIN_PATH)/bin/$(TARGET)-gcc
-environment += AR=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ar
-environment += RANLIB=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ranlib
-
-environment += PATH_FIG2DEV=/usr/bin:/usr/X11R6/bin:/usr/share/texmf/bin
-environment += PATH=$(TOOLCHAIN_PATH)/bin:$(PATH):$(PATH_FIG2DEV)
-#                                                   =============
-# need for fig2dev and documentation (see: ../.config).
-
-environment += BUILD_CC=gcc
-environment += TARGET_CFLAGS=""
 
 ifeq ($(FLAVOUR),headers)
 BUILD_TARGETS = $(headers_target)
@@ -53,6 +40,21 @@ BUILD_TARGETS = $(full_target)
 endif
 
 include ../../../build-system/core.mk
+
+
+environment  = AS=$(TOOLCHAIN_PATH)/bin/$(TARGET)-as
+environment += LD=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ld
+environment += CC=$(CCACHE)$(TOOLCHAIN_PATH)/bin/$(TARGET)-gcc
+environment += AR=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ar
+environment += RANLIB=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ranlib
+
+environment += PATH_FIG2DEV=/usr/bin:/usr/X11R6/bin:/usr/share/texmf/bin
+environment += PATH=$(TOOLCHAIN_PATH)/bin:$(PATH):$(PATH_FIG2DEV)
+#                                                   =============
+# need for fig2dev and documentation (see: ../.config).
+
+environment += BUILD_CC=$(CCACHE)/usr/bin/gcc
+environment += TARGET_CFLAGS=""
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB))
