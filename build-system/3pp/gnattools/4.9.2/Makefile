@@ -1,18 +1,17 @@
 
 COMPONENT_TARGETS  = $(TOOLCHAIN_HOST)
 
-include ../../../build-system/config.mk
+include ../../../../build-system/config.mk
 
 
-SOURCE_REQUIRES  = sources/GNU/gcc/gcc-4.9.2
-SOURCE_REQUIRES += sources/GNU/gmp
-SOURCE_REQUIRES += sources/GNU/mpfr
-SOURCE_REQUIRES += sources/GNU/mpc
+SOURCE_REQUIRES  = build-system/3pp/sources/GNU
 
-tar_bz2_archive       = $(SRC_PACKAGE_PATH)/GNU/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2
-tar_bz2_archive_gmp   = $(SRC_PACKAGE_PATH)/GNU/gmp/gmp-6.0.0a.tar.bz2
-tar_bz2_archive_mpfr  = $(SRC_PACKAGE_PATH)/GNU/mpfr/mpfr-3.1.2.tar.bz2
-tar_gz_archive_mpc    = $(SRC_PACKAGE_PATH)/GNU/mpc/mpc-1.0.3.tar.gz
+# ======= __END_OF_REQUIRES__ =======
+
+tar_bz2_archive       = $(BUILDSYSTEM)/3pp/sources/GNU/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2
+tar_bz2_archive_gmp   = $(BUILDSYSTEM)/3pp/sources/GNU/gmp/gmp-6.0.0a.tar.bz2
+tar_bz2_archive_mpfr  = $(BUILDSYSTEM)/3pp/sources/GNU/mpfr/mpfr-3.1.2.tar.bz2
+tar_gz_archive_mpc    = $(BUILDSYSTEM)/3pp/sources/GNU/mpc/mpc-1.0.3.tar.gz
 SRC_ARCHIVE           = $(tar_bz2_archive)
 SRC_DIR               = $(TARGET_BUILD_DIR)/gcc-4.9.2
 src_dir_name          = gcc-4.9.2
@@ -26,14 +25,15 @@ PATCHES        = PATCHES
 build_dir             = $(TARGET_BUILD_DIR)/build
 
 
-  build_target = $(TARGET_BUILD_DIR)/.built
+build_target   = $(TARGET_BUILD_DIR)/.built
 install_target = $(TARGET_BUILD_DIR)/.installed
 
 
-BUILD_TARGETS = $(install_target)
+BUILD_TARGETS  = $(build_target)
+BUILD_TARGETS += $(install_target)
 
 
-include ../../../build-system/core.mk
+include ../../../../build-system/core.mk
 
 
 environment  = CC="$(CCACHE)/usr/bin/gcc"
@@ -41,7 +41,7 @@ environment += CC_FOR_BUILD="$(CCACHE)/usr/bin/gcc"
 environment += CXX_FOR_BUILD="$(CCACHE)/usr/bin/g++"
 
 
-GNATTOOLS_DEST_DIR = $(TOOLCHAINS_BASE_PATH)/_gnattools/4.9.2/usr
+GNATTOOLS_DEST_DIR = $(BUILDSYSTEM)/gnattools/4.9.2/usr
 
 extra_configure_switches  = --enable-languages=c,c++,ada
 

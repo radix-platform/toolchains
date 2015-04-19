@@ -7,6 +7,34 @@ include ../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/uClinux/uClibc
 
+ifeq ($(FLAVOUR),headers)
+REQUIRES  = core/linux/2.6.39.4
+endif
+
+ifeq ($(FLAVOUR),full)
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.4),)
+REQUIRES  = core/gcc/4.7.2^second
+endif
+
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.5),)
+REQUIRES  = core/gcc/4.7.3^second
+endif
+
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.6),)
+REQUIRES  = core/gcc/4.8.2^second
+endif
+
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.7 1.0.8),)
+REQUIRES  = core/gcc/4.9.1^second
+endif
+
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.9),)
+REQUIRES  = core/gcc/4.9.2^second
+endif
+endif
+
+# ======= __END_OF_REQUIRES__ =======
+
 tar_bz2_archive       = $(SRC_PACKAGE_PATH)/uClinux/uClibc/uClibc-0.9.33.2.tar.bz2
 tar_gz_archive_locale = $(SRC_PACKAGE_PATH)/uClinux/uClibc/uClibc-locale-030818.tgz
 SRC_ARCHIVE           = $(tar_bz2_archive)
@@ -34,9 +62,9 @@ CROSS_PREFIX   = $(TARGET)-
 environment  = PATH=$(TOOLCHAIN_PATH)/bin:$(PATH)
 environment += TARGET_ARCH=$(arch)
 environment += PREFIX=$(sysroot_dir)
-#ifneq ($(VERBOSE),)
+ifneq ($(VERBOSE),)
 environment += V=2
-#endif
+endif
 
 ifneq ($(findstring lpc17xx, $(TOOLCHAIN)),)
 def_multilib = arm
@@ -50,18 +78,13 @@ configs      = $(addprefix .config., $(def_multilib) $(multilibs))
 CLEANUP_FILES += .config.*
 
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
-#environment += CFLAGS="-msoft-float"
-endif
-
-
 
 ifeq ($(FLAVOUR),headers)
-BUILD_TARGETS = $(headers_target)
+BUILD_TARGETS  = $(headers_target)
 endif
 
 ifeq ($(FLAVOUR),full)
-BUILD_TARGETS = $(full_target)
+BUILD_TARGETS  = $(full_target)
 endif
 
 include ../../../build-system/core.mk
@@ -94,18 +117,19 @@ $(headers_target): $(src_done) $(configs)
 	@mkdir -p $(headers_dir)
 	@cp $(def_config) $(headers_dir)/.config
 	@cp $(SRC_DIR)/Rules.mak $(headers_dir)/
-	$(LMAKE) O=$(CURDIR)/$(headers_dir) oldconfig
-	$(LMAKE) O=$(CURDIR)/$(headers_dir) install_headers
+	@$(LMAKE) O=$(CURDIR)/$(headers_dir) oldconfig
+	@$(LMAKE) O=$(CURDIR)/$(headers_dir) install_headers
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@
 
 $(full_target): $(src_done) $(configs)
 	@mkdir -p $(full_dir)
 	@cp $(def_config) $(full_dir)/.config
 	@cp $(SRC_DIR)/Rules.mak $(full_dir)/
-	$(LMAKE) O=$(CURDIR)/$(full_dir) oldconfig
-	$(LMAKE) O=$(CURDIR)/$(full_dir) all
-	$(LMAKE) O=$(CURDIR)/$(full_dir) install
-	$(LMAKE) O=$(CURDIR)/$(full_dir) install_utils
+	@$(LMAKE) O=$(CURDIR)/$(full_dir) oldconfig
+	@$(LMAKE) O=$(CURDIR)/$(full_dir) all
+	@$(LMAKE) O=$(CURDIR)/$(full_dir) install
+	@$(LMAKE) O=$(CURDIR)/$(full_dir) install_utils
 	@for mult in $(multilibs) ; do                                    \
 	  mkdir -p $(TARGET_BUILD_DIR)/$$mult ;                           \
 	  cp .config.$$mult $(TARGET_BUILD_DIR)/$$mult/.config ;          \
@@ -114,11 +138,12 @@ $(full_target): $(src_done) $(configs)
 	  $(LMAKE) O=$(CURDIR)/$(TARGET_BUILD_DIR)/$$mult all ;           \
 	  $(LMAKE) O=$(CURDIR)/$(TARGET_BUILD_DIR)/$$mult install ;       \
 	  $(LMAKE) O=$(CURDIR)/$(TARGET_BUILD_DIR)/$$mult install_utils ; \
-	done
+	 done
 	@for mult in $(multilibs) ; do                                                                         \
 	  ( cd $(sysroot_dir)/$$mult/usr ; rm -rf include ; ln -sf ../../usr/include include ) ;               \
 	  ( cd $(sysroot_dir)/lib ; mkdir -p ../$$mult/lib ; ln -sf ../$$mult/lib $$mult ) ;                   \
 	  ( cd $(sysroot_dir)/usr/bin ; mkdir -p ../../$$mult/usr/bin ; ln -sf ../../$$mult/usr/bin $$mult ) ; \
 	  ( cd $(sysroot_dir)/usr/lib ; mkdir -p ../../$$mult/usr/lib ; ln -sf ../../$$mult/usr/lib $$mult ) ; \
-	done
+	 done
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@

@@ -37,7 +37,7 @@ BUILD_TARGETS = $(tarballs) $(sha1s) $(patches)
 include ../../../../build-system/core.mk
 
 
-.PHONY: downloads_clean
+.PHONY: download_clean
 
 
 $(tarballs):
@@ -61,14 +61,14 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-patch-4.9.2-at91sam7s-newlib ; ./create.patch.sh ) ; \
-	 ( cd create-patch-4.9.2-dm644x-newlib    ; ./create.patch.sh ) ; \
-	 ( cd create-patch-4.9.2-a1x-newlib       ; ./create.patch.sh ) ; \
-	 ( cd create-patch-4.9.2-a2x-newlib       ; ./create.patch.sh ) ; \
-	 ( cd create-patch-4.9.2-lpc17xx-multilib ; ./create.patch.sh ) ; \
-	 ( cd create-patch-4.9.2-x86_64-multilib  ; ./create.patch.sh ) ; \
-	 ( cd create-patch-4.9.2-bcm74x-libgo     ; ./create.patch.sh ) ; \
+	 ( cd create-4.9.2-at91sam7s-newlib-patch ; ./create.patch.sh ) ; \
+	 ( cd create-4.9.2-dm644x-newlib-patch    ; ./create.patch.sh ) ; \
+	 ( cd create-4.9.2-a1x-newlib-patch       ; ./create.patch.sh ) ; \
+	 ( cd create-4.9.2-a2x-newlib-patch       ; ./create.patch.sh ) ; \
+	 ( cd create-4.9.2-lpc17xx-multilib-patch ; ./create.patch.sh ) ; \
+	 ( cd create-4.9.2-x86_64-multilib-patch  ; ./create.patch.sh ) ; \
+	 ( cd create-4.9.2-bcm74x-libgo-patch     ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
-downloads_clean:
+download_clean:
 	@rm -f $(tarballs) $(sha1s) $(patches)

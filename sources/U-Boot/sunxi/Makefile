@@ -25,7 +25,7 @@ BUILD_TARGETS = $(description) $(tarballs) $(sha1s)
 include ../../../build-system/core.mk
 
 
-.PHONY: downloads_clean
+.PHONY: download_clean
 
 
 $(description):
@@ -51,5 +51,5 @@ $(sha1s): $(tarballs)
 	   fi ; \
 	 done
 
-downloads_clean:
+download_clean:
 	@rm -f $(description) $(tarballs) $(sha1s)

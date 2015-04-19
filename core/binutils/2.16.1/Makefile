@@ -7,6 +7,8 @@ include ../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/GNU/binutils
 
+# ======= __END_OF_REQUIRES__ =======
+
 tar_bz2_archive = $(SRC_PACKAGE_PATH)/GNU/binutils/binutils-2.16.1a.tar.bz2
 SRC_ARCHIVE     = $(tar_bz2_archive)
 SRC_DIR         = $(TARGET_BUILD_DIR)/binutils-2.16.1
@@ -20,7 +22,8 @@ build_target    = $(TARGET_BUILD_DIR)/.built
 install_target  = $(TARGET_BUILD_DIR)/.installed
 
 
-BUILD_TARGETS = $(install_target)
+BUILD_TARGETS  = $(build_target)
+BUILD_TARGETS += $(install_target)
 
 include ../../../build-system/core.mk
 
@@ -44,8 +47,8 @@ $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 	@touch $@
 
 $(build_target): $(src_done)
-	mkdir -p $(build_dir)
-	cd $(build_dir) && ../$(src_dir_name)/configure    \
+	@mkdir -p $(build_dir)
+	@cd $(build_dir) && ../$(src_dir_name)/configure    \
 	  --prefix=$(TOOLCHAIN_PATH)             \
 	  --build=$(HOST)                        \
 	  --host=$(HOST)                         \
@@ -54,16 +57,17 @@ $(build_target): $(src_done)
 	  --mandir=$(TOOLCHAIN_PATH)/share/man   \
 	  --disable-nls                          \
 	  $(extra_configure_switches)
-	$(MAKE) -C $(build_dir)
-	$(MAKE) -C $(build_dir) info
+	@$(MAKE) -C $(build_dir)
+	@$(MAKE) -C $(build_dir) info
 	@touch $@
 
 $(install_target): $(build_target)
-	mkdir -p $(install_dir)
-	mkdir -p $(TOOLCHAIN_PATH)/include
-	mkdir -p $(TOOLCHAIN_PATH)/lib
-	$(MAKE) -C $(build_dir) install
-	cp $(TARGET_BUILD_DIR)/$(src_dir_name)/include/libiberty.h $(TOOLCHAIN_PATH)/include/libiberty.h
-	$(MAKE) -C $(build_dir) install-info
-	cp $(build_dir)/libiberty/libiberty.info $(TOOLCHAIN_PATH)/share/info/libiberty.info
+	@mkdir -p $(install_dir)
+	@mkdir -p $(TOOLCHAIN_PATH)/include
+	@mkdir -p $(TOOLCHAIN_PATH)/lib
+	@$(MAKE) -C $(build_dir) install
+	@cp $(TARGET_BUILD_DIR)/$(src_dir_name)/include/libiberty.h $(TOOLCHAIN_PATH)/include/libiberty.h
+	@$(MAKE) -C $(build_dir) install-info
+	@cp $(build_dir)/libiberty/libiberty.info $(TOOLCHAIN_PATH)/share/info/libiberty.info
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@

@@ -8,6 +8,8 @@ include ../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/GNU/gdb
 
+# ======= __END_OF_REQUIRES__ =======
+
 tar_gz_archive   = $(SRC_PACKAGE_PATH)/GNU/gdb/gdb-6.4.tar.gz
 SRC_ARCHIVE      = $(tar_gz_archive)
 SRC_DIR          = $(TARGET_BUILD_DIR)/gdb-6.4
@@ -22,7 +24,8 @@ install_target   = $(TARGET_BUILD_DIR)/.installed
 environment  = PATH=$(TOOLCHAIN_PATH)/bin:$(PATH)
 
 
-BUILD_TARGETS = $(install_target)
+BUILD_TARGETS  = $(build_target)
+BUILD_TARGETS += $(install_target)
 
 
 include ../../../build-system/core.mk
@@ -43,17 +46,18 @@ $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 	@touch $@
 
 $(build_target): $(src_done)
-	mkdir -p $(build_dir)
-	cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
+	@mkdir -p $(build_dir)
+	@cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
 	  --prefix=$(TOOLCHAIN_PATH)       \
 	  --target=$(TARGET)               \
 	  --datadir=$(TOOLCHAIN_PATH)/share       \
 	  --infodir=$(TOOLCHAIN_PATH)/share/info  \
 	  --mandir=$(TOOLCHAIN_PATH)/share/man    \
 	  $(extra_configure_switches)
-	$(MAKE) $(environment) -C $(build_dir) all
+	@$(MAKE) $(environment) -C $(build_dir) all
 	@touch $@
 
 $(install_target): $(build_target)
-	$(MAKE) $(environment) -j1 -C $(build_dir) install
+	@$(MAKE) $(environment) -j1 -C $(build_dir) install
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@

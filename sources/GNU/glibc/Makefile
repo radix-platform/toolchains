@@ -34,7 +34,7 @@ BUILD_TARGETS = $(tarballs) $(sha1s) $(patches)
 include ../../../build-system/core.mk
 
 
-.PHONY: downloads_clean
+.PHONY: download_clean
 
 
 $(tarballs):
@@ -61,5 +61,5 @@ $(patches): $(sha1s)
 	 ( cd create-2.21-i18n-patch ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
-downloads_clean:
+download_clean:
 	@rm -f $(tarballs) $(sha1s) $(patches)

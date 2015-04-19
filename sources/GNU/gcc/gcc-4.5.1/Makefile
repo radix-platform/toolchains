@@ -33,7 +33,7 @@ BUILD_TARGETS = $(tarballs) $(sha1s) $(patches)
 include ../../../../build-system/core.mk
 
 
-.PHONY: downloads_clean
+.PHONY: download_clean
 
 
 $(tarballs):
@@ -57,10 +57,10 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-patch-4.5.1-at91sam7s-newlib ; ./create.patch.sh ) ; \
-	 ( cd create-patch-4.5.1-dm644x-newlib    ; ./create.patch.sh ) ; \
-	 ( cd create-patch-4.5.1-mips-dspr2       ; ./create.patch.sh ) ; \
+	 ( cd create-4.5.1-at91sam7s-newlib-patch ; ./create.patch.sh ) ; \
+	 ( cd create-4.5.1-dm644x-newlib-patch    ; ./create.patch.sh ) ; \
+	 ( cd create-4.5.1-mips-dspr2-patch       ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
-downloads_clean:
+download_clean:
 	@rm -f $(tarballs) $(sha1s) $(patches)

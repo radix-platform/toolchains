@@ -12,6 +12,41 @@ include ../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/GNU/EGLIBC/2.17.1
 
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.5),)
+
+ifeq ($(FLAVOUR),headers)
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_EGLIBC))
+REQUIRES  = core/linux/sunxi/3.0.52-r2
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_BCM74X_EGLIBC))
+REQUIRES  = core/linux/mips/2.6.36
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_DM644X_EGLIBC))
+REQUIRES  = core/linux/davinci/2.6.36
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_EGLIBC))
+REQUIRES  = core/linux/omap/2.6.36
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_EGLIBC))
+REQUIRES  = core/linux/omap5-glsdk/3.8.y-20140222
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
+REQUIRES  = core/eglibc/2.17.1-x86_32^headers
+endif
+endif
+
+ifeq ($(FLAVOUR),full)
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
+REQUIRES  = core/eglibc/2.17.1-x86_32^full
+else
+REQUIRES  = core/gcc/4.7.3^second
+endif
+endif
+
+endif
+
+# ======= __END_OF_REQUIRES__ =======
+
 tar_bz2_archive       = $(SRC_PACKAGE_PATH)/GNU/EGLIBC/2.17.1/eglibc-2.17.1.tar.bz2
 tar_bz2_archive_ports = $(SRC_PACKAGE_PATH)/GNU/EGLIBC/2.17.1/eglibc-ports-2.17.1.tar.bz2
 SRC_ARCHIVE           = $(tar_bz2_archive)
@@ -236,34 +271,36 @@ endif
 $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 	$(UNPACK_SRC_ARCHIVE)
 	$(APPLY_PATCHES)
-	tar xjf $(tar_bz2_archive_ports) -C $(SRC_DIR)
-	mv $(SRC_DIR)/eglibc-ports-2.17.1 $(SRC_DIR)/ports
+	@tar xjf $(tar_bz2_archive_ports) -C $(SRC_DIR)
+	@mv $(SRC_DIR)/eglibc-ports-2.17.1 $(SRC_DIR)/ports
 	@touch $@
 
 $(headers_target): $(src_done)
-	mkdir -p $(headers_dir)
-	cd $(headers_dir) && $(env_sysroot) $(environment) ../$(src_dir_name)/configure \
+	@mkdir -p $(headers_dir)
+	@cd $(headers_dir) && $(env_sysroot) $(environment) ../$(src_dir_name)/configure \
 	  --prefix=/usr                \
 	  --build=$(BUILD)             \
 	  --host=$(TARGET)             \
 	  $(extra_configure_switches)
-	cd $(headers_dir) && $(MAKE) -j1 install-headers \
-	                                 install-bootstrap-headers=yes $(env_sysroot)
-	cd $(headers_dir) && $(environment) $(MAKE) -j1 csu/subdir_lib
-	cd $(headers_dir) && $(environment) $(MAKE) -j1 csu/subdir_install $(env_sysroot)
-	$(environment) $(CC) -nostdlib -nostartfiles -shared -x c /dev/null \
-	                     -o $(sysroot_dir)/usr/lib$(LIBSUFFIX)/libc.so
+	@cd $(headers_dir) && $(MAKE) -j1 install-headers \
+	                                  install-bootstrap-headers=yes $(env_sysroot)
+	@cd $(headers_dir) && $(environment) $(MAKE) -j1 csu/subdir_lib
+	@cd $(headers_dir) && $(environment) $(MAKE) -j1 csu/subdir_install $(env_sysroot)
+	@$(environment) $(CC) -nostdlib -nostartfiles -shared -x c /dev/null \
+	                      -o $(sysroot_dir)/usr/lib$(LIBSUFFIX)/libc.so
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@
 
 $(full_target): $(src_done)
-	mkdir -p $(full_dir)
-	echo "slibdir=/lib$(LIBSUFFIX)" >> $(full_dir)/configparms
-	cd $(full_dir) && $(env_sysroot) $(environment) ../$(src_dir_name)/configure \
+	@mkdir -p $(full_dir)
+	@echo "slibdir=/lib$(LIBSUFFIX)" >> $(full_dir)/configparms
+	@cd $(full_dir) && $(env_sysroot) $(environment) ../$(src_dir_name)/configure \
 	  --prefix=/usr                \
 	  --build=$(BUILD)             \
 	  --host=$(TARGET)             \
 	  $(extra_configure_switches)
-	cd $(full_dir) && $(environment) $(MAKE) all
-	cd $(full_dir) && $(environment) $(MAKE) -j1 install $(env_sysroot)
-	rm -f $(sysroot_dir)/usr/share/info/dir
+	@cd $(full_dir) && $(environment) $(MAKE) all
+	@cd $(full_dir) && $(environment) $(MAKE) -j1 install $(env_sysroot)
+	@rm -f $(sysroot_dir)/usr/share/info/dir
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@

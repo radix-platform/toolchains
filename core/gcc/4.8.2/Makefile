@@ -27,6 +27,45 @@ SOURCE_REQUIRES += sources/GNU/gmp
 SOURCE_REQUIRES += sources/GNU/mpfr
 SOURCE_REQUIRES += sources/GNU/mpc
 
+ifeq ($(TOOLCHAIN_VERSION),1.0.6)
+
+ifneq ($(findstring newlib, $(TOOLCHAIN)),)
+ifeq ($(FLAVOUR),static)
+REQUIRES  = core/newlib/1.20.0^headers
+endif
+ifeq ($(FLAVOUR),full)
+REQUIRES  = core/newlib/1.20.0^full
+endif
+endif
+
+ifneq ($(findstring uclibc, $(TOOLCHAIN)),)
+ifeq ($(FLAVOUR),static)
+REQUIRES  = core/binutils/2.24^flat
+endif
+ifeq ($(FLAVOUR),second)
+REQUIRES  = core/uclibc/0.9.33.2^headers
+endif
+ifeq ($(FLAVOUR),full)
+REQUIRES  = core/uclibc/0.9.33.2^full
+endif
+endif
+
+ifneq ($(findstring eglibc, $(TOOLCHAIN)),)
+ifeq ($(FLAVOUR),static)
+REQUIRES  = core/binutils/2.24
+endif
+ifeq ($(FLAVOUR),second)
+REQUIRES  = core/eglibc/2.18.1^headers
+endif
+ifeq ($(FLAVOUR),full)
+REQUIRES  = core/eglibc/2.18.1^full
+endif
+endif
+
+endif
+
+# ======= __END_OF_REQUIRES__ =======
+
 tar_bz2_archive       = $(SRC_PACKAGE_PATH)/GNU/gcc/gcc-4.8.2/gcc-4.8.2.tar.bz2
 tar_bz2_archive_gmp   = $(SRC_PACKAGE_PATH)/GNU/gmp/gmp-5.1.3.tar.bz2
 tar_bz2_archive_mpfr  = $(SRC_PACKAGE_PATH)/GNU/mpfr/mpfr-3.1.2.tar.bz2
@@ -78,21 +117,20 @@ environment  = PATH=$(TOOLCHAIN_PATH)/bin:$(PATH)
 
 LIBSUFFIX    =
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
-#LIBSUFFIX    = 64
-endif
-
 
 ifeq ($(FLAVOUR),static)
-BUILD_TARGETS = $(static_install_target)
+BUILD_TARGETS  = $(static_build_target)
+BUILD_TARGETS += $(static_install_target)
 endif
 
 ifeq ($(FLAVOUR),second)
-BUILD_TARGETS = $(second_install_target)
+BUILD_TARGETS  = $(second_build_target)
+BUILD_TARGETS += $(second_install_target)
 endif
 
 ifeq ($(FLAVOUR),full)
-BUILD_TARGETS = $(full_install_target)
+BUILD_TARGETS  = $(full_build_target)
+BUILD_TARGETS += $(full_install_target)
 endif
 
 
@@ -698,7 +736,7 @@ $(mpc_src_done): $(src_done)
 
 $(static_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 	@mkdir -p $(build_dir)
-	cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
+	@cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
 	  --prefix=$(TOOLCHAIN_PATH)       \
 	  --build=$(HOST)                  \
 	  --host=$(HOST)                   \
@@ -709,17 +747,18 @@ $(static_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 	  --infodir=$(TOOLCHAIN_PATH)/share/info  \
 	  --mandir=$(TOOLCHAIN_PATH)/share/man    \
 	  $(extra_configure_switches)
-	$(environment) $(MAKE) -C $(build_dir) all
+	@$(environment) $(MAKE) -C $(build_dir) all
 	@touch $@
 
 $(static_install_target): $(static_build_target)
-	$(MAKE) $(environment) -j1 -C $(build_dir) install
-	rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@$(MAKE) $(environment) -j1 -C $(build_dir) install
+	@rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@
 
 $(second_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 	@mkdir -p $(build_dir)
-	cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
+	@cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
 	  --prefix=$(TOOLCHAIN_PATH)       \
 	  --build=$(HOST)                  \
 	  --host=$(HOST)                   \
@@ -730,25 +769,26 @@ $(second_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 	  --infodir=$(TOOLCHAIN_PATH)/share/info  \
 	  --mandir=$(TOOLCHAIN_PATH)/share/man    \
 	  $(extra_configure_switches)
-	$(environment) $(MAKE) -C $(build_dir) all
+	@$(environment) $(MAKE) -C $(build_dir) all
 	@touch $@
 
 $(second_install_target): $(second_build_target)
-	$(MAKE) $(environment) -j1 -C $(build_dir) install
-	rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@$(MAKE) $(environment) -j1 -C $(build_dir) install
+	@rm -f $(TOOLCHAIN_PATH)/share/info/dir
 ifneq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
-	cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib/libgcc_s.so $(sysroot_dir)/usr/lib
-	cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib/libgcc_s.so.1 $(sysroot_dir)/usr/lib
+	@cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib/libgcc_s.so $(sysroot_dir)/usr/lib
+	@cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib/libgcc_s.so.1 $(sysroot_dir)/usr/lib
 endif
 ifneq ($(findstring x86_64, $(TOOLCHAIN)),)
-	cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so $(sysroot_dir)/usr/lib32
-	cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so.1 $(sysroot_dir)/usr/lib32
+	@cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so $(sysroot_dir)/usr/lib32
+	@cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so.1 $(sysroot_dir)/usr/lib32
 endif
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@
 
 $(full_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 	@mkdir -p $(build_dir)
-	cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
+	@cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
 	  --prefix=$(TOOLCHAIN_PATH)       \
 	  --build=$(HOST)                  \
 	  --host=$(HOST)                   \
@@ -759,7 +799,7 @@ $(full_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 	  --infodir=$(TOOLCHAIN_PATH)/share/info  \
 	  --mandir=$(TOOLCHAIN_PATH)/share/man    \
 	  $(extra_configure_switches)
-	$(environment) $(MAKE) -C $(build_dir) all
+	@$(environment) $(MAKE) -C $(build_dir) all
 	@touch $@
 
 #
@@ -789,12 +829,13 @@ $(full_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 #
 
 $(full_install_target): $(full_build_target)
-	rm -f $(sysroot_dir)/usr/lib/libgcc_s.so
-	rm -f $(sysroot_dir)/usr/lib/libgcc_s.so.1
+	@rm -f $(sysroot_dir)/usr/lib/libgcc_s.so
+	@rm -f $(sysroot_dir)/usr/lib/libgcc_s.so.1
 ifneq ($(findstring x86_64, $(TOOLCHAIN)),)
-	rm -f $(sysroot_dir)/usr/lib32/libgcc_s.so
-	rm -f $(sysroot_dir)/usr/lib32/libgcc_s.so.1
+	@rm -f $(sysroot_dir)/usr/lib32/libgcc_s.so
+	@rm -f $(sysroot_dir)/usr/lib32/libgcc_s.so.1
 endif
-	$(MAKE) $(environment) -j1 -C $(build_dir) install
-	rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@$(MAKE) $(environment) -j1 -C $(build_dir) install
+	@rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@

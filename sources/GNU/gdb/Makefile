@@ -31,7 +31,7 @@ BUILD_TARGETS = $(tarballs) $(sha1s) $(patches)
 include ../../../build-system/core.mk
 
 
-.PHONY: downloads_clean
+.PHONY: download_clean
 
 
 $(tarballs):
@@ -55,8 +55,8 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-patch-7.2-bfdio ; ./create.patch.sh ) ; \
+	 ( cd create-7.2-bfdio-patch ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
-downloads_clean:
+download_clean:
 	@rm -f $(tarballs) $(sha1s) $(patches)

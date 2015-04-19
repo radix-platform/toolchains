@@ -36,7 +36,7 @@ BUILD_TARGETS     = $(tarballs) $(locale_tarballs) $(sha1s) $(locale_sha1s) $(pa
 include ../../../build-system/core.mk
 
 
-.PHONY: downloads_clean
+.PHONY: download_clean
 
 
 $(tarballs):
@@ -79,11 +79,11 @@ $(locale_sha1s): $(locale_tarballs)
 
 $(patches): $(sha1s) $(locale_sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-patch-0.9.33.2-pth-spinlock      ; ./create.patch.sh ) ; \
-	 ( cd create-patch-0.9.33.2-out-of-tree       ; ./create.patch.sh ) ; \
-	 ( cd create-patch-0.9.33.2-030818-locale     ; ./create.patch.sh ) ; \
-	 ( cd create-patch-0.9.33.2-reduce-execvp-env ; ./create.patch.sh ) ; \
+	 ( cd create-0.9.33.2-pth-spinlock-patch      ; ./create.patch.sh ) ; \
+	 ( cd create-0.9.33.2-out-of-tree-patch       ; ./create.patch.sh ) ; \
+	 ( cd create-0.9.33.2-030818-locale-patch     ; ./create.patch.sh ) ; \
+	 ( cd create-0.9.33.2-reduce-execvp-env-patch ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
-downloads_clean:
+download_clean:
 	@rm -f $(tarballs) $(locale_tarballs) $(sha1s) $(locale_sha1s) $(patches)

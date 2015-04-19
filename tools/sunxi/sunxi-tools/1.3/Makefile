@@ -11,6 +11,16 @@ include ../../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/tools/allwinner/sunxi-tools-kx
 
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.7 1.0.8),)
+REQUIRES  = core/gcc/4.9.1^full
+endif
+
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.9),)
+REQUIRES  = core/gcc/4.9.2^full
+endif
+
+# ======= __END_OF_REQUIRES__ =======
+
 tar_bz2_archive  = $(SRC_PACKAGE_PATH)/tools/allwinner/sunxi-tools-kx/sunxi-tools-1.3.tar.bz2
 SRC_ARCHIVE      = $(tar_bz2_archive)
 SRC_DIR          = $(TARGET_BUILD_DIR)/sunxi-tools-1.3
@@ -25,7 +35,8 @@ build_target     = $(TARGET_BUILD_DIR)/.built
 install_target   = $(TARGET_BUILD_DIR)/.installed
 
 
-BUILD_TARGETS = $(install_target)
+BUILD_TARGETS  = $(build_target)
+BUILD_TARGETS += $(install_target)
 
 include ../../../../build-system/core.mk
 
@@ -44,4 +55,5 @@ $(build_target): $(src_done)
 
 $(install_target): $(build_target)
 	@cd $(build_dir) && make install
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@

@@ -22,8 +22,8 @@ versions    = 1.14.0 1.18.0 1.20.0
 tarballs    = $(addsuffix .tar.gz, $(addprefix newlib-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
-patches     = $(CURDIR)/create-newlib-1.18.0-pkg/newlib-1.18.0-arm-cross.patch
-patches    += $(CURDIR)/create-newlib-1.20.0-pkg/newlib-1.20.0-arm-cross.patch
+patches     = $(CURDIR)/patches/newlib-1.18.0-arm-cross.patch
+patches    += $(CURDIR)/patches/newlib-1.20.0-arm-cross.patch
 packages    = $(CURDIR)/newlib-1.18.0-arm-cross.tar.gz
 packages   += $(CURDIR)/newlib-1.20.0-arm-cross.tar.gz
 
@@ -36,7 +36,7 @@ BUILD_TARGETS = $(tarballs) $(sha1s) $(patches)
 include ../../build-system/core.mk
 
 
-.PHONY: downloads_clean
+.PHONY: download_clean
 
 
 $(tarballs):
@@ -60,9 +60,9 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-newlib-1.18.0-pkg ; ./create.pkg.sh ) ; \
-	 ( cd create-newlib-1.20.0-pkg ; ./create.pkg.sh ) ; \
+	 ( cd create-newlib-1.18.0-patch ; ./create.pkg.sh ) ; \
+	 ( cd create-newlib-1.20.0-patch ; ./create.pkg.sh ) ; \
 	 echo -e "\n"
 
-downloads_clean:
+download_clean:
 	@rm -f $(tarballs) $(sha1s) $(patches) $(packages)

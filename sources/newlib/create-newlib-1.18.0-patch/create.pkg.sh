@@ -7,14 +7,14 @@ mv newlib-$VERSION newlib-$VERSION-orig
 
 cp -rf ./newlib-$VERSION-new ./newlib-$VERSION
 
-diff -b --unified -Nr  newlib-$VERSION-orig  newlib-$VERSION > newlib-$VERSION-arm-cross.patch
+diff -b --unified -Nr  newlib-$VERSION-orig  newlib-$VERSION > ../patches/newlib-$VERSION-arm-cross.patch
 
 rm -rf ./newlib-$VERSION
 rm -rf ./newlib-$VERSION-orig
 
 # reconfigure:
 tar -xzvf ../newlib-$VERSION.tar.gz
-patch -p0 < newlib-$VERSION-arm-cross.patch
+patch -p0 < ../patches/newlib-$VERSION-arm-cross.patch
 (cd newlib-$VERSION/newlib/libc/sys/arm && \
     aclocal -I ../../.. && \
     autoconf && \
