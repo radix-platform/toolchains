@@ -27,6 +27,7 @@ patches    += $(CURDIR)/../patches/gcc-4.9.2-a2x-newlib.patch
 patches    += $(CURDIR)/../patches/gcc-4.9.2-lpc17xx-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-4.9.2-x86_64-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-4.9.2-bcm74x-libgo.patch
+patches    += $(CURDIR)/../patches/gcc-4.9.2-jz47xx-libgo.patch
 
 .NOTPARALLEL: $(patches)
 
@@ -68,6 +69,7 @@ $(patches): $(sha1s)
 	 ( cd create-4.9.2-lpc17xx-multilib-patch ; ./create.patch.sh ) ; \
 	 ( cd create-4.9.2-x86_64-multilib-patch  ; ./create.patch.sh ) ; \
 	 ( cd create-4.9.2-bcm74x-libgo-patch     ; ./create.patch.sh ) ; \
+	 ( cd create-4.9.2-jz47xx-libgo-patch     ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:

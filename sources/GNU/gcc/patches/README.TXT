@@ -26,7 +26,8 @@
    gcc-4.9.1-lpc17xx-multilib.patch  - adds --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m configure switch.
    gcc-4.9.2-lpc17xx-multilib.patch  - adds --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m configure switch.
 
-   gcc-4.9.2-bcm74x-libgo.patch      - This patch related to mips. During compilation with -Werror=maybe-unitialized
+   gcc-4.9.2-bcm74x-libgo.patch      &
+   gcc-4.9.2-jz47xx-libgo.patch      - This patch related to mips. During compilation with -Werror=maybe-unitialized
                                        option we have error with uninitialised 'enablegc' variable. This patch
                                        created just for building. We didn't check how it affect the target 'gccgo'
                                        compilator. Probably this misstake will be fixed in next releases of 'gccgo'.

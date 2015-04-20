@@ -24,8 +24,10 @@ COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_BCM74X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_JZ47XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_RK328X_GLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
@@ -149,6 +151,24 @@ extra_configure_switches += --with-abi=aapcs-linux
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_RK328X_GLIBC)),)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+# experimental gold linker( DEFAULT_LD=ld.bfd ):
+extra_configure_switches += --enable-gold=yes
+extra_configure_switches += --enable-ld=default
+extra_configure_switches += --enable-werror=no
+extra_configure_switches += --enable-plugins
+# standard options:
+extra_configure_switches += --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-cpu=cortex-a17
+extra_configure_switches += --with-arch=armv7ve
+extra_configure_switches += --with-fpu=neon-vfpv4
+extra_configure_switches += --with-abi=aapcs-linux
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+endif
+
 
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_IMX6_EGLIBC) $(TOOLCHAIN_IMX6_GLIBC)),)
 # experimental gold linker( DEFAULT_LD=ld.bfd ):
@@ -210,6 +230,16 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_BCM74X_EGLIBC) $(TOOLCHAIN_BCM74X_GLIBC
 extra_configure_switches  = --enable-multilib
 extra_configure_switches += --with-arch=mips32
 extra_configure_switches += --disable-werror
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+endif
+
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC)),)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --enable-werror=no
+extra_configure_switches += --enable-poison-system-directories
+extra_configure_switches += --enable-plugins
+extra_configure_switches += --enable-multilib
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 

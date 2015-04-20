@@ -54,6 +54,9 @@ BUILD_A1X_GLIBC = true
 # a2x-glibc:
 BUILD_A2X_GLIBC = true
 
+# rk328x-glibc:
+BUILD_RK328X_GLIBC = true
+
 # dm644x-glibc:
 BUILD_DM644X_GLIBC = true
 
@@ -68,6 +71,9 @@ BUILD_OMAP543X_GLIBC = true
 
 # bcm74x-glibc:
 BUILD_BCM74X_GLIBC = true
+
+# jz47xx-glibc:
+BUILD_JZ47XX_GLIBC = true
 
 # i486-eglibc:
 BUILD_I486_GLIBC = true

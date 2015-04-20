@@ -12,8 +12,10 @@ COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A1X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_JZ47XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_RK328X_GLIBC)
 
 
 include ../../../build-system/config.mk
@@ -103,6 +105,15 @@ extra_configure_switches += --with-abi=aapcs-linux
 extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
 endif
 
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC)),)
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --with-arch-32=mips32r2
+extra_configure_switches += --with-arch-64=mips64r2
+extra_configure_switches += --with-float=hard
+extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
+endif
+
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_EGLIBC) $(TOOLCHAIN_OMAP35X_GLIBC)),)
 extra_configure_switches  = --enable-interwork
 extra_configure_switches += --enable-multilib
@@ -120,6 +131,17 @@ extra_configure_switches += --enable-multilib
 extra_configure_switches += --disable-libssp
 extra_configure_switches += --with-cpu=cortex-a15
 extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-fpu=neon-vfpv4
+extra_configure_switches += --with-abi=aapcs-linux
+extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
+endif
+
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_RK328X_GLIBC)),)
+extra_configure_switches  = --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --with-cpu=cortex-a12
+extra_configure_switches += --with-arch=armv7ve
 extra_configure_switches += --with-fpu=neon-vfpv4
 extra_configure_switches += --with-abi=aapcs-linux
 extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
