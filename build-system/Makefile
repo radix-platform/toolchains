@@ -1,11 +1,20 @@
 
-COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
+COMPONENT_TARGETS = $(TOOLCHAIN_HOST)
 
-targets_config_mk = targets-config.mk
 
-CLEANUP_FILES += $(targets_config_mk)
+include config.mk
 
-BUILD_TARGETS = $(targets_config_mk)
+REQUIRES  = build-system/3pp/gnattools/4.9.2
+
+# ======= __END_OF_REQUIRES__ =======
+
+
+config_makefile = targets-config.mk
+
+CLEANUP_FILES += $(config_makefile)
+CLEANUP_FILES += $(CURDIR)/gnattools
+
+BUILD_TARGETS = $(config_makefile)
 
 # CORE Makefile:
 
@@ -13,6 +22,6 @@ include core.mk
 
 # Dependencies:
 
-$(targets_config_mk):
-	@echo "Creating $(targets_config_mk) ..."
-	@cp $(targets_config_mk).template $@
+$(config_makefile): $(config_makefile).template
+	@echo "Creating $(config_makefile) ..."
+	@cp $(config_makefile).template $@

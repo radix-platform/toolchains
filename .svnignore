@@ -2,14 +2,25 @@
 # Target build dirs
 .host/
 .a1x-newlib/
+.a2x-newlib/
 .at91sam7s-newlib/
 .dm644x-newlib/
+
 .a1x-eglibc/
+.a2x-eglibc/
 .dm644x-eglibc/
 .omap35x-eglibc/
 .omap543x-eglibc/
 .bcm74x-eglibc/
 .x86_64-eglibc/
+
+.a1x-glibc/
+.a2x-glibc/
+.dm644x-glibc/
+.omap35x-glibc/
+.omap543x-glibc/
+.bcm74x-glibc/
+.x86_64-glibc/
 
 # Hidden files (each file)
 .makefile

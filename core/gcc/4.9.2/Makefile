@@ -19,11 +19,13 @@ COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_EGLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_A1X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_BCM74X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_JZ47XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
-COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_GLIBC)
-COMPONENT_TARGETS += $(TOOLCHAIN_BCM74X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_RK328X_GLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
@@ -35,15 +37,67 @@ FLAVOURS = static second full
 include ../../../build-system/config.mk
 
 
-SOURCE_REQUIRES  = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.9.2
-SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/gmp
-SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/mpfr
-SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/GNU/mpc
+SOURCE_REQUIRES  = sources/GNU/gcc/gcc-4.9.2
+SOURCE_REQUIRES += sources/GNU/gmp
+SOURCE_REQUIRES += sources/GNU/mpfr
+SOURCE_REQUIRES += sources/GNU/mpc
 
-tar_bz2_archive       = $(SRC_PACKAGE_DIR)/GNU/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2
-tar_bz2_archive_gmp   = $(SRC_PACKAGE_DIR)/GNU/gmp/gmp-6.0.0a.tar.bz2
-tar_bz2_archive_mpfr  = $(SRC_PACKAGE_DIR)/GNU/mpfr/mpfr-3.1.2.tar.bz2
-tar_gz_archive_mpc    = $(SRC_PACKAGE_DIR)/GNU/mpc/mpc-1.0.3.tar.gz
+
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.9),)
+
+ifneq ($(findstring newlib, $(TOOLCHAIN)),)
+ifeq ($(FLAVOUR),static)
+REQUIRES  = core/newlib/1.20.0^headers
+endif
+ifeq ($(FLAVOUR),full)
+REQUIRES  = core/newlib/1.20.0^full
+endif
+endif
+
+ifneq ($(findstring uclibc, $(TOOLCHAIN)),)
+ifeq ($(FLAVOUR),static)
+REQUIRES  = core/binutils/2.25^flat
+endif
+ifeq ($(FLAVOUR),second)
+REQUIRES  = core/uclibc/0.9.33.2^headers
+endif
+ifeq ($(FLAVOUR),full)
+REQUIRES  = core/uclibc/0.9.33.2^full
+endif
+endif
+
+ifneq ($(findstring eglibc, $(TOOLCHAIN)),)
+ifeq ($(FLAVOUR),static)
+REQUIRES  = core/binutils/2.25
+endif
+ifeq ($(FLAVOUR),second)
+REQUIRES  = core/eglibc/2.19.1^headers
+endif
+ifeq ($(FLAVOUR),full)
+REQUIRES  = core/eglibc/2.19.1^full
+endif
+endif
+
+ifneq ($(findstring -glibc, $(TOOLCHAIN)),)
+ifeq ($(FLAVOUR),static)
+REQUIRES  = core/binutils/2.25
+endif
+ifeq ($(FLAVOUR),second)
+REQUIRES  = core/glibc/2.21^headers
+endif
+ifeq ($(FLAVOUR),full)
+REQUIRES  = core/glibc/2.21^full
+endif
+endif
+
+endif
+
+# ======= __END_OF_REQUIRES__ =======
+
+tar_bz2_archive       = $(SRC_PACKAGE_PATH)/GNU/gcc/gcc-4.9.2/gcc-4.9.2.tar.bz2
+tar_bz2_archive_gmp   = $(SRC_PACKAGE_PATH)/GNU/gmp/gmp-6.0.0a.tar.bz2
+tar_bz2_archive_mpfr  = $(SRC_PACKAGE_PATH)/GNU/mpfr/mpfr-3.1.2.tar.bz2
+tar_gz_archive_mpc    = $(SRC_PACKAGE_PATH)/GNU/mpc/mpc-1.0.3.tar.gz
 SRC_ARCHIVE           = $(tar_bz2_archive)
 SRC_DIR               = $(TARGET_BUILD_DIR)/gcc-4.9.2
 src_dir_name          = gcc-4.9.2
@@ -71,10 +125,14 @@ else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_BCM74X_EGLIBC) $(TOOLCHAIN_BCM74X_GLIBC)),)
 PATCHES = PATCHES.bcm74x
 else
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC)),)
+PATCHES = PATCHES.jz47xx
+else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC) $(TOOLCHAIN_X86_64_GLIBC)),)
 PATCHES = PATCHES.x86_64
 else
 PATCHES = PATCHES
+endif
 endif
 endif
 endif
@@ -100,9 +158,9 @@ full_install_target   = $(TARGET_BUILD_DIR)/.full-installed
 # To be independed from distribution we are working the build GNAT tools
 # created and installed with prefix $(GNATTOOLS_DEST_DIR)
 #
-# see: env/gnattools/4.9.2 for more information.
+# see: build-system/3pp/gnattools/4.9.2 for more information.
 #
-GNATTOOLS_DEST_DIR = $(TOOLCHAINS_BASE_PATH)/_gnattools/4.9.2/usr
+GNATTOOLS_DEST_DIR = $(BUILDSYSTEM)/gnattools/4.9.2/usr
 
 environment  = PATH=$(TOOLCHAIN_PATH)/bin:$(GNATTOOLS_DEST_DIR)/bin:$(PATH)
 environment += GNATBIND=$(GNATTOOLS_DEST_DIR)/bin/gnatbind
@@ -112,15 +170,18 @@ LIBSUFFIX    =
 
 
 ifeq ($(FLAVOUR),static)
-BUILD_TARGETS = $(static_install_target)
+BUILD_TARGETS  = $(static_build_target)
+BUILD_TARGETS += $(static_install_target)
 endif
 
 ifeq ($(FLAVOUR),second)
-BUILD_TARGETS = $(second_install_target)
+BUILD_TARGETS  = $(second_build_target)
+BUILD_TARGETS += $(second_install_target)
 endif
 
 ifeq ($(FLAVOUR),full)
-BUILD_TARGETS = $(full_install_target)
+BUILD_TARGETS  = $(full_build_target)
+BUILD_TARGETS += $(full_install_target)
 endif
 
 
@@ -316,6 +377,69 @@ endif
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A2X_EGLIBC) $(TOOLCHAIN_A2X_GLIBC)),)
 extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-cpu=cortex-a7
+extra_configure_switches += --with-arch=armv7ve
+extra_configure_switches += --with-fpu=neon-vfpv4
+extra_configure_switches += --with-abi=aapcs-linux
+# add
+extra_configure_switches += --with-float=hard
+extra_configure_switches += --enable-gold
+extra_configure_switches += --enable-c99
+extra_configure_switches += --enable-long-long
+ifeq ($(FLAVOUR),static)
+extra_configure_switches += --disable-libatomic
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libitm
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-libsanitizer
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --disable-threads
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-shared
+extra_configure_switches += --disable-nls
+# without-headers replacement, to make libgcc independed from glibc:
+extra_configure_switches += --with-newlib
+endif
+ifeq ($(FLAVOUR),second)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --disable-libatomic
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libitm
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-libsanitizer
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-nls
+endif
+ifeq ($(FLAVOUR),full)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
+extra_configure_switches += --enable-__cxa_atexit
+extra_configure_switches += --enable-shared
+extra_configure_switches += --enable-nls
+extra_configure_switches += --with-included-gettext
+endif
+endif
+
+
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_RK328X_GLIBC)),)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+#
+# NOTE:
+#   cpu cortex-a17 will be support by GCC 5.
+#   Now we use previous generation of ARM cortex-a12|a17 cores.
+# see:
+#   http://www.arm.com/products/processors/cortex-a/cortex-a17-processor.php
+#   http://community.arm.com/groups/processors/blog/2014/09/30/arm-cortex-a17-cortex-a12-processor-update
+#   https://gcc.gnu.org/ml/gcc-patches/2014-11/msg02248.html (patch for the future GCC 5 release)
+#   https://gcc.gnu.org/ml/gcc-help/2014-11/msg00064.html    (this patch is not for GCC 4.9.2)
+#
+extra_configure_switches += --with-cpu=cortex-a12
 extra_configure_switches += --with-arch=armv7ve
 extra_configure_switches += --with-fpu=neon-vfpv4
 extra_configure_switches += --with-abi=aapcs-linux
@@ -634,6 +758,57 @@ endif
 endif
 
 
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC)),)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches += --with-arch-32=mips32r2
+extra_configure_switches += --with-arch-64=mips64r2
+extra_configure_switches += --with-float=hard
+extra_configure_switches += --with-mips=plt
+extra_configure_switches += --enable-target-optspace
+ifeq ($(FLAVOUR),static)
+extra_configure_switches += --disable-libatomic
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libitm
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-libsanitizer
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --disable-threads
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-shared
+extra_configure_switches += --disable-nls
+# without-headers replacement, to make libgcc independed from glibc:
+extra_configure_switches += --with-newlib
+endif
+ifeq ($(FLAVOUR),second)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --disable-libatomic
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libitm
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-libsanitizer
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --enable-threads
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-nls
+endif
+ifeq ($(FLAVOUR),full)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
+extra_configure_switches += --disable-__cxa_atexit
+extra_configure_switches += --enable-shared
+extra_configure_switches += --enable-threads
+extra_configure_switches += --enable-nls
+extra_configure_switches += --with-included-gettext
+endif
+endif
+
+
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_I486_EGLIBC) $(TOOLCHAIN_I486_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=http://www.radix.pro'
@@ -753,7 +928,7 @@ $(mpc_src_done): $(src_done)
 
 $(static_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 	@mkdir -p $(build_dir)
-	cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
+	@cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
 	  --prefix=$(TOOLCHAIN_PATH)       \
 	  --build=$(HOST)                  \
 	  --host=$(HOST)                   \
@@ -764,17 +939,18 @@ $(static_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 	  --infodir=$(TOOLCHAIN_PATH)/share/info  \
 	  --mandir=$(TOOLCHAIN_PATH)/share/man    \
 	  $(extra_configure_switches)
-	$(environment) $(MAKE) -C $(build_dir) all
+	@$(environment) $(MAKE) -C $(build_dir) all
 	@touch $@
 
 $(static_install_target): $(static_build_target)
-	$(MAKE) $(environment) -j1 -C $(build_dir) install
-	rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@$(MAKE) $(environment) -j1 -C $(build_dir) install
+	@rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@
 
 $(second_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 	@mkdir -p $(build_dir)
-	cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
+	@cd $(build_dir) && $(environment) ../$(src_dir_name)/configure \
 	  --prefix=$(TOOLCHAIN_PATH)       \
 	  --build=$(HOST)                  \
 	  --host=$(HOST)                   \
@@ -785,20 +961,21 @@ $(second_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 	  --infodir=$(TOOLCHAIN_PATH)/share/info  \
 	  --mandir=$(TOOLCHAIN_PATH)/share/man    \
 	  $(extra_configure_switches)
-	$(environment) $(MAKE) -C $(build_dir) all
+	@$(environment) $(MAKE) -C $(build_dir) all
 	@touch $@
 
 $(second_install_target): $(second_build_target)
-	$(MAKE) $(environment) -j1 -C $(build_dir) install
-	rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@$(MAKE) $(environment) -j1 -C $(build_dir) install
+	@rm -f $(TOOLCHAIN_PATH)/share/info/dir
 ifneq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
-	cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib/libgcc_s.so $(sysroot_dir)/usr/lib
-	cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib/libgcc_s.so.1 $(sysroot_dir)/usr/lib
+	@cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib/libgcc_s.so $(sysroot_dir)/usr/lib
+	@cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib/libgcc_s.so.1 $(sysroot_dir)/usr/lib
 endif
 ifneq ($(findstring x86_64, $(TOOLCHAIN)),)
-	cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so $(sysroot_dir)/usr/lib32
-	cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so.1 $(sysroot_dir)/usr/lib32
+	@cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so $(sysroot_dir)/usr/lib32
+	@cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so.1 $(sysroot_dir)/usr/lib32
 endif
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@
 
 $(full_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
@@ -844,12 +1021,13 @@ $(full_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 #
 
 $(full_install_target): $(full_build_target)
-	rm -f $(sysroot_dir)/usr/lib/libgcc_s.so
-	rm -f $(sysroot_dir)/usr/lib/libgcc_s.so.1
+	@rm -f $(sysroot_dir)/usr/lib/libgcc_s.so
+	@rm -f $(sysroot_dir)/usr/lib/libgcc_s.so.1
 ifneq ($(findstring x86_64, $(TOOLCHAIN)),)
-	rm -f $(sysroot_dir)/usr/lib32/libgcc_s.so
-	rm -f $(sysroot_dir)/usr/lib32/libgcc_s.so.1
+	@rm -f $(sysroot_dir)/usr/lib32/libgcc_s.so
+	@rm -f $(sysroot_dir)/usr/lib32/libgcc_s.so.1
 endif
-	$(MAKE) $(environment) -j1 -C $(build_dir) install
-	rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@$(MAKE) $(environment) -j1 -C $(build_dir) install
+	@rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@

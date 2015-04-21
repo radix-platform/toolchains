@@ -1,44 +1,133 @@
 
-SUBDIRS := ../build-system         \
-           ../env/gnattools/4.9.2  \
-           A1X-boot/1.0.9          \
-           A2X-boot/1.0.9          \
-           AT91SAM7S-boot/1.0.9    \
-           DM644X-boot/1.0.9       \
-           LPC17XX-uclibc/1.0.9    \
-           \
-           A1X-eglibc/1.0.9        \
-           A2X-eglibc/1.0.9        \
-           DM644X-eglibc/1.0.9     \
-           IMX6-eglibc/1.0.9       \
-           OMAP35X-eglibc/1.0.9    \
-           OMAP543X-eglibc/1.0.9   \
-           BCM74X-eglibc/1.0.9     \
-           I486-eglibc/1.0.9       \
-           X86_64-eglibc/1.0.9     \
-           \
-           A1X-glibc/1.0.9         \
-           A2X-glibc/1.0.9         \
-           BCM74X-glibc/1.0.9      \
-           DM644X-glibc/1.0.9      \
-           I486-glibc/1.0.9        \
-           IMX6-glibc/1.0.9        \
-           OMAP35X-glibc/1.0.9     \
-           OMAP543X-glibc/1.0.9    \
-           X86_64-glibc/1.0.9
+
+COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_A2X_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_NEWLIB)
+
+COMPONENT_TARGETS += $(TOOLCHAIN_LPC17XX_UCLIBC)
+
+COMPONENT_TARGETS += $(TOOLCHAIN_A1X_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_A2X_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_BCM74X_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_I486_EGLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_EGLIBC)
+
+COMPONENT_TARGETS += $(TOOLCHAIN_A1X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_BCM74X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_JZ47XX_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_RK328X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
 
 
-all-recursive:
-	@set fnord $(MAKEFLAGS); amf=$$2; \
-	target=`echo $@ | sed s/-recursive//`; \
-	list='$(SUBDIRS)'; for subdir in $$list; do \
-	  echo "Making $$target in $$subdir"; \
-	  local_target="$$target"; \
-	  (cd $$subdir && $(MAKE) $$fnord $$local_target) \
-	   || case "$$amf" in *=*) exit 1;; *k*) fail=yes;; *) exit 1;; esac; \
-	done; test -z "$$fail"
+export TOOLCHAIN_VERSION = 1.0.9
 
 
-all: all-recursive
+include ../build-system/config.mk
 
-.PHONY: all-recursive all
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB))
+REQUIRES  = products/A1X-boot/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A2X_NEWLIB))
+REQUIRES  = products/A2X-boot/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_AT91SAM7S_NEWLIB))
+REQUIRES  = products/AT91SAM7S-boot/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_DM644X_NEWLIB))
+REQUIRES  = products/DM644X-boot/1.0.9
+endif
+
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
+REQUIRES  = products/LPC17XX-uclibc/1.0.9
+endif
+
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_EGLIBC))
+REQUIRES  = products/A1X-eglibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A2X_EGLIBC))
+REQUIRES  = products/A2X-eglibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_BCM74X_EGLIBC))
+REQUIRES  = products/BCM74X-eglibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_DM644X_EGLIBC))
+REQUIRES  = products/DM644X-eglibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_IMX6_EGLIBC))
+REQUIRES  = products/IMX6-eglibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_EGLIBC))
+REQUIRES  = products/OMAP35X-eglibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_EGLIBC))
+REQUIRES  = products/OMAP543X-eglibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I486_EGLIBC))
+REQUIRES  = products/I486-eglibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
+REQUIRES  = products/X86_64-eglibc/1.0.9
+endif
+
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_GLIBC))
+REQUIRES  = products/A1X-glibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A2X_GLIBC))
+REQUIRES  = products/A2X-glibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_BCM74X_GLIBC))
+REQUIRES  = products/BCM74X-glibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_DM644X_GLIBC))
+REQUIRES  = products/DM644X-glibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_IMX6_GLIBC))
+REQUIRES  = products/IMX6-glibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC))
+REQUIRES  = products/JZ47XX-glibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_GLIBC))
+REQUIRES  = products/OMAP35X-glibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_GLIBC))
+REQUIRES  = products/OMAP543X-glibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_RK328X_GLIBC))
+REQUIRES  = products/RK328X-glibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I486_GLIBC))
+REQUIRES  = products/I486-glibc/1.0.9
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC))
+REQUIRES  = products/X86_64-glibc/1.0.9
+endif
+
+
+# ======= __END_OF_REQUIRES__ =======
+
+install_target     = $(TARGET_BUILD_DIR)/.install_done
+
+BUILD_TARGETS      = $(install_target)
+
+
+include ../build-system/core.mk
+
+
+$(install_target):
+	@touch $@

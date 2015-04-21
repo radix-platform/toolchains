@@ -22,38 +22,47 @@ versions    = 1.14.0 1.18.0 1.20.0
 tarballs    = $(addsuffix .tar.gz, $(addprefix newlib-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
+patches     = $(CURDIR)/patches/newlib-1.18.0-arm-cross.patch
+patches    += $(CURDIR)/patches/newlib-1.20.0-arm-cross.patch
+packages    = $(CURDIR)/newlib-1.18.0-arm-cross.tar.gz
+packages   += $(CURDIR)/newlib-1.20.0-arm-cross.tar.gz
 
-BUILD_TARGETS = $(tarballs) $(sha1s)
+.NOTPARALLEL: $(patches)
+
+
+BUILD_TARGETS = $(tarballs) $(sha1s) $(patches)
 
 
 include ../../build-system/core.mk
 
 
-.PHONY: downloads_clean
+.PHONY: download_clean
 
 
 $(tarballs):
-	@echo -e "\n======= Downloading source tarballs ======="
-	@for tarball in $(tarballs) ; do \
-	  wget $(WGET_OPTIONS) -N $(url)/$$tarball ; \
-	done
-	@( cd create-newlib-1.18.0-pkg && ./create.pkg.sh )
-	@( cd create-newlib-1.20.0-pkg && ./create.pkg.sh )
+	@echo -e "\n======= Downloading source tarballs =======" ; \
+	 for tarball in $(tarballs) ; do \
+	   echo "$(url)/$$tarball" | xargs -n 1 -P 100 wget $(WGET_OPTIONS) -i & \
+	 done ; wait
 
-$(sha1s): %.tar.gz.sha1sum : %.tar.gz
+$(sha1s): $(tarballs)
 	@for sha in $@ ; do \
-	  echo -e "\n======= Downloading '$$sha' signature =======\n" ; \
-	  wget $(WGET_OPTIONS) -N $(url)/$$sha ; \
-	  touch $$sha ; \
-	  echo -e "\n======= Check the '$$sha' sha1sum =======\n" ; \
-	  sha1sum --check $$sha ; ret="$$?" ; \
-	  if [ "$$ret" == "1" ]; then \
-	    echo -e "\n======= ERROR: Bad '$$sha' sha1sum =======\n" ; \
-	    exit 1 ; \
-	  fi ; \
-	done
+	   echo -e "\n======= Downloading '$$sha' signature =======\n" ; \
+	   echo "$(url)/$$sha" | xargs -n 1 -P 100 wget $(WGET_OPTIONS) -i & wait %1 ; \
+	   touch $$sha ; \
+	   echo -e "\n======= Check the '$$sha' sha1sum =======\n" ; \
+	   sha1sum --check $$sha ; ret="$$?" ; \
+	   if [ "$$ret" == "1" ]; then \
+	     echo -e "\n======= ERROR: Bad '$$sha' sha1sum =======\n" ; \
+	     exit 1 ; \
+	   fi ; \
+	 done
 
-downloads_clean:
-	@rm -f $(tarballs) $(sha1s)
-	@rm -f newlib-1.18.0-arm-cross.tar.gz ./create-newlib-1.18.0-pkg/newlib-1.18.0-arm-cross.patch
-	@rm -f newlib-1.20.0-arm-cross.tar.gz ./create-newlib-1.20.0-pkg/newlib-1.20.0-arm-cross.patch
+$(patches): $(sha1s)
+	@echo -e "\n======= Create Patches =======\n" ; \
+	 ( cd create-newlib-1.18.0-patch ; ./create.pkg.sh ) ; \
+	 ( cd create-newlib-1.20.0-patch ; ./create.pkg.sh ) ; \
+	 echo -e "\n"
+
+download_clean:
+	@rm -f $(tarballs) $(sha1s) $(patches) $(packages)

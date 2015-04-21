@@ -24,8 +24,10 @@ COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_BCM74X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_JZ47XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_RK328X_GLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
@@ -37,12 +39,13 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
 FLAVOURS = flat
 endif
 
-SOURCE_REQUIRES  = $(SRC_PACKAGE_DIR)/GNU/binutils
-SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/uClinux/elf2flt
+SOURCE_REQUIRES  = sources/GNU/binutils
+SOURCE_REQUIRES += sources/uClinux/elf2flt
 
+# ======= __END_OF_REQUIRES__ =======
 
-tar_bz2_archive      = $(SRC_PACKAGE_DIR)/GNU/binutils/binutils-2.25.tar.bz2
-tar_bz2_archive_flat = $(SRC_PACKAGE_DIR)/uClinux/elf2flt/elf2flt-1.64.tar.bz2
+tar_bz2_archive      = $(SRC_PACKAGE_PATH)/GNU/binutils/binutils-2.25.tar.bz2
+tar_bz2_archive_flat = $(SRC_PACKAGE_PATH)/uClinux/elf2flt/elf2flt-1.64.tar.bz2
 SRC_ARCHIVE          = $(tar_bz2_archive)
 SRC_DIR              = $(TARGET_BUILD_DIR)/binutils-2.25
 src_dir_name         = binutils-2.25
@@ -70,9 +73,11 @@ flat_install_target  = $(TARGET_BUILD_DIR)/.flat-installed
 
 
 ifeq ($(FLAVOUR),flat)
-BUILD_TARGETS = $(flat_install_target)
+BUILD_TARGETS  = $(flat_build_target)
+BUILD_TARGETS += $(flat_install_target)
 else
-BUILD_TARGETS = $(install_target)
+BUILD_TARGETS  = $(build_target)
+BUILD_TARGETS += $(install_target)
 endif
 
 include ../../../build-system/core.mk
@@ -146,6 +151,24 @@ extra_configure_switches += --with-abi=aapcs-linux
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_RK328X_GLIBC)),)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+# experimental gold linker( DEFAULT_LD=ld.bfd ):
+extra_configure_switches += --enable-gold=yes
+extra_configure_switches += --enable-ld=default
+extra_configure_switches += --enable-werror=no
+extra_configure_switches += --enable-plugins
+# standard options:
+extra_configure_switches += --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-cpu=cortex-a17
+extra_configure_switches += --with-arch=armv7ve
+extra_configure_switches += --with-fpu=neon-vfpv4
+extra_configure_switches += --with-abi=aapcs-linux
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+endif
+
 
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_IMX6_EGLIBC) $(TOOLCHAIN_IMX6_GLIBC)),)
 # experimental gold linker( DEFAULT_LD=ld.bfd ):
@@ -210,6 +233,16 @@ extra_configure_switches += --disable-werror
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC)),)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --enable-werror=no
+extra_configure_switches += --enable-poison-system-directories
+extra_configure_switches += --enable-plugins
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+endif
+
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC) $(TOOLCHAIN_X86_64_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=http://www.radix.pro'
@@ -269,28 +302,29 @@ $(flat_src_done): $(src_done)
 	@touch $@
 
 $(build_target): $(src_done)
-	mkdir -p $(build_dir)
-	cd $(build_dir) && ../$(src_dir_name)/configure \
+	@mkdir -p $(build_dir)
+	@cd $(build_dir) && ../$(src_dir_name)/configure \
 	  --prefix=$(TOOLCHAIN_PATH)                    \
 	  --target=$(TARGET)                            \
 	  --infodir=$(TOOLCHAIN_PATH)/share/info        \
 	  --mandir=$(TOOLCHAIN_PATH)/share/man          \
 	  --disable-nls                                 \
 	  $(extra_configure_switches)
-	$(MAKE) -C $(build_dir)
-	$(MAKE) -C $(build_dir) info
+	@$(MAKE) -C $(build_dir)
+	@$(MAKE) -C $(build_dir) info
 	@touch $@
 
 $(install_target): $(build_target)
-	mkdir -p $(install_dir)
-	$(MAKE) -j1 -C $(build_dir) install
-	$(MAKE) -j1 -C $(build_dir) install-info
-	rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@mkdir -p $(install_dir)
+	@$(MAKE) -j1 -C $(build_dir) install
+	@$(MAKE) -j1 -C $(build_dir) install-info
+	@rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@
 
 $(flat_build_target): $(flat_src_done) $(build_target)
-	mkdir -p $(flat_build_dir)
-	cd $(flat_build_dir) && LIBS=-ldl ../$(flat_src_dir_name)/configure \
+	@mkdir -p $(flat_build_dir)
+	@cd $(flat_build_dir) && LIBS=-ldl ../$(flat_src_dir_name)/configure \
 	  --prefix=$(TOOLCHAIN_PATH)                              \
 	  --target=$(TARGET)                                      \
 	  --with-binutils-include-dir=../$(src_dir_name)/include/ \
@@ -298,9 +332,9 @@ $(flat_build_target): $(flat_src_done) $(build_target)
 	  --with-libbfd=../build/bfd/libbfd.a                     \
 	  --with-libiberty=../build/libiberty/libiberty.a         \
 	  --disable-got-check
-	$(MAKE) -C $(flat_build_dir)
+	@$(MAKE) -C $(flat_build_dir)
 	@touch $@
 
 $(flat_install_target): $(flat_build_target) $(install_target)
-	$(MAKE) -j1 -C $(flat_build_dir) install
+	@$(MAKE) -j1 -C $(flat_build_dir) install
 	@touch $@

@@ -8,8 +8,13 @@ ifndef CONFIG_MK
 
 DOWNLOAD_SERVER      = ftp://ftp.radix.pro
 
+WGET_OPTIONS         = -q -N
+
+CACHED_CC_OUTPUT     = /opt/extra/ccache
+
 TOOLCHAINS_BASE_PATH = /opt/toolchain
 TOOLCHAINS_VERSION   = 1.0.0
+
 
 # Build machine architrcture:
 
@@ -182,6 +187,14 @@ A2X_GLIBC_DIR  = arm-A2X-linux-glibc
 A2X_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(A2X_GLIBC_DIR)
 
 
+# Rockchip RK328X-GLIBC
+TOOLCHAIN_RK328X_GLIBC = rk328x-glibc
+
+RK328X_GLIBC_ARCH = arm-rk328x-linux-gnueabihf
+RK328X_GLIBC_DIR  = arm-RK328X-linux-glibc
+RK328X_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(RK328X_GLIBC_DIR)
+
+
 # BCM74X-EGLIBC
 TOOLCHAIN_BCM74X_EGLIBC = bcm74x-eglibc
 
@@ -195,6 +208,14 @@ TOOLCHAIN_BCM74X_GLIBC = bcm74x-glibc
 BCM74X_GLIBC_ARCH = mipsel-bcm74x-linux-gnu
 BCM74X_GLIBC_DIR  = mipsel-BCM74X-linux-glibc
 BCM74X_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(BCM74X_GLIBC_DIR)
+
+
+# JZ47XX-GLIBC
+TOOLCHAIN_JZ47XX_GLIBC = jz47xx-glibc
+
+JZ47XX_GLIBC_ARCH = mipsel-jz47xx-linux-gnu
+JZ47XX_GLIBC_DIR  = mipsel-JZ47XX-linux-glibc
+JZ47XX_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(JZ47XX_GLIBC_DIR)
 
 
 # X86_64-EGLIBC

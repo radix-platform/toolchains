@@ -25,12 +25,13 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
 FLAVOURS = flat
 endif
 
-SOURCE_REQUIRES  = $(SRC_PACKAGE_DIR)/GNU/binutils
-SOURCE_REQUIRES += $(SRC_PACKAGE_DIR)/uClinux/elf2flt
+SOURCE_REQUIRES  = sources/GNU/binutils
+SOURCE_REQUIRES += sources/uClinux/elf2flt
 
+# ======= __END_OF_REQUIRES__ =======
 
-tar_bz2_archive      = $(SRC_PACKAGE_DIR)/GNU/binutils/binutils-2.24.tar.bz2
-tar_bz2_archive_flat = $(SRC_PACKAGE_DIR)/uClinux/elf2flt/elf2flt-1.64.tar.bz2
+tar_bz2_archive      = $(SRC_PACKAGE_PATH)/GNU/binutils/binutils-2.24.tar.bz2
+tar_bz2_archive_flat = $(SRC_PACKAGE_PATH)/uClinux/elf2flt/elf2flt-1.64.tar.bz2
 SRC_ARCHIVE          = $(tar_bz2_archive)
 SRC_DIR              = $(TARGET_BUILD_DIR)/binutils-2.24
 src_dir_name         = binutils-2.24
@@ -58,9 +59,11 @@ flat_install_target  = $(TARGET_BUILD_DIR)/.flat-installed
 
 
 ifeq ($(FLAVOUR),flat)
-BUILD_TARGETS = $(flat_install_target)
+BUILD_TARGETS  = $(flat_build_target)
+BUILD_TARGETS += $(flat_install_target)
 else
-BUILD_TARGETS = $(install_target)
+BUILD_TARGETS  = $(build_target)
+BUILD_TARGETS += $(install_target)
 endif
 
 include ../../../build-system/core.mk
@@ -257,28 +260,29 @@ $(flat_src_done): $(src_done)
 	@touch $@
 
 $(build_target): $(src_done)
-	mkdir -p $(build_dir)
-	cd $(build_dir) && ../$(src_dir_name)/configure \
-	  --prefix=$(TOOLCHAIN_PATH)                    \
-	  --target=$(TARGET)                            \
-	  --infodir=$(TOOLCHAIN_PATH)/share/info        \
-	  --mandir=$(TOOLCHAIN_PATH)/share/man          \
-	  --disable-nls                                 \
+	@mkdir -p $(build_dir)
+	@cd $(build_dir) && ../$(src_dir_name)/configure \
+	  --prefix=$(TOOLCHAIN_PATH)                     \
+	  --target=$(TARGET)                             \
+	  --infodir=$(TOOLCHAIN_PATH)/share/info         \
+	  --mandir=$(TOOLCHAIN_PATH)/share/man           \
+	  --disable-nls                                  \
 	  $(extra_configure_switches)
-	$(MAKE) -C $(build_dir)
-	$(MAKE) -C $(build_dir) info
+	@$(MAKE) -C $(build_dir)
+	@$(MAKE) -C $(build_dir) info
 	@touch $@
 
 $(install_target): $(build_target)
-	mkdir -p $(install_dir)
-	$(MAKE) -C $(build_dir) install
-	$(MAKE) -C $(build_dir) install-info
-	rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@mkdir -p $(install_dir)
+	@$(MAKE) -C $(build_dir) install
+	@$(MAKE) -C $(build_dir) install-info
+	@rm -f $(TOOLCHAIN_PATH)/share/info/dir
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@
 
 $(flat_build_target): $(flat_src_done) $(build_target)
-	mkdir -p $(flat_build_dir)
-	cd $(flat_build_dir) && ../$(flat_src_dir_name)/configure \
+	@mkdir -p $(flat_build_dir)
+	@cd $(flat_build_dir) && ../$(flat_src_dir_name)/configure \
 	  --prefix=$(TOOLCHAIN_PATH)                              \
 	  --target=$(TARGET)                                      \
 	  --with-binutils-include-dir=../$(src_dir_name)/include/ \
@@ -286,9 +290,9 @@ $(flat_build_target): $(flat_src_done) $(build_target)
 	  --with-libbfd=../build/bfd/libbfd.a                     \
 	  --with-libiberty=../build/libiberty/libiberty.a         \
 	  --disable-got-check
-	$(MAKE) -C $(flat_build_dir)
+	@$(MAKE) -C $(flat_build_dir)
 	@touch $@
 
 $(flat_install_target): $(flat_build_target) $(install_target)
-	$(MAKE) -C $(flat_build_dir) install
+	@$(MAKE) -C $(flat_build_dir) install
 	@touch $@
