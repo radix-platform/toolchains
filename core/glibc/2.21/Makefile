@@ -38,7 +38,7 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_IMX6_GLIBC))
 REQUIRES  = core/linux/imx6/imx_3.0.35_4.1.0
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC))
-REQUIRES  = core/linux/Ingenic/CI20/ci20-3.18-20150313
+REQUIRES  = core/linux/Ingenic/CI20/ci20-3.18-20150828
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I486_GLIBC))
 REQUIRES  = core/linux/3.10.17

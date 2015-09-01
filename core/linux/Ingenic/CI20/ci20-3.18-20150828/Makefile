@@ -15,9 +15,9 @@ endif
 
 # ======= __END_OF_REQUIRES__ =======
 
-tar_bz2_archive = $(SRC_PACKAGE_PATH)/Linux/Ingenic/CI20/linux-ci20-3.18-20150313.tar.bz2
+tar_bz2_archive = $(SRC_PACKAGE_PATH)/Linux/Ingenic/CI20/linux-ci20-3.18-20150828.tar.bz2
 SRC_ARCHIVE     = $(tar_bz2_archive)
-SRC_DIR         = $(TARGET_BUILD_DIR)/linux-ci20-3.18-20150313
+SRC_DIR         = $(TARGET_BUILD_DIR)/linux-ci20-3.18-20150828
 src_done        = $(TARGET_BUILD_DIR)/.source-done
 
 defconfig       = $(CURDIR)/config/ci20-3.18.defconfig
