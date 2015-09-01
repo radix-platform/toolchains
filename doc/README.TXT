@@ -18,3 +18,6 @@ NOTE:
   Directory names in products folder shouldn't match with any toolchain name.
   For example, if we have toolchain name 'x86_64-eglibc' then directory name
   for this toolchain should be at least 'X86_64-eglibc'.
+
+NOTE JZ47XX GLibc:
+  The -O3 optimisation for glibc made wrong executables. We have to use -O2 only.
