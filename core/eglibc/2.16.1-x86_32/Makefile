@@ -10,7 +10,7 @@ SOURCE_REQUIRES = sources/GNU/EGLIBC/2.16.1
 ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.2 1.0.3),)
 
 ifeq ($(FLAVOUR),headers)
-REQUIRES  = core/linux/3.5.4
+REQUIRES  = core/linux/3.10.17
 endif
 
 ifeq ($(FLAVOUR),full)
