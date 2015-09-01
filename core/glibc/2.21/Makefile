@@ -136,7 +136,7 @@ environment += CFLAGS="-g -O3 -march=armv7-a -mtune=cortex-a9 -mfpu=vfpv3-d16 -m
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC))
-environment += CFLAGS="-g -O2 -march=mips32r2 -mhard-float"
+environment += CFLAGS="-g -O3 -march=mips32r2 -mhard-float"
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_GLIBC))
