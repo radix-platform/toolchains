@@ -38,8 +38,8 @@ endif
 
 # ======= __END_OF_REQUIRES__ =======
 
-tar_bz2_archive = $(SRC_PACKAGE_PATH)/Linux/v3.x/linux-3.10.17.tar.bz2
-SRC_ARCHIVE     = $(tar_bz2_archive)
+tar_xz_archive  = $(SRC_PACKAGE_PATH)/Linux/v3.x/linux-3.10.17.tar.xz
+SRC_ARCHIVE     = $(tar_xz_archive)
 SRC_DIR         = $(TARGET_BUILD_DIR)/linux-3.10.17
 src_done        = $(TARGET_BUILD_DIR)/.source-done
 

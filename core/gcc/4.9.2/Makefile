@@ -800,7 +800,7 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
-extra_configure_switches += --disable-__cxa_atexit
+extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-threads
 extra_configure_switches += --enable-nls
