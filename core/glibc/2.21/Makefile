@@ -38,7 +38,7 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_IMX6_GLIBC))
 REQUIRES  = core/linux/imx6/imx_3.0.35_4.1.0
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC))
-REQUIRES  = core/linux/Ingenic/CI20/ci20-3.18-20150313
+REQUIRES  = core/linux/Ingenic/CI20/ci20-3.18-20150828
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I486_GLIBC))
 REQUIRES  = core/linux/3.10.17
@@ -136,7 +136,7 @@ environment += CFLAGS="-g -O3 -march=armv7-a -mtune=cortex-a9 -mfpu=vfpv3-d16 -m
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC))
-environment += CFLAGS="-g -O3 -march=mips32r2 -mel -mhard-float"
+environment += CFLAGS="-g -O3 -march=mips32r2 -mhard-float"
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_GLIBC))

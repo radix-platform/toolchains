@@ -236,10 +236,10 @@ endif
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=http://www.radix.pro'
-extra_configure_switches += --enable-werror=no
-extra_configure_switches += --enable-poison-system-directories
-extra_configure_switches += --enable-plugins
 extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-arch=mips32r2
+extra_configure_switches += --enable-werror=no
+extra_configure_switches += --enable-plugins
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 

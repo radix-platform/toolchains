@@ -765,7 +765,7 @@ extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-arch-32=mips32r2
 extra_configure_switches += --with-arch-64=mips64r2
 extra_configure_switches += --with-float=hard
-extra_configure_switches += --with-mips=plt
+extra_configure_switches += --with-mips-plt
 extra_configure_switches += --enable-target-optspace
 ifeq ($(FLAVOUR),static)
 extra_configure_switches += --disable-libatomic
@@ -800,7 +800,7 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
-extra_configure_switches += --disable-__cxa_atexit
+extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-threads
 extra_configure_switches += --enable-nls
