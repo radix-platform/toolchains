@@ -765,7 +765,12 @@ extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-arch-32=mips32r2
 extra_configure_switches += --with-arch-64=mips64r2
 extra_configure_switches += --with-float=hard
+extra_configure_switches += --with-mips-plt
 extra_configure_switches += --enable-target-optspace
+extra_configure_switches += --enable-symvers=gnu
+extra_configure_switches += --enable-__cxa_atexit
+extra_configure_switches += --with-gnu-as
+extra_configure_switches += --with-gnu-ld
 ifeq ($(FLAVOUR),static)
 extra_configure_switches += --disable-libatomic
 extra_configure_switches += --disable-libgomp
