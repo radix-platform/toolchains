@@ -13,6 +13,9 @@
    binutils-2.23.2-x86_64-multilib.patch - related to linker script search path;
    binutils-2.24-x86_64-multilib.patch   - related to linker script search path;
 
+   binutils-2.25.1-export-demangle.patch - export demangle.h file;
+   binutils-2.25.1-no-config-check.patch - no check config.h file;
+
    README.TXT                            - this file.
 
  * end */
