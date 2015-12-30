@@ -1,0 +1,5 @@
+gcc-5.3.0/gcc/config/arm/t-arm-elf
+gcc-5.3.0/gcc/config.gcc
+gcc-5.3.0/gcc/configure
+gcc-5.3.0/gcc/configure.ac
+gcc-5.3.0/libstdc++-v3/include/c_global/cstdio
