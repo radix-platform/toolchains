@@ -1,18 +1,18 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
-include ../../../../../build-system/config.mk
+include ../../../../../../build-system/config.mk
 
-url         = $(DOWNLOAD_SERVER)/sources/GNU/mpfr
+url         = $(DOWNLOAD_SERVER)/sources/GNU/gcc/gcc-$(version)
 
-versions    = 3.1.2 3.1.3
+version     = 5.3.0
 
-tarballs    = $(addsuffix .tar.bz2, $(addprefix mpfr-, $(versions)))
+tarballs    = $(addsuffix .tar.bz2, $(addprefix gcc-, $(version)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
 BUILD_TARGETS = $(tarballs) $(sha1s)
 
-include ../../../../../build-system/core.mk
+include ../../../../../../build-system/core.mk
 
 .PHONY: download_clean
 
