@@ -7,29 +7,7 @@ include ../../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/dm644x/flash-tools/NOR-flasher
 
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.1),)
-REQUIRES  = core/gcc/4.5.1^full
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.2 1.0.3 1.0.4),)
-REQUIRES  = core/gcc/4.7.2^full
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.5),)
-REQUIRES  = core/gcc/4.7.3^full
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.6),)
-REQUIRES  = core/gcc/4.8.2^full
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.7 1.0.8),)
-REQUIRES  = core/gcc/4.9.1^full
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.9),)
-REQUIRES  = core/gcc/4.9.2^full
-endif
+REQUIRES  = tools/dm644x/modSign
 
 # ======= __END_OF_REQUIRES__ =======
 

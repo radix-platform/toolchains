@@ -28,6 +28,7 @@ patches    += $(CURDIR)/../patches/gcc-5.3.0-lpc17xx-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-x86_64-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-bcm74x-libgo.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-jz47xx-libgo.patch
+patches    += $(CURDIR)/../patches/gcc-5.3.0-p5600-libgo.patch
 
 .NOTPARALLEL: $(patches)
 
@@ -70,6 +71,7 @@ $(patches): $(sha1s)
 	 ( cd create-5.3.0-x86_64-multilib-patch  ; ./create.patch.sh ) ; \
 	 ( cd create-5.3.0-bcm74x-libgo-patch     ; ./create.patch.sh ) ; \
 	 ( cd create-5.3.0-jz47xx-libgo-patch     ; ./create.patch.sh ) ; \
+	 ( cd create-5.3.0-p5600-libgo-patch      ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:

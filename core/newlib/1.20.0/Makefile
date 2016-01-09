@@ -76,6 +76,15 @@ REQUIRES  = core/gcc/4.9.2^static
 endif
 endif
 
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.0),)
+ifeq ($(FLAVOUR),headers)
+REQUIRES  = core/binutils/2.25.1
+endif
+ifeq ($(FLAVOUR),full)
+REQUIRES  = core/gcc/5.3.0^static
+endif
+endif
+
 # ======= __END_OF_REQUIRES__ =======
 
 tar_gz_archive  = $(SRC_PACKAGE_PATH)/newlib/newlib-1.20.0-arm-cross.tar.gz

@@ -533,15 +533,15 @@ else
 ifeq ($(__cmdline_flavour_defined),false)
 ifeq ($(FLAVOUR),)
 # (2) then we loop over all available flavours
-__target_args = .target_$(TOOLCHAIN) $(if $(FLAVOURS), $(foreach flavour, $(FLAVOURS), .target_$(TOOLCHAIN)_$(flavour)),)
+__target_args = .target_$(shell echo $(TOOLCHAIN) | sed -e 's/x86_64/x86-64/g') $(if $(FLAVOURS), $(foreach flavour, $(FLAVOURS), .target_$(shell echo $(TOOLCHAIN) | sed -e 's/x86_64/x86-64/g')_$(flavour)),)
 endif
 else
 ifneq ($(FLAVOUR),)
 # (1) then we use only one defined flavour
-__target_args = .target_$(TOOLCHAIN)_$(FLAVOUR)
+__target_args = .target_$(shell echo $(TOOLCHAIN) | sed -e 's/x86_64/x86-64/g')_$(FLAVOUR)
 else
 # (0) then we define flavour as empty
-__target_args = .target_$(TOOLCHAIN)
+__target_args = .target_$(shell echo $(TOOLCHAIN) | sed -e 's/x86_64/x86-64/g')
 endif
 endif
 endif

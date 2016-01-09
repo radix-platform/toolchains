@@ -36,6 +36,10 @@ ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.9),)
 REQUIRES  = core/gcc/4.9.2^static
 endif
 
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.0),)
+REQUIRES  = core/gcc/5.3.0^static
+endif
+
 # ======= __END_OF_REQUIRES__ =======
 
 tar_bz2_archive = $(SRC_PACKAGE_PATH)/Linux/sunxi/sunxi-3.4/linux-sunxi-3.4-20140514.tar.bz2

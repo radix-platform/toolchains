@@ -20,6 +20,8 @@
 .omap35x-glibc/
 .omap543x-glibc/
 .bcm74x-glibc/
+.jz47xx-glibc/
+.p5600-glibc/
 .x86_64-glibc/
 
 # Hidden files (each file)

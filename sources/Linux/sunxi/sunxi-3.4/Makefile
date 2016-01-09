@@ -12,7 +12,7 @@ include ../../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/Linux/sunxi/sunxi-3.4
 
-versions    = 20140514
+versions    = 20140514 20150315
 
 description = linux-sunxi.txt
 tarballs    = $(addsuffix .tar.bz2, $(addprefix linux-sunxi-3.4-, $(versions)))
