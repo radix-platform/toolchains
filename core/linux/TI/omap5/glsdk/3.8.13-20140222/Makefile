@@ -4,10 +4,10 @@ COMPONENT_TARGETS  = $(TOOLCHAIN_OMAP543X_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
 
 
-include ../../../../build-system/config.mk
+include ../../../../../../build-system/config.mk
 
 
-SOURCE_REQUIRES = sources/Linux/omap5-glsdk
+SOURCE_REQUIRES = sources/Linux/TI/omap5/glsdk
 
 ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.1),)
 REQUIRES  = core/gcc/4.5.1^static
@@ -39,9 +39,9 @@ endif
 
 # ======= __END_OF_REQUIRES__ =======
 
-tar_bz2_archive = $(SRC_PACKAGE_PATH)/Linux/omap5-glsdk/linux-glsdk-3.8.y-20140222.tar.bz2
-SRC_ARCHIVE     = $(tar_bz2_archive)
-SRC_DIR         = $(TARGET_BUILD_DIR)/linux-glsdk-3.8.y-20140222
+tar_xz_archive  = $(SRC_PACKAGE_PATH)/Linux/TI/omap5/glsdk/linux-glsdk-3.8.13-20140222.tar.xz
+SRC_ARCHIVE     = $(tar_xz_archive)
+SRC_DIR         = $(TARGET_BUILD_DIR)/linux-glsdk-3.8.13-20140222
 src_done        = $(TARGET_BUILD_DIR)/.source-done
 
 sysroot_dir     = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
@@ -55,7 +55,7 @@ endif
 BUILD_TARGETS = $(headers_target)
 
 
-include ../../../../build-system/core.mk
+include ../../../../../../build-system/core.mk
 
 
 

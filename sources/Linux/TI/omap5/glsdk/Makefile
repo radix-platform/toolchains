@@ -7,31 +7,26 @@
 COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 
 
-include ../../../build-system/config.mk
+include ../../../../../build-system/config.mk
 
 
-url         = $(DOWNLOAD_SERVER)/sources/Linux/omap5-glsdk
+url         = $(DOWNLOAD_SERVER)/sources/Linux/TI/omap5/glsdk
 
-versions    = 3.8.y-20131223 3.8.y-20140222
+versions    = 3.8.13-20131223 3.8.13-20140222
 
-description = omap5-glsdk.txt
-tarballs    = $(addsuffix .tar.bz2, $(addprefix linux-glsdk-, $(versions)))
-defconfigs  = $(subst .tar.bz2,.defconfig, $(tarballs))
+tarballs    = $(addsuffix .tar.xz, $(addprefix linux-glsdk-, $(versions)))
+defconfigs  = $(subst .tar.xz,.defconfig, $(tarballs))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
 
-BUILD_TARGETS = $(description) $(tarballs) $(defconfigs) $(sha1s)
+BUILD_TARGETS = $(tarballs) $(defconfigs) $(sha1s)
 
 
-include ../../../build-system/core.mk
+include ../../../../../build-system/core.mk
 
 
 .PHONY: download_clean
 
-
-$(description):
-	@echo -e "\n======= Downloading $(description) file =======" ; \
-	 echo "$(url)/$(description)" | xargs -n 1 -P 100 wget $(WGET_OPTIONS) -i & wait %1
 
 $(tarballs):
 	@echo -e "\n======= Downloading source tarballs =======" ; \
@@ -59,4 +54,4 @@ $(sha1s): $(tarballs)
 	 done
 
 download_clean:
-	@rm -f $(description) $(tarballs) $(defconfigs) $(sha1s)
+	@rm -f $(tarballs) $(defconfigs) $(sha1s)

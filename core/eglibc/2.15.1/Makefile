@@ -28,7 +28,7 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_EGLIBC))
 REQUIRES  = core/linux/omap/2.6.36
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_EGLIBC))
-REQUIRES  = core/linux/omap5-glsdk/3.8.y-20140222
+REQUIRES  = core/linux/TI/omap5/glsdk/3.8.13-20140222
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC))
 REQUIRES  = core/eglibc/2.16.1-x86_32^headers
