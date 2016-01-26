@@ -6,7 +6,7 @@ COMPONENT_TARGETS  = $(TOOLCHAIN_A2X_GLIBC)
 include ../../../../build-system/config.mk
 
 
-SOURCE_REQUIRES = sources/Linux/sunxi/sunxi-3.4
+SOURCE_REQUIRES = sources/Linux/Allwinner/sunxi-3.4
 
 ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.0),)
 REQUIRES  = core/gcc/5.3.0^static
@@ -14,7 +14,7 @@ endif
 
 # ======= __END_OF_REQUIRES__ =======
 
-tar_bz2_archive = $(SRC_PACKAGE_PATH)/Linux/sunxi/sunxi-3.4/linux-sunxi-3.4-20150315.tar.bz2
+tar_bz2_archive = $(SRC_PACKAGE_PATH)/Linux/Allwinner/sunxi-3.4/linux-sunxi-3.4-20150315.tar.bz2
 SRC_ARCHIVE     = $(tar_bz2_archive)
 SRC_DIR         = $(TARGET_BUILD_DIR)/linux-sunxi-3.4-20150315
 src_done        = $(TARGET_BUILD_DIR)/.source-done

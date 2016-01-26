@@ -10,7 +10,7 @@ COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 include ../../../../build-system/config.mk
 
 
-url         = $(DOWNLOAD_SERVER)/sources/Linux/sunxi/sunxi-3.4
+url         = $(DOWNLOAD_SERVER)/sources/Linux/Allwinner/sunxi-3.4
 
 versions    = 20140514 20150315
 
