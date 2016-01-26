@@ -14,13 +14,12 @@ url         = $(DOWNLOAD_SERVER)/sources/Linux/Allwinner/sunxi-3.4
 
 versions    = 20140514 20150315
 
-description = linux-sunxi.txt
 tarballs    = $(addsuffix .tar.bz2, $(addprefix linux-sunxi-3.4-, $(versions)))
 defconfigs  = $(subst .tar.bz2,.defconfig, $(tarballs))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
 
-BUILD_TARGETS = $(description) $(tarballs) $(defconfigs) $(sha1s)
+BUILD_TARGETS = $(tarballs) $(defconfigs) $(sha1s)
 
 
 include ../../../../build-system/core.mk
@@ -28,10 +27,6 @@ include ../../../../build-system/core.mk
 
 .PHONY: download_clean
 
-
-$(description):
-	@echo -e "\n======= Downloading $(description) file =======" ; \
-	 echo "$(url)/$(description)" | xargs -n 1 -P 100 wget $(WGET_OPTIONS) -i & wait %1
 
 $(tarballs):
 	@echo -e "\n======= Downloading source tarballs =======" ; \
@@ -59,4 +54,4 @@ $(sha1s): $(tarballs)
 	 done
 
 download_clean:
-	@rm -f $(description) $(tarballs) $(defconfigs) $(sha1s)
+	@rm -f $(tarballs) $(defconfigs) $(sha1s)
