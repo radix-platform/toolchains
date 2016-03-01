@@ -12,7 +12,7 @@ include ../../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/Linux/Rockchip/Firefly-RK3288
 
-versions    = firefly-3.10-20150417 firefly-3.10-20151126
+versions    = firefly-3.10-20150417 firefly-3.10-20151126 firefly-3.10-20151231
 
 description = linux-Firefly-RK3288.txt
 tarballs    = $(addsuffix .tar.bz2, $(addprefix linux-, $(versions)))

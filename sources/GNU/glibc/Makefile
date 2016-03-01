@@ -15,7 +15,7 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/GNU/glibc
 
-versions    = 2.21 2.22
+versions    = 2.21 2.22 2.23
 
 pkgname     = glibc
 suffix      = tar.xz
@@ -25,6 +25,7 @@ sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
 patches     = $(CURDIR)/patches/glibc-2.21-i18n.patch
 patches    += $(CURDIR)/patches/glibc-2.22-i18n.patch
+patches    += $(CURDIR)/patches/glibc-2.23-i18n.patch
 
 .NOTPARALLEL: $(patches)
 
@@ -61,6 +62,7 @@ $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
 	 ( cd create-2.21-i18n-patch ; ./create.patch.sh ) ; \
 	 ( cd create-2.22-i18n-patch ; ./create.patch.sh ) ; \
+	 ( cd create-2.23-i18n-patch ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:

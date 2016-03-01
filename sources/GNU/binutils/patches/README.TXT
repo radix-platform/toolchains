@@ -16,6 +16,9 @@
    binutils-2.25.1-export-demangle.patch - export demangle.h file;
    binutils-2.25.1-no-config-check.patch - no check config.h file;
 
+   binutils-2.26-export-demangle.patch   - export demangle.h file;
+   binutils-2.26-no-config-check.patch   - no check config.h file;
+
    README.TXT                            - this file.
 
  * end */

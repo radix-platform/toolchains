@@ -384,7 +384,7 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_IMX6_EGLIBC))
 extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-tune=cortex-a9
-extra_configure_switches += --with-fpu=vfpv3-d16
+extra_configure_switches += --with-fpu=vfpv3
 extra_configure_switches += --with-abi=aapcs-linux
 # add
 extra_configure_switches += --with-float=hard

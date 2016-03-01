@@ -44,6 +44,10 @@ ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.0),)
 REQUIRES  = core/gcc/5.3.0^full
 endif
 
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
+REQUIRES  = core/gcc/5.3.0^full
+endif
+
 # ======= __END_OF_REQUIRES__ =======
 
 tar_gz_archive   = $(SRC_PACKAGE_PATH)/tools/chrpath/chrpath-0.16.tar.gz

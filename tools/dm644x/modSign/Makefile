@@ -33,6 +33,10 @@ ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.0),)
 REQUIRES  = core/gcc/5.3.0^full
 endif
 
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
+REQUIRES  = core/gcc/5.3.0^full
+endif
+
 # ======= __END_OF_REQUIRES__ =======
 
 VERSION = 00.91

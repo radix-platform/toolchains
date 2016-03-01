@@ -136,7 +136,7 @@ environment += CFLAGS="-g -O2"
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_IMX6_GLIBC))
-environment += CFLAGS="-g -O3 -march=armv7-a -mtune=cortex-a9 -mfpu=vfpv3-d16 -mfloat-abi=hard"
+environment += CFLAGS="-g -O3 -march=armv7-a -mtune=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard"
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC))

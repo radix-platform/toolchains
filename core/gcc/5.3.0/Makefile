@@ -70,6 +70,43 @@ endif
 
 endif
 
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
+
+ifneq ($(findstring newlib, $(TOOLCHAIN)),)
+ifeq ($(FLAVOUR),static)
+REQUIRES  = core/newlib/2.3.0-20160226^headers
+endif
+ifeq ($(FLAVOUR),full)
+REQUIRES  = core/newlib/2.3.0-20160226^full
+endif
+endif
+
+ifneq ($(findstring uclibc, $(TOOLCHAIN)),)
+ifeq ($(FLAVOUR),static)
+REQUIRES  = core/binutils/2.26^flat
+endif
+ifeq ($(FLAVOUR),second)
+REQUIRES  = core/uclibc/0.9.33.2^headers
+endif
+ifeq ($(FLAVOUR),full)
+REQUIRES  = core/uclibc/0.9.33.2^full
+endif
+endif
+
+ifneq ($(findstring -glibc, $(TOOLCHAIN)),)
+ifeq ($(FLAVOUR),static)
+REQUIRES  = core/binutils/2.26
+endif
+ifeq ($(FLAVOUR),second)
+REQUIRES  = core/glibc/2.23^headers
+endif
+ifeq ($(FLAVOUR),full)
+REQUIRES  = core/glibc/2.23^full
+endif
+endif
+
+endif
+
 # ======= __END_OF_REQUIRES__ =======
 
 tar_bz2_archive       = $(SRC_PACKAGE_PATH)/GNU/gcc/gcc-5.3.0/gcc-5.3.0.tar.bz2
@@ -306,7 +343,9 @@ endif
 
 
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A1X_GLIBC)),)
-extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-tune=cortex-a8
 extra_configure_switches += --with-fpu=neon
@@ -357,7 +396,9 @@ endif
 
 
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A2X_GLIBC)),)
-extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-arch=armv7ve
 extra_configure_switches += --with-tune=cortex-a7
 extra_configure_switches += --with-fpu=neon-vfpv4
@@ -461,10 +502,12 @@ endif
 
 
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_IMX6_GLIBC)),)
-extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-tune=cortex-a9
-extra_configure_switches += --with-fpu=vfpv3-d16
+extra_configure_switches += --with-fpu=vfpv3
 extra_configure_switches += --with-abi=aapcs-linux
 # add
 extra_configure_switches += --with-float=hard
@@ -518,7 +561,9 @@ endif
 
 
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_GLIBC)),)
-extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-tune=cortex-a8
 extra_configure_switches += --with-fpu=neon
@@ -569,7 +614,9 @@ endif
 
 
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_GLIBC)),)
-extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-tune=cortex-a15
 extra_configure_switches += --with-fpu=neon-vfpv4
@@ -626,7 +673,9 @@ endif
 
 
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_DM644X_GLIBC)),)
-extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-float=soft
 extra_configure_switches += --with-arch=armv5te
 extra_configure_switches += --with-tune=arm926ej-s
@@ -672,7 +721,9 @@ endif
 
 
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_BCM74X_GLIBC)),)
-extra_configure_switches  = --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-arch=mips32
 extra_configure_switches += --with-float=hard
 extra_configure_switches += --enable-target-optspace

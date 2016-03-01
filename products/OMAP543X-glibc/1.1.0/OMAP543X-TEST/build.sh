@@ -8,10 +8,6 @@ ARCH_FLAGS=" -march=armv7-a -mtune=cortex-a15"
 #FPU_FLAGS=" "
 # NEON:
 #FPU_FLAGS=" -mfloat-abi=hard -mfpu=neon -ffast-math"
-# vfpv3-d16:
-#FPU_FLAGS=" -mfloat-abi=hard -mfpu=vfpv3-d16 -ffast-math"
-# vfpv4-d16:
-#FPU_FLAGS=" -mfloat-abi=hard -mfpu=vfpv4-d16 -ffast-math"
 # NEON + VFPv4:
 #FPU_FLAGS=" -mfloat-abi=hard -mfpu=neon-vfpv4  -ffast-math"
 

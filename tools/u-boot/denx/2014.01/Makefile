@@ -47,6 +47,10 @@ ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.0),)
 REQUIRES  = core/gcc/5.3.0^full
 endif
 
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
+REQUIRES  = core/gcc/5.3.0^full
+endif
+
 # ======= __END_OF_REQUIRES__ =======
 
 tar_bz2_archive  = $(SRC_PACKAGE_PATH)/U-Boot/denx/u-boot-2014.01.tar.bz2
