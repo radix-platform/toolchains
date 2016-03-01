@@ -88,5 +88,5 @@ $(headers_target): $(sysroot_dir)/usr/include/linux/autoconf.h
 	     rm -f $$file ; \
 	   done ; \
 	 )
-	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
+	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR)):headers" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@
