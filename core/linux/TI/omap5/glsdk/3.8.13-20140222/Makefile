@@ -37,6 +37,10 @@ ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.0),)
 REQUIRES  = core/gcc/5.3.0^static
 endif
 
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
+REQUIRES  = core/gcc/5.3.0^static
+endif
+
 # ======= __END_OF_REQUIRES__ =======
 
 tar_xz_archive  = $(SRC_PACKAGE_PATH)/Linux/TI/omap5/glsdk/linux-glsdk-3.8.13-20140222.tar.xz

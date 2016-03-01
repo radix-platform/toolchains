@@ -36,6 +36,10 @@ ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.0),)
 REQUIRES  = core/gcc/5.3.0^static
 endif
 
+ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
+REQUIRES  = core/gcc/5.3.0^static
+endif
+
 # ======= __END_OF_REQUIRES__ =======
 
 ifneq ($(findstring omap35x, $(TOOLCHAIN)),)
