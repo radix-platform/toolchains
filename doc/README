@@ -21,3 +21,4 @@ NOTE:
 
 NOTE JZ47XX GLibc:
   The -O3 optimisation for glibc made wrong executables. We have to use -O2 only.
+
