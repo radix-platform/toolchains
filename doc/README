@@ -2,7 +2,7 @@
 build:
 =====
 
-cd profucts && make -j32 all
+cd products && make -j32 all
 
 make targets:
 ============
