@@ -1,0 +1,62 @@
+
+# Target build dirs
+.noarch/
+.host/
+
+.a1x-newlib/
+.a2x-newlib/
+.at91sam7s-newlib/
+.dm644x-newlib/
+
+.lpc17xx-uclibc/
+
+.a1x-eglibc/
+.a2x-eglibc/
+.bcm74x-eglibc/
+.dm644x-eglibc/
+.i486-eglibc/
+.imx6-eglibc/
+.omap35x-eglibc/
+.omap543x-eglibc/
+.x86_64-eglibc/
+
+.a1x-glibc/
+.a2x-glibc/
+.bcm74x-glibc/
+.dm644x-glibc/
+.i486-glibc/
+.imx6-glibc/
+.jz47xx-glibc/
+.omap35x-glibc/
+.omap543x-glibc/
+.p5600-glibc/
+.rk328x-glibc/
+.x86_64-glibc/
+
+# Hidden files (each file)
+.makefile
+
+# Tarballs
+*.gz
+*.bz2
+*.xz
+*.tgz
+*.txz
+
+# Signatures
+*.asc
+*.sig
+*.sign
+*.sha1sum
+
+# Patches
+*.patch
+
+# Default linux config files
+*.defconfig
+
+# Object Files
+*.[ao]
+
+# backup copies
+*~
