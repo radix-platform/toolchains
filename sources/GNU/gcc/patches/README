@@ -43,6 +43,11 @@
                                        created just for building. We didn't check how it affect the target 'gccgo'
                                        compilator. Probably this misstake will be fixed in next releases of 'gccgo'.
 
+   parch order:
+     gcc-5.3.0-i386-66782.patch - first,
+     gcc-5.3.0-i386-69140.patch - second.
+
+
    README.TXT                        - this file.
 
  * end */

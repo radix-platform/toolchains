@@ -146,10 +146,14 @@ else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_P5600_GLIBC)),)
 PATCHES = PATCHES.p5600
 else
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_I486_GLIBC)),)
+PATCHES = PATCHES.i386
+else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC) $(TOOLCHAIN_X86_64_GLIBC)),)
 PATCHES = PATCHES.x86_64
 else
 PATCHES = PATCHES
+endif
 endif
 endif
 endif
@@ -332,6 +336,8 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c,c++
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
 extra_configure_switches += --enable-interwork
 extra_configure_switches += --enable-multilib
 extra_configure_switches += --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m
@@ -387,6 +393,8 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
 extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-nls
@@ -440,6 +448,8 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
 extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-nls
@@ -493,6 +503,8 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
 extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-nls
@@ -547,6 +559,8 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
 extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-nls
@@ -605,6 +619,8 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
 extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-nls
@@ -659,6 +675,8 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
 extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-nls
@@ -712,6 +730,8 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
 extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-nls
@@ -760,6 +780,8 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
 extra_configure_switches += --disable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-threads
@@ -815,6 +837,8 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
 extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-threads
@@ -870,6 +894,8 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
 extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-threads
@@ -918,6 +944,8 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
 extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-nls
@@ -964,6 +992,8 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
 extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --enable-shared
 extra_configure_switches += --enable-nls

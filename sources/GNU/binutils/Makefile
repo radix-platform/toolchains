@@ -29,6 +29,11 @@ patches    += $(CURDIR)/patches/binutils-2.23.2-x86_64-multilib.patch
 patches    += $(CURDIR)/patches/binutils-2.24-x86_64-multilib.patch
 patches    += $(CURDIR)/patches/binutils-2.25.1-export-demangle.patch
 patches    += $(CURDIR)/patches/binutils-2.25.1-no-config-check.patch
+patches    += $(CURDIR)/patches/binutils-2.26-Bsymbolic-PIE.patch
+patches    += $(CURDIR)/patches/binutils-2.26-GOT-offset.patch
+patches    += $(CURDIR)/patches/binutils-2.26-compile-warnings.patch
+patches    += $(CURDIR)/patches/binutils-2.26-lto.patch
+patches    += $(CURDIR)/patches/binutils-2.26-rh1312151.patch
 patches    += $(CURDIR)/patches/binutils-2.26-export-demangle.patch
 patches    += $(CURDIR)/patches/binutils-2.26-no-config-check.patch
 
@@ -74,6 +79,11 @@ $(patches): $(sha1s)
 	 ( cd create-2.24-x86_64-multilib-patch   ; ./create.patch.sh ) ; \
 	 ( cd create-2.25.1-export-demangle-patch ; ./create.patch.sh ) ; \
 	 ( cd create-2.25.1-no-config-check-patch ; ./create.patch.sh ) ; \
+	 ( cd create-2.26-Bsymbolic-PIE-patch     ; ./create.patch.sh ) ; \
+	 ( cd create-2.26-GOT-offset-patch        ; ./create.patch.sh ) ; \
+	 ( cd create-2.26-compile-warnings-patch  ; ./create.patch.sh ) ; \
+	 ( cd create-2.26-lto-patch               ; ./create.patch.sh ) ; \
+	 ( cd create-2.26-rh1312151-patch         ; ./create.patch.sh ) ; \
 	 ( cd create-2.26-export-demangle-patch   ; ./create.patch.sh ) ; \
 	 ( cd create-2.26-no-config-check-patch   ; ./create.patch.sh ) ; \
 	 echo -e "\n"

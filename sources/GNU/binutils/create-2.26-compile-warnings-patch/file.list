@@ -1,0 +1,3 @@
+binutils-2.26/gas/config/tc-arm.c
+binutils-2.26/gold/arm.cc
+binutils-2.26/gold/dirsearch.cc
