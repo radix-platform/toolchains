@@ -11,6 +11,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_P5600_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK328X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_S805_GLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
@@ -150,6 +151,17 @@ extra_configure_switches += --disable-libssp
 extra_configure_switches += --with-arch=armv7ve
 extra_configure_switches += --with-tune=cortex-a17
 extra_configure_switches += --with-fpu=neon-vfpv4
+extra_configure_switches += --with-abi=aapcs-linux
+extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
+endif
+
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S805_GLIBC)),)
+extra_configure_switches  = --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-tune=cortex-a5
+extra_configure_switches += --with-fpu=neon
 extra_configure_switches += --with-abi=aapcs-linux
 extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
 endif
