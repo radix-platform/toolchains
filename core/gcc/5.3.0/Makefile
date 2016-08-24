@@ -16,6 +16,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_P5600_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK328X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_S805_GLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
@@ -410,6 +411,61 @@ extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-arch=armv7ve
 extra_configure_switches += --with-tune=cortex-a7
 extra_configure_switches += --with-fpu=neon-vfpv4
+extra_configure_switches += --with-abi=aapcs-linux
+# add
+extra_configure_switches += --with-float=hard
+extra_configure_switches += --enable-gold
+extra_configure_switches += --enable-c99
+extra_configure_switches += --enable-long-long
+ifeq ($(FLAVOUR),static)
+extra_configure_switches += --disable-libatomic
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libitm
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-libsanitizer
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --disable-threads
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-shared
+extra_configure_switches += --disable-nls
+# without-headers replacement, to make libgcc independed from glibc:
+extra_configure_switches += --with-newlib
+endif
+ifeq ($(FLAVOUR),second)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --disable-libatomic
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libitm
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-libsanitizer
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-nls
+endif
+ifeq ($(FLAVOUR),full)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
+extra_configure_switches += --enable-__cxa_atexit
+extra_configure_switches += --enable-shared
+extra_configure_switches += --enable-nls
+extra_configure_switches += --with-included-gettext
+endif
+endif
+
+
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S805_GLIBC)),)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-tune=cortex-a5
+extra_configure_switches += --with-fpu=neon
 extra_configure_switches += --with-abi=aapcs-linux
 # add
 extra_configure_switches += --with-float=hard

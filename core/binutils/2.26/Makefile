@@ -17,6 +17,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_P5600_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK328X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_S805_GLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
@@ -140,6 +141,23 @@ extra_configure_switches += --enable-multilib
 extra_configure_switches += --with-cpu=cortex-a7
 extra_configure_switches += --with-arch=armv7ve
 extra_configure_switches += --with-fpu=neon-vfpv4
+extra_configure_switches += --with-abi=aapcs-linux
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+endif
+
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S805_GLIBC)),)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+# experimental gold linker( DEFAULT_LD=ld.bfd ):
+extra_configure_switches += --enable-gold=yes
+extra_configure_switches += --enable-ld=default
+extra_configure_switches += --enable-werror=no
+# standard options:
+extra_configure_switches += --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-cpu=cortex-a5
+extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-fpu=neon
 extra_configure_switches += --with-abi=aapcs-linux
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
