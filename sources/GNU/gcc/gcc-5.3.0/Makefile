@@ -21,12 +21,11 @@ tarballs    = $(addsuffix .tar.bz2, $(addprefix gcc-, $(version)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
 patches     = $(CURDIR)/../patches/gcc-5.3.0-at91sam7s-newlib.patch
-patches    += $(CURDIR)/../patches/gcc-5.3.0-dm644x-newlib.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-a1x-newlib.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-a2x-newlib.patch
+patches    += $(CURDIR)/../patches/gcc-5.3.0-s8xx-newlib.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-lpc17xx-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-x86_64-multilib.patch
-patches    += $(CURDIR)/../patches/gcc-5.3.0-bcm74x-libgo.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-jz47xx-libgo.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-p5600-libgo.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-i386-66782.patch
@@ -67,14 +66,13 @@ $(sha1s): $(tarballs)
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
 	 ( cd create-5.3.0-at91sam7s-newlib-patch ; ./create.patch.sh ) ; \
-	 ( cd create-5.3.0-dm644x-newlib-patch    ; ./create.patch.sh ) ; \
 	 ( cd create-5.3.0-a1x-newlib-patch       ; ./create.patch.sh ) ; \
 	 ( cd create-5.3.0-a2x-newlib-patch       ; ./create.patch.sh ) ; \
+	 ( cd create-5.3.0-s8xx-newlib-patch      ; ./create.patch.sh ) ; \
 	 ( cd create-5.3.0-lpc17xx-multilib-patch ; ./create.patch.sh ) ; \
 	 ( cd create-5.3.0-x86_64-multilib-patch  ; ./create.patch.sh ) ; \
 	 ( cd create-5.3.0-i386-66782-patch       ; ./create.patch.sh ) ; \
 	 ( cd create-5.3.0-i386-69140-patch       ; ./create.patch.sh ) ; \
-	 ( cd create-5.3.0-bcm74x-libgo-patch     ; ./create.patch.sh ) ; \
 	 ( cd create-5.3.0-jz47xx-libgo-patch     ; ./create.patch.sh ) ; \
 	 ( cd create-5.3.0-p5600-libgo-patch      ; ./create.patch.sh ) ; \
 	 echo -e "\n"

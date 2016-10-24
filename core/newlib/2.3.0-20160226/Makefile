@@ -3,6 +3,7 @@ NO_PARALLEL = true
 
 COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 
 FLAVOURS = headers full
@@ -84,6 +85,22 @@ extra_configure_switches += --enable-newlib-multithread
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A2X_NEWLIB))
+extra_configure_switches  = --enable-multilib
+extra_configure_switches += --with-gnu-as
+extra_configure_switches += --with-gnu-ld
+extra_configure_switches += --disable-nls
+extra_configure_switches += --enable-newlib-supplied-sycalls
+extra_configure_switches += --disable-shared
+#
+# also NEWLIB allows:
+#
+extra_configure_switches += --enable-newlib-io-c99-formats
+extra_configure_switches += --enable-newlib-io-longlong
+extra_configure_switches += --enable-newlib-io-pos-args
+extra_configure_switches += --enable-newlib-multithread
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_NEWLIB))
 extra_configure_switches  = --enable-multilib
 extra_configure_switches += --with-gnu-as
 extra_configure_switches += --with-gnu-ld

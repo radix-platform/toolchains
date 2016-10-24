@@ -1,6 +1,7 @@
 
 COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_LPC17XX_UCLIBC)
@@ -87,6 +88,9 @@ else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A2X_NEWLIB)),)
 PATCHES = PATCHES.a2x
 else
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S8XX_NEWLIB)),)
+PATCHES = PATCHES.s8xx
+else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC)),)
 PATCHES = PATCHES.lpc17xx
 else
@@ -103,6 +107,7 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC)),)
 PATCHES = PATCHES.x86_64
 else
 PATCHES = PATCHES
+endif
 endif
 endif
 endif
@@ -186,6 +191,27 @@ extra_configure_switches += --enable-multilib
 extra_configure_switches += --with-arch=armv7ve
 extra_configure_switches += --with-tune=cortex-a7
 extra_configure_switches += --with-fpu=neon-vfpv4
+extra_configure_switches += --with-abi=aapcs
+extra_configure_switches += --with-dwarf2
+extra_configure_switches += --disable-libatomic
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libitm
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-libsanitizer
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-shared
+extra_configure_switches += --with-newlib
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_NEWLIB))
+extra_configure_switches  = --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-tune=cortex-a9
+extra_configure_switches += --with-fpu=neon
 extra_configure_switches += --with-abi=aapcs
 extra_configure_switches += --with-dwarf2
 extra_configure_switches += --disable-libatomic

@@ -7,9 +7,9 @@ mv gcc-$VERSION gcc-$VERSION-orig
 
 cp -rf ./gcc-$VERSION-new ./gcc-$VERSION
 
-diff -b --unified -Nr  gcc-$VERSION-orig  gcc-$VERSION > gcc-$VERSION-bcm74x-libgo.patch
+diff -b --unified -Nr  gcc-$VERSION-orig  gcc-$VERSION > gcc-$VERSION-s8xx-newlib.patch
 
-mv gcc-$VERSION-bcm74x-libgo.patch ../../patches
+mv gcc-$VERSION-s8xx-newlib.patch ../../patches
 
 rm -rf ./gcc-$VERSION
 rm -rf ./gcc-$VERSION-orig
