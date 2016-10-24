@@ -4,7 +4,6 @@ NO_PARALLEL = true
 COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_NEWLIB)
 
 FLAVOURS = headers full
 
@@ -14,13 +13,11 @@ include ../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/newlib
 
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
 ifeq ($(FLAVOUR),headers)
-REQUIRES  = core/binutils/2.26
+REQUIRES  = core/binutils/2.27
 endif
 ifeq ($(FLAVOUR),full)
 REQUIRES  = core/gcc/5.3.0^static
-endif
 endif
 
 # ======= __END_OF_REQUIRES__ =======
@@ -114,23 +111,6 @@ extra_configure_switches += --with-gnu-ld
 extra_configure_switches += --disable-nls
 extra_configure_switches += --enable-newlib-supplied-sycalls
 extra_configure_switches += --disable-shared
-endif
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_DM644X_NEWLIB))
-extra_configure_switches  = --enable-interwork
-extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-gnu-as
-extra_configure_switches += --with-gnu-ld
-extra_configure_switches += --disable-nls
-extra_configure_switches += --enable-newlib-supplied-sycalls
-extra_configure_switches += --disable-shared
-#
-# also NEWLIB allows:
-#
-# extra_configure_switches += --enable-newlib-io-c99-formats
-# extra_configure_switches += --enable-newlib-io-longlong
-# extra_configure_switches += --enable-newlib-io-pos-args
-# extra_configure_switches += --enable-newlib-multithread
 endif
 
 

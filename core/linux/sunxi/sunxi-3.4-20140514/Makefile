@@ -1,9 +1,6 @@
 
 
-COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_EGLIBC)
-COMPONENT_TARGETS += $(TOOLCHAIN_A2X_EGLIBC)
-
-COMPONENT_TARGETS += $(TOOLCHAIN_A1X_GLIBC)
+COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
 
 
@@ -12,37 +9,7 @@ include ../../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/Linux/Allwinner/sunxi-3.4
 
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.1),)
-REQUIRES  = core/gcc/4.5.1^static
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.2 1.0.3 1.0.4),)
-REQUIRES  = core/gcc/4.7.2^static
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.5),)
-REQUIRES  = core/gcc/4.7.3^static
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.6),)
-REQUIRES  = core/gcc/4.8.2^static
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.7 1.0.8),)
-REQUIRES  = core/gcc/4.9.1^static
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.9),)
-REQUIRES  = core/gcc/4.9.2^static
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.0),)
 REQUIRES  = core/gcc/5.3.0^static
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
-REQUIRES  = core/gcc/5.3.0^static
-endif
 
 # ======= __END_OF_REQUIRES__ =======
 

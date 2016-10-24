@@ -12,7 +12,7 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/U-Boot/denx
 
-versions    = 2013.10 2014.01
+versions    = 2014.01
 
 tarballs    = $(addsuffix .tar.bz2, $(addprefix u-boot-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))

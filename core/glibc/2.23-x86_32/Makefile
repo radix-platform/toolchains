@@ -8,14 +8,12 @@ include ../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/GNU/glibc
 
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
 ifeq ($(FLAVOUR),headers)
 REQUIRES  = core/linux/4.4.3
 endif
 
 ifeq ($(FLAVOUR),full)
 REQUIRES  = core/gcc/5.3.0^second
-endif
 endif
 
 # ======= __END_OF_REQUIRES__ =======

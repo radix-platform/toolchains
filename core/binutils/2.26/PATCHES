@@ -1,8 +1,0 @@
-
-../../../sources/GNU/binutils/patches/binutils-2.26-Bsymbolic-PIE.patch    -p0
-../../../sources/GNU/binutils/patches/binutils-2.26-GOT-offset.patch       -p0
-../../../sources/GNU/binutils/patches/binutils-2.26-compile-warnings.patch -p0
-../../../sources/GNU/binutils/patches/binutils-2.26-lto.patch              -p0
-../../../sources/GNU/binutils/patches/binutils-2.26-rh1312151.patch        -p0
-../../../sources/GNU/binutils/patches/binutils-2.26-export-demangle.patch  -p0
-../../../sources/GNU/binutils/patches/binutils-2.26-no-config-check.patch  -p0

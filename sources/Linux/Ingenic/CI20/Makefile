@@ -12,7 +12,7 @@ include ../../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/Linux/Ingenic/CI20
 
-versions    = ci20-3.18-20150828 ci20-3.18-20151015 ci20-3.18-20160210
+versions    = ci20-3.18-20160210
 
 description = linux-ci20.txt
 tarballs    = $(addsuffix .tar.bz2, $(addprefix linux-, $(versions)))

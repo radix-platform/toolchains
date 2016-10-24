@@ -1,9 +1,6 @@
 
 
-COMPONENT_TARGETS  = $(TOOLCHAIN_I486_EGLIBC)
-COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_EGLIBC)
-
-COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
+COMPONENT_TARGETS  = $(TOOLCHAIN_I486_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
 
 
@@ -12,9 +9,7 @@ include ../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/Linux/v4.x
 
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
 REQUIRES  = core/gcc/5.3.0^static
-endif
 
 # ======= __END_OF_REQUIRES__ =======
 

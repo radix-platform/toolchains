@@ -12,8 +12,7 @@ include ../../../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/Linux/TI/omap5/glsdk
 
-versions    = 3.8.13-20131223 3.8.13-20140222
-versions   += 3.14.57-20151211
+versions    = 3.14.57-20151211
 
 tarballs    = $(addsuffix .tar.xz, $(addprefix linux-glsdk-, $(versions)))
 defconfigs  = $(subst .tar.xz,.defconfig, $(tarballs))

@@ -1,7 +1,6 @@
 
 
-COMPONENT_TARGETS  = $(TOOLCHAIN_OMAP543X_EGLIBC)
-COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
+COMPONENT_TARGETS  = $(TOOLCHAIN_OMAP543X_GLIBC)
 
 
 include ../../../../../../build-system/config.mk
@@ -9,9 +8,7 @@ include ../../../../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/Linux/TI/omap5/glsdk
 
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
 REQUIRES  = core/gcc/5.3.0^static
-endif
 
 # ======= __END_OF_REQUIRES__ =======
 

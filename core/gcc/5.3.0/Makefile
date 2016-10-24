@@ -2,21 +2,17 @@
 COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_NEWLIB)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_LPC17XX_UCLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_A1X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
-COMPONENT_TARGETS += $(TOOLCHAIN_BCM74X_GLIBC)
-COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_JZ47XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_P5600_GLIBC)
-COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK328X_GLIBC)
-COMPONENT_TARGETS += $(TOOLCHAIN_S805_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_GLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
@@ -34,45 +30,6 @@ SOURCE_REQUIRES += sources/GNU/mpfr
 SOURCE_REQUIRES += sources/GNU/mpc
 
 
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.0),)
-
-ifneq ($(findstring newlib, $(TOOLCHAIN)),)
-ifeq ($(FLAVOUR),static)
-REQUIRES  = core/newlib/1.20.0^headers
-endif
-ifeq ($(FLAVOUR),full)
-REQUIRES  = core/newlib/1.20.0^full
-endif
-endif
-
-ifneq ($(findstring uclibc, $(TOOLCHAIN)),)
-ifeq ($(FLAVOUR),static)
-REQUIRES  = core/binutils/2.25.1^flat
-endif
-ifeq ($(FLAVOUR),second)
-REQUIRES  = core/uclibc/0.9.33.2^headers
-endif
-ifeq ($(FLAVOUR),full)
-REQUIRES  = core/uclibc/0.9.33.2^full
-endif
-endif
-
-ifneq ($(findstring -glibc, $(TOOLCHAIN)),)
-ifeq ($(FLAVOUR),static)
-REQUIRES  = core/binutils/2.25.1
-endif
-ifeq ($(FLAVOUR),second)
-REQUIRES  = core/glibc/2.22^headers
-endif
-ifeq ($(FLAVOUR),full)
-REQUIRES  = core/glibc/2.22^full
-endif
-endif
-
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
-
 ifneq ($(findstring newlib, $(TOOLCHAIN)),)
 ifeq ($(FLAVOUR),static)
 REQUIRES  = core/newlib/2.3.0-20160226^headers
@@ -84,7 +41,7 @@ endif
 
 ifneq ($(findstring uclibc, $(TOOLCHAIN)),)
 ifeq ($(FLAVOUR),static)
-REQUIRES  = core/binutils/2.26^flat
+REQUIRES  = core/binutils/2.27^flat
 endif
 ifeq ($(FLAVOUR),second)
 REQUIRES  = core/uclibc/0.9.33.2^headers
@@ -96,7 +53,7 @@ endif
 
 ifneq ($(findstring -glibc, $(TOOLCHAIN)),)
 ifeq ($(FLAVOUR),static)
-REQUIRES  = core/binutils/2.26
+REQUIRES  = core/binutils/2.27
 endif
 ifeq ($(FLAVOUR),second)
 REQUIRES  = core/glibc/2.23^headers
@@ -104,8 +61,6 @@ endif
 ifeq ($(FLAVOUR),full)
 REQUIRES  = core/glibc/2.23^full
 endif
-endif
-
 endif
 
 # ======= __END_OF_REQUIRES__ =======
@@ -123,23 +78,17 @@ mpfr_src_done         = $(TARGET_BUILD_DIR)/.mpfr-source-done
 mpc_src_done          = $(TARGET_BUILD_DIR)/.mpc-source-done
 
 ifneq ($(TOOLCHAIN),)
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_AT91SAM7S_NEWLIB))
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_AT91SAM7S_NEWLIB)),)
 PATCHES = PATCHES.at91sam7s
 else
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_DM644X_NEWLIB))
-PATCHES = PATCHES.dm644x
-else
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB))
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB)),)
 PATCHES = PATCHES.a1x
 else
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A2X_NEWLIB))
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A2X_NEWLIB)),)
 PATCHES = PATCHES.a2x
 else
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC)),)
 PATCHES = PATCHES.lpc17xx
-else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_BCM74X_EGLIBC) $(TOOLCHAIN_BCM74X_GLIBC)),)
-PATCHES = PATCHES.bcm74x
 else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC)),)
 PATCHES = PATCHES.jz47xx
@@ -150,12 +99,10 @@ else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_I486_GLIBC)),)
 PATCHES = PATCHES.i386
 else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC) $(TOOLCHAIN_X86_64_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC)),)
 PATCHES = PATCHES.x86_64
 else
 PATCHES = PATCHES
-endif
-endif
 endif
 endif
 endif
@@ -275,27 +222,6 @@ extra_configure_switches += --disable-libstdc++-v3
 extra_configure_switches += --enable-languages=c
 extra_configure_switches += --disable-shared
 extra_configure_switches += --enable-decimal-float=no
-extra_configure_switches += --with-newlib
-endif
-
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_DM644X_NEWLIB))
-extra_configure_switches += --enable-interwork
-extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-float=soft
-extra_configure_switches += --with-arch=armv5te
-extra_configure_switches += --with-tune=arm926ej-s
-extra_configure_switches += --with-dwarf2
-extra_configure_switches += --disable-libatomic
-extra_configure_switches += --disable-libgomp
-extra_configure_switches += --disable-libitm
-extra_configure_switches += --disable-libmudflap
-extra_configure_switches += --disable-libquadmath
-extra_configure_switches += --disable-libsanitizer
-extra_configure_switches += --disable-libssp
-extra_configure_switches += --disable-libstdc++-v3
-extra_configure_switches += --enable-languages=c
-extra_configure_switches += --disable-shared
 extra_configure_switches += --with-newlib
 endif
 
@@ -459,12 +385,12 @@ endif
 endif
 
 
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S805_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S8XX_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=http://www.radix.pro'
 extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
 extra_configure_switches += --with-arch=armv7-a
-extra_configure_switches += --with-tune=cortex-a5
+extra_configure_switches += --with-tune=cortex-a9
 extra_configure_switches += --with-fpu=neon
 extra_configure_switches += --with-abi=aapcs-linux
 # add
@@ -630,61 +556,6 @@ endif
 endif
 
 
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_GLIBC)),)
-extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
-extra_configure_switches += '--with-bugurl=http://www.radix.pro'
-extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
-extra_configure_switches += --with-arch=armv7-a
-extra_configure_switches += --with-tune=cortex-a8
-extra_configure_switches += --with-fpu=neon
-extra_configure_switches += --with-abi=aapcs-linux
-# add
-extra_configure_switches += --with-float=hard
-extra_configure_switches += --enable-gold
-extra_configure_switches += --enable-c99
-extra_configure_switches += --enable-long-long
-ifeq ($(FLAVOUR),static)
-extra_configure_switches += --disable-libatomic
-extra_configure_switches += --disable-libgomp
-extra_configure_switches += --disable-libitm
-extra_configure_switches += --disable-libmudflap
-extra_configure_switches += --disable-libquadmath
-extra_configure_switches += --disable-libsanitizer
-extra_configure_switches += --disable-libssp
-extra_configure_switches += --disable-libstdc++-v3
-extra_configure_switches += --disable-threads
-extra_configure_switches += --enable-languages=c
-extra_configure_switches += --disable-shared
-extra_configure_switches += --disable-nls
-# without-headers replacement, to make libgcc independed from glibc:
-extra_configure_switches += --with-newlib
-endif
-ifeq ($(FLAVOUR),second)
-extra_configure_switches += --with-sysroot=$(sysroot_dir)
-extra_configure_switches += --disable-libatomic
-extra_configure_switches += --disable-libgomp
-extra_configure_switches += --disable-libitm
-extra_configure_switches += --disable-libmudflap
-extra_configure_switches += --disable-libquadmath
-extra_configure_switches += --disable-libsanitizer
-extra_configure_switches += --disable-libssp
-extra_configure_switches += --disable-libstdc++-v3
-extra_configure_switches += --enable-languages=c
-extra_configure_switches += --disable-nls
-endif
-ifeq ($(FLAVOUR),full)
-extra_configure_switches += --with-sysroot=$(sysroot_dir)
-extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
-extra_configure_switches += --enable-libstdcxx-dual-abi
-extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
-extra_configure_switches += --enable-__cxa_atexit
-extra_configure_switches += --enable-shared
-extra_configure_switches += --enable-nls
-extra_configure_switches += --with-included-gettext
-endif
-endif
-
-
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=http://www.radix.pro'
@@ -742,107 +613,6 @@ extra_configure_switches += --enable-threads=posix
 extra_configure_switches += --disable-libstdcxx-pch
 extra_configure_switches += --enable-linker-build-id
 extra_configure_switches += --enable-gnu-unique-object
-endif
-endif
-
-
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_DM644X_GLIBC)),)
-extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
-extra_configure_switches += '--with-bugurl=http://www.radix.pro'
-extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
-extra_configure_switches += --with-float=soft
-extra_configure_switches += --with-arch=armv5te
-extra_configure_switches += --with-tune=arm926ej-s
-extra_configure_switches += --with-dwarf2
-ifeq ($(FLAVOUR),static)
-extra_configure_switches += --disable-libatomic
-extra_configure_switches += --disable-libgomp
-extra_configure_switches += --disable-libitm
-extra_configure_switches += --disable-libmudflap
-extra_configure_switches += --disable-libquadmath
-extra_configure_switches += --disable-libsanitizer
-extra_configure_switches += --disable-libssp
-extra_configure_switches += --disable-libstdc++-v3
-extra_configure_switches += --disable-threads
-extra_configure_switches += --enable-languages=c
-extra_configure_switches += --disable-shared
-extra_configure_switches += --disable-nls
-# without-headers replacement, to make libgcc independed from flibc:
-extra_configure_switches += --with-newlib
-endif
-ifeq ($(FLAVOUR),second)
-extra_configure_switches += --with-sysroot=$(sysroot_dir)
-extra_configure_switches += --disable-libatomic
-extra_configure_switches += --disable-libgomp
-extra_configure_switches += --disable-libitm
-extra_configure_switches += --disable-libmudflap
-extra_configure_switches += --disable-libquadmath
-extra_configure_switches += --disable-libsanitizer
-extra_configure_switches += --disable-libssp
-extra_configure_switches += --disable-libstdc++-v3
-extra_configure_switches += --enable-languages=c
-extra_configure_switches += --disable-nls
-endif
-ifeq ($(FLAVOUR),full)
-extra_configure_switches += --with-sysroot=$(sysroot_dir)
-extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
-extra_configure_switches += --enable-libstdcxx-dual-abi
-extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
-extra_configure_switches += --enable-__cxa_atexit
-extra_configure_switches += --enable-shared
-extra_configure_switches += --enable-nls
-extra_configure_switches += --with-included-gettext
-endif
-endif
-
-
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_BCM74X_GLIBC)),)
-extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
-extra_configure_switches += '--with-bugurl=http://www.radix.pro'
-extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
-extra_configure_switches += --with-arch=mips32
-extra_configure_switches += --with-float=hard
-extra_configure_switches += --enable-target-optspace
-ifeq ($(FLAVOUR),static)
-extra_configure_switches += --disable-libatomic
-extra_configure_switches += --disable-libgomp
-extra_configure_switches += --disable-libitm
-extra_configure_switches += --disable-libmudflap
-extra_configure_switches += --disable-libquadmath
-extra_configure_switches += --disable-libsanitizer
-extra_configure_switches += --disable-libssp
-extra_configure_switches += --disable-libstdc++-v3
-extra_configure_switches += --disable-threads
-extra_configure_switches += --enable-languages=c
-extra_configure_switches += --disable-shared
-extra_configure_switches += --disable-nls
-# without-headers replacement, to make libgcc independed from glibc:
-extra_configure_switches += --with-newlib
-endif
-ifeq ($(FLAVOUR),second)
-extra_configure_switches += --with-sysroot=$(sysroot_dir)
-extra_configure_switches += --disable-libatomic
-extra_configure_switches += --disable-libgomp
-extra_configure_switches += --disable-libitm
-extra_configure_switches += --disable-libmudflap
-extra_configure_switches += --disable-libquadmath
-extra_configure_switches += --disable-libsanitizer
-extra_configure_switches += --disable-libssp
-extra_configure_switches += --disable-libstdc++-v3
-extra_configure_switches += --enable-threads
-extra_configure_switches += --enable-languages=c
-extra_configure_switches += --disable-nls
-endif
-ifeq ($(FLAVOUR),full)
-extra_configure_switches += --with-sysroot=$(sysroot_dir)
-extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,java,fortran,go,lto,ada
-extra_configure_switches += --enable-libstdcxx-dual-abi
-extra_configure_switches += --with-default-libstdcxx-abi=gcc4-compatible
-extra_configure_switches += --disable-__cxa_atexit
-extra_configure_switches += --enable-shared
-extra_configure_switches += --enable-threads
-extra_configure_switches += --enable-nls
-extra_configure_switches += --with-included-gettext
 endif
 endif
 
