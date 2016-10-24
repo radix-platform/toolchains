@@ -1,6 +1,6 @@
 
 
-COMPONENT_TARGETS  = $(TOOLCHAIN_S805_GLIBC)
+COMPONENT_TARGETS  = $(TOOLCHAIN_S8XX_GLIBC)
 
 
 include ../../../../../build-system/config.mk
@@ -21,7 +21,7 @@ sysroot_dir     = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 
 headers_target  = $(TARGET_BUILD_DIR)/.headers-installed
 
-ifneq ($(findstring s805, $(TOOLCHAIN)),)
+ifneq ($(findstring s8xx, $(TOOLCHAIN)),)
 arch = arm
 endif
 

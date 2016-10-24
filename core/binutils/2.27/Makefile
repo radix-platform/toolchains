@@ -13,7 +13,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_JZ47XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_P5600_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK328X_GLIBC)
-COMPONENT_TARGETS += $(TOOLCHAIN_S805_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_GLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
@@ -135,7 +135,7 @@ extra_configure_switches += --with-abi=aapcs-linux
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S805_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S8XX_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=http://www.radix.pro'
 # experimental gold linker( DEFAULT_LD=ld.bfd ):

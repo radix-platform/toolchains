@@ -7,7 +7,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_JZ47XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_P5600_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK328X_GLIBC)
-COMPONENT_TARGETS += $(TOOLCHAIN_S805_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_GLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
@@ -43,7 +43,7 @@ endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_RK328X_GLIBC))
 REQUIRES  = core/linux/Rockchip/Firefly-RK3288/firefly-3.10-20151231
 endif
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S805_GLIBC))
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_GLIBC))
 REQUIRES  = core/linux/Amlogic/M201/aml-3.10.33-20150117
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC))
@@ -135,7 +135,7 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_RK328X_GLIBC))
 environment += CFLAGS="-g -O3 -march=armv7ve -mtune=cortex-a17 -mfpu=neon-vfpv4 -mfloat-abi=hard"
 endif
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S805_GLIBC))
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_GLIBC))
 environment += CFLAGS="-g -O3 -march=armv7-a -mtune=cortex-a9 -mfpu=neon -mfloat-abi=hard"
 endif
 
@@ -154,7 +154,7 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A1X_GLIBC)      \
                              $(TOOLCHAIN_IMX6_GLIBC)     \
                              $(TOOLCHAIN_OMAP543X_GLIBC) \
                              $(TOOLCHAIN_RK328X_GLIBC)   \
-                             $(TOOLCHAIN_S805_GLIBC)),)
+                             $(TOOLCHAIN_S8XX_GLIBC)),)
 LIB_NAMES_SUFFIX = hard
 endif
 
@@ -303,7 +303,7 @@ extra_configure_switches  += --without-cvs
 endif
 endif
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S805_GLIBC))
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_GLIBC))
 extra_configure_switches   = --libdir=/usr/lib$(LIBSUFFIX)
 extra_configure_switches  += --with-headers=$(sysroot_dir)/usr/include
 ifeq ($(FLAVOUR),headers)

@@ -23,8 +23,8 @@ BUILD_A1X_GLIBC = true
 # a2x-glibc:
 BUILD_A2X_GLIBC = true
 
-# s805-glibc:
-BUILD_S805_GLIBC = true
+# s8xx-glibc:
+BUILD_S8XX_GLIBC = true
 
 # rk328x-glibc:
 BUILD_RK328X_GLIBC = true
