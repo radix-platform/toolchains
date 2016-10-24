@@ -66,8 +66,8 @@ endif
 # ======= __END_OF_REQUIRES__ =======
 
 tar_bz2_archive       = $(SRC_PACKAGE_PATH)/GNU/gcc/gcc-4.9.4/gcc-4.9.4.tar.bz2
-tar_bz2_archive_gmp   = $(SRC_PACKAGE_PATH)/GNU/gmp/gmp-6.0.0a.tar.bz2
-tar_bz2_archive_mpfr  = $(SRC_PACKAGE_PATH)/GNU/mpfr/mpfr-3.1.2.tar.bz2
+tar_bz2_archive_gmp   = $(SRC_PACKAGE_PATH)/GNU/gmp/gmp-6.1.0.tar.bz2
+tar_bz2_archive_mpfr  = $(SRC_PACKAGE_PATH)/GNU/mpfr/mpfr-3.1.3.tar.bz2
 tar_gz_archive_mpc    = $(SRC_PACKAGE_PATH)/GNU/mpc/mpc-1.0.3.tar.gz
 SRC_ARCHIVE           = $(tar_bz2_archive)
 SRC_DIR               = $(TARGET_BUILD_DIR)/gcc-4.9.4
@@ -78,16 +78,16 @@ mpfr_src_done         = $(TARGET_BUILD_DIR)/.mpfr-source-done
 mpc_src_done          = $(TARGET_BUILD_DIR)/.mpc-source-done
 
 ifneq ($(TOOLCHAIN),)
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_AT91SAM7S_NEWLIB))
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_AT91SAM7S_NEWLIB)),)
 PATCHES = PATCHES.at91sam7s
 else
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB))
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB)),)
 PATCHES = PATCHES.a1x
 else
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A2X_NEWLIB))
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A2X_NEWLIB)),)
 PATCHES = PATCHES.a2x
 else
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC)),)
 PATCHES = PATCHES.lpc17xx
 else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC)),)
@@ -103,8 +103,6 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC)),)
 PATCHES = PATCHES.x86_64
 else
 PATCHES = PATCHES
-endif
-endif
 endif
 endif
 endif
@@ -823,13 +821,13 @@ $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 $(gmp_src_done): $(src_done)
 	@echo "Expanding $(tar_bz2_archive_gmp)"
 	@tar xjf $(tar_bz2_archive_gmp) -C $(TARGET_BUILD_DIR)
-	@cd $(SRC_DIR); ln -sf ../gmp-6.0.0 gmp
+	@cd $(SRC_DIR); ln -sf ../gmp-6.1.0 gmp
 	@touch $@
 
 $(mpfr_src_done): $(src_done)
 	@echo "Expanding $(tar_bz2_archive_mpfr)"
 	@tar xjf $(tar_bz2_archive_mpfr) -C $(TARGET_BUILD_DIR)
-	@cd $(SRC_DIR); ln -sf ../mpfr-3.1.2 mpfr
+	@cd $(SRC_DIR); ln -sf ../mpfr-3.1.3 mpfr
 	@touch $@
 
 $(mpc_src_done): $(src_done)
