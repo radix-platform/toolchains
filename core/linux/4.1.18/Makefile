@@ -1,9 +1,6 @@
 
 
-COMPONENT_TARGETS  = $(TOOLCHAIN_I486_EGLIBC)
-COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_EGLIBC)
-
-COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
+COMPONENT_TARGETS  = $(TOOLCHAIN_I486_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_P5600_GLIBC)
@@ -14,9 +11,7 @@ include ../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/Linux/v4.x
 
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
-REQUIRES  = core/gcc/5.3.0^static
-endif
+REQUIRES  = core/gcc/4.9.4^static
 
 # ======= __END_OF_REQUIRES__ =======
 
@@ -30,9 +25,7 @@ sysroot_dir     = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 
 headers_target  = $(TARGET_BUILD_DIR)/.headers-installed
 
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC) \
-                             $(TOOLCHAIN_I486_EGLIBC)   \
-                             $(TOOLCHAIN_X86_64_GLIBC)  \
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC)  \
                              $(TOOLCHAIN_I486_GLIBC)),)
 arch = x86
 endif

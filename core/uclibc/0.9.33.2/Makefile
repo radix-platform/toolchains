@@ -12,33 +12,7 @@ REQUIRES  = core/linux/2.6.39.4
 endif
 
 ifeq ($(FLAVOUR),full)
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.4),)
-REQUIRES  = core/gcc/4.7.2^second
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.5),)
-REQUIRES  = core/gcc/4.7.3^second
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.6),)
-REQUIRES  = core/gcc/4.8.2^second
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.7 1.0.8),)
-REQUIRES  = core/gcc/4.9.1^second
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.9),)
-REQUIRES  = core/gcc/4.9.2^second
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.0),)
-REQUIRES  = core/gcc/5.3.0^second
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
-REQUIRES  = core/gcc/5.3.0^second
-endif
+REQUIRES  = core/gcc/4.9.4^second
 endif
 
 # ======= __END_OF_REQUIRES__ =======
@@ -96,11 +70,6 @@ BUILD_TARGETS  = $(full_target)
 endif
 
 include ../../../build-system/core.mk
-
-
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_EGLIBC))
-endif
 
 
 $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)

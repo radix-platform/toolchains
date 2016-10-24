@@ -4,7 +4,6 @@ NO_PARALLEL = true
 COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_DM644X_NEWLIB)
 
 FLAVOURS = headers full
 
@@ -14,75 +13,11 @@ include ../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/newlib
 
-ifeq ($(TOOLCHAIN_VERSION),1.0.2)
 ifeq ($(FLAVOUR),headers)
-REQUIRES  = core/binutils/2.21.1
+REQUIRES  = core/binutils/2.27
 endif
 ifeq ($(FLAVOUR),full)
-REQUIRES  = core/gcc/4.7.2^static
-endif
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.3 1.0.4),)
-ifeq ($(FLAVOUR),headers)
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB)),)
-REQUIRES  = core/binutils/2.23.2
-else
-REQUIRES  = core/binutils/2.21.1
-endif
-endif
-ifeq ($(FLAVOUR),full)
-REQUIRES  = core/gcc/4.7.2^static
-endif
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.5),)
-ifeq ($(FLAVOUR),headers)
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB)),)
-REQUIRES  = core/binutils/2.23.2
-else
-REQUIRES  = core/binutils/2.21.1
-endif
-endif
-ifeq ($(FLAVOUR),full)
-REQUIRES  = core/gcc/4.7.3^static
-endif
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.6),)
-ifeq ($(FLAVOUR),headers)
-REQUIRES  = core/binutils/2.24
-endif
-ifeq ($(FLAVOUR),full)
-REQUIRES  = core/gcc/4.8.2^static
-endif
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.7 1.0.8),)
-ifeq ($(FLAVOUR),headers)
-REQUIRES  = core/binutils/2.24
-endif
-ifeq ($(FLAVOUR),full)
-REQUIRES  = core/gcc/4.9.1^static
-endif
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.9),)
-ifeq ($(FLAVOUR),headers)
-REQUIRES  = core/binutils/2.25
-endif
-ifeq ($(FLAVOUR),full)
-REQUIRES  = core/gcc/4.9.2^static
-endif
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.0),)
-ifeq ($(FLAVOUR),headers)
-REQUIRES  = core/binutils/2.25.1
-endif
-ifeq ($(FLAVOUR),full)
-REQUIRES  = core/gcc/5.3.0^static
-endif
+REQUIRES  = core/gcc/4.9.4^static
 endif
 
 # ======= __END_OF_REQUIRES__ =======
@@ -176,23 +111,6 @@ extra_configure_switches += --with-gnu-ld
 extra_configure_switches += --disable-nls
 extra_configure_switches += --enable-newlib-supplied-sycalls
 extra_configure_switches += --disable-shared
-endif
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_DM644X_NEWLIB))
-extra_configure_switches  = --enable-interwork
-extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-gnu-as
-extra_configure_switches += --with-gnu-ld
-extra_configure_switches += --disable-nls
-extra_configure_switches += --enable-newlib-supplied-sycalls
-extra_configure_switches += --disable-shared
-#
-# also NEWLIB allows:
-#
-# extra_configure_switches += --enable-newlib-io-c99-formats
-# extra_configure_switches += --enable-newlib-io-longlong
-# extra_configure_switches += --enable-newlib-io-pos-args
-# extra_configure_switches += --enable-newlib-multithread
 endif
 
 

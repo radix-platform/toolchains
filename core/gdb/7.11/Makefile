@@ -8,7 +8,6 @@ COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_JZ47XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_P5600_GLIBC)
-COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK328X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_S805_GLIBC)
@@ -22,9 +21,7 @@ include ../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/GNU/gdb
 
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
-REQUIRES  = core/gcc/5.3.0^full
-endif
+REQUIRES  = core/gcc/4.9.4^full
 
 # ======= __END_OF_REQUIRES__ =======
 
@@ -119,17 +116,6 @@ extra_configure_switches += --disable-libssp
 extra_configure_switches += --with-arch=mips32r5
 extra_configure_switches += --with-tune=p5600
 extra_configure_switches += --with-float=hard
-extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
-endif
-
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_OMAP35X_GLIBC)),)
-extra_configure_switches  = --enable-interwork
-extra_configure_switches += --enable-multilib
-extra_configure_switches += --disable-libssp
-extra_configure_switches += --with-arch=armv7-a
-extra_configure_switches += --with-tune=cortex-a8
-extra_configure_switches += --with-fpu=neon
-extra_configure_switches += --with-abi=aapcs-linux
 extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
 endif
 

@@ -12,8 +12,7 @@ include ../../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/Linux/Freescale/Nit6Q
 
-versions    = imx-3.0.35-20140614
-versions   += imx-3.14.28-20150320
+versions    = imx-3.14.28-20150320
 
 suffix      = tar.xz
 

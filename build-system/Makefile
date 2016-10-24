@@ -4,8 +4,7 @@ COMPONENT_TARGETS = $(TOOLCHAIN_HOST)
 
 include config.mk
 
-REQUIRES  = build-system/3pp/gnattools/4.9.2
-REQUIRES += build-system/3pp/gnattools/5.3.0
+REQUIRES  = build-system/3pp/gnattools/4.9.4
 
 # ======= __END_OF_REQUIRES__ =======
 

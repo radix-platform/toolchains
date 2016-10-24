@@ -1,6 +1,7 @@
 
 
-COMPONENT_TARGETS  = $(TOOLCHAIN_A2X_GLIBC)
+COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
 
 
 include ../../../../build-system/config.mk
@@ -8,13 +9,7 @@ include ../../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/Linux/Allwinner/sunxi-3.4
 
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.0),)
-REQUIRES  = core/gcc/5.3.0^static
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
-REQUIRES  = core/gcc/5.3.0^static
-endif
+REQUIRES  = core/gcc/4.9.4^static
 
 # ======= __END_OF_REQUIRES__ =======
 
@@ -27,8 +22,7 @@ sysroot_dir     = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 
 headers_target  = $(TARGET_BUILD_DIR)/.headers-installed
 
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A1X_EGLIBC) $(TOOLCHAIN_A2X_EGLIBC) \
-                             $(TOOLCHAIN_A1X_GLIBC) $(TOOLCHAIN_A2X_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A1X_GLIBC) $(TOOLCHAIN_A2X_GLIBC)),)
 arch = arm
 endif
 

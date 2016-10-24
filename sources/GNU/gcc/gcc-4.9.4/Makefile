@@ -21,13 +21,11 @@ tarballs    = $(addsuffix .tar.bz2, $(addprefix gcc-, $(version)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
 patches     = $(CURDIR)/../patches/gcc-4.9.4-at91sam7s-newlib.patch
-patches    += $(CURDIR)/../patches/gcc-4.9.4-dm644x-newlib.patch
 patches    += $(CURDIR)/../patches/gcc-4.9.4-i386-69140.patch
 patches    += $(CURDIR)/../patches/gcc-4.9.4-a1x-newlib.patch
 patches    += $(CURDIR)/../patches/gcc-4.9.4-a2x-newlib.patch
 patches    += $(CURDIR)/../patches/gcc-4.9.4-lpc17xx-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-4.9.4-x86_64-multilib.patch
-patches    += $(CURDIR)/../patches/gcc-4.9.4-bcm74x-libgo.patch
 patches    += $(CURDIR)/../patches/gcc-4.9.4-jz47xx-libgo.patch
 patches    += $(CURDIR)/../patches/gcc-4.9.4-p5600-libgo.patch
 
@@ -65,13 +63,11 @@ $(sha1s): $(tarballs)
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
 	 ( cd create-4.9.4-at91sam7s-newlib-patch ; ./create.patch.sh ) ; \
-	 ( cd create-4.9.4-dm644x-newlib-patch    ; ./create.patch.sh ) ; \
 	 ( cd create-4.9.4-i386-69140-patch       ; ./create.patch.sh ) ; \
 	 ( cd create-4.9.4-a1x-newlib-patch       ; ./create.patch.sh ) ; \
 	 ( cd create-4.9.4-a2x-newlib-patch       ; ./create.patch.sh ) ; \
 	 ( cd create-4.9.4-lpc17xx-multilib-patch ; ./create.patch.sh ) ; \
 	 ( cd create-4.9.4-x86_64-multilib-patch  ; ./create.patch.sh ) ; \
-	 ( cd create-4.9.4-bcm74x-libgo-patch     ; ./create.patch.sh ) ; \
 	 ( cd create-4.9.4-jz47xx-libgo-patch     ; ./create.patch.sh ) ; \
 	 ( cd create-4.9.4-p5600-libgo-patch      ; ./create.patch.sh ) ; \
 	 echo -e "\n"

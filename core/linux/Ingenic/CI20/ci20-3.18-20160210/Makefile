@@ -8,10 +8,7 @@ include ../../../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/Linux/Ingenic/CI20
 
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
-REQUIRES  = core/gcc/5.3.0^static
-endif
+REQUIRES  = core/gcc/4.9.4^static
 
 # ======= __END_OF_REQUIRES__ =======
 

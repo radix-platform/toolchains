@@ -12,40 +12,9 @@ BUILD_A2X_NEWLIB = true
 # at91sam7s-newlib:
 BUILD_AT91SAM7S_NEWLIB = true
 
-# dm644x-newlib:
-BUILD_DM644X_NEWLIB = true
-
 
 # lpc17xx-uclibc:
 BUILD_LPC17XX_UCLIBC = true
-
-
-# a1x-eglibc:
-BUILD_A1X_EGLIBC = true
-
-# a2x-eglibc:
-BUILD_A2X_EGLIBC = true
-
-# dm644x-eglibc:
-BUILD_DM644X_EGLIBC = true
-
-# imx6-eglibc:
-BUILD_IMX6_EGLIBC = true
-
-# omap35x-eglibc:
-BUILD_OMAP35X_EGLIBC = true
-
-# omap543x-eglibc:
-BUILD_OMAP543X_EGLIBC = true
-
-# bcm74x-eglibc:
-BUILD_BCM74X_EGLIBC = true
-
-# i486-eglibc:
-BUILD_I486_EGLIBC = true
-
-# x86_64-eglibc:
-BUILD_X86_64_EGLIBC = true
 
 
 # a1x-glibc:
@@ -60,20 +29,11 @@ BUILD_S805_GLIBC = true
 # rk328x-glibc:
 BUILD_RK328X_GLIBC = true
 
-# dm644x-glibc:
-BUILD_DM644X_GLIBC = true
-
 # imx6-glibc:
 BUILD_IMX6_GLIBC = true
 
-# omap35x-glibc:
-BUILD_OMAP35X_GLIBC = true
-
 # omap543x-glibc:
 BUILD_OMAP543X_GLIBC = true
-
-# bcm74x-glibc:
-BUILD_BCM74X_GLIBC = true
 
 # jz47xx-glibc:
 BUILD_JZ47XX_GLIBC = true
@@ -81,7 +41,7 @@ BUILD_JZ47XX_GLIBC = true
 # p5600-glibc:
 BUILD_P5600_GLIBC = true
 
-# i486-eglibc:
+# i486-glibc:
 BUILD_I486_GLIBC = true
 
 # x86_64-glibc:

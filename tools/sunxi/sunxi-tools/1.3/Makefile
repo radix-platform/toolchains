@@ -1,9 +1,6 @@
 
 
-COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_EGLIBC)
-COMPONENT_TARGETS += $(TOOLCHAIN_A2X_EGLIBC)
-
-COMPONENT_TARGETS += $(TOOLCHAIN_A1X_GLIBC)
+COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
 
 
@@ -11,21 +8,7 @@ include ../../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/tools/allwinner/sunxi-tools-kx
 
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.7 1.0.8),)
-REQUIRES  = core/gcc/4.9.1^full
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.0.9),)
-REQUIRES  = core/gcc/4.9.2^full
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.0),)
-REQUIRES  = core/gcc/5.3.0^full
-endif
-
-ifneq ($(filter $(TOOLCHAIN_VERSION),1.1.1),)
-REQUIRES  = core/gcc/5.3.0^full
-endif
+REQUIRES  = core/gcc/4.9.4^full
 
 # ======= __END_OF_REQUIRES__ =======
 
