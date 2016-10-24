@@ -2,7 +2,6 @@
 
 COMPONENT_TARGETS  = $(TOOLCHAIN_LPC17XX_UCLIBC)
 
-COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_EGLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
 
 
@@ -24,7 +23,7 @@ sysroot_dir     = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 
 headers_target  = $(TARGET_BUILD_DIR)/.headers-installed
 
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC) $(TOOLCHAIN_X86_64_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC)),)
 arch = x86
 else
 arch = $(word 1, $(subst -, ,$(TARGET)))

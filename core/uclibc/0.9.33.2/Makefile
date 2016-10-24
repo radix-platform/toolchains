@@ -73,10 +73,6 @@ include ../../../build-system/core.mk
 
 
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_EGLIBC))
-endif
-
-
 $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 	$(UNPACK_SRC_ARCHIVE)
 	@tar xzf $(tar_gz_archive_locale) -C $(SRC_DIR)/extra/locale

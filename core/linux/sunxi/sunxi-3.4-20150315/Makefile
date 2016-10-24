@@ -21,8 +21,7 @@ sysroot_dir     = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 
 headers_target  = $(TARGET_BUILD_DIR)/.headers-installed
 
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A1X_EGLIBC) $(TOOLCHAIN_A2X_EGLIBC) \
-                             $(TOOLCHAIN_A1X_GLIBC) $(TOOLCHAIN_A2X_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A1X_GLIBC) $(TOOLCHAIN_A2X_GLIBC)),)
 arch = arm
 endif
 

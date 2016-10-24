@@ -25,9 +25,7 @@ sysroot_dir     = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 
 headers_target  = $(TARGET_BUILD_DIR)/.headers-installed
 
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_EGLIBC) \
-                             $(TOOLCHAIN_I486_EGLIBC)   \
-                             $(TOOLCHAIN_X86_64_GLIBC)  \
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC)  \
                              $(TOOLCHAIN_I486_GLIBC)),)
 arch = x86
 endif
