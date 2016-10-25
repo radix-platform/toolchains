@@ -1,0 +1,21 @@
+
+/* begin *
+
+   glibc-2.23-vfork-alias.patch:
+   ============================
+
+   With recent binutils versions the GNU libc fails to build on at least
+   MISP and SPARC, with this kind of error:
+
+     ..../glibc-build/nptl/libpthread.so:(*IND*+0x0): multiple definition of `vfork@GLIBC_2.0'
+     ..../glibc-build/nptl/libpthread.so::(.text+0xee50): first defined here
+
+   It appears that on these architectures pt-vfork.S includes vfork.S
+   (through the alpha version of pt-vfork.S) and that the __vfork aliases
+   are not conditionalized on IS_IN (libc) like on other architectures.
+   Therefore the aliases are also wrongly included in libpthread.so.
+
+   Fix this by properly conditionalizing the aliases like on other
+   architectures.
+
+ * end */

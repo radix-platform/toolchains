@@ -24,6 +24,7 @@ tarballs    = $(addsuffix .$(suffix), $(addprefix $(pkgname)-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
 patches     = $(CURDIR)/patches/glibc-2.23-i18n.patch
+patches    += $(CURDIR)/patches/glibc-2.23-vfork-alias.patch
 
 .NOTPARALLEL: $(patches)
 
@@ -58,7 +59,8 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-2.23-i18n-patch ; ./create.patch.sh ) ; \
+	 ( cd create-2.23-i18n-patch        ; ./create.patch.sh ) ; \
+	 ( cd create-2.23-vfork-alias-patch ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:

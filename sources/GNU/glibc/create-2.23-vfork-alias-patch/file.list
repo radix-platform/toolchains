@@ -1,0 +1,3 @@
+glibc-2.23/sysdeps/unix/sysv/linux/mips/vfork.S
+glibc-2.23/sysdeps/unix/sysv/linux/sparc/sparc32/vfork.S
+glibc-2.23/sysdeps/unix/sysv/linux/sparc/sparc64/vfork.S
