@@ -42,8 +42,9 @@ endif
 CROSS_PREFIX   = $(TARGET)-
 
 environment  = PATH=$(TOOLCHAIN_PATH)/bin:$(PATH)
-environment += TARGET_ARCH=$(arch)
+environment += ARCH=$(arch)
 environment += PREFIX=$(sysroot_dir)
+environment += KCONFIG_OVERWRITECONFIG=1
 ifneq ($(VERBOSE),)
 environment += V=2
 endif
