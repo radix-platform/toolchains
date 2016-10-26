@@ -48,7 +48,7 @@ $(SRC_DIR)/include/generated/uapi/linux/version.h: $(src_done)
 	  include/generated/uapi/linux/version.h
 
 $(sysroot_dir)/usr/include/linux/autoconf.h: $(SRC_DIR)/include/generated/uapi/linux/version.h
-	@$(MAKE) -j1 -C $(SRC_DIR) headers_install                        \
+	@$(MAKE) -j1 -C $(SRC_DIR) headers_install                    \
 	  ARCH=$(arch) CROSS_COMPILE=$(TOOLCHAIN_PATH)/bin/$(TARGET)- \
 	  INSTALL_HDR_PATH=$(sysroot_dir)/usr
 	@touch $@
