@@ -18,6 +18,8 @@ SRC_ARCHIVE     = $(tar_xz_archive)
 SRC_DIR         = $(TARGET_BUILD_DIR)/linux-aml-3.10.33-20150117
 src_done        = $(TARGET_BUILD_DIR)/.source-done
 
+PATCHES = PATCHES
+
 sysroot_dir     = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 
 headers_target  = $(TARGET_BUILD_DIR)/.headers-installed
@@ -36,6 +38,7 @@ include ../../../../../build-system/core.mk
 
 $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 	$(UNPACK_SRC_ARCHIVE)
+	$(APPLY_PATCHES)
 	@touch $@
 
 $(SRC_DIR)/include/generated/uapi/linux/version.h: $(src_done)
@@ -45,7 +48,7 @@ $(SRC_DIR)/include/generated/uapi/linux/version.h: $(src_done)
 	  include/generated/uapi/linux/version.h
 
 $(sysroot_dir)/usr/include/linux/autoconf.h: $(SRC_DIR)/include/generated/uapi/linux/version.h
-	@$(MAKE) -C $(SRC_DIR) headers_install                        \
+	@$(MAKE) -j1 -C $(SRC_DIR) headers_install                        \
 	  ARCH=$(arch) CROSS_COMPILE=$(TOOLCHAIN_PATH)/bin/$(TARGET)- \
 	  INSTALL_HDR_PATH=$(sysroot_dir)/usr
 	@touch $@
