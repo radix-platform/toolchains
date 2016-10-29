@@ -91,7 +91,7 @@ endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_NEWLIB))
 extra_configure_switches  = --enable-interwork
 extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-cpu=cortex-a9
+extra_configure_switches += --with-cpu=cortex-a5
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-fpu=neon
 extra_configure_switches += --with-abi=aapcs
@@ -155,7 +155,7 @@ extra_configure_switches += --enable-werror=no
 # standard options:
 extra_configure_switches += --enable-interwork
 extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-cpu=cortex-a9
+extra_configure_switches += --with-cpu=cortex-a5
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-fpu=neon
 extra_configure_switches += --with-abi=aapcs-linux

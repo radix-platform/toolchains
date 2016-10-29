@@ -4,8 +4,8 @@
 
 export PATH=$TOOLCHAIN_PATH/bin:$PATH
 
-$TARGET-gcc -g -gdwarf-2 -fomit-frame-pointer -mcpu=cortex-a9 -mlittle-endian -I$TOOLCHAIN_PATH/$TARGET/include -c -o main.o main.c
-$TARGET-gcc -mcpu=cortex-a9 -mlittle-endian  -o main main.o
+$TARGET-gcc -g -gdwarf-2 -fomit-frame-pointer -mcpu=cortex-a5 -mlittle-endian -I$TOOLCHAIN_PATH/$TARGET/include -c -o main.o main.c
+$TARGET-gcc -mcpu=cortex-a5 -mlittle-endian  -o main main.o
 
 $TARGET-strip main -o main.elf
 
