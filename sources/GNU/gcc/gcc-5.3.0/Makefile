@@ -24,6 +24,7 @@ patches     = $(CURDIR)/../patches/gcc-5.3.0-at91sam7s-newlib.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-a1x-newlib.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-a2x-newlib.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-s8xx-newlib.patch
+patches    += $(CURDIR)/../patches/gcc-5.3.0-a9xx-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-lpc17xx-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-x86_64-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-5.3.0-jz47xx-libgo.patch
@@ -69,6 +70,7 @@ $(patches): $(sha1s)
 	 ( cd create-5.3.0-a1x-newlib-patch       ; ./create.patch.sh ) ; \
 	 ( cd create-5.3.0-a2x-newlib-patch       ; ./create.patch.sh ) ; \
 	 ( cd create-5.3.0-s8xx-newlib-patch      ; ./create.patch.sh ) ; \
+	 ( cd create-5.3.0-a9xx-multilib-patch    ; ./create.patch.sh ) ; \
 	 ( cd create-5.3.0-lpc17xx-multilib-patch ; ./create.patch.sh ) ; \
 	 ( cd create-5.3.0-x86_64-multilib-patch  ; ./create.patch.sh ) ; \
 	 ( cd create-5.3.0-i386-66782-patch       ; ./create.patch.sh ) ; \

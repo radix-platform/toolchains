@@ -2,6 +2,7 @@
 COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_LPC17XX_UCLIBC)
@@ -88,6 +89,9 @@ else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A2X_NEWLIB)),)
 PATCHES = PATCHES.a2x
 else
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A9XX_NEWLIB)),)
+PATCHES = PATCHES.a9xx
+else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S8XX_NEWLIB)),)
 PATCHES = PATCHES.s8xx
 else
@@ -107,6 +111,7 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC)),)
 PATCHES = PATCHES.x86_64
 else
 PATCHES = PATCHES
+endif
 endif
 endif
 endif
@@ -225,6 +230,32 @@ extra_configure_switches += --disable-libstdc++-v3
 extra_configure_switches += --enable-languages=c
 extra_configure_switches += --disable-shared
 extra_configure_switches += --with-newlib
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A9XX_NEWLIB))
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --disable-libstdcxx-pch
+extra_configure_switches += --disable-shared
+extra_configure_switches += --disable-threads
+extra_configure_switches += --disable-tls
+extra_configure_switches += --with-gnu-as
+extra_configure_switches += --with-gnu-ld
+ifeq ($(FLAVOUR),static)
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --without-headers
+extra_configure_switches += --enable-languages=c
+else
+extra_configure_switches += --enable-plugins
+extra_configure_switches += --with-headers=yes
+extra_configure_switches += --enable-languages=c,c++
+endif
+extra_configure_switches += --with-newlib
+extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
+extra_configure_switches += --with-extra-multilibs=armv7-m
 endif
 
 

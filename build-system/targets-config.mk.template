@@ -12,6 +12,12 @@ BUILD_A2X_NEWLIB = true
 # s8xx-newlib:
 BUILD_S8XX_NEWLIB = true
 
+# a9xx-newlib:
+BUILD_A9XX_NEWLIB = true
+
+# s9xx-newlib:
+BUILD_S9XX_NEWLIB = true
+
 # at91sam7s-newlib:
 BUILD_AT91SAM7S_NEWLIB = true
 
@@ -28,6 +34,9 @@ BUILD_A2X_GLIBC = true
 
 # s8xx-glibc:
 BUILD_S8XX_GLIBC = true
+
+# s9xx-glibc:
+BUILD_S9XX_GLIBC = true
 
 # rk328x-glibc:
 BUILD_RK328X_GLIBC = true

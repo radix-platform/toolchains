@@ -3,6 +3,7 @@
 COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_LPC17XX_UCLIBC)
@@ -95,6 +96,15 @@ extra_configure_switches += --with-cpu=cortex-a5
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-fpu=neon
 extra_configure_switches += --with-abi=aapcs
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A9XX_NEWLIB))
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=http://www.radix.pro'
+extra_configure_switches += --disable-werror
+extra_configure_switches += --enable-interwork
+extra_configure_switches += --enable-plugins
+extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_AT91SAM7S_NEWLIB))
