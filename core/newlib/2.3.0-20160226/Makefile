@@ -5,6 +5,7 @@ COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 
 FLAVOURS = headers full
@@ -106,15 +107,10 @@ extra_configure_switches  = --enable-multilib
 extra_configure_switches += --with-gnu-as
 extra_configure_switches += --with-gnu-ld
 extra_configure_switches += --disable-nls
-extra_configure_switches += --enable-newlib-supplied-sycalls
 extra_configure_switches += --disable-shared
-#
-# also NEWLIB allows:
-#
-extra_configure_switches += --enable-newlib-io-c99-formats
-extra_configure_switches += --enable-newlib-io-longlong
-extra_configure_switches += --enable-newlib-io-pos-args
-extra_configure_switches += --enable-newlib-multithread
+extra_configure_switches += --disable-newlib-supplied-sycalls
+extra_configure_switches += --enable-newlib-io-long-long
+extra_configure_switches += --enable-newlib-register-fini
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A9XX_NEWLIB))
@@ -126,6 +122,22 @@ extra_configure_switches += --disable-shared
 extra_configure_switches += --disable-newlib-supplied-sycalls
 extra_configure_switches += --enable-newlib-io-long-long
 extra_configure_switches += --enable-newlib-register-fini
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB))
+extra_configure_switches  = --disable-multilib
+extra_configure_switches += --with-gnu-as
+extra_configure_switches += --with-gnu-ld
+extra_configure_switches += --disable-nls
+extra_configure_switches += --enable-newlib-supplied-sycalls
+extra_configure_switches += --disable-shared
+#
+# also NEWLIB allows:
+#
+extra_configure_switches += --enable-newlib-io-c99-formats
+extra_configure_switches += --enable-newlib-io-long-long
+extra_configure_switches += --enable-newlib-io-pos-args
+extra_configure_switches += --enable-newlib-multithread
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_AT91SAM7S_NEWLIB))
@@ -165,14 +177,39 @@ $(build_target): $(src_done)
 	  --mandir=$(TOOLCHAIN_PATH)/share/man   \
 	  $(extra_configure_switches)
 	@$(environment) $(MAKE) -C $(build_dir) all
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB)),)
+	@mkdir -p $(build_dir)/libgloss
+	@cd $(build_dir)/libgloss && $(environment) ../../$(src_dir_name)/libgloss/configure \
+	  --prefix=$(TOOLCHAIN_PATH)       \
+	  --build=$(BUILD)                 \
+	  --host=$(TARGET)                 \
+	  --target=$(TARGET)               \
+	  --infodir=$(TOOLCHAIN_PATH)/share/info \
+	  --mandir=$(TOOLCHAIN_PATH)/share/man   \
+	  $(extra_configure_switches)
+	@$(environment) $(MAKE) -C $(build_dir)/libgloss all info
+endif
 	@touch $@
 
 $(full_target): $(build_target)
 	@mkdir -p $(install_dir)
 	@$(environment) $(MAKE) -C $(build_dir) install
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB)),)
+	@$(environment) $(MAKE) -C $(build_dir)/libgloss install
+endif
 	@$(environment) $(MAKE) -C $(build_dir) pdf
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB)),)
+	@$(environment) $(MAKE) -C $(build_dir)/libgloss pdf
+endif
+	# ======= Install Documentation =======
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB)),)
+	@$(environment) $(MAKE) -C $(build_dir)/libgloss/doc install-info
+endif
 	@mkdir -p $(TOOLCHAIN_PATH)/share/doc/newlib
 	@cp $(build_dir)/libc/libc.pdf $(TOOLCHAIN_PATH)/share/doc/newlib
 	@cp $(build_dir)/libm/libm.pdf $(TOOLCHAIN_PATH)/share/doc/newlib
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB)),)
+	@cp $(build_dir)/libgloss/doc/porting.pdf $(TOOLCHAIN_PATH)/share/doc/newlib
+endif
 	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
 	@touch $@

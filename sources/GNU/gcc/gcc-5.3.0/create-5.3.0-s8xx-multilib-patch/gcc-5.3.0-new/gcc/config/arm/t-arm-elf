@@ -20,6 +20,7 @@ MULTILIB_OPTIONS     = marm/mthumb
 MULTILIB_DIRNAMES    = arm thumb
 MULTILIB_EXCEPTIONS  = 
 MULTILIB_MATCHES     =
+MULTILIB_OSDIRNAMES  = marm=!arm mthumb=!thumb
 
 #MULTILIB_OPTIONS     += mcpu=fa526/mcpu=fa626/mcpu=fa606te/mcpu=fa626te/mcpu=fmp626/mcpu=fa726te
 #MULTILIB_DIRNAMES    += fa526 fa626 fa606te fa626te fmp626 fa726te
@@ -38,27 +39,28 @@ MULTILIB_MATCHES     =
 # Not quite true.  We can support hard-vfp calling in Thumb2, but how do we
 # express that here?  Also, we really need architecture v5e or later
 # (mcrr etc).
-#MULTILIB_OPTIONS       += mfloat-abi=hard
-#MULTILIB_DIRNAMES      += fpu
-#MULTILIB_EXCEPTIONS    += *mthumb/*mfloat-abi=hard*
+MULTILIB_OPTIONS       += mfloat-abi=hard
+MULTILIB_DIRNAMES      += fpu
+MULTILIB_EXCEPTIONS    += *mthumb/*mfloat-abi=hard*
+MULTILIB_OSDIRNAMES    += mfloat-abi.hard=!fpu marm/mfloat-abi.hard=!arm/fpu
 #MULTILIB_EXCEPTIONS    += *mcpu=fa526/*mfloat-abi=hard*
 #MULTILIB_EXCEPTIONS    += *mcpu=fa626/*mfloat-abi=hard*
 
 # MULTILIB_OPTIONS    += mcpu=ep9312
 # MULTILIB_DIRNAMES   += ep9312
 # MULTILIB_EXCEPTIONS += *mthumb/*mcpu=ep9312*
-
-MULTILIB_OPTIONS     += mlittle-endian/mbig-endian
-MULTILIB_DIRNAMES    += le be
-MULTILIB_MATCHES     += mbig-endian=mbe mlittle-endian=mle
-
+# 	
+# MULTILIB_OPTIONS     += mlittle-endian/mbig-endian
+# MULTILIB_DIRNAMES    += le be
+# MULTILIB_MATCHES     += mbig-endian=mbe mlittle-endian=mle
+# 
 # MULTILIB_OPTIONS    += mfloat-abi=hard/mfloat-abi=soft
 # MULTILIB_DIRNAMES   += fpu soft
 # MULTILIB_EXCEPTIONS += *mthumb/*mfloat-abi=hard*
-
-MULTILIB_OPTIONS    += mno-thumb-interwork/mthumb-interwork
-MULTILIB_DIRNAMES   += normal interwork
-
+# 
+# MULTILIB_OPTIONS    += mno-thumb-interwork/mthumb-interwork
+# MULTILIB_DIRNAMES   += normal interwork
+# 
 # MULTILIB_OPTIONS    += fno-leading-underscore/fleading-underscore
 # MULTILIB_DIRNAMES   += elf under
 # 
