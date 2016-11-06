@@ -129,15 +129,10 @@ extra_configure_switches  = --disable-multilib
 extra_configure_switches += --with-gnu-as
 extra_configure_switches += --with-gnu-ld
 extra_configure_switches += --disable-nls
-extra_configure_switches += --enable-newlib-supplied-sycalls
 extra_configure_switches += --disable-shared
-#
-# also NEWLIB allows:
-#
-extra_configure_switches += --enable-newlib-io-c99-formats
+extra_configure_switches += --disable-newlib-supplied-sycalls
 extra_configure_switches += --enable-newlib-io-long-long
-extra_configure_switches += --enable-newlib-io-pos-args
-extra_configure_switches += --enable-newlib-multithread
+extra_configure_switches += --enable-newlib-register-fini
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_AT91SAM7S_NEWLIB))
@@ -158,6 +153,11 @@ endif
 
 $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 	$(UNPACK_SRC_ARCHIVE)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB)),)
+	@( cd $(SRC_DIR)/libgloss/config ; \
+	   sed -i '/^INCLUDES.*=/ s,$$, -I$$(prefix)/include -I$$(prefix)/$$(target_alias)/sys-include -I$$(prefix)/$$(target_alias)/include,' default.mh ; \
+	 )
+endif
 	@touch $@
 
 $(headers_target): $(src_done)
