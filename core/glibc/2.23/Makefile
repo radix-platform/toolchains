@@ -47,7 +47,7 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_RK328X_GLIBC))
 REQUIRES  = core/linux/Rockchip/Firefly-RK3288/firefly-3.10-20151231
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_GLIBC))
-REQUIRES  = core/linux/Amlogic/M201/aml-3.10.33-20150117
+REQUIRES  = core/linux/Amlogic/M201/aml-3.10.33-20160716
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC))
 REQUIRES  = core/glibc/2.23-x86_32^headers

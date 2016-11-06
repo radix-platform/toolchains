@@ -13,9 +13,9 @@ REQUIRES  = core/gcc/5.3.0^static
 
 # ======= __END_OF_REQUIRES__ =======
 
-tar_xz_archive  = $(SRC_PACKAGE_PATH)/Linux/Amlogic/M201/linux-aml-3.10.33-20150117.tar.xz
+tar_xz_archive  = $(SRC_PACKAGE_PATH)/Linux/Amlogic/M201/linux-aml-3.10.33-20160716.tar.xz
 SRC_ARCHIVE     = $(tar_xz_archive)
-SRC_DIR         = $(TARGET_BUILD_DIR)/linux-aml-3.10.33-20150117
+SRC_DIR         = $(TARGET_BUILD_DIR)/linux-aml-3.10.33-20160716
 src_done        = $(TARGET_BUILD_DIR)/.source-done
 
 PATCHES = PATCHES

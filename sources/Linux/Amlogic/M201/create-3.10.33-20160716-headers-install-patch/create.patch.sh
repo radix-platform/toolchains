@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=3.10.33-20150117
+VERSION=3.10.33-20160716
 
 tar --files-from=file.list -xJvf ../linux-aml-$VERSION.tar.xz
 mv linux-aml-$VERSION linux-aml-$VERSION-orig

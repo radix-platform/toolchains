@@ -12,14 +12,14 @@ include ../../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/Linux/Amlogic/M201
 
-versions    = aml-3.10.33-20150117
+versions    = aml-3.10.33-20160716
 
 suffix      = tar.xz
 
 tarballs    = $(addsuffix .$(suffix), $(addprefix linux-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
-patches     = $(CURDIR)/patches/linux-aml-3.10.33-20150117-headers-install.patch
+patches     = $(CURDIR)/patches/linux-aml-3.10.33-20160716-headers-install.patch
 
 .NOTPARALLEL: $(patches)
 
@@ -54,7 +54,7 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-3.10.33-20150117-headers-install-patch ; ./create.patch.sh ) ; \
+	 ( cd create-3.10.33-20160716-headers-install-patch ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:
