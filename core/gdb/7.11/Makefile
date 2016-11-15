@@ -14,6 +14,8 @@ COMPONENT_TARGETS += $(TOOLCHAIN_P5600_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK328X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_GLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
@@ -176,6 +178,22 @@ extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-tune=cortex-a5
 extra_configure_switches += --with-fpu=neon
 extra_configure_switches += --with-abi=aapcs-linux
+extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
+endif
+
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC)),)
+extra_configure_switches += --disable-multilib
+extra_configure_switches += --with-arch=armv8-a
+extra_configure_switches += --with-cpu=cortex-a53
+extra_configure_switches += --with-fpu=neon-fp-armv8
+extra_configure_switches += --with-abi=lp64
+extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
+endif
+
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A9XX_GLIBC)),)
+extra_configure_switches += --disable-multilib
+extra_configure_switches += --with-arch=armv8-a
+extra_configure_switches += --with-fpu=neon-fp-armv8
 extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
 endif
 

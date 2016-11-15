@@ -11,6 +11,8 @@ COMPONENT_TARGETS += $(TOOLCHAIN_OMAP35X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK328X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_GLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
@@ -48,6 +50,9 @@ REQUIRES  = core/linux/Rockchip/Firefly-RK3288/firefly-3.10-20151231
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_GLIBC))
 REQUIRES  = core/linux/Amlogic/M201/aml-3.10.33-20160716
+endif
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC) $(TOOLCHAIN_A9XX_GLIBC)),)
+REQUIRES  = core/linux/Amlogic/P201/aml-3.14.29-20160818
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC))
 REQUIRES  = core/glibc/2.23-x86_32^headers
@@ -142,6 +147,14 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_GLIBC))
 environment += CFLAGS="-g -O3 -march=armv7-a -mtune=cortex-a5 -mfpu=neon -mfloat-abi=hard"
 endif
 
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC))
+environment += CFLAGS="-g -O3 -march=armv8-a -mcpu=cortex-a53 -mabi=lp64"
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A9XX_GLIBC))
+environment += CFLAGS="-g -O3 -march=armv8-a -mfpu=neon-fp-armv8 -mfloat-abi=hard"
+endif
+
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I486_GLIBC))
 environment += CFLAGS="-g -O2"
@@ -157,12 +170,17 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A1X_GLIBC)      \
                              $(TOOLCHAIN_IMX6_GLIBC)     \
                              $(TOOLCHAIN_OMAP543X_GLIBC) \
                              $(TOOLCHAIN_RK328X_GLIBC)   \
-                             $(TOOLCHAIN_S8XX_GLIBC)),)
+                             $(TOOLCHAIN_S8XX_GLIBC)     \
+                             $(TOOLCHAIN_A9XX_GLIBC)),)
 LIB_NAMES_SUFFIX = hard
 endif
 
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC) $(TOOLCHAIN_P5600_GLIBC)),)
 LIB_NAMES_SUFFIX = o32_hard
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC))
+LIB_NAMES_SUFFIX = lp64
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I486_GLIBC))
@@ -319,6 +337,44 @@ endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin
 extra_configure_switches  += --enable-kernel=3.10.33
+extra_configure_switches  += --disable-profile
+extra_configure_switches  += --without-gd
+extra_configure_switches  += --without-cvs
+endif
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC))
+extra_configure_switches   = --libdir=/usr/lib$(LIBSUFFIX)
+extra_configure_switches  += --with-headers=$(sysroot_dir)/usr/include
+ifeq ($(FLAVOUR),headers)
+extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin
+extra_configure_switches  += --enable-kernel=3.14.29
+extra_configure_switches  += --disable-profile
+extra_configure_switches  += --without-gd
+extra_configure_switches  += --without-cvs
+endif
+ifeq ($(FLAVOUR),full)
+extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin
+extra_configure_switches  += --enable-kernel=3.14.29
+extra_configure_switches  += --disable-profile
+extra_configure_switches  += --without-gd
+extra_configure_switches  += --without-cvs
+endif
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A9XX_GLIBC))
+extra_configure_switches   = --libdir=/usr/lib$(LIBSUFFIX)
+extra_configure_switches  += --with-headers=$(sysroot_dir)/usr/include
+ifeq ($(FLAVOUR),headers)
+extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin
+extra_configure_switches  += --enable-kernel=3.14.29
+extra_configure_switches  += --disable-profile
+extra_configure_switches  += --without-gd
+extra_configure_switches  += --without-cvs
+endif
+ifeq ($(FLAVOUR),full)
+extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin
+extra_configure_switches  += --enable-kernel=3.14.29
 extra_configure_switches  += --disable-profile
 extra_configure_switches  += --without-gd
 extra_configure_switches  += --without-cvs

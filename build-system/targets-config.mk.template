@@ -38,6 +38,9 @@ BUILD_S8XX_GLIBC = true
 # s9xx-glibc:
 BUILD_S9XX_GLIBC = true
 
+# a9xx-glibc:
+BUILD_A9XX_GLIBC = true
+
 # rk328x-glibc:
 BUILD_RK328X_GLIBC = true
 
