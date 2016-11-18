@@ -61,10 +61,10 @@ ifeq ($(FLAVOUR),static)
 REQUIRES  = core/binutils/2.27
 endif
 ifeq ($(FLAVOUR),second)
-REQUIRES  = core/glibc/2.23^headers
+REQUIRES  = core/glibc/2.24^headers
 endif
 ifeq ($(FLAVOUR),full)
-REQUIRES  = core/glibc/2.23^full
+REQUIRES  = core/glibc/2.24^full
 endif
 endif
 
@@ -893,6 +893,7 @@ extra_configure_switches += --with-mips-plt
 extra_configure_switches += --enable-target-optspace
 extra_configure_switches += --enable-symvers=gnu
 extra_configure_switches += --enable-__cxa_atexit
+extra_configure_switches += --enable-long-long
 extra_configure_switches += --with-gnu-as
 extra_configure_switches += --with-gnu-ld
 ifeq ($(FLAVOUR),static)
