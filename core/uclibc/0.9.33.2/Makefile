@@ -12,7 +12,7 @@ REQUIRES  = core/linux/2.6.39.4
 endif
 
 ifeq ($(FLAVOUR),full)
-REQUIRES  = core/gcc/5.3.0^second
+REQUIRES  = core/gcc/7.1.0^second
 endif
 
 # ======= __END_OF_REQUIRES__ =======

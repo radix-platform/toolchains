@@ -1,3 +1,0 @@
-
-../../../sources/GNU/binutils/patches/binutils-2.27-export-demangle.patch  -p0
-../../../sources/GNU/binutils/patches/binutils-2.27-no-config-check.patch  -p0

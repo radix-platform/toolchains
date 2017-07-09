@@ -17,18 +17,13 @@ include ../../build-system/config.mk
 main_url    = ftp://sources.redhat.com/pub/newlib
 url         = $(DOWNLOAD_SERVER)/sources/newlib
 
-versions    = 2.3.0.20160226
+versions    = 2.5.0.20170623
 
 tarballs    = $(addsuffix .tar.gz, $(addprefix newlib-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
-patches     = $(CURDIR)/patches/newlib-2.3.0.20160226-arm-cross.patch
-packages    = $(CURDIR)/newlib-2.3.0.20160226-arm-cross.tar.gz
 
-.NOTPARALLEL: $(patches)
-
-
-BUILD_TARGETS = $(tarballs) $(sha1s) $(patches)
+BUILD_TARGETS = $(tarballs) $(sha1s)
 
 
 include ../../build-system/core.mk
@@ -56,10 +51,5 @@ $(sha1s): $(tarballs)
 	   fi ; \
 	 done
 
-$(patches): $(sha1s)
-	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-newlib-2.3.0.20160226-patch ; ./create.pkg.sh ) ; \
-	 echo -e "\n"
-
 download_clean:
-	@rm -f $(tarballs) $(sha1s) $(patches) $(packages)
+	@rm -f $(tarballs) $(sha1s) $(patches)

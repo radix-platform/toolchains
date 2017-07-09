@@ -1,6 +1,6 @@
 
 
-COMPONENT_TARGETS += $(TOOLCHAIN_A1X_GLIBC)
+COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_JZ47XX_GLIBC)
@@ -15,7 +15,7 @@ include ../../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/U-Boot/denx
 
-REQUIRES  = core/gcc/5.3.0^full
+REQUIRES  = core/gcc/7.1.0^full
 
 # ======= __END_OF_REQUIRES__ =======
 

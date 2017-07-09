@@ -1,3 +1,0 @@
-
-../../../sources/GNU/glibc/patches/glibc-2.23-i18n.patch        -p0
-../../../sources/GNU/glibc/patches/glibc-2.23-vfork-alias.patch -p0

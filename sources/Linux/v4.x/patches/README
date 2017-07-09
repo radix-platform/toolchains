@@ -1,0 +1,29 @@
+
+/* begin *
+
+   linux-4.9.35-sparc64-CAS-emulation.patch - software trap "0x23" to perform a CAS operations, the
+                                              operands are expected in registers %o0, %o1, and %o2.
+
+   http://sourceware-org.1504.n7.nabble.com/Remove-sparcv8-support-td418309.html:
+   -----------------------------------------------------------------------------
+      From: "David S. Miller"
+      Date: Mon, 7 Nov 2016 08:27:05 -0800
+      Subject: [PATCH] sparc64: Add CAS emulation trap.
+
+      Older 32-bit sparc cpus (other than LEON) lack a CAS instruction, so
+      we need to provide some kind of helper infrastructure in the kernel
+      to emulate it.
+
+      This is the first part which firstly defines the basic infrastructure
+      and the simplest implementation, which is to just directly execute the
+      instruction on sparc64.
+
+      We make use of the window fill/spill fault unwind facilities to make
+      this as simple as possible.  When we take a full TSB miss, we check if
+      the trap level is greater than one, and if so unwind the trap to one
+      of the final 3 instructions of the interrupted trap handler's block.
+      Which of the three to use is based upon whether this is a real fault,
+      an unaligned access, or a data access exception (ie. bus error).
+   -----------------------------------------------------------------------------
+
+ * end */
