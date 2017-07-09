@@ -13,7 +13,7 @@ include ../../../build-system/config.mk
 
 url               = $(DOWNLOAD_SERVER)/sources/uClinux/uClibc
 
-versions          = 0.9.33.1 0.9.33.2
+versions          = 0.9.33.2
 locale_versions   = 030818
 
 tarballs          = $(addsuffix .tar.bz2, $(addprefix uClibc-, $(versions)))

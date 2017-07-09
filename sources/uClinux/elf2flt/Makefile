@@ -39,13 +39,12 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/uClinux/elf2flt
 
-versions    = 1.6 1.64
+versions    = 1.64
 
 tarballs    = $(addsuffix .tar.bz2, $(addprefix elf2flt-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
-patches     = $(CURDIR)/patches/elf2flt-1.6-verbose.patch
-patches    += $(CURDIR)/patches/elf2flt-1.64-arm.patch
+patches     = $(CURDIR)/patches/elf2flt-1.64-arm.patch
 
 .NOTPARALLEL: $(patches)
 
@@ -80,8 +79,7 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-1.6-verbose-patch ; ./create.patch.sh ) ; \
-	 ( cd create-1.64-arm-patch    ; ./create.patch.sh ) ; \
+	 ( cd create-1.64-arm-patch ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:
