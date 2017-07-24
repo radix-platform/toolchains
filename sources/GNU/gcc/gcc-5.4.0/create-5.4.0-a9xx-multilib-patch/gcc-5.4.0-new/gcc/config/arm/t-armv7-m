@@ -1,0 +1,26 @@
+#Build below library for ARM armv7-m architecture with FPv4-SP.
+#  armv7-m/    -mthumb -march=armv7-m -mcpu=coretex-m3 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+
+MULTILIB_OPTIONS      += march=armv7-m mfpu=fpv4-sp-d16
+
+MULTILIB_DIRNAMES     += armv7-m fpu fpv4-sp-d16
+
+MULTILIB_EXCEPTIONS   += march=armv7-m*
+MULTILIB_EXCEPTIONS   += mfpu=fpv4-sp-d16
+MULTILIB_EXCEPTIONS   += marm/mfpu*
+MULTILIB_EXCEPTIONS   += mthumb/mfpu*
+MULTILIB_EXCEPTIONS   += marm*/march=armv7-m*
+MULTILIB_EXCEPTIONS   += mfloat-abi=hard/march=armv7-m*
+
+MULTILIB_EXCEPTIONS   += mthumb/mfloat-abi=hard
+MULTILIB_EXCEPTIONS   += mthumb/mfloat-abi=hard/mfpu=fpv4-sp-d16
+MULTILIB_EXCEPTIONS   += mthumb/mfloat-abi=hard/march=armv7-m
+
+MULTILIB_MATCHES      += march?armv7-m=mcpu?cortex-m3
+
+MULTILIB_OSDIRNAMES   += mfloat-abi.hard/mfpu.fpv4-sp-d16=!fpu/fpv4-sp-d16
+MULTILIB_OSDIRNAMES   += marm/mfloat-abi.hard/mfpu.fpv4-sp-d16=!arm/fpu/fpv4-sp-d16
+
+MULTILIB_OSDIRNAMES   += mthumb/march.armv7-m=!armv7-m
+MULTILIB_OSDIRNAMES   += mthumb/march.armv7-m/mfpu.fpv4-sp-d16=!armv7-m/fpv4-sp-d16
+MULTILIB_OSDIRNAMES   += mthumb/mfloat-abi.hard/march.armv7-m/mfpu.fpv4-sp-d16=!armv7-m/fpu/fpv4-sp-d16

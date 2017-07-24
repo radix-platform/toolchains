@@ -15,13 +15,19 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/GNU/binutils
 
-versions    = 2.27
+versions    = 2.27 2.28
 
 tarballs    = $(addsuffix .tar.bz2, $(addprefix binutils-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
 patches     = $(CURDIR)/patches/binutils-2.27-export-demangle.patch
 patches    += $(CURDIR)/patches/binutils-2.27-no-config-check.patch
+patches    += $(CURDIR)/patches/binutils-2.28-export-demangle.patch
+patches    += $(CURDIR)/patches/binutils-2.28-no-config-check.patch
+patches    += $(CURDIR)/patches/binutils-2.28-dynamic-section-warn.patch
+patches    += $(CURDIR)/patches/binutils-2.28-gas-comp_dir.patch
+patches    += $(CURDIR)/patches/binutils-2.28-libiberty-bugfixes.patch
+patches    += $(CURDIR)/patches/binutils-2.28-ppc-dynamic-relocs.patch
 
 .NOTPARALLEL: $(patches)
 
@@ -56,8 +62,14 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-2.27-export-demangle-patch   ; ./create.patch.sh ) ; \
-	 ( cd create-2.27-no-config-check-patch   ; ./create.patch.sh ) ; \
+	 ( cd create-2.27-export-demangle-patch      ; ./create.patch.sh ) ; \
+	 ( cd create-2.27-no-config-check-patch      ; ./create.patch.sh ) ; \
+	 ( cd create-2.28-export-demangle-patch      ; ./create.patch.sh ) ; \
+	 ( cd create-2.28-no-config-check-patch      ; ./create.patch.sh ) ; \
+	 ( cd create-2.28-dynamic-section-warn-patch ; ./create.patch.sh ) ; \
+	 ( cd create-2.28-gas-comp_dir-patch         ; ./create.patch.sh ) ; \
+	 ( cd create-2.28-libiberty-bugfixes-patch   ; ./create.patch.sh ) ; \
+	 ( cd create-2.28-ppc-dynamic-relocs-patch   ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:

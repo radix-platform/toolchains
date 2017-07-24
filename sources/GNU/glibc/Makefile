@@ -15,7 +15,7 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/GNU/glibc
 
-versions    = 2.23 2.24
+versions    = 2.23 2.24 2.25
 
 pkgname     = glibc
 suffix      = tar.xz
@@ -26,6 +26,9 @@ sha1s       = $(addsuffix .sha1sum, $(tarballs))
 patches     = $(CURDIR)/patches/glibc-2.23-i18n.patch
 patches    += $(CURDIR)/patches/glibc-2.23-vfork-alias.patch
 patches    += $(CURDIR)/patches/glibc-2.24-i18n.patch
+patches    += $(CURDIR)/patches/glibc-2.25-i18n.patch
+patches    += $(CURDIR)/patches/glibc-2.25-malloc-hooks.patch
+patches    += $(CURDIR)/patches/glibc-2.25-sparc32-atomics.patch
 
 .NOTPARALLEL: $(patches)
 
@@ -60,9 +63,12 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-2.23-i18n-patch        ; ./create.patch.sh ) ; \
-	 ( cd create-2.23-vfork-alias-patch ; ./create.patch.sh ) ; \
-	 ( cd create-2.24-i18n-patch        ; ./create.patch.sh ) ; \
+	 ( cd create-2.23-i18n-patch            ; ./create.patch.sh ) ; \
+	 ( cd create-2.23-vfork-alias-patch     ; ./create.patch.sh ) ; \
+	 ( cd create-2.24-i18n-patch            ; ./create.patch.sh ) ; \
+	 ( cd create-2.25-i18n-patch            ; ./create.patch.sh ) ; \
+	 ( cd create-2.25-malloc-hooks-patch    ; ./create.patch.sh ) ; \
+	 ( cd create-2.25-sparc32-atomics-patch ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:

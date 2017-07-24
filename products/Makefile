@@ -23,72 +23,72 @@ COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
 
 
-export TOOLCHAIN_VERSION = 1.1.2
+export TOOLCHAIN_VERSION = 1.1.3
 
 
 include ../build-system/config.mk
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB))
-REQUIRES  = products/A1X-newlib/1.1.2
+REQUIRES  = products/A1X-newlib/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A2X_NEWLIB))
-REQUIRES  = products/A2X-newlib/1.1.2
+REQUIRES  = products/A2X-newlib/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_NEWLIB))
-REQUIRES  = products/S8XX-newlib/1.1.2
+REQUIRES  = products/S8XX-newlib/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A9XX_NEWLIB))
-REQUIRES  = products/A9XX-newlib/1.1.2
+REQUIRES  = products/A9XX-newlib/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB))
-REQUIRES  = products/S9XX-newlib/1.1.2
+REQUIRES  = products/S9XX-newlib/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_AT91SAM7S_NEWLIB))
-REQUIRES  = products/AT91SAM7S-newlib/1.1.2
+REQUIRES  = products/AT91SAM7S-newlib/1.1.3
 endif
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
-REQUIRES  = products/LPC17XX-uclibc/1.1.2
+REQUIRES  = products/LPC17XX-uclibc/1.1.3
 endif
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_GLIBC))
-REQUIRES  = products/A1X-glibc/1.1.2
+REQUIRES  = products/A1X-glibc/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A2X_GLIBC))
-REQUIRES  = products/A2X-glibc/1.1.2
+REQUIRES  = products/A2X-glibc/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_IMX6_GLIBC))
-REQUIRES  = products/IMX6-glibc/1.1.2
+REQUIRES  = products/IMX6-glibc/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC))
-REQUIRES  = products/JZ47XX-glibc/1.1.2
+REQUIRES  = products/JZ47XX-glibc/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_P5600_GLIBC))
-REQUIRES  = products/P5600-glibc/1.1.2
+REQUIRES  = products/P5600-glibc/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_GLIBC))
-REQUIRES  = products/OMAP543X-glibc/1.1.2
+REQUIRES  = products/OMAP543X-glibc/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_RK328X_GLIBC))
-REQUIRES  = products/RK328X-glibc/1.1.2
+REQUIRES  = products/RK328X-glibc/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_GLIBC))
-REQUIRES  = products/S8XX-glibc/1.1.2
+REQUIRES  = products/S8XX-glibc/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC))
-REQUIRES  = products/S9XX-glibc/1.1.2
+REQUIRES  = products/S9XX-glibc/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A9XX_GLIBC))
-REQUIRES  = products/A9XX-glibc/1.1.2
+REQUIRES  = products/A9XX-glibc/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I486_GLIBC))
-REQUIRES  = products/I486-glibc/1.1.2
+REQUIRES  = products/I486-glibc/1.1.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC))
-REQUIRES  = products/X86_64-glibc/1.1.2
+REQUIRES  = products/X86_64-glibc/1.1.3
 endif
 
 

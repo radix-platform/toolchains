@@ -1,0 +1,3 @@
+
+../../../sources/GNU/gcc/patches/gcc-5.4.0-i386-66782.patch      -p0
+../../../sources/GNU/gcc/patches/gcc-5.4.0-i386-69140.patch      -p0

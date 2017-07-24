@@ -1,0 +1,22 @@
+#Build below library for ARM armv7-a architecture with VFPv4.
+#  armv7-a/    -march=armv7-a -mcpu=coretex-a5 -mfpu=vfpv4 -mfloat-abi=hard
+
+MULTILIB_OPTIONS      += march=armv7-a mfpu=vfpv4
+
+MULTILIB_DIRNAMES     += armv7-a fpu vfpv4
+
+MULTILIB_EXCEPTIONS   += mfpu=vfpv4
+MULTILIB_EXCEPTIONS   += marm/mfpu*
+MULTILIB_EXCEPTIONS   += mthumb/mfpu*
+MULTILIB_EXCEPTIONS   += marm*/march=armv7-a*
+MULTILIB_EXCEPTIONS   += mthumb/march=armv7-a*
+MULTILIB_EXCEPTIONS   += mfloat-abi=hard/march=armv7-a
+
+MULTILIB_MATCHES      += march?armv7-a=mcpu?cortex-a5
+
+MULTILIB_OSDIRNAMES   += mfloat-abi.hard/mfpu.vfpv4=!fpu/vfpv4
+MULTILIB_OSDIRNAMES   += marm/mfloat-abi.hard/mfpu.vfpv4=!arm/fpu/vfpv4
+
+MULTILIB_OSDIRNAMES   += march.armv7-a=!armv7-a
+MULTILIB_OSDIRNAMES   += march.armv7-a/mfpu.vfpv4=!armv7-a/vfpv4
+MULTILIB_OSDIRNAMES   += mfloat-abi.hard/march.armv7-a/mfpu.vfpv4=!armv7-a/fpu/vfpv4

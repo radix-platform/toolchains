@@ -18,6 +18,7 @@ main_url    = ftp://sources.redhat.com/pub/newlib
 url         = $(DOWNLOAD_SERVER)/sources/newlib
 
 versions    = 2.3.0.20160226
+versions   += 2.5.0.20170623
 
 tarballs    = $(addsuffix .tar.gz, $(addprefix newlib-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))

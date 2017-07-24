@@ -1,21 +1,21 @@
 
 /* begin *
 
-   gcc-5.3.0-at91sam7s-newlib.patch  -
+   gcc-5.4.0-at91sam7s-newlib.patch  -
 
-   gcc-5.3.0-dm644x-newlib.patch     -
+   gcc-5.4.0-dm644x-newlib.patch     -
 
-   gcc-5.3.0-lpc17xx-multilib.patch  - adds --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m configure switch.
+   gcc-5.4.0-lpc17xx-multilib.patch  - adds --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m configure switch.
 
-   gcc-5.3.0-jz47xx-libgo.patch      &
-   gcc-5.3.0-p5600-libgo.patch       - This patch related to mips. During compilation with -Werror=maybe-unitialized
+   gcc-5.4.0-jz47xx-libgo.patch      &
+   gcc-5.4.0-p5600-libgo.patch       - This patch related to mips. During compilation with -Werror=maybe-unitialized
                                        option we have error with uninitialised 'enablegc' variable. This patch
                                        created just for building. We didn't check how it affect the target 'gccgo'
                                        compilator. Probably this misstake will be fixed in next releases of 'gccgo'.
 
    parch order:
-     gcc-5.3.0-i386-66782.patch - first,
-     gcc-5.3.0-i386-69140.patch - second.
+     gcc-5.4.0-i386-66782.patch - first,
+     gcc-5.4.0-i386-69140.patch - second.
 
 
    README.TXT                        - this file.

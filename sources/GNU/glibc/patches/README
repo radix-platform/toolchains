@@ -18,4 +18,40 @@
    Fix this by properly conditionalizing the aliases like on other
    architectures.
 
+
+   glibc-2.25-sparc32-atomics.patch:
+   ================================
+
+   From: "David S. Miller"
+   Date: Sun, 6 Nov 2016 19:01:31 -0800
+   Subject: [PATCH] sparc: On 32-bit, provide atomics via kernel assist.
+
+   This patch requires kernel space support. First part of such support already done
+   by David S. Miller:
+
+   http://sourceware-org.1504.n7.nabble.com/Remove-sparcv8-support-td418309.html:
+   -----------------------------------------------------------------------------
+      From: "David S. Miller"
+      Date: Mon, 7 Nov 2016 08:27:05 -0800
+      Subject: [PATCH] sparc64: Add CAS emulation trap.
+
+      Older 32-bit sparc cpus (other than LEON) lack a CAS instruction, so
+      we need to provide some kind of helper infrastructure in the kernel
+      to emulate it.
+
+      This is the first part which firstly defines the basic infrastructure
+      and the simplest implementation, which is to just directly execute the
+      instruction on sparc64.
+
+      We make use of the window fill/spill fault unwind facilities to make
+      this as simple as possible.  When we take a full TSB miss, we check if
+      the trap level is greater than one, and if so unwind the trap to one
+      of the final 3 instructions of the interrupted trap handler's block.
+      Which of the three to use is based upon whether this is a real fault,
+      an unaligned access, or a data access exception (ie. bus error).
+   -----------------------------------------------------------------------------
+
+   The second part of kernel support related to 32-bit CPUs.
+   David works on it in the background since 7 Nov 2016.
+
  * end */
