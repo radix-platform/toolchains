@@ -14,8 +14,7 @@
                                        compilator. Probably this misstake will be fixed in next releases of 'gccgo'.
 
    parch order:
-     gcc-5.4.0-i386-66782.patch - first,
-     gcc-5.4.0-i386-69140.patch - second.
+     gcc-5.4.0-i386-66782.patch - first.
 
 
    README.TXT                        - this file.

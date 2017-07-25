@@ -31,7 +31,6 @@ patches    += $(CURDIR)/../patches/gcc-5.4.0-x86_64-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-5.4.0-jz47xx-libgo.patch
 patches    += $(CURDIR)/../patches/gcc-5.4.0-p5600-libgo.patch
 patches    += $(CURDIR)/../patches/gcc-5.4.0-i386-66782.patch
-patches    += $(CURDIR)/../patches/gcc-5.4.0-i386-69140.patch
 
 
 .NOTPARALLEL: $(patches)
@@ -76,7 +75,6 @@ $(patches): $(sha1s)
 	 ( cd create-5.4.0-lpc17xx-multilib-patch ; ./create.patch.sh ) ; \
 	 ( cd create-5.4.0-x86_64-multilib-patch  ; ./create.patch.sh ) ; \
 	 ( cd create-5.4.0-i386-66782-patch       ; ./create.patch.sh ) ; \
-	 ( cd create-5.4.0-i386-69140-patch       ; ./create.patch.sh ) ; \
 	 ( cd create-5.4.0-jz47xx-libgo-patch     ; ./create.patch.sh ) ; \
 	 ( cd create-5.4.0-p5600-libgo-patch      ; ./create.patch.sh ) ; \
 	 echo -e "\n"
