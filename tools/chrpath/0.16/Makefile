@@ -28,7 +28,7 @@ include ../../../build-system/config.mk
 
 SOURCE_REQUIRES  = sources/tools/chrpath
 
-REQUIRES  = core/gcc/7.1.0^full
+REQUIRES  = core/gcc/6.4.0^full
 
 # ======= __END_OF_REQUIRES__ =======
 

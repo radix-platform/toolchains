@@ -20,7 +20,7 @@ ifeq ($(FLAVOUR),headers)
 REQUIRES  = core/binutils/2.28
 endif
 ifeq ($(FLAVOUR),full)
-REQUIRES  = core/gcc/7.1.0^static
+REQUIRES  = core/gcc/6.4.0^static
 endif
 
 # ======= __END_OF_REQUIRES__ =======
