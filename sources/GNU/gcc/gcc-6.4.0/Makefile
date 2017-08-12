@@ -30,6 +30,7 @@ patches    += $(CURDIR)/../patches/gcc-6.4.0-lpc17xx-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-6.4.0-ppc32-return-addr.patch
 patches    += $(CURDIR)/../patches/gcc-6.4.0-ppc64-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-6.4.0-ppc64le-multilib.patch
+patches    += $(CURDIR)/../patches/gcc-6.4.0-sparc-ada.patch
 patches    += $(CURDIR)/../patches/gcc-6.4.0-sparc-config.patch
 patches    += $(CURDIR)/../patches/gcc-6.4.0-sparc64-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-6.4.0-x86_64-multilib.patch
@@ -81,6 +82,7 @@ $(patches): $(sha1s)
 	 ( cd create-6.4.0-ppc32-return-addr-patch ; ./create.patch.sh ) ; \
 	 ( cd create-6.4.0-ppc64-multilib-patch    ; ./create.patch.sh ) ; \
 	 ( cd create-6.4.0-ppc64le-multilib-patch  ; ./create.patch.sh ) ; \
+	 ( cd create-6.4.0-sparc-ada-patch         ; ./create.patch.sh ) ; \
 	 ( cd create-6.4.0-sparc-config-patch      ; ./create.patch.sh ) ; \
 	 ( cd create-6.4.0-sparc64-multilib-patch  ; ./create.patch.sh ) ; \
 	 ( cd create-6.4.0-x86_64-multilib-patch   ; ./create.patch.sh ) ; \
