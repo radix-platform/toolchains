@@ -1,0 +1,9 @@
+
+../../../sources/GNU/glibc/patches/glibc-2.26-i18n.patch                -p0
+../../../sources/GNU/glibc/patches/glibc-2.26-ldd-trace-dynamic.patch   -p0
+../../../sources/GNU/glibc/patches/glibc-2.26-malloc-array-bounds.patch -p0
+../../../sources/GNU/glibc/patches/glibc-2.26-malloc-hooks.patch        -p0
+../../../sources/GNU/glibc/patches/glibc-2.26-sparc32-atomics.patch     -p0
+../../../sources/GNU/glibc/patches/glibc-2.26-x86-IFUNC-revert.patch    -p0
+../../../sources/GNU/glibc/patches/glibc-2.26-c-utf8-locale.patch       -p0
+../../../sources/GNU/glibc/patches/glibc-2.26-is_IS-locale.patch        -p0

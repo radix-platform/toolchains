@@ -15,7 +15,7 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/GNU/glibc
 
-versions    = 2.25
+versions    = 2.25 2.26
 
 pkgname     = glibc
 suffix      = tar.xz
@@ -26,6 +26,14 @@ sha1s       = $(addsuffix .sha1sum, $(tarballs))
 patches     = $(CURDIR)/patches/glibc-2.25-i18n.patch
 patches    += $(CURDIR)/patches/glibc-2.25-malloc-hooks.patch
 patches    += $(CURDIR)/patches/glibc-2.25-sparc32-atomics.patch
+patches    += $(CURDIR)/patches/glibc-2.26-i18n.patch
+patches    += $(CURDIR)/patches/glibc-2.26-ldd-trace-dynamic.patch
+patches    += $(CURDIR)/patches/glibc-2.26-malloc-array-bounds.patch
+patches    += $(CURDIR)/patches/glibc-2.26-malloc-hooks.patch
+patches    += $(CURDIR)/patches/glibc-2.26-sparc32-atomics.patch
+patches    += $(CURDIR)/patches/glibc-2.26-x86-IFUNC-revert.patch
+patches    += $(CURDIR)/patches/glibc-2.26-c-utf8-locale.patch
+patches    += $(CURDIR)/patches/glibc-2.26-is_IS-locale.patch
 
 .NOTPARALLEL: $(patches)
 
@@ -60,9 +68,17 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-2.25-i18n-patch            ; ./create.patch.sh ) ; \
-	 ( cd create-2.25-malloc-hooks-patch    ; ./create.patch.sh ) ; \
-	 ( cd create-2.25-sparc32-atomics-patch ; ./create.patch.sh ) ; \
+	 ( cd create-2.25-i18n-patch                ; ./create.patch.sh ) ; \
+	 ( cd create-2.25-malloc-hooks-patch        ; ./create.patch.sh ) ; \
+	 ( cd create-2.25-sparc32-atomics-patch     ; ./create.patch.sh ) ; \
+	 ( cd create-2.26-i18n-patch                ; ./create.patch.sh ) ; \
+	 ( cd create-2.26-ldd-trace-dynamic-patch   ; ./create.patch.sh ) ; \
+	 ( cd create-2.26-malloc-array-bounds-patch ; ./create.patch.sh ) ; \
+	 ( cd create-2.26-malloc-hooks-patch        ; ./create.patch.sh ) ; \
+	 ( cd create-2.26-sparc32-atomics-patch     ; ./create.patch.sh ) ; \
+	 ( cd create-2.26-x86-IFUNC-revert-patch    ; ./create.patch.sh ) ; \
+	 ( cd create-2.26-c-utf8-locale-patch       ; ./create.patch.sh ) ; \
+	 ( cd create-2.26-is_IS-locale-patch        ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:

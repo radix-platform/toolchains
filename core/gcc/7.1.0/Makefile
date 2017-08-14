@@ -71,10 +71,10 @@ ifeq ($(FLAVOUR),static)
 REQUIRES  = core/binutils/2.28
 endif
 ifeq ($(FLAVOUR),second)
-REQUIRES  = core/glibc/2.25^headers
+REQUIRES  = core/glibc/2.26^headers
 endif
 ifeq ($(FLAVOUR),full)
-REQUIRES  = core/glibc/2.25^full
+REQUIRES  = core/glibc/2.26^full
 endif
 endif
 
