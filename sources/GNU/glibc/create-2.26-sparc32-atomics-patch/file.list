@@ -1,0 +1,7 @@
+glibc-2.26/sysdeps/sparc/sparc32/atomic-machine.h
+glibc-2.26/sysdeps/sparc/sparc32/pthread_barrier_wait.c
+glibc-2.26/sysdeps/sparc/sparc32/sem_post.c
+glibc-2.26/sysdeps/sparc/sparc32/sem_waitcommon.c
+glibc-2.26/sysdeps/sparc/sparc32/sparcv9/pthread_barrier_wait.c
+glibc-2.26/sysdeps/sparc/sparc32/sparcv9/sem_post.c
+glibc-2.26/sysdeps/sparc/sparc32/sparcv9/sem_waitcommon.c
