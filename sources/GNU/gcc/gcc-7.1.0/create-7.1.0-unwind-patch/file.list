@@ -1,9 +1,0 @@
-gcc-7.1.0/libgcc/config/aarch64/linux-unwind.h
-gcc-7.1.0/libgcc/config/alpha/linux-unwind.h
-gcc-7.1.0/libgcc/config/bfin/linux-unwind.h
-gcc-7.1.0/libgcc/config/i386/linux-unwind.h
-gcc-7.1.0/libgcc/config/pa/linux-unwind.h
-gcc-7.1.0/libgcc/config/riscv/linux-unwind.h
-gcc-7.1.0/libgcc/config/sh/linux-unwind.h
-gcc-7.1.0/libgcc/config/tilepro/linux-unwind.h
-gcc-7.1.0/libgcc/config/xtensa/linux-unwind.h
