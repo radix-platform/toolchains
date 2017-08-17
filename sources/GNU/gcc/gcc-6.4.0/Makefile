@@ -37,6 +37,7 @@ patches    += $(CURDIR)/../patches/gcc-6.4.0-x86_64-multilib.patch
 
 patches    += $(CURDIR)/../patches/gcc-6.4.0-libstdc++-docs.patch
 patches    += $(CURDIR)/../patches/gcc-6.4.0-libtool-no-rpath.patch
+patches    += $(CURDIR)/../patches/gcc-6.4.0-glibc-2.26.patch
 
 
 .NOTPARALLEL: $(patches)
@@ -88,6 +89,7 @@ $(patches): $(sha1s)
 	 ( cd create-6.4.0-x86_64-multilib-patch   ; ./create.patch.sh ) ; \
 	 ( cd create-6.4.0-libstdc++-docs-patch    ; ./create.patch.sh ) ; \
 	 ( cd create-6.4.0-libtool-no-rpath-patch  ; ./create.patch.sh ) ; \
+	 ( cd create-6.4.0-glibc-2.26-patch        ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:

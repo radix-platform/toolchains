@@ -3,3 +3,4 @@
 
 ../../../sources/GNU/gcc/patches/gcc-6.4.0-libstdc++-docs.patch    -p0
 ../../../sources/GNU/gcc/patches/gcc-6.4.0-libtool-no-rpath.patch  -p0
+../../../sources/GNU/gcc/patches/gcc-6.4.0-glibc-2.26.patch        -p0
