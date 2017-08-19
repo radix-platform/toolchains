@@ -1,7 +1,0 @@
-
-../../../sources/GNU/gcc/patches/gcc-7.1.0-sparc-config.patch      -p0
-../../../sources/GNU/gcc/patches/gcc-7.1.0-sparc64-multilib.patch  -p0
-
-../../../sources/GNU/gcc/patches/gcc-7.1.0-libstdc++-docs.patch    -p0
-../../../sources/GNU/gcc/patches/gcc-7.1.0-libtool-no-rpath.patch  -p0
-../../../sources/GNU/gcc/patches/gcc-7.1.0-glibc-2.26.patch        -p0

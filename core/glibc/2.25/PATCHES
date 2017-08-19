@@ -1,4 +1,0 @@
-
-../../../sources/GNU/glibc/patches/glibc-2.25-i18n.patch            -p0
-../../../sources/GNU/glibc/patches/glibc-2.25-malloc-hooks.patch    -p0
-../../../sources/GNU/glibc/patches/glibc-2.25-sparc32-atomics.patch -p0

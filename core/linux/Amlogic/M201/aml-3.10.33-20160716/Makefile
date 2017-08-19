@@ -9,7 +9,7 @@ include ../../../../../build-system/config.mk
 SOURCE_REQUIRES = sources/Linux/Amlogic/M201
 
 
-REQUIRES  = core/gcc/7.1.0^static
+REQUIRES  = core/gcc/7.2.0^static
 
 # ======= __END_OF_REQUIRES__ =======
 

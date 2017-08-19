@@ -8,7 +8,7 @@ include ../../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/tools/allwinner/sunxi-tools-kx
 
-REQUIRES  = core/gcc/7.1.0^full
+REQUIRES  = core/gcc/7.2.0^full
 
 # ======= __END_OF_REQUIRES__ =======
 

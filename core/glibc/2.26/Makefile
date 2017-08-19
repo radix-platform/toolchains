@@ -86,7 +86,7 @@ else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC)),)
 REQUIRES  = core/glibc/2.26-sparc32^full
 else
-REQUIRES  = core/gcc/7.1.0^second
+REQUIRES  = core/gcc/7.2.0^second
 endif
 endif
 endif
