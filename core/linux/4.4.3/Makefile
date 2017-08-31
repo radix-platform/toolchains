@@ -1,6 +1,6 @@
 
 
-COMPONENT_TARGETS  = $(TOOLCHAIN_I486_GLIBC)
+COMPONENT_TARGETS  = $(TOOLCHAIN_I686_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
 
 
@@ -24,7 +24,7 @@ sysroot_dir     = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 headers_target  = $(TARGET_BUILD_DIR)/.headers-installed
 
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC)  \
-                             $(TOOLCHAIN_I486_GLIBC)),)
+                             $(TOOLCHAIN_I686_GLIBC)),)
 arch = x86
 endif
 

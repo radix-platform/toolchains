@@ -20,7 +20,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_GLIBC)
 
-COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_I686_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
 
 
@@ -314,7 +314,7 @@ extra_configure_switches += --enable-64-bit-bfd
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_I486_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_I686_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=http://www.radix.pro'
 # experimental gold linker( DEFAULT_LD=ld.bfd ):
@@ -332,7 +332,7 @@ extra_configure_switches += --enable-werror=no
 # http://gcc.gnu.org/bugzilla/show_bug.cgi?id=46770
 extra_configure_switches += --disable-initfini-array
 # standard options:
-extra_configure_switches += --enable-targets=i486-kxLab-linux,i486-radix-linux,i486-kxLab-linux-gnulibc1,i486-kxLab-linux-gnuaout
+extra_configure_switches += --enable-targets=i686-radix-linux
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 

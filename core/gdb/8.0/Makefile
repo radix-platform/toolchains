@@ -17,7 +17,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_GLIBC)
 
-COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_I686_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
 
 
@@ -197,8 +197,8 @@ extra_configure_switches += --with-fpu=neon-fp-armv8
 extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
 endif
 
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_I486_GLIBC)),)
-extra_configure_switches += --with-arch=i486
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_I686_GLIBC)),)
+extra_configure_switches += --with-arch=i686
 extra_configure_switches += --with-tune=i686
 extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
 endif

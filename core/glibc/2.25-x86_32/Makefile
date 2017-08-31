@@ -65,11 +65,11 @@ environment += BUILD_CC="$(CCACHE)/usr/bin/gcc"
 LIBSUFFIX    =
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC))
-environment += CFLAGS="-g -O3 -march=i486 -mtune=i686"
+environment += CFLAGS="-g -O3 -march=i686 -mtune=i686"
 LIBSUFFIX    = 32
 endif
 
-TARGET32 = $(shell echo $(TARGET) | sed 's/x86_64/i486/')
+TARGET32 = $(shell echo $(TARGET) | sed 's/x86_64/i686/')
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC))

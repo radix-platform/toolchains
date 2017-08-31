@@ -14,7 +14,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_GLIBC)
 
-COMPONENT_TARGETS += $(TOOLCHAIN_I486_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_I686_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
 
 FLAVOURS = headers full
@@ -39,7 +39,7 @@ endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_P5600_GLIBC))
 REQUIRES  = core/linux/4.1.18
 endif
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I486_GLIBC))
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I686_GLIBC))
 REQUIRES  = core/linux/4.4.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_GLIBC))
@@ -156,7 +156,7 @@ environment += CFLAGS="-g -O3 -march=armv8-a -mfpu=neon-fp-armv8 -mfloat-abi=har
 endif
 
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I486_GLIBC))
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I686_GLIBC))
 environment += CFLAGS="-g -O2"
 endif
 
@@ -183,7 +183,7 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC))
 LIB_NAMES_SUFFIX = lp64
 endif
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I486_GLIBC))
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I686_GLIBC))
 LIB_NAMES_SUFFIX = 32
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC))
@@ -382,7 +382,7 @@ endif
 endif
 
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I486_GLIBC))
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I686_GLIBC))
 extra_configure_switches   = --libdir=/usr/lib$(LIBSUFFIX)
 extra_configure_switches  += --with-headers=$(sysroot_dir)/usr/include
 ifeq ($(FLAVOUR),headers)

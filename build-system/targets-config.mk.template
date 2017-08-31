@@ -56,8 +56,8 @@ BUILD_JZ47XX_GLIBC = true
 # p5600-glibc:
 BUILD_P5600_GLIBC = true
 
-# i486-glibc:
-BUILD_I486_GLIBC = true
+# i686-glibc:
+BUILD_I686_GLIBC = true
 
 # x86_64-glibc:
 BUILD_X86_64_GLIBC = true
