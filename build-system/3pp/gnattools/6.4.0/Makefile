@@ -53,13 +53,13 @@ $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 
 $(gmp_src_done): $(src_done)
 	@echo "Expanding $(tar_xz_archive_gmp)"
-	@tar xjf $(tar_xz_archive_gmp) -C $(TARGET_BUILD_DIR)
+	@tar xJf $(tar_xz_archive_gmp) -C $(TARGET_BUILD_DIR)
 	@cd $(SRC_DIR); ln -sf ../gmp-6.1.2 gmp
 	@touch $@
 
 $(mpfr_src_done): $(src_done)
 	@echo "Expanding $(tar_xz_archive_mpfr)"
-	@tar xjf $(tar_xz_archive_mpfr) -C $(TARGET_BUILD_DIR)
+	@tar xJf $(tar_xz_archive_mpfr) -C $(TARGET_BUILD_DIR)
 	@cd $(SRC_DIR); ln -sf ../mpfr-4.0.1 mpfr
 	@touch $@
 
