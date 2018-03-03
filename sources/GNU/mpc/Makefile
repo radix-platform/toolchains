@@ -15,7 +15,7 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/GNU/mpc
 
-versions    = 1.0.3
+versions    = 1.1.0
 
 tarballs    = $(addsuffix .tar.gz, $(addprefix mpc-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
