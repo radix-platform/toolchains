@@ -17,7 +17,7 @@ url         = $(DOWNLOAD_SERVER)/sources/GNU/gmp
 
 versions    = 6.1.2
 
-tarballs    = $(addsuffix .tar.bz2, $(addprefix gmp-, $(versions)))
+tarballs    = $(addsuffix .tar.xz, $(addprefix gmp-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
 

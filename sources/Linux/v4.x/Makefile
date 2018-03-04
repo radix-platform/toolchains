@@ -12,12 +12,13 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/Linux/v4.x
 
-versions    = 4.9.35
+versions    = 4.9.35 4.14.23
 
 tarballs    = $(addsuffix .tar.xz, $(addprefix linux-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
 patches     = $(CURDIR)/patches/linux-4.9.35-sparc64-CAS-emulation.patch
+patches    += $(CURDIR)/patches/linux-4.14.23-sparc64-CAS-emulation.patch
 
 .NOTPARALLEL: $(patches)
 
@@ -52,7 +53,8 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-4.9.35-sparc64-CAS-emulation-patch ; ./create.patch.sh ) ; \
+	 ( cd create-4.9.35-sparc64-CAS-emulation-patch  ; ./create.patch.sh ) ; \
+	 ( cd create-4.14.23-sparc64-CAS-emulation-patch ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:

@@ -71,19 +71,19 @@ ifeq ($(FLAVOUR),static)
 REQUIRES  = core/binutils/2.28
 endif
 ifeq ($(FLAVOUR),second)
-REQUIRES  = core/glibc/2.26^headers
+REQUIRES  = core/glibc/2.27^headers
 endif
 ifeq ($(FLAVOUR),full)
-REQUIRES  = core/glibc/2.26^full
+REQUIRES  = core/glibc/2.27^full
 endif
 endif
 
 # ======= __END_OF_REQUIRES__ =======
 
 tar_xz_archive        = $(SRC_PACKAGE_PATH)/GNU/gcc/gcc-7.2.0/gcc-7.2.0.tar.xz
-tar_bz2_archive_gmp   = $(SRC_PACKAGE_PATH)/GNU/gmp/gmp-6.1.2.tar.bz2
-tar_bz2_archive_mpfr  = $(SRC_PACKAGE_PATH)/GNU/mpfr/mpfr-3.1.5.tar.bz2
-tar_gz_archive_mpc    = $(SRC_PACKAGE_PATH)/GNU/mpc/mpc-1.0.3.tar.gz
+tar_xz_archive_gmp    = $(SRC_PACKAGE_PATH)/GNU/gmp/gmp-6.1.2.tar.xz
+tar_xz_archive_mpfr   = $(SRC_PACKAGE_PATH)/GNU/mpfr/mpfr-4.0.1.tar.xz
+tar_gz_archive_mpc    = $(SRC_PACKAGE_PATH)/GNU/mpc/mpc-1.1.0.tar.gz
 tar_xz_archive_isl    = $(SRC_PACKAGE_PATH)/inria/isl/isl-0.18.tar.xz
 SRC_ARCHIVE           = $(tar_xz_archive)
 SRC_DIR               = $(TARGET_BUILD_DIR)/gcc-7.2.0
@@ -1366,21 +1366,21 @@ $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 	@touch $@
 
 $(gmp_src_done): $(src_done)
-	@echo "Expanding $(tar_bz2_archive_gmp)"
-	@tar xjf $(tar_bz2_archive_gmp) -C $(TARGET_BUILD_DIR)
+	@echo "Expanding $(tar_xz_archive_gmp)"
+	@tar xJf $(tar_xz_archive_gmp) -C $(TARGET_BUILD_DIR)
 	@cd $(SRC_DIR); ln -sf ../gmp-6.1.2 gmp
 	@touch $@
 
 $(mpfr_src_done): $(src_done)
-	@echo "Expanding $(tar_bz2_archive_mpfr)"
-	@tar xjf $(tar_bz2_archive_mpfr) -C $(TARGET_BUILD_DIR)
-	@cd $(SRC_DIR); ln -sf ../mpfr-3.1.5 mpfr
+	@echo "Expanding $(tar_xz_archive_mpfr)"
+	@tar xJf $(tar_xz_archive_mpfr) -C $(TARGET_BUILD_DIR)
+	@cd $(SRC_DIR); ln -sf ../mpfr-4.0.1 mpfr
 	@touch $@
 
 $(mpc_src_done): $(src_done)
 	@echo "Expanding $(tar_gz_archive_mpc)"
 	@tar xzf $(tar_gz_archive_mpc) -C $(TARGET_BUILD_DIR)
-	@cd $(SRC_DIR); ln -sf ../mpc-1.0.3 mpc
+	@cd $(SRC_DIR); ln -sf ../mpc-1.1.0 mpc
 	@touch $@
 
 $(isl_src_done): $(src_done)
