@@ -197,6 +197,18 @@ __available_targets := $(sort $(__available_targets))
 
 
 #######
+####### Number of CPU cores:
+#######
+
+NUMPROCS := 1
+OS       := $(shell uname -s)
+
+ifeq ($(OS),Linux)
+NUMPROCS := $(shell grep -c ^processor /proc/cpuinfo)
+endif
+
+
+#######
 ####### Parallel control:
 #######
 

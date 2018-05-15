@@ -36,6 +36,8 @@ BUILD_TARGETS += $(install_target)
 include ../../../../build-system/core.mk
 
 
+JOBS = -j$(NUMPROCS)
+
 environment  = CC="$(CCACHE)/usr/bin/gcc"
 environment += CC_FOR_BUILD="$(CCACHE)/usr/bin/gcc"
 environment += CXX_FOR_BUILD="$(CCACHE)/usr/bin/g++"
@@ -43,7 +45,8 @@ environment += CXX_FOR_BUILD="$(CCACHE)/usr/bin/g++"
 
 GNATTOOLS_DEST_DIR = $(BUILDSYSTEM)/gnattools/6.4.0/usr
 
-extra_configure_switches  = --enable-languages=c,c++,ada
+extra_configure_switches  = --disable-bootstrap
+extra_configure_switches += --enable-languages=c,c++,ada
 
 
 $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
@@ -78,7 +81,7 @@ $(build_target): $(src_done) $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done)
 	  --infodir=$(GNATTOOLS_DEST_DIR)/share/info      \
 	  --mandir=$(GNATTOOLS_DEST_DIR)/share/man        \
 	  $(extra_configure_switches)
-	@cd $(build_dir) && make
+	@cd $(build_dir) && make $(JOBS)
 	@touch $@
 
 $(install_target): $(build_target)
