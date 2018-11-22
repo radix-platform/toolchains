@@ -1,0 +1,5 @@
+binutils-2.31.1/bfd/ChangeLog
+binutils-2.31.1/bfd/elf.c
+binutils-2.31.1/bfd/elflink.c
+binutils-2.31.1/binutils/ChangeLog
+binutils-2.31.1/binutils/readelf.c

@@ -1,5 +1,0 @@
-binutils-2.28/libiberty/Makefile.in
-binutils-2.28/libiberty/cp-demangle.c
-binutils-2.28/libiberty/strndup.c
-binutils-2.28/libiberty/testsuite/demangle-expected
-binutils-2.28/libiberty/xstrndup.c
