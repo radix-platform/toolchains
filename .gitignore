@@ -1,27 +1,45 @@
 
+# Target bin dirs
+build-system/gnattools/
+
+# Build system config files
+build-system/targets-config.mk
+
 # Target build dirs
 .noarch/
 .host/
 
 .a1x-newlib/
 .a2x-newlib/
+.a9xx-newlib/
 .at91sam7s-newlib/
 
 .lpc17xx-uclibc/
 
 .a1x-glibc/
 .a2x-glibc/
-.i486-glibc/
+.a9xx-glibc/
+.i686-glibc/
 .imx6-glibc/
-.s8xx-glibc/
 .jz47xx-glibc/
 .omap543x-glibc/
 .p5600-glibc/
+.power8-glibc/
+.power8le-glibc/
+.power9-glibc/
+.power9le-glibc/
+.r1000-glibc/
 .rk328x-glibc/
+.s8xx-glibc/
+.s8xx-newlib/
+.s9xx-glibc/
+.s9xx-newlib/
 .x86_64-glibc/
 
 # Hidden files (each file)
 .makefile
+.src_requires
+.src_requires_depend
 
 # Tarballs
 *.gz
