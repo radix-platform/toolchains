@@ -5,18 +5,13 @@ include ../../../../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/GNU/gcc/gcc-$(version)
 
-version     = 6.4.0
+version     = 6.5.0
 
 tarballs    = $(addsuffix .tar.xz, $(addprefix gcc-, $(version)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
-patches     = $(CURDIR)/patches/gcc-6.4.0-glibc-2.26.patch
 
-
-.NOTPARALLEL: $(patches)
-
-
-BUILD_TARGETS = $(tarballs) $(sha1s) $(patches)
+BUILD_TARGETS = $(tarballs) $(sha1s)
 
 include ../../../../../../build-system/core.mk
 
@@ -41,10 +36,5 @@ $(sha1s): $(tarballs)
 	   fi ; \
 	 done
 
-$(patches): $(sha1s)
-	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-6.4.0-glibc-2.26-patch ; ./create.patch.sh ) ; \
-	 echo -e "\n"
-
 download_clean:
-	@rm -f $(tarballs) $(sha1s) $(patches)
+	@rm -f $(tarballs) $(sha1s)

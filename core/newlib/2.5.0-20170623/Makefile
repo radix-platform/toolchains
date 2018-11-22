@@ -17,7 +17,7 @@ include ../../../build-system/config.mk
 SOURCE_REQUIRES = sources/newlib
 
 ifeq ($(FLAVOUR),headers)
-REQUIRES  = core/binutils/2.28
+REQUIRES  = core/binutils/2.31.1
 endif
 ifeq ($(FLAVOUR),full)
 REQUIRES  = core/gcc/6.4.0^static

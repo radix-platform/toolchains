@@ -56,7 +56,7 @@ endif
 
 ifneq ($(findstring uclibc, $(TOOLCHAIN)),)
 ifeq ($(FLAVOUR),static)
-REQUIRES  = core/binutils/2.28^flat
+REQUIRES  = core/binutils/2.31.1^flat
 endif
 ifeq ($(FLAVOUR),second)
 REQUIRES  = core/uclibc/0.9.33.2^headers
@@ -68,7 +68,7 @@ endif
 
 ifneq ($(findstring -glibc, $(TOOLCHAIN)),)
 ifeq ($(FLAVOUR),static)
-REQUIRES  = core/binutils/2.28
+REQUIRES  = core/binutils/2.31.1
 endif
 ifeq ($(FLAVOUR),second)
 REQUIRES  = core/glibc/2.27^headers
