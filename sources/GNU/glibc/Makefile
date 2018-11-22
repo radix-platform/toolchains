@@ -15,7 +15,7 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/GNU/glibc
 
-versions    = 2.25 2.26 2.27
+versions    = 2.25 2.26 2.27 2.28
 
 pkgname     = glibc
 suffix      = tar.xz

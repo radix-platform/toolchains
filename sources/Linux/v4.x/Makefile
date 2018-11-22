@@ -12,7 +12,7 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/Linux/v4.x
 
-versions    = 4.9.35 4.14.23
+versions    = 4.9.35 4.14.23 4.14.82 4.19.3
 
 tarballs    = $(addsuffix .tar.xz, $(addprefix linux-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
