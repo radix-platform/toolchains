@@ -1416,7 +1416,7 @@ $(mpc_src_done): $(src_done)
 $(isl_src_done): $(src_done)
 	@echo "Expanding $(tar_xz_archive_isl)"
 	@tar xJf $(tar_xz_archive_isl) -C $(TARGET_BUILD_DIR)
-	@cd $(SRC_DIR); ln -sf ../isl-0.18 isl
+	@cd $(SRC_DIR); ln -sf ../isl-0.20 isl
 	@touch $@
 
 $(static_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done) $(isl_src_done)
