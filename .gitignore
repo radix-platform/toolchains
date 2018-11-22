@@ -57,6 +57,9 @@ build-system/targets-config.mk
 # Patches
 *.patch
 
+# Text files
+*.txt
+
 # Default linux config files
 *.defconfig
 
