@@ -1,14 +1,9 @@
 
 /* begin *
 
-   gcc-6.4.0-at91sam7s-newlib.patch  -
+   gcc-6.5.0-at91sam7s-newlib.patch  -
 
-   gcc-6.4.0-lpc17xx-multilib.patch  - adds --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m configure switch.
-
-   gcc-6.4.0-ppc32-return-addr.patch - config/rs6000/rs6000.c (rs6000_return_addr): If COUNT == 0,
-                                       read word RETURN_ADDRESS_OFFSET bytes above arg_pointer_rtx
-                                       instead of doing an extran indirection from frame_pointer_rtx.
-                                       gcc.dg/20051128-1.c: New test.
+   gcc-6.5.0-lpc17xx-multilib.patch  - adds --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m configure switch.
 
 
    README.TXT                        - this file.

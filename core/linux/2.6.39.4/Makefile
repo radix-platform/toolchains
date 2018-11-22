@@ -10,7 +10,7 @@ include ../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/Linux/v2.6
 
-REQUIRES  = core/gcc/6.4.0^static
+REQUIRES  = core/gcc/6.5.0^static
 
 # ======= __END_OF_REQUIRES__ =======
 
