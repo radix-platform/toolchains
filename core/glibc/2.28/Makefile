@@ -48,7 +48,7 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_P5600_GLIBC))
 REQUIRES  = core/linux/Baikal/BFK/baikal-4.4.24-4.08.84
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I686_GLIBC))
-REQUIRES  = core/linux/4.14.23
+REQUIRES  = core/linux/4.19.3
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_GLIBC))
 REQUIRES  = core/linux/TI/omap5/glsdk/3.14.57-20151211
@@ -66,7 +66,7 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) $(TOOLCHAIN_POWER9_GLIBC)
 REQUIRES  = core/glibc/2.28-ppc32^headers
 endif
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8LE_GLIBC) $(TOOLCHAIN_POWER9LE_GLIBC)),)
-REQUIRES  = core/linux/4.14.23
+REQUIRES  = core/linux/4.19.3
 endif
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC)),)
 REQUIRES  = core/glibc/2.28-sparc32^headers

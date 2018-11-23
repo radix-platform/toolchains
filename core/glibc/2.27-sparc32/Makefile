@@ -9,7 +9,7 @@ include ../../../build-system/config.mk
 SOURCE_REQUIRES = sources/GNU/glibc
 
 ifeq ($(FLAVOUR),headers)
-REQUIRES  = core/linux/4.14.23
+REQUIRES  = core/linux/4.19.3
 endif
 
 ifeq ($(FLAVOUR),full)
