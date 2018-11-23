@@ -48,7 +48,7 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_P5600_GLIBC))
 REQUIRES  = core/linux/Baikal/BFK/baikal-4.4.24-4.08.84
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I686_GLIBC))
-REQUIRES  = core/linux/4.9.35
+REQUIRES  = core/linux/4.14.23
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_GLIBC))
 REQUIRES  = core/linux/TI/omap5/glsdk/3.14.57-20151211
@@ -63,28 +63,28 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC) $(TOOLCHAIN_A9XX_GLIBC)),)
 REQUIRES  = core/linux/Amlogic/P201/aml-3.14.29-20160818
 endif
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) $(TOOLCHAIN_POWER9_GLIBC)),)
-REQUIRES  = core/glibc/2.26-ppc32^headers
+REQUIRES  = core/glibc/2.28-ppc32^headers
 endif
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8LE_GLIBC) $(TOOLCHAIN_POWER9LE_GLIBC)),)
-REQUIRES  = core/linux/4.9.35
+REQUIRES  = core/linux/4.14.23
 endif
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC)),)
-REQUIRES  = core/glibc/2.26-sparc32^headers
+REQUIRES  = core/glibc/2.28-sparc32^headers
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC))
-REQUIRES  = core/glibc/2.26-x86_32^headers
+REQUIRES  = core/glibc/2.28-x86_32^headers
 endif
 endif
 
 ifeq ($(FLAVOUR),full)
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC))
-REQUIRES  = core/glibc/2.26-x86_32^full
+REQUIRES  = core/glibc/2.28-x86_32^full
 else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) $(TOOLCHAIN_POWER9_GLIBC)),)
-REQUIRES  = core/glibc/2.26-ppc32^full
+REQUIRES  = core/glibc/2.28-ppc32^full
 else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC)),)
-REQUIRES  = core/glibc/2.26-sparc32^full
+REQUIRES  = core/glibc/2.28-sparc32^full
 else
 REQUIRES  = core/gcc/6.5.0^second
 endif
@@ -94,10 +94,10 @@ endif
 
 # ======= __END_OF_REQUIRES__ =======
 
-tar_xz_archive  = $(SRC_PACKAGE_PATH)/GNU/glibc/glibc-2.26.tar.xz
+tar_xz_archive  = $(SRC_PACKAGE_PATH)/GNU/glibc/glibc-2.28.tar.xz
 SRC_ARCHIVE     = $(tar_xz_archive)
-SRC_DIR         = $(TARGET_BUILD_DIR)/glibc-2.26
-src_dir_name    = glibc-2.26
+SRC_DIR         = $(TARGET_BUILD_DIR)/glibc-2.28
+src_dir_name    = glibc-2.28
 src_done        = $(TARGET_BUILD_DIR)/.source-done
 
 PATCHES         = PATCHES
@@ -197,7 +197,7 @@ environment += CFLAGS="-g -O3 -mcpu=power9 -mlong-double-128"
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC))
-environment += CFLAGS="-g -O3 -mcpu=ultrasparc3 -mvis2 -mptr64 -mhard-float -mlong-double-128 -mglibc"
+environment += CFLAGS="-g -O3 -mcpu=ultrasparc3 -mhard-float -mlong-double-128 -mglibc"
 endif
 
 

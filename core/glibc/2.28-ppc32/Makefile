@@ -1,6 +1,7 @@
 
 
-COMPONENT_TARGETS = $(TOOLCHAIN_X86_64_GLIBC)
+COMPONENT_TARGETS  = $(TOOLCHAIN_POWER8_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_POWER9_GLIBC)
 
 FLAVOURS = headers full
 
@@ -9,7 +10,7 @@ include ../../../build-system/config.mk
 SOURCE_REQUIRES = sources/GNU/glibc
 
 ifeq ($(FLAVOUR),headers)
-REQUIRES  = core/linux/4.9.35
+REQUIRES  = core/linux/4.14.23
 endif
 
 ifeq ($(FLAVOUR),full)
@@ -18,10 +19,10 @@ endif
 
 # ======= __END_OF_REQUIRES__ =======
 
-tar_xz_archive  = $(SRC_PACKAGE_PATH)/GNU/glibc/glibc-2.26.tar.xz
+tar_xz_archive  = $(SRC_PACKAGE_PATH)/GNU/glibc/glibc-2.28.tar.xz
 SRC_ARCHIVE     = $(tar_xz_archive)
-SRC_DIR         = $(TARGET_BUILD_DIR)/glibc-2.26
-src_dir_name    = glibc-2.26
+SRC_DIR         = $(TARGET_BUILD_DIR)/glibc-2.28
+src_dir_name    = glibc-2.28
 src_done        = $(TARGET_BUILD_DIR)/.source-done
 
 PATCHES         = PATCHES
@@ -64,27 +65,32 @@ environment += BUILD_CC="$(CCACHE)/usr/bin/gcc"
 
 LIBSUFFIX    =
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC))
-environment += CFLAGS="-g -O3 -march=i686 -mtune=i686"
-LIBSUFFIX    = 32
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC))
+environment += CFLAGS="-g -O3 -mcpu=power8 -mlong-double-128"
 endif
 
-TARGET32 = $(shell echo $(TARGET) | sed 's/x86_64/i686/')
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_POWER9_GLIBC))
+environment += CFLAGS="-g -O3 -mcpu=power9 -mlong-double-128"
+endif
+
+LIBSUFFIX    = 32
+
+TARGET32 = $(shell echo $(TARGET) | sed 's/ppc64/ppc/')
 
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC))
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) $(TOOLCHAIN_POWER9_GLIBC)),)
 extra_configure_switches   = --libdir=/usr/lib$(LIBSUFFIX)
 extra_configure_switches  += --with-headers=$(sysroot_dir)/usr/include
 ifeq ($(FLAVOUR),headers)
 extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin
-extra_configure_switches  += --enable-kernel=2.6.36
+extra_configure_switches  += --enable-kernel=3.2.0
 extra_configure_switches  += --disable-profile
 extra_configure_switches  += --without-gd
 extra_configure_switches  += --without-cvs
 endif
 ifeq ($(FLAVOUR),full)
 extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin
-extra_configure_switches  += --enable-kernel=2.6.36
+extra_configure_switches  += --enable-kernel=3.2.0
 extra_configure_switches  += --disable-profile
 extra_configure_switches  += --without-gd
 extra_configure_switches  += --without-cvs
