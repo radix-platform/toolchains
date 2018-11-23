@@ -12,7 +12,7 @@ REQUIRES += core/gdb/8.2
 
 # ======= __END_OF_REQUIRES__ =======
 
-tarball_name    = $(TOOLCHAIN_DIR)-$(TOOLCHAIN_VERSION).tar.gz
+tarball_name    = $(TOOLCHAIN_DIR)-$(TOOLCHAIN_VERSION).tar.xz
 tarball         = $(TARGET_BUILD_DIR)/$(tarball_name)
 
 tarball_target  = $(TARGET_BUILD_DIR)/.tarball-created
@@ -29,7 +29,7 @@ $(tarball): $(tarball_target)
 $(tarball_target):
 	@echo ""
 	@echo "Creating $(tarball_name) tarball..."
-	@cd $(TOOLCHAINS_BASE_PATH); \
-	  tar -czf $(tarball_name) $(TOOLCHAIN_DIR)/$(TOOLCHAIN_VERSION)
+	@cd $(TOOLCHAINS_BASE_PATH) ; \
+	  tar -cf - $(TOOLCHAIN_DIR)/$(TOOLCHAIN_VERSION) | xz --threads=0 > $(tarball_name)
 	@mv $(TOOLCHAINS_BASE_PATH)/$(tarball_name) $(TARGET_BUILD_DIR)
 	@touch $@

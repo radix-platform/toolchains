@@ -38,8 +38,8 @@ REQUIRES  = core/gcc/6.5.0^full
 
 # ======= __END_OF_REQUIRES__ =======
 
-tar_gz_archive   = $(SRC_PACKAGE_PATH)/GNU/gdb/gdb-8.2.tar.gz
-SRC_ARCHIVE      = $(tar_gz_archive)
+tar_xz_archive   = $(SRC_PACKAGE_PATH)/GNU/gdb/gdb-8.2.tar.xz
+SRC_ARCHIVE      = $(tar_xz_archive)
 SRC_DIR          = $(TARGET_BUILD_DIR)/gdb-8.2
 src_dir_name     = gdb-8.2
 src_done         = $(TARGET_BUILD_DIR)/.source-done
