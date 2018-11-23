@@ -8,6 +8,7 @@ include ../../../build-system/config.mk
 
 REQUIRES  = core/gcc/6.5.0^full
 REQUIRES += tools/chrpath/0.16
+REQUIRES += tools/patchelf/0.10.1
 REQUIRES += tools/u-boot/denx/2014.01
 REQUIRES += core/gdb/8.2
 
