@@ -1438,7 +1438,7 @@ $(static_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done) $(isl_s
 $(static_install_target): $(static_build_target)
 	@$(MAKE) $(environment) -j1 -C $(build_dir) install
 	@rm -f $(TOOLCHAIN_PATH)/share/info/dir
-	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
+	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/README
 	@touch $@
 
 $(second_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done) $(isl_src_done)
@@ -1468,7 +1468,7 @@ ifneq ($(findstring x86_64, $(TOOLCHAIN)),)
 	@cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so $(sysroot_dir)/usr/lib32
 	@cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so.1 $(sysroot_dir)/usr/lib32
 endif
-	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
+	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/README
 	@touch $@
 
 $(full_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done) $(isl_src_done)
@@ -1522,5 +1522,5 @@ ifneq ($(findstring x86_64, $(TOOLCHAIN)),)
 endif
 	@$(MAKE) $(environment) -j1 -C $(build_dir) install
 	@rm -f $(TOOLCHAIN_PATH)/share/info/dir
-	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
+	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/README
 	@touch $@

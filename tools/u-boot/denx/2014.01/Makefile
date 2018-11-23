@@ -57,5 +57,5 @@ $(build_target): $(src_done)
 $(install_target): $(build_target)
 	@cp -a $(build_dir)/mkimage $(TOOLCHAIN_PATH)/bin/$(TARGET)-mkimage
 	@cp -a $(build_dir)/mkimage.1 $(TOOLCHAIN_PATH)/share/man/man1
-	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
+	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/README
 	@touch $@

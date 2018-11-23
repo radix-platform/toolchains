@@ -187,7 +187,7 @@ endif
 $(headers_target): $(src_done)
 	@mkdir -p $(headers_install_dir)
 	@cp -ar $(TARGET_BUILD_DIR)/$(src_dir_name)/newlib/libc/include $(TOOLCHAIN_PATH)
-	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
+	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/README
 	@touch $@
 
 $(build_target): $(src_done)
@@ -237,5 +237,5 @@ endif
 ifeq ($(ENABLE_LIBGLOSS_SUPPORT),yes)
 	@cp $(build_gloss_dir)/doc/porting.pdf $(TOOLCHAIN_PATH)/share/doc/newlib
 endif
-	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
+	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/README
 	@touch $@

@@ -98,7 +98,7 @@ $(headers_target): $(src_done) $(configs)
 	@cp $(SRC_DIR)/Rules.mak $(headers_dir)/
 	@$(LMAKE) O=$(CURDIR)/$(headers_dir) oldconfig
 	@$(LMAKE) O=$(CURDIR)/$(headers_dir) install_headers
-	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
+	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/README
 	@touch $@
 
 $(full_target): $(src_done) $(configs)
@@ -124,5 +124,5 @@ $(full_target): $(src_done) $(configs)
 	  ( cd $(sysroot_dir)/usr/bin ; mkdir -p ../../$$mult/usr/bin ; ln -sf ../../$$mult/usr/bin $$mult ) ; \
 	  ( cd $(sysroot_dir)/usr/lib ; mkdir -p ../../$$mult/usr/lib ; ln -sf ../../$$mult/usr/lib $$mult ) ; \
 	 done
-	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
+	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/README
 	@touch $@

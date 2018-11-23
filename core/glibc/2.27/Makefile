@@ -563,7 +563,7 @@ $(headers_target): $(src_done)
 	@cd $(headers_dir) && $(environment) $(MAKE) -j1 csu/subdir_install $(env_sysroot)
 	@$(environment) $(CC) -nostdlib -nostartfiles -shared -x c /dev/null \
 	                      -o $(sysroot_dir)/usr/lib$(LIBSUFFIX)/libc.so
-	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
+	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/README
 	@touch $@
 
 $(full_target): $(src_done)
@@ -577,5 +577,5 @@ $(full_target): $(src_done)
 	@cd $(full_dir) && $(environment) $(MAKE) all
 	@cd $(full_dir) && $(environment) $(MAKE) -j1 install $(env_sysroot)
 	@rm -f $(sysroot_dir)/usr/share/info/dir
-	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
+	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/README
 	@touch $@

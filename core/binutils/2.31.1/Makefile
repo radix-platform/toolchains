@@ -440,11 +440,11 @@ $(flat_src_done): $(src_done)
 $(build_target): $(src_done)
 	@mkdir -p $(build_dir)
 	@cd $(build_dir) && ../$(src_dir_name)/configure \
-	  --prefix=$(TOOLCHAIN_PATH)                    \
-	  --target=$(TARGET)                            \
-	  --infodir=$(TOOLCHAIN_PATH)/share/info        \
-	  --mandir=$(TOOLCHAIN_PATH)/share/man          \
-	  --disable-nls                                 \
+	  --prefix=$(TOOLCHAIN_PATH)             \
+	  --target=$(TARGET)                     \
+	  --infodir=$(TOOLCHAIN_PATH)/share/info \
+	  --mandir=$(TOOLCHAIN_PATH)/share/man   \
+	  --disable-nls                          \
 	  $(extra_configure_switches)
 	@$(MAKE) -C $(build_dir)
 	@$(MAKE) -C $(build_dir) info
@@ -455,7 +455,16 @@ $(install_target): $(build_target)
 	@$(MAKE) -j1 -C $(build_dir) install
 	@$(MAKE) -j1 -C $(build_dir) install-info
 	@rm -f $(TOOLCHAIN_PATH)/share/info/dir
-	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
+	@echo ""                                       > $(TOOLCHAIN_PATH)/README
+	@echo "  TOOLCHAIN = $(TOOLCHAIN)"            >> $(TOOLCHAIN_PATH)/README
+	@echo "     TARGET = $(TARGET)"               >> $(TOOLCHAIN_PATH)/README
+	@echo "  BASE_PATH = $(TOOLCHAINS_BASE_PATH)" >> $(TOOLCHAIN_PATH)/README
+	@echo "  DIRECTORY = $(TOOLCHAIN_DIR)"        >> $(TOOLCHAIN_PATH)/README
+	@echo "    VERSION = $(TOOLCHAIN_VERSION)"    >> $(TOOLCHAIN_PATH)/README
+	@echo ""                                      >> $(TOOLCHAIN_PATH)/README
+	@echo "-----------"                           >> $(TOOLCHAIN_PATH)/README
+	@echo ""                                      >> $(TOOLCHAIN_PATH)/README
+	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/README
 	@touch $@
 
 $(flat_build_target): $(flat_src_done) $(build_target)
