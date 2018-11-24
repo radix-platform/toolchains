@@ -41,7 +41,7 @@ build-system/targets-config.mk
 .src_requires
 .src_requires_depend
 .dist
-.config.*
+core/uclibc/*/.config.*
 
 # Destinations
 dist/products/
