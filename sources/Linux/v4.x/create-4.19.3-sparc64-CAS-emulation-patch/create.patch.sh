@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 VERSION=4.19.3
 
