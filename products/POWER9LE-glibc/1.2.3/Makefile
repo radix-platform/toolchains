@@ -13,7 +13,7 @@ REQUIRES += core/gdb/8.2
 
 # ======= __END_OF_REQUIRES__ =======
 
-tarball_name    = $(TOOLCHAIN_DIR)-$(TOOLCHAIN_VERSION).tar.gz
+tarball_name    = $(TOOLCHAIN_DIR)-$(TOOLCHAIN_VERSION).tar.xz
 tarball         = $(TARGET_BUILD_DIR)/$(tarball_name)
 
 tarball_target  = $(TARGET_BUILD_DIR)/.tarball-created
