@@ -6,14 +6,14 @@ COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
 
 include ../../../../build-system/config.mk
 
-SOURCE_REQUIRES = sources/tools/allwinner/sunxi-tools-kx
+SOURCE_REQUIRES = sources/tools/allwinner/sunxi-tools
 
 REQUIRES  = core/gcc/6.5.0^full
 
 # ======= __END_OF_REQUIRES__ =======
 
-tar_bz2_archive  = $(SRC_PACKAGE_PATH)/tools/allwinner/sunxi-tools-kx/sunxi-tools-1.3.tar.bz2
-SRC_ARCHIVE      = $(tar_bz2_archive)
+tar_xz_archive   = $(SRC_PACKAGE_PATH)/tools/allwinner/sunxi-tools/sunxi-tools-1.3.tar.xz
+SRC_ARCHIVE      = $(tar_xz_archive)
 SRC_DIR          = $(TARGET_BUILD_DIR)/sunxi-tools-1.3
 src_dir_name     = sunxi-tools-1.3
 src_done         = $(TARGET_BUILD_DIR)/.source-done

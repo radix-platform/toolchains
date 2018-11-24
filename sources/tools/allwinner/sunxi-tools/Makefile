@@ -14,11 +14,11 @@ COMPONENT_TARGETS = $(TOOLCHAIN_NOARCH)
 include ../../../../build-system/config.mk
 
 
-url         = $(DOWNLOAD_SERVER)/sources/tools/allwinner/sunxi-tools-kx
+url         = $(DOWNLOAD_SERVER)/sources/tools/allwinner/sunxi-tools
 
 versions    = 1.3
 pkg_name    = sunxi-tools
-suffix      = tar.bz2
+suffix      = tar.xz
 
 tarballs    = $(addsuffix .$(suffix), $(addprefix $(pkg_name)-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))

@@ -41,6 +41,11 @@ build-system/targets-config.mk
 .src_requires
 .src_requires_depend
 
+# Destinations
+.dist/
+dist/products/
+
+
 # Tarballs
 *.gz
 *.bz2
