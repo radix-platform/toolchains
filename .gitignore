@@ -40,9 +40,9 @@ build-system/targets-config.mk
 .makefile
 .src_requires
 .src_requires_depend
+.dist
 
 # Destinations
-.dist/
 dist/products/
 
 
