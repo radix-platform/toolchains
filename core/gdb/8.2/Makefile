@@ -2,12 +2,16 @@
 
 COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_H3_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_H5_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_NEWLIB)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_A1X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_H3_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_H5_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_JZ47XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_P5600_GLIBC)
@@ -81,6 +85,22 @@ extra_configure_switches += --with-fpu=neon-vfpv4
 extra_configure_switches += --with-abi=aapcs
 endif
 
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_H3_NEWLIB))
+extra_configure_switches  = --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-tune=cortex-a7
+extra_configure_switches += --with-fpu=neon-vfpv4
+extra_configure_switches += --with-abi=aapcs
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_H5_NEWLIB))
+extra_configure_switches  = --enable-multiarch
+extra_configure_switches += --disable-multilib
+extra_configure_switches += --with-arch=armv8-a
+endif
+
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_NEWLIB))
 extra_configure_switches  = --enable-interwork
 extra_configure_switches += --enable-multilib
@@ -124,6 +144,26 @@ extra_configure_switches += --with-arch=armv7ve
 extra_configure_switches += --with-tune=cortex-a7
 extra_configure_switches += --with-fpu=neon-vfpv4
 extra_configure_switches += --with-abi=aapcs-linux
+extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
+endif
+
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_H3_GLIBC)),)
+extra_configure_switches  = --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-tune=cortex-a7
+extra_configure_switches += --with-fpu=neon-vfpv4
+extra_configure_switches += --with-abi=aapcs-linux
+extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
+endif
+
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_H5_GLIBC)),)
+extra_configure_switches += --disable-multilib
+extra_configure_switches += --with-arch=armv8-a
+extra_configure_switches += --with-cpu=cortex-a53
+extra_configure_switches += --with-fpu=neon-fp-armv8
+extra_configure_switches += --with-abi=lp64
 extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
 endif
 

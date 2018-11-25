@@ -122,6 +122,36 @@ A2X_GLIBC_DIR  = arm-A2X-linux-glibc
 A2X_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(A2X_GLIBC_DIR)
 
 
+# AllWinner H3-NEWLIB
+TOOLCHAIN_H3_NEWLIB = h3-newlib
+
+H3_NEWLIB_ARCH = arm-h3-eabi
+H3_NEWLIB_DIR  = arm-H3-eabi-newlib
+H3_NEWLIB_PATH = $(TOOLCHAINS_BASE_PATH)/$(H3_NEWLIB_DIR)
+
+# AllWinner H3-GLIBC
+TOOLCHAIN_H3_GLIBC = h3-glibc
+
+H3_GLIBC_ARCH = arm-h3-linux-gnueabihf
+H3_GLIBC_DIR  = arm-H3-linux-glibc
+H3_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(H3_GLIBC_DIR)
+
+
+# AllWinner H5-NEWLIB
+TOOLCHAIN_H5_NEWLIB = h5-newlib
+
+H5_NEWLIB_ARCH = aarch64-h5-elf
+H5_NEWLIB_DIR  = aarch64-H5-elf-newlib
+H5_NEWLIB_PATH = $(TOOLCHAINS_BASE_PATH)/$(H5_NEWLIB_DIR)
+
+# AllWinner H5-GLIBC
+TOOLCHAIN_H5_GLIBC = h5-glibc
+
+H5_GLIBC_ARCH = aarch64-h5-linux-gnu
+H5_GLIBC_DIR  = aarch64-H5-linux-glibc
+H5_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(H5_GLIBC_DIR)
+
+
 # Amlogic S8XX
 TOOLCHAIN_S8XX_NEWLIB = s8xx-newlib
 
