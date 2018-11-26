@@ -12,7 +12,7 @@ include ../../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/Linux/Baikal/BFK
 
-versions    = baikal-4.4.24-4.08.84
+versions    = baikal-4.4.145-4.15.115
 
 suffix      = tar.xz
 

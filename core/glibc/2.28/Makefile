@@ -53,7 +53,7 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC))
 REQUIRES  = core/linux/Ingenic/CI20/ci20-3.18-20160210
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_P5600_GLIBC))
-REQUIRES  = core/linux/Baikal/BFK/baikal-4.4.24-4.08.84
+REQUIRES  = core/linux/Baikal/BFK/baikal-4.4.145-4.15.115
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I686_GLIBC))
 REQUIRES  = core/linux/4.19.3

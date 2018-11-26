@@ -13,9 +13,9 @@ REQUIRES  = core/gcc/6.5.0^static
 
 # ======= __END_OF_REQUIRES__ =======
 
-tar_xz_archive  = $(SRC_PACKAGE_PATH)/Linux/Baikal/BFK/linux-baikal-4.4.24-4.08.84.tar.xz
+tar_xz_archive  = $(SRC_PACKAGE_PATH)/Linux/Baikal/BFK/linux-baikal-4.4.145-4.15.115.tar.xz
 SRC_ARCHIVE     = $(tar_xz_archive)
-SRC_DIR         = $(TARGET_BUILD_DIR)/linux-baikal-4.4.24-4.08.84
+SRC_DIR         = $(TARGET_BUILD_DIR)/linux-baikal-4.4.145-4.15.115
 src_done        = $(TARGET_BUILD_DIR)/.source-done
 
 sysroot_dir     = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
