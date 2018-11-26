@@ -10,6 +10,8 @@ ARCH_FLAGS="-march=armv8-a -mcpu=cortex-a53 -mlittle-endian"
 $TARGET-gcc -g $DEBUG_FLAGS -fomit-frame-pointer  -I$TOOLCHAIN_PATH/$TARGET/include -c -o main.o main.c
 $TARGET-gcc $ARCH_FLAGS  -o main main.o -lc -lm -lnosys -lrdimon
 
+$TARGET-objdump -x main > main.map
+
 $TARGET-strip main -o main.elf
 
 $TARGET-objcopy -O srec main.elf main.srec
