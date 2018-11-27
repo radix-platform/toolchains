@@ -2,11 +2,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_POWER9LE_GLIBC)
 
-export TOOLCHAIN_VERSION = 1.2.3
+export TOOLCHAIN_VERSION = 1.3.4
 
 include ../../../build-system/config.mk
 
-REQUIRES  = core/gcc/6.5.0^full
+REQUIRES  = core/gcc/7.3.0^full
 REQUIRES += tools/chrpath/0.16
 REQUIRES += tools/patchelf/0.10.1
 REQUIRES += core/gdb/8.2

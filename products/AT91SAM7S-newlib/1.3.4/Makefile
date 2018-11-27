@@ -2,11 +2,11 @@
 
 COMPONENT_TARGETS = $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 
-export TOOLCHAIN_VERSION = 1.2.3
+export TOOLCHAIN_VERSION = 1.3.4
 
 include ../../../build-system/config.mk
 
-REQUIRES  = core/gcc/6.5.0^full
+REQUIRES  = core/gcc/7.3.0^full
 
 # ======= __END_OF_REQUIRES__ =======
 
