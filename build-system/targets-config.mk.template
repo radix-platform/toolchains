@@ -9,6 +9,12 @@ BUILD_A1X_NEWLIB = true
 # a2x-newlib:
 BUILD_A2X_NEWLIB = true
 
+# h3-newlib:
+BUILD_H3_NEWLIB = true
+
+# h5-newlib:
+BUILD_H5_NEWLIB = true
+
 # s8xx-newlib:
 BUILD_S8XX_NEWLIB = true
 
@@ -31,6 +37,12 @@ BUILD_A1X_GLIBC = true
 
 # a2x-glibc:
 BUILD_A2X_GLIBC = true
+
+# h3-glibc:
+BUILD_H3_GLIBC = true
+
+# h5-glibc:
+BUILD_H5_GLIBC = true
 
 # s8xx-glibc:
 BUILD_S8XX_GLIBC = true

@@ -1,36 +1,19 @@
 
 /* begin *
 
-   binutils-2.28-export-demangle.patch - export demangle.h file;
-   binutils-2.28-no-config-check.patch - no check config.h file;
+   binutils-2.31.1-verinfo-and-corrupt.patch - Patch to Fix invalid version info and detect corrupted objects.
+                                               NOTE: this patch should be applyed first;
 
-   binutils-2.28-gas-comp_dir.patch:
-   ----------------------------------------------------------------------------
-   commit 49fced1206db40c71208c201165d65f92c69cebe
-   Author: Mark Wielaard <mark@klomp.org>
-   Date:   Sun Mar 5 23:37:54 2017 +0100
+   Various upstream patches:
 
-    gas: Emit name, comp_dir and producer strings in .debug_str.
+     binutils-2.31.1-set-long-long.patch
+     binutils-2.31.1-copy-osabi.patch
+     binutils-2.31.1-sec-merge-omit.patch
+     binutils-2.31.1-ldforcele.patch
+     binutils-2.31.1-cleansweep.patch
 
-    Putting the name, comp_dir and producer strings in the .debug_str section
-    makes it possible to share them across CUs. This saves a small amount of
-    space (about ~20K on a glibc libc.so.6 build with debuginfo). And makes
-    it easier for tools like rpm debugedit to adjust the source paths when
-    generating separate debuginfo files.
-
-    gas/
-           * dwarf2dbg.c (out_debug_abbrev): Use DW_FORM_strp instead of
-           DW_FORM_string for DW_AT_name, DW_AT_comp_dir and DW_AT_producer.
-           (out_debug_info): Accept symbols to name, comp_dir and producer
-           in the .debug_str section and emit those offsets not full strings.
-           (out_debug_str): New function that outputs the strings for name,
-           comp_dir and producer in .debug_str and generates symbols to
-           those strings.
-           (out_debug_line): Create a .debug_str section if necessary and
-           call out_debug_str before calling out_debug_info.
-           * testsuite/gas/aarch64/dwarf.d: Add extra section symbol to
-           expected output.
-   ----------------------------------------------------------------------------
+   binutils-2.31.1-export-demangle.patch     - Export the demangle.h header file;
+   binutils-2.31.1-no-config-check.patch     - Don't check to see if 'config.h' was included in the installed headers;
 
    README.TXT                          - this file.
 

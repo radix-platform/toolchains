@@ -361,16 +361,16 @@ ifneq ($(shell pwd),$(TOP_BUILD_DIR_ABS))
 ifeq ($(filter %_clean,$(MAKECMDGOALS)),)
 ifeq ($(__final__),)
 	@echo ""
-	@shtool echo -e "%B################################################################%b"
-	@shtool echo -e "%B#######%b"
-	@shtool echo -e "%B#######%b %BStart of building source requires for '%b$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))%B':%b"
-	@shtool echo -e "%B#######%b"
+	@echo -e "################################################################"
+	@echo -e "#######"
+	@echo -e "####### Start of building source requires for '$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))':"
+	@echo -e "#######"
 	@$(BUILDSYSTEM)/build_src_requires $(TOP_BUILD_DIR_ABS)
 	@__final__= TREE_RULE=local_all $(MAKE) TOOLCHAIN=$(TOOLCHAIN_NOARCH) FLAVOUR= -f .src_requires
-	@shtool echo -e "%B#######%b"
-	@shtool echo -e "%B#######%b %BEnd of building source requires for '%b$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))%B':%b"
-	@shtool echo -e "%B#######%b"
-	@shtool echo -e "%B################################################################%b"
+	@echo -e "#######"
+	@echo -e "####### End of building source requires for '$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))'."
+	@echo -e "#######"
+	@echo -e "################################################################"
 	@echo ""
 	@touch $@
 	@touch .src_requires_depend
@@ -384,15 +384,15 @@ endif
 ifneq ($(shell pwd),$(TOP_BUILD_DIR_ABS))
 ifeq ($(shell pwd | grep $(TOP_BUILD_DIR_ABS)/$(SRC_PACKAGE_DIR))$(shell pwd | grep $(BUILDSYSTEM)/3pp/sources),)
 ifeq ($(shell pwd | grep $(BUILDSYSTEM)),)
-	@shtool echo -e "%B################################################################%b"
-	@shtool echo -e "%B#######%b"
-	@shtool echo -e "%B#######%b %BStart to Check the BUILDSYSTEM is ready:%b"
-	@shtool echo -e "%B#######%b"
+	@echo -e "################################################################"
+	@echo -e "#######"
+	@echo -e "####### Start to Check the BUILDSYSTEM is ready:"
+	@echo -e "#######"
 	@( cd $(BUILDSYSTEM) ; __final__= $(MAKE) TOOLCHAIN=$(TOOLCHAIN_HOST) FLAVOUR= all )
-	@shtool echo -e "%B#######%b"
-	@shtool echo -e "%B#######%b %BEnd of checking the BUILDSYSTEM.%b"
-	@shtool echo -e "%B#######%b"
-	@shtool echo -e "%B################################################################%b"
+	@echo -e "#######"
+	@echo -e "####### End of checking the BUILDSYSTEM."
+	@echo -e "#######"
+	@echo -e "################################################################"
 endif
 endif
 endif
@@ -426,9 +426,9 @@ downloads_clean: .downloads_clean
 
 .downloads_clean:
 	@echo ""
-	@shtool echo -e "%B#######%b"
-	@shtool echo -e "%B#######%b %BCleaning Up all downloaded sources...%b"
-	@shtool echo -e "%B#######%b"
+	@echo -e "#######"
+	@echo -e "####### Cleaning Up all downloaded sources..."
+	@echo -e "#######"
 	@$(BUILDSYSTEM)/downloads_clean $(addprefix ., $(TOOLCHAIN_NOARCH)) $(BUILDSYSTEM)/3pp/sources
 ifneq ($(wildcard $(TOP_BUILD_DIR_ABS)/$(SRC_PACKAGE_DIR)),)
 	@$(BUILDSYSTEM)/downloads_clean $(addprefix ., $(TOOLCHAIN_NOARCH)) $(TOP_BUILD_DIR_ABS)/$(SRC_PACKAGE_DIR)
@@ -643,23 +643,23 @@ local_clean:
 .tree_all: $(TARGET_BUILD_DIR)/.requires
 ifneq ($(shell pwd),$(TOP_BUILD_DIR_ABS))
 ifeq ($(shell pwd | grep $(TOP_BUILD_DIR_ABS)/$(SRC_PACKAGE_DIR))$(shell pwd | grep $(BUILDSYSTEM)/3pp/sources),)
-	@shtool echo -e "%B################################################################%b"
-	@shtool echo -e "%B#######%b"
+	@echo -e "################################################################"
+	@echo -e "#######"
 ifeq ($(shell pwd),$(BUILDSYSTEM))
-	@shtool echo -e "%B#######%b %BStart of building requires for '%b$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))%B':%b"
+	@echo -e "####### Start of building requires for '$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))':"
 else
-	@shtool echo -e "%B#######%b %BStart of building requires for %bTOOLCHAIN=%B$(TOOLCHAIN) %bFLAVOUR=%B$(FLAVOUR) in '%b$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))%B':%b"
+	@echo -e "####### Start of building requires for TOOLCHAIN=$(TOOLCHAIN) FLAVOUR=$(FLAVOUR) in '$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))':"
 endif
-	@shtool echo -e "%B#######%b"
+	@echo -e "#######"
 ifeq ($(shell pwd),$(BUILDSYSTEM))
 	@__final__=true TREE_RULE=local_all $(MAKE) TOOLCHAIN=$(TOOLCHAIN_HOST) FLAVOUR= -f $(TARGET_BUILD_DIR)/.requires
 else
 	@__final__=true TREE_RULE=local_all $(MAKE) TOOLCHAIN=$(TOOLCHAIN) FLAVOUR= -f $(TARGET_BUILD_DIR)/.requires
 endif
-	@shtool echo -e "%B#######%b"
-	@shtool echo -e "%B#######%b %BEnd of building requires for '%b$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))%B':%b"
-	@shtool echo -e "%B#######%b"
-	@shtool echo -e "%B################################################################%b"
+	@echo -e "#######"
+	@echo -e "####### End of building requires for '$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))'."
+	@echo -e "#######"
+	@echo -e "################################################################"
 endif
 endif
 

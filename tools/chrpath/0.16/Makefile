@@ -2,6 +2,8 @@
 
 COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_H3_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_H5_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_JZ47XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_P5600_GLIBC)
@@ -28,7 +30,7 @@ include ../../../build-system/config.mk
 
 SOURCE_REQUIRES  = sources/tools/chrpath
 
-REQUIRES  = core/gcc/7.2.0^full
+REQUIRES  = core/gcc/7.3.0^full
 
 # ======= __END_OF_REQUIRES__ =======
 
@@ -70,5 +72,5 @@ $(build_target): $(src_done)
 
 $(install_target): $(build_target)
 	@$(MAKE) -j1 -C $(build_dir) install docdir=$(TOOLCHAIN_PATH)/share/doc/$(src_dir_name)
-	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/components.txt
+	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/README
 	@touch $@

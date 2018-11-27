@@ -8,7 +8,7 @@ include ../../../../build-system/config.mk
 
 SOURCE_REQUIRES = sources/Linux/Allwinner/sunxi-3.4
 
-REQUIRES  = core/gcc/7.2.0^static
+REQUIRES  = core/gcc/7.3.0^static
 
 # ======= __END_OF_REQUIRES__ =======
 
@@ -50,5 +50,5 @@ $(headers_target): $(sysroot_dir)/usr/include/linux/autoconf.h
 	     rm -f $$file ; \
 	   done ; \
 	 )
-	@echo "$(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR)):headers" >> $(TOOLCHAIN_PATH)/components.txt
+	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR)):headers" >> $(TOOLCHAIN_PATH)/README
 	@touch $@

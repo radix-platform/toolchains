@@ -6,17 +6,7 @@
       The patch 'glibc-2.26-c-utf8-locale.patch' should be applyed after 'glibc-2.26-i18n.patch'.
 
 
-   glibc-2.26-ldd-trace-dynamic.patch:
-   ==================================
-        2009-11-08  Aurelien Jarno  <aurelien@aurel32.net>
-
-        * elf/ldd.bash.in: also handle error code 126 (ld.so non
-        executable). Always trace dynamic library dependencies through
-        the dynamic linker.
-
-
-   glibc-2.26-sparc32-atomics.patch:
-   ================================
+   glibc-2.28-sparc32-atomics.patch:
 
    From: "David S. Miller"
    Date: Sun, 6 Nov 2016 19:01:31 -0800

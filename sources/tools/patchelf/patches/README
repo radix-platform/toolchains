@@ -1,0 +1,17 @@
+
+/* begin *
+
+   patchelf-0.10.1-check-endianness.patch - Check ELF endianness before writing new runpath.
+
+                                            This patch makes a change to the way the RUNPATH field
+                                            is updated in the dynamic section. Currently, patchelf does
+                                            not take into account the target architecture of the ELF file
+                                            before doing this. Thus, the elf file ends up having an invalid
+                                            tag for RUNPATH if the endianness differs. (0x1d000000 instead
+                                            of 0x0000001d).
+
+                                            The change proposed here updates the way these fields are written
+                                            using the already defined endian-safe functions. Tested on both
+                                            PowerPC and ARM targets with a x86_64 host.
+
+ * end */

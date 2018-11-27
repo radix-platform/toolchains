@@ -1,0 +1,4 @@
+linux-4.14.82/arch/sparc/include/uapi/asm/unistd.h
+linux-4.14.82/arch/sparc/kernel/Makefile
+linux-4.14.82/arch/sparc/kernel/sys_sparc_64.c
+linux-4.14.82/arch/sparc/kernel/ttable_64.S

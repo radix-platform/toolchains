@@ -1,7 +1,0 @@
-
-../../../sources/GNU/binutils/patches/binutils-2.28-export-demangle.patch      -p0
-../../../sources/GNU/binutils/patches/binutils-2.28-no-config-check.patch      -p0
-../../../sources/GNU/binutils/patches/binutils-2.28-dynamic-section-warn.patch -p0
-../../../sources/GNU/binutils/patches/binutils-2.28-gas-comp_dir.patch         -p0
-../../../sources/GNU/binutils/patches/binutils-2.28-libiberty-bugfixes.patch   -p0
-../../../sources/GNU/binutils/patches/binutils-2.28-ppc-dynamic-relocs.patch   -p0
