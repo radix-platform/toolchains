@@ -36,6 +36,7 @@ patches    += $(CURDIR)/../patches/gcc-7.3.0-x86_64-multilib.patch
 
 patches    += $(CURDIR)/../patches/gcc-7.3.0-isl-0.20.patch
 patches    += $(CURDIR)/../patches/gcc-7.3.0-libgo-ustat.patch
+patches    += $(CURDIR)/../patches/gcc-7.3.0-libsanitizer-ustat.patch
 patches    += $(CURDIR)/../patches/gcc-7.3.0-libstdc++-docs.patch
 patches    += $(CURDIR)/../patches/gcc-7.3.0-libtool-no-rpath.patch
 
@@ -73,23 +74,24 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-7.3.0-at91sam7s-newlib-patch  ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-a1x-newlib-patch        ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-a2x-newlib-patch        ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-h3-multilib-patch       ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-s8xx-multilib-patch     ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-a9xx-multilib-patch     ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-aarch64-multilib-patch  ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-lpc17xx-multilib-patch  ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-ppc64-multilib-patch    ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-ppc64le-multilib-patch  ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-sparc-config-patch      ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-sparc64-multilib-patch  ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-x86_64-multilib-patch   ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-isl-0.20-patch          ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-libgo-ustat-patch       ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-libstdc++-docs-patch    ; ./create.patch.sh ) ; \
-	 ( cd create-7.3.0-libtool-no-rpath-patch  ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-at91sam7s-newlib-patch   ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-a1x-newlib-patch         ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-a2x-newlib-patch         ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-h3-multilib-patch        ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-s8xx-multilib-patch      ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-a9xx-multilib-patch      ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-aarch64-multilib-patch   ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-lpc17xx-multilib-patch   ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-ppc64-multilib-patch     ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-ppc64le-multilib-patch   ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-sparc-config-patch       ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-sparc64-multilib-patch   ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-x86_64-multilib-patch    ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-isl-0.20-patch           ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-libgo-ustat-patch        ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-libsanitizer-ustat-patch ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-libstdc++-docs-patch     ; ./create.patch.sh ) ; \
+	 ( cd create-7.3.0-libtool-no-rpath-patch   ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:
