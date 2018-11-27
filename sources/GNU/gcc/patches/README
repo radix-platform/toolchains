@@ -5,6 +5,10 @@
 
    gcc-7.3.0-lpc17xx-multilib.patch  - adds --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m configure switch.
 
+   gcc-7.3.0-libgo-ustat.patch       - The 'ustat' system call has been removed from glibc 2.28 as deprecated.
+                                       This patch removes the 'ustat' call from gcc-7.3.0/libgo
+                                       [ see: https://go-review.googlesource.com/c/gofrontend/+/120535/ ].
+
 
    README.TXT                        - this file.
 
