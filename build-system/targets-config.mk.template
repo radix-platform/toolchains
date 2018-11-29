@@ -21,6 +21,9 @@ BUILD_S8XX_NEWLIB = true
 # a9xx-newlib:
 BUILD_A9XX_NEWLIB = true
 
+# a33xx-newlib:
+BUILD_A33XX_NEWLIB = true
+
 # s9xx-newlib:
 BUILD_S9XX_NEWLIB = true
 

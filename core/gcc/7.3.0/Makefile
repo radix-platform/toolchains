@@ -6,6 +6,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_H3_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_H5_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_A33XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 
@@ -117,6 +118,9 @@ else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A9XX_NEWLIB)),)
 PATCHES = PATCHES.a9xx
 else
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A33XX_NEWLIB)),)
+PATCHES = PATCHES.a33xx
+else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S8XX_NEWLIB)),)
 PATCHES = PATCHES.s8xx
 else
@@ -148,6 +152,7 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC)),)
 PATCHES = PATCHES.x86_64
 else
 PATCHES = PATCHES
+endif
 endif
 endif
 endif
@@ -363,6 +368,34 @@ endif
 extra_configure_switches += --with-newlib
 extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
 extra_configure_switches += --with-extra-multilibs=armv7-m
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A33XX_NEWLIB))
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=https://radix.pro'
+extra_configure_switches += --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --disable-decimal-float
+extra_configure_switches += --disable-isl-version-check
+extra_configure_switches += --disable-libstdcxx-pch
+extra_configure_switches += --disable-shared
+extra_configure_switches += --disable-threads
+extra_configure_switches += --disable-tls
+extra_configure_switches += --with-gnu-as
+extra_configure_switches += --with-gnu-ld
+ifeq ($(FLAVOUR),static)
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --without-headers
+extra_configure_switches += --enable-languages=c
+else
+extra_configure_switches += --enable-plugins
+extra_configure_switches += --with-headers=yes
+extra_configure_switches += --enable-languages=c,c++
+endif
+extra_configure_switches += --with-newlib
+extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
+extra_configure_switches += --with-extra-multilibs=armv6-m
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB))

@@ -7,6 +7,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_H3_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_H5_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_A33XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 
@@ -33,11 +34,13 @@ SRC_DIR         = $(TARGET_BUILD_DIR)/newlib-2.5.0.20170623
 src_dir_name    = newlib-2.5.0.20170623
 src_done        = $(TARGET_BUILD_DIR)/.source-done
 
+PATCHES         = PATCHES
+
 build_dir       = $(TARGET_BUILD_DIR)/newlib
 build_gloss_dir = $(TARGET_BUILD_DIR)/libgloss
 
-install_dir         = $(TOOLCHAIN_PATH)
-headers_install_dir = $(TOOLCHAIN_PATH)/include
+install_dir         = $(TOOLCHAIN_PATH)/$(TARGET)
+headers_install_dir = $(TOOLCHAIN_PATH)/$(TARGET)
 
 headers_target  = $(TARGET_BUILD_DIR)/.headers-installed
 
@@ -70,7 +73,8 @@ environment += PATH="$(TOOLCHAIN_PATH)/bin:$(PATH):$(PATH_FIG2DEV)"
 # need for fig2dev and documentation (see: ../.config).
 
 environment += BUILD_CC="$(CCACHE)/usr/bin/gcc"
-environment += TARGET_CFLAGS=""
+environment += TARGET_CFLAGS="-g -O2 -ffunction-sections -fdata-sections"
+environment += CPPFLAGS="-I$(TOOLCHAIN_PATH)/$(TARGET)/include"
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB))
@@ -165,6 +169,22 @@ extra_configure_switches += --enable-newlib-io-pos-args
 extra_configure_switches += --enable-newlib-multithread
 endif
 
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A33XX_NEWLIB))
+extra_configure_switches  = --enable-multilib
+extra_configure_switches += --with-gnu-as
+extra_configure_switches += --with-gnu-ld
+extra_configure_switches += --disable-nls
+extra_configure_switches += --disable-shared
+extra_configure_switches += --disable-newlib-supplied-sycalls
+
+#extra_configure_switches += --enable-newlib-retargetable-locking
+extra_configure_switches += --enable-newlib-io-c99-formats
+extra_configure_switches += --enable-newlib-io-long-long
+extra_configure_switches += --enable-newlib-register-fini
+extra_configure_switches += --enable-newlib-io-pos-args
+extra_configure_switches += --enable-newlib-multithread
+endif
+
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB))
 extra_configure_switches  = --disable-multilib
 extra_configure_switches += --with-gnu-as
@@ -203,6 +223,7 @@ endif
 
 $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 	$(UNPACK_SRC_ARCHIVE)
+	$(APPLY_PATCHES)
 	@( cd $(SRC_DIR)/libgloss/config ; \
 	   sed -i '/^INCLUDES.*=/ s,$$, -I$$(prefix)/include -I$$(prefix)/$$(target_alias)/sys-include -I$$(prefix)/$$(target_alias)/include,' default.mh ; \
 	 )
@@ -218,7 +239,7 @@ endif
 
 $(headers_target): $(src_done)
 	@mkdir -p $(headers_install_dir)
-	@cp -ar $(TARGET_BUILD_DIR)/$(src_dir_name)/newlib/libc/include $(TOOLCHAIN_PATH)
+	@cp -ar $(TARGET_BUILD_DIR)/$(src_dir_name)/newlib/libc/include $(headers_install_dir)
 	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/README
 	@touch $@
 
