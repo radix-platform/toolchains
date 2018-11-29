@@ -26,6 +26,7 @@ patches    += $(CURDIR)/../patches/gcc-6.5.0-a2x-newlib.patch
 patches    += $(CURDIR)/../patches/gcc-6.5.0-h3-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-6.5.0-s8xx-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-6.5.0-a9xx-multilib.patch
+patches    += $(CURDIR)/../patches/gcc-6.5.0-a33xx-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-6.5.0-aarch64-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-6.5.0-lpc17xx-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-6.5.0-ppc64-multilib.patch
@@ -78,6 +79,7 @@ $(patches): $(sha1s)
 	 ( cd create-6.5.0-h3-multilib-patch       ; ./create.patch.sh ) ; \
 	 ( cd create-6.5.0-s8xx-multilib-patch     ; ./create.patch.sh ) ; \
 	 ( cd create-6.5.0-a9xx-multilib-patch     ; ./create.patch.sh ) ; \
+	 ( cd create-6.5.0-a33xx-multilib-patch    ; ./create.patch.sh ) ; \
 	 ( cd create-6.5.0-aarch64-multilib-patch  ; ./create.patch.sh ) ; \
 	 ( cd create-6.5.0-lpc17xx-multilib-patch  ; ./create.patch.sh ) ; \
 	 ( cd create-6.5.0-ppc64-multilib-patch    ; ./create.patch.sh ) ; \

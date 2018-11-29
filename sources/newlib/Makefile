@@ -22,8 +22,12 @@ versions    = 2.5.0.20170623
 tarballs    = $(addsuffix .tar.gz, $(addprefix newlib-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
+patches     = $(CURDIR)/patches/newlib-2.5.0.20170623-runtime-exception-armv6s.patch
 
-BUILD_TARGETS = $(tarballs) $(sha1s)
+.NOTPARALLEL: $(patches)
+
+
+BUILD_TARGETS = $(tarballs) $(sha1s) $(patches)
 
 
 include ../../build-system/core.mk
@@ -50,6 +54,11 @@ $(sha1s): $(tarballs)
 	     exit 1 ; \
 	   fi ; \
 	 done
+
+$(patches): $(sha1s)
+	@echo -e "\n======= Create Patches =======\n" ; \
+	 ( cd create-2.5.0.20170623-runtime-exception-armv6s-patch ; ./create.patch.sh ) ; \
+	 echo -e "\n"
 
 download_clean:
 	@rm -f $(tarballs) $(sha1s) $(patches)

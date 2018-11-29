@@ -1,0 +1,26 @@
+#
+# Build below library for ARM armv6-m architecture:
+# ------------------------------------------------
+#
+#   armv6-m/    -march=armv6-m -mcpu=coretex-m0
+#
+
+MULTILIB_OPTIONS       += march=armv6s-m
+MULTILIB_DIRNAMES      += armv6-m
+
+# Default CPU/Arch
+MULTILIB_REQUIRED      += mthumb
+
+# ARMv6-M
+MULTILIB_REQUIRED      += mthumb/march=armv6s-m
+
+# CPU Matches
+MULTILIB_MATCHES       += march?armv6s-m=mcpu?cortex-m0
+MULTILIB_MATCHES       += march?armv6s-m=mcpu?cortex-m0.small-multiply
+MULTILIB_MATCHES       += march?armv6s-m=mcpu?cortex-m0plus
+MULTILIB_MATCHES       += march?armv6s-m=mcpu?cortex-m0plus.small-multiply
+MULTILIB_MATCHES       += march?armv6s-m=mcpu?cortex-m1
+MULTILIB_MATCHES       += march?armv6s-m=mcpu?cortex-m1.small-multiply
+
+# Arch Matches
+MULTILIB_MATCHES       += march?armv6s-m=march?armv6-m

@@ -6,6 +6,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_H3_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_H5_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_A33XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_NEWLIB)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_A1X_GLIBC)
@@ -117,6 +118,15 @@ extra_configure_switches += --disable-libssp
 extra_configure_switches += --with-arch=armv7-m
 extra_configure_switches += --with-fpu=fpv4-sp-d16
 extra_configure_switches += --with-float=hard
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A33XX_NEWLIB))
+extra_configure_switches  = --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --with-arch=armv6-m
+extra_configure_switches += --with-tune=cortex-m0
+extra_configure_switches += --with-abi=aapcs
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB))
