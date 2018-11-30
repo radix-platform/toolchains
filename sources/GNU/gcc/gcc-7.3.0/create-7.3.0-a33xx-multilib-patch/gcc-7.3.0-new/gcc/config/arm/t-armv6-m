@@ -24,23 +24,3 @@ MULTILIB_MATCHES       += march?armv6s-m=mcpu?cortex-m1.small-multiply
 
 # Arch Matches
 MULTILIB_MATCHES       += march?armv6s-m=march?armv6-m
-
-#MULTILIB_OSDIRNAMES    += march.armv6-m=!armv6-m
-
-
-## Build below library for ARM armv6-m architecture.
-##   armv6-m/     -mthumb -march=armv6-m
-#
-#MULTILIB_OPTIONS      += march=armv6-m
-#
-#MULTILIB_DIRNAMES     += armv6-m
-#
-#MULTILIB_EXCEPTIONS   += march=armv6-m*
-#MULTILIB_EXCEPTIONS   += marm*/march=armv6-m*
-#MULTILIB_EXCEPTIONS   += mfloat-abi=hard/march=armv6-m*
-#MULTILIB_EXCEPTIONS   += mthumb/mfloat-abi=hard/march=armv6-m*
-#MULTILIB_EXCEPTIONS   += m*/march=armv6-m/march*
-#
-#MULTILIB_MATCHES      += march?armv6-m=mcpu?cortex-m0
-#
-#MULTILIB_OSDIRNAMES   += mthumb/march.armv6-m=!armv6-m

@@ -177,7 +177,6 @@ extra_configure_switches += --disable-nls
 extra_configure_switches += --disable-shared
 extra_configure_switches += --disable-newlib-supplied-sycalls
 
-#extra_configure_switches += --enable-newlib-retargetable-locking
 extra_configure_switches += --enable-newlib-io-c99-formats
 extra_configure_switches += --enable-newlib-io-long-long
 extra_configure_switches += --enable-newlib-register-fini
