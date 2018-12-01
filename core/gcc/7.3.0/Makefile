@@ -112,9 +112,6 @@ else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_H3_NEWLIB)),)
 PATCHES = PATCHES.h3
 else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_H5_GLIBC)),)
-PATCHES = PATCHES.aarch64
-else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A9XX_NEWLIB)),)
 PATCHES = PATCHES.a9xx
 else
@@ -145,14 +142,13 @@ else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_I686_GLIBC)),)
 PATCHES = PATCHES.i386
 else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC) $(TOOLCHAIN_H5_GLIBC)),)
 PATCHES = PATCHES.aarch64
 else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC)),)
 PATCHES = PATCHES.x86_64
 else
 PATCHES = PATCHES
-endif
 endif
 endif
 endif
