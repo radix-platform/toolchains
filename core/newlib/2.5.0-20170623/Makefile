@@ -7,8 +7,9 @@ COMPONENT_TARGETS += $(TOOLCHAIN_H3_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_H5_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_A33XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_A33XX_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_RK33XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 
 FLAVOURS = headers full
@@ -169,6 +170,21 @@ extra_configure_switches += --enable-newlib-io-pos-args
 extra_configure_switches += --enable-newlib-multithread
 endif
 
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB))
+extra_configure_switches  = --disable-multilib
+extra_configure_switches += --with-gnu-as
+extra_configure_switches += --with-gnu-ld
+extra_configure_switches += --disable-nls
+extra_configure_switches += --disable-shared
+extra_configure_switches += --disable-newlib-supplied-sycalls
+
+extra_configure_switches += --enable-newlib-io-c99-formats
+extra_configure_switches += --enable-newlib-io-long-long
+extra_configure_switches += --enable-newlib-register-fini
+extra_configure_switches += --enable-newlib-io-pos-args
+extra_configure_switches += --enable-newlib-multithread
+endif
+
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A33XX_NEWLIB))
 extra_configure_switches  = --enable-multilib
 extra_configure_switches += --with-gnu-as
@@ -184,7 +200,7 @@ extra_configure_switches += --enable-newlib-io-pos-args
 extra_configure_switches += --enable-newlib-multithread
 endif
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB))
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_RK33XX_NEWLIB))
 extra_configure_switches  = --disable-multilib
 extra_configure_switches += --with-gnu-as
 extra_configure_switches += --with-gnu-ld
