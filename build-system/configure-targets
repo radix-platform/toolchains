@@ -39,16 +39,6 @@ TMP=$(mkdir -p /tmp/radix && mktemp -d -p /tmp/radix build-system.XXXXXXXX) || {
 trap "rm -rf $TMP" 0 $SIG_NONE $SIG_HUP $SIG_INT $SIG_QUIT $SIG_TERM
 
 
-if [ ! -f "$CONFIG" ] ; then
-  echo ""
-  echo "Please prepare Build System before configuring by following command:"
-  echo ""
-  echo "  $ make"
-  echo ""
-  exit
-fi
-
-
 hwlist=`cat $CONFIG | grep "^BUILD_.*[ \t]*=.*" | sed "s,^BUILD_\(.*\)[ \t]*=.*,\1," | tr 'A-Z' 'a-z' | tr '\n' ' ' | sed 's/host//g' | tr -s ' ' | sed 's/^[ \t]//' | sed 's/[ \t]$//'`
 
 for hw in $hwlist ; do
