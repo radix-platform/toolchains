@@ -61,6 +61,7 @@ sub do_clean_list
   chomp $cwd;
 
   return if( ! -f "$cwd/Makefile" );
+  return if( $dir =~ m/sources/ );
 
   # needs dist clean:
   if( -f "$cwd/.dist" ) { push @dist_clean_dirs_all, $cwd; }
@@ -126,6 +127,8 @@ foreach my $target ( @targets )
   foreach my $subdir ( @match ) { delete( $seen{"$subdir"} ); }
 }
 @clean_dirs = reverse( keys %seen );
+
+push @clean_dirs, "$top_dir/build-system";
 
 $dist_clean_count = @dist_clean_dirs;
 $clean_count = @clean_dirs;

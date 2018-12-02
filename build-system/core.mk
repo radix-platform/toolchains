@@ -298,7 +298,7 @@ clean:
 	@$(MAKE) local_clean
 
 
-__quick_targets := help local_clean downloads_clean targets-config.mk $(HACK_TARGETS)
+__quick_targets := help configure_targets local_clean downloads_clean targets-config.mk $(HACK_TARGETS)
 
 
 #
@@ -434,6 +434,52 @@ ifneq ($(wildcard $(TOP_BUILD_DIR_ABS)/$(SRC_PACKAGE_DIR)),)
 	@$(BUILDSYSTEM)/downloads_clean $(addprefix ., $(TOOLCHAIN_NOARCH)) $(TOP_BUILD_DIR_ABS)/$(SRC_PACKAGE_DIR)
 endif
 
+help:
+	@echo ""
+	@echo -e "You can build and install software using command line such as follow:"
+	@echo ""
+	@echo -e "   $$ [TOOLCHAIN_VERSION=version] [TOOLCHAIN=toolchain] [FLAVOUR=flavour] make [goal]"
+	@echo ""
+	@echo -e "The following MAKE goals are available:"
+	@echo ""
+	@echo -e "   all                - perform make build and install software in the all"
+	@echo -e "                        required directories which defined by REQUIRES"
+	@echo -e "                        variable in the local Makefile;"
+	@echo -e "   local_all          - build and install software prepared onlu by local"
+	@echo -e "                        Makefile;"
+	@echo -e "   dist_clean,"
+	@echo -e "   local_dist_clean   - remove distribution packages from target directory"
+	@echo -e "                        defined by PRODUCTS_DEST_DIR variable. Note that"
+	@echo -e "                        is depends from targets defined by COMPONENT_TARGETS"
+	@echo -e "                        variable or command line;"
+	@echo -e "   clean,"
+	@echo -e "   local_clean        - clean up all built targets by this Makefile;"
+	@echo ""
+	@echo -e "   If the one from above goals has prefix 'local_' then this goal affects only"
+	@echo -e "   current directory.  Otherwise this goal will be performed for all required"
+	@echo -e "   directories which defined by REQUIRES variable."
+	@echo ""
+	@echo -e "   configure_targets  - select toolchains you want to built."
+	@echo -e "                        This command edits the targets-config.mk file;"
+	@echo ""
+	@echo -e "   tree_clean         - clean up whole sourses tree excluding downloaded"
+	@echo -e "                        source tarballs;"
+	@echo -e "   downloads_clean    - remove all sourse tarball from 'sourses' directory;"
+	@echo ""
+	@echo -e "Local Makefile is prepared for following target toolchains:"
+	@echo ""
+	@for toolchain in $(COMPONENT_TARGETS) ; do \
+	  echo -e "   $$toolchain"; \
+	 done
+	@echo ""
+	@echo -e "Enjoy."
+	@echo ""
+
+configure_targets: $(BUILDSYSTEM)/targets-config.mk
+	@BUILDSYSTEM=$(BUILDSYSTEM)              \
+	 CONFIG=$(BUILDSYSTEM)/targets-config.mk \
+	 CONSTANTS=$(BUILDSYSTEM)/config.mk \
+	 $(BUILDSYSTEM)/configure-targets
 
 
 #######
@@ -480,6 +526,19 @@ APPLY_OPT_PATCHES = $(quiet)$(foreach patch,$(OPT_PATCHES),\
 # 	 <other stuff that needs to be done to the source,
 # 	   should be empty in most cases>
 # 	@touch $@
+
+
+################################################################
+#######
+####### Include files with references to BUILD-SYSTEM scripts:
+#######
+
+-include $(BUILDSYSTEM)/sbin/.config
+
+#######
+####### References to BUILD-SYSTEM scripts.
+#######
+################################################################
 
 
 
@@ -751,8 +810,6 @@ endif
 endif
 
 
-
-
 -include .src_requires_depend
 -include $(TARGET_BUILD_DIR)/.requires_depend
 
@@ -773,7 +830,8 @@ endif
 .PHONY: all local_all .clean local_clean clean
 .PHONY: .install
 
-.PHONY:  downloads_clean
+.PHONY: help
+.PHONY: downloads_clean
 .PHONY: .downloads_clean
 
 .SUFFIXES:
