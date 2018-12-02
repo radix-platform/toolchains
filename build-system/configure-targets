@@ -1,0 +1,82 @@
+#!/bin/bash
+
+CWD=`pwd`
+
+BUILDSYSTEM=${BUILDSYSTEM:-$CWD}
+
+CONFIG=${CONFIG:-targets-config.mk}
+CONSTANTS=${CONSTANTS:-config.mk}
+
+if [ ! -r $CONFIG ] ; then
+  echo "$0: ERROR: There is no $CONFIG file for configuring target HW."
+  echo ""
+  exit 1
+fi
+
+: ${DIALOG=$BUILDSYSTEM/sbin/dialog}
+: ${DIALOGRC=$BUILDSYSTEM/etc/dialogrc}
+
+export DIALOGRC
+
+: ${DIALOG_OK=0}
+: ${DIALOG_CANCEL=1}
+: ${DIALOG_HELP=2}
+: ${DIALOG_EXTRA=3}
+: ${DIALOG_ITEM_HELP=4}
+: ${DIALOG_ESC=255}
+
+: ${SIG_NONE=0}
+: ${SIG_HUP=1}
+: ${SIG_INT=2}
+: ${SIG_QUIT=3}
+: ${SIG_KILL=9}
+: ${SIG_TERM=15}
+
+
+umask 002
+if [ ! -z "$TMPDIR" ] ; then mkdir -p $TMPDIR ; fi
+TMP=$(mkdir -p /tmp/radix && mktemp -d -p /tmp/radix build-system.XXXXXXXX) || { echo "Cannot create '/tmp/...' directory" ; exit 92; }
+trap "rm -rf $TMP" 0 $SIG_NONE $SIG_HUP $SIG_INT $SIG_QUIT $SIG_TERM
+
+
+hwlist=`cat $CONFIG | grep "^BUILD_.*[ \t]*=.*" | sed "s,^BUILD_\(.*\)[ \t]*=.*,\1," | tr 'A-Z' 'a-z' | tr '\n' ' ' | sed 's/host//g' | tr -s ' ' | sed 's/^[ \t]//' | sed 's/[ \t]$//'`
+
+for hw in $hwlist ; do
+  hh=`echo $hw | tr 'a-z' 'A-Z'`
+  spec=`cat $CONSTANTS | grep "^${hh}_SPEC[ \t]*=.*" | sed "s,^${hh}_SPEC[ \t]*=[ \t]*\(.*\),\1," | sed "s,\\\\\,,g"`
+  enabled=`cat $CONFIG | grep "^BUILD_${hh}[ \t]*=.*" | sed "s,^BUILD_${hh}[ \t]*=[ \t]*\(.*\),\1,"`
+  if [ "$enabled" == "true" ] ; then
+    en="on"
+  else
+    en="off"
+  fi
+  echo "\"$hw\" \"$spec\" \"$en\"" >> $TMP/sel$$
+done
+
+$DIALOG --colors \
+        --backtitle "\Z7Build System\Zn" \
+        --title " \Z1SELECTING TOOLCHAINS TO BUILD\Zn " \
+        --clear \
+        --checklist "\n\
+\Zb\Z4Please confirm the toolchains you want to build\Zn\ZB.\n\n\
+Use the UP/DOWN keys to scroll through the list, and the SPACE key\n\
+to deselect any items you don't want to build.\n\n\
+Press ENTER when you are done." \
+21 72 8 \
+        --file $TMP/sel$$  2> $TMP/ret$$
+
+retval=$?
+
+case $retval in
+  $DIALOG_OK)
+    enabled="`cat $TMP/ret$$`"
+    for hw in $hwlist ; do
+      hh=`echo $hw | tr 'a-z' 'A-Z'`
+      sed -i "s,^\(BUILD_${hh}[ \t]*=[ \t]*\).*,\1false," $CONFIG
+    done
+    for hw in $enabled ; do
+      hh=`echo $hw | tr 'a-z' 'A-Z'`
+      sed -i "s,^\(BUILD_${hh}[ \t]*=[ \t]*\).*,\1true," $CONFIG
+    done
+    ;;
+esac

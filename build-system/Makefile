@@ -4,6 +4,7 @@ COMPONENT_TARGETS = $(TOOLCHAIN_HOST)
 
 include config.mk
 
+REQUIRES  = build-system/3pp/dialog/1.3-20181107
 REQUIRES += build-system/3pp/gnattools/7.3.0
 
 # ======= __END_OF_REQUIRES__ =======
@@ -11,10 +12,12 @@ REQUIRES += build-system/3pp/gnattools/7.3.0
 
 config_makefile = targets-config.mk
 
+BUILD_TARGETS = $(config_makefile)
+
 CLEANUP_FILES += $(config_makefile)
 CLEANUP_FILES += $(CURDIR)/gnattools
-
-BUILD_TARGETS = $(config_makefile)
+CLEANUP_FILES += $(CURDIR)/sbin
+CLEANUP_FILES += $(CURDIR)/etc
 
 # CORE Makefile:
 
