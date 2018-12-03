@@ -1,5 +1,5 @@
 #Build below library for ARM armv7-a architecture with VFPv4.
-#  armv7-a/    -march=armv7-a -mcpu=coretex-a5 -mfpu=vfpv4 -mfloat-abi=hard
+#  armv7-a/    -march=armv7-a -mcpu=coretex-a7 -mfpu=vfpv4 -mfloat-abi=hard
 
 MULTILIB_OPTIONS      += march=armv7-a mfpu=vfpv4
 
