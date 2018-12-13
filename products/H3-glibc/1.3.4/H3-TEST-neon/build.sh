@@ -4,7 +4,7 @@
 
 export PATH=$TOOLCHAIN_PATH/bin:$PATH
 
-ARCH_FLAGS=" -march=armv7-a -mtune=cortex-a7"
+ARCH_FLAGS=" -march=armv7ve -mtune=cortex-a7"
 
 FPU_FLAGS=" -mfloat-abi=hard -mfpu=neon-vfpv4 -ftree-vectorize -fomit-frame-pointer -ffast-math"
 
