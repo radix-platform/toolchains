@@ -1,8 +1,0 @@
-
-../../../sources/GNU/gcc/patches/gcc-7.3.0-a1x-newlib.patch          -p0
-
-../../../sources/GNU/gcc/patches/gcc-7.3.0-isl-0.20.patch            -p0
-../../../sources/GNU/gcc/patches/gcc-7.3.0-libgo-ustat.patch         -p0
-../../../sources/GNU/gcc/patches/gcc-7.3.0-libsanitizer-ustat.patch  -p0
-../../../sources/GNU/gcc/patches/gcc-7.3.0-libstdc++-docs.patch      -p0
-../../../sources/GNU/gcc/patches/gcc-7.3.0-libtool-no-rpath.patch    -p0

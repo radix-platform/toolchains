@@ -1,0 +1,39 @@
+#
+# Build below library for ARM armv7-m architecture:
+# ------------------------------------------------
+#
+#  armv7-m/    -mthumb -march=armv7-m -mcpu=coretex-m3
+#
+#
+#   | mthumb | march=armv7-m | mfloat-abi=soft | multilib directory
+#  -+--------+---------------+-----------------+--------------------
+#   |    -   |       -       |        -        |   .
+#   |    -   |       -       |        +        |   .
+#  -+--------+---------------+-----------------+--------------------
+#   |    -   |       +       |        -        |   thumb/armv7-m
+#   |    -   |       +       |        +        |   thumb/armv7-m
+#   |    +   |       +       |        -        |   thumb/armv7-m
+#   |    +   |       +       |        +        |   thumb/armv7-m
+#  -+--------+---------------+-----------------+--------------------
+#   |    +   |       -       |        -        |   thumb/armv7-m
+#   |    +   |       -       |        +        |   thumb/armv7-m
+#  -+--------+---------------+-----------------+--------------------
+#
+
+MULTILIB_OPTIONS      += march=armv7-m
+MULTILIB_DIRNAMES     += armv7-m
+
+MULTILIB_OPTIONS      += mfloat-abi=soft
+MULTILIB_DIRNAMES     += nofp
+
+# ARMv7-M profile (no fp)
+MULTILIB_REQUIRED     += mthumb/march=armv7-m
+
+# CPU Matches
+MULTILIB_MATCHES      += march?armv7-m=mcpu?cortex-m3
+
+# Use soft ABI libraries for thumb, thumb/armv7-m, and armv7-m:
+MULTILIB_REUSE        += mthumb/march.armv7-m=mthumb/march.armv7-m/mfloat-abi.soft
+
+MULTILIB_REUSE        += mthumb/march.armv7-m=mthumb
+MULTILIB_REUSE        += mthumb/march.armv7-m=mthumb/mfloat-abi.soft

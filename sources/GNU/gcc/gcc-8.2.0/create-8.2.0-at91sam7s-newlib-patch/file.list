@@ -1,0 +1,4 @@
+gcc-8.2.0/gcc/config/arm/t-arm-elf
+gcc-8.2.0/gcc/config.gcc
+gcc-8.2.0/gcc/configure
+gcc-8.2.0/gcc/configure.ac

@@ -1,6 +1,0 @@
-gcc-7.3.0/libgo/config.h.in
-gcc-7.3.0/libgo/configure
-gcc-7.3.0/libgo/configure.ac
-gcc-7.3.0/libgo/go/syscall/libcall_linux_ustat.go
-gcc-7.3.0/libgo/mksysinfo.sh
-gcc-7.3.0/libgo/sysinfo.c

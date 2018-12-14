@@ -3,29 +3,20 @@
 BUILD_HOST = true
 
 
-# a1x-newlib:
-BUILD_A1X_NEWLIB = true
+# arm-none-eabi-newlib:
+BUILD_ARM32_NEWLIB = true
 
-# a2x-newlib:
-BUILD_A2X_NEWLIB = true
-
-# h3-newlib:
-BUILD_H3_NEWLIB = true
-
-# h5-newlib:
-BUILD_H5_NEWLIB = true
-
-# s8xx-newlib:
-BUILD_S8XX_NEWLIB = true
+# a33xx-newlib:
+BUILD_A33XX_NEWLIB = true
 
 # a9xx-newlib:
 BUILD_A9XX_NEWLIB = true
 
+# h5-newlib:
+BUILD_H5_NEWLIB = true
+
 # s9xx-newlib:
 BUILD_S9XX_NEWLIB = true
-
-# a33xx-newlib:
-BUILD_A33XX_NEWLIB = true
 
 # rk33xx-newlib:
 BUILD_RK33XX_NEWLIB = true
@@ -50,6 +41,21 @@ BUILD_H3_GLIBC = true
 # h5-glibc:
 BUILD_H5_GLIBC = true
 
+# imx6-glibc:
+BUILD_IMX6_GLIBC = true
+
+# jz47xx-glibc:
+BUILD_JZ47XX_GLIBC = true
+
+# p5600-glibc:
+BUILD_P5600_GLIBC = true
+
+# omap543x-glibc:
+BUILD_OMAP543X_GLIBC = true
+
+# rk328x-glibc:
+BUILD_RK328X_GLIBC = true
+
 # s8xx-glibc:
 BUILD_S8XX_GLIBC = true
 
@@ -62,23 +68,11 @@ BUILD_A9XX_GLIBC = true
 # rk33xx-glibc:
 BUILD_RK33XX_GLIBC = true
 
+# rk339x-glibc:
+BUILD_RK339X_GLIBC = true
+
 # a33xx-glibc:
 BUILD_A33XX_GLIBC = true
-
-# rk328x-glibc:
-BUILD_RK328X_GLIBC = true
-
-# imx6-glibc:
-BUILD_IMX6_GLIBC = true
-
-# omap543x-glibc:
-BUILD_OMAP543X_GLIBC = true
-
-# jz47xx-glibc:
-BUILD_JZ47XX_GLIBC = true
-
-# p5600-glibc:
-BUILD_P5600_GLIBC = true
 
 # power8-glibc:
 BUILD_POWER8_GLIBC = true

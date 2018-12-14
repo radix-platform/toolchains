@@ -1,0 +1,35 @@
+#
+# Build below library for ARM armv6-m architecture:
+# ------------------------------------------------
+#
+#  armv6-m/    -mthumb -march=armv6-m -mcpu=coretex-m0 -mfloat-abi=soft
+#
+
+MULTILIB_OPTIONS      += march=armv6s-m
+MULTILIB_DIRNAMES     += armv6-m
+
+MULTILIB_OPTIONS      += mfloat-abi=soft
+MULTILIB_DIRNAMES     += nofp
+
+MULTILIB_REQUIRED     += mthumb/mfloat-abi=soft
+
+# ARMv6s-M Base M-profile (no fp)
+MULTILIB_REQUIRED     += mthumb/march=armv6s-m/mfloat-abi=soft
+
+# CPU Matches
+MULTILIB_MATCHES      += march?armv6s-m=mcpu?cortex-m0
+MULTILIB_MATCHES      += march?armv6s-m=mcpu?cortex-m0.small-multiply
+MULTILIB_MATCHES      += march?armv6s-m=mcpu?cortex-m0plus
+MULTILIB_MATCHES      += march?armv6s-m=mcpu?cortex-m0plus.small-multiply
+MULTILIB_MATCHES      += march?armv6s-m=mcpu?cortex-m1
+MULTILIB_MATCHES      += march?armv6s-m=mcpu?cortex-m1.small-multiply
+
+# Arch Matches
+MULTILIB_MATCHES      += march?armv6s-m=march?armv6-m
+
+# Use Thumb libraries for everything:
+MULTILIB_REUSE        += mthumb/march.armv6s-m/mfloat-abi.soft=marm/march.armv6s-m/mfloat-abi.soft
+
+# Use soft ABI libraries for thumb and thumb/armv7-m:
+MULTILIB_REUSE        += mthumb/mfloat-abi.soft=mthumb
+MULTILIB_REUSE        += mthumb/march.armv6s-m/mfloat-abi.soft=mthumb/march.armv6s-m

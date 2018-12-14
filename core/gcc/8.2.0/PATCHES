@@ -1,0 +1,5 @@
+
+../../../sources/GNU/gcc/patches/gcc-8.2.0-armv8-m-cmse.patch        -p0
+../../../sources/GNU/gcc/patches/gcc-8.2.0-isl-0.20.patch            -p0
+../../../sources/GNU/gcc/patches/gcc-8.2.0-libstdc++-docs.patch      -p0
+../../../sources/GNU/gcc/patches/gcc-8.2.0-libtool-no-rpath.patch    -p0
