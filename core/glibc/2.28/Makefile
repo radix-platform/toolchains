@@ -64,22 +64,25 @@ endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_GLIBC))
 REQUIRES  = core/linux/TI/omap5/glsdk/3.14.57-20151211
 endif
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_RK33XX_GLIBC) $(TOOLCHAIN_RK339X_GLIBC) $(TOOLCHAIN_A33XX_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_RK328X_GLIBC) \
+                             $(TOOLCHAIN_RK33XX_GLIBC) \
+                             $(TOOLCHAIN_RK339X_GLIBC) \
+                             $(TOOLCHAIN_A33XX_GLIBC)),)
 REQUIRES  = core/linux/Rockchip/v4.x/rk-4.4.154-20181101
-endif
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_RK328X_GLIBC))
-REQUIRES  = core/linux/Rockchip/Firefly-RK3288/firefly-3.10-20151231
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_GLIBC))
 REQUIRES  = core/linux/Amlogic/M201/aml-3.10.33-20160716
 endif
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC) $(TOOLCHAIN_A9XX_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC) \
+                             $(TOOLCHAIN_A9XX_GLIBC)),)
 REQUIRES  = core/linux/Amlogic/P201/aml-3.14.29-20160818
 endif
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) $(TOOLCHAIN_POWER9_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) \
+                             $(TOOLCHAIN_POWER9_GLIBC)),)
 REQUIRES  = core/glibc/2.28-ppc32^headers
 endif
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8LE_GLIBC) $(TOOLCHAIN_POWER9LE_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8LE_GLIBC) \
+                             $(TOOLCHAIN_POWER9LE_GLIBC)),)
 REQUIRES  = core/linux/4.19.3
 endif
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC)),)
@@ -94,7 +97,8 @@ ifeq ($(FLAVOUR),full)
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC))
 REQUIRES  = core/glibc/2.28-x86_32^full
 else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) $(TOOLCHAIN_POWER9_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) \
+                             $(TOOLCHAIN_POWER9_GLIBC)),)
 REQUIRES  = core/glibc/2.28-ppc32^full
 else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC)),)
