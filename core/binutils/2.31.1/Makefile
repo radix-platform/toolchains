@@ -378,7 +378,7 @@ extra_configure_switches += --enable-werror=no
 # standard options:
 extra_configure_switches += --enable-interwork
 extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-arch=armv7ve
 extra_configure_switches += --with-tune=cortex-a15
 extra_configure_switches += --with-fpu=neon-vfpv4
 extra_configure_switches += --with-abi=aapcs-linux
