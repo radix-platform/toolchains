@@ -1171,7 +1171,7 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
-extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-arch=armv7ve
 extra_configure_switches += --with-tune=cortex-a15
 extra_configure_switches += --with-fpu=neon-vfpv4
 extra_configure_switches += --with-abi=aapcs-linux
