@@ -21,14 +21,10 @@ tarballs    = $(addsuffix .tar.xz, $(addprefix gcc-, $(version)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
 patches     = $(CURDIR)/../patches/gcc-6.5.0-at91sam7s-newlib.patch
-patches    += $(CURDIR)/../patches/gcc-6.5.0-a1x-newlib.patch
-patches    += $(CURDIR)/../patches/gcc-6.5.0-a2x-newlib.patch
-patches    += $(CURDIR)/../patches/gcc-6.5.0-h3-multilib.patch
-patches    += $(CURDIR)/../patches/gcc-6.5.0-s8xx-multilib.patch
-patches    += $(CURDIR)/../patches/gcc-6.5.0-a9xx-multilib.patch
-patches    += $(CURDIR)/../patches/gcc-6.5.0-a33xx-multilib.patch
-patches    += $(CURDIR)/../patches/gcc-6.5.0-aarch64-multilib.patch
+patches    += $(CURDIR)/../patches/gcc-6.5.0-a33xx-newlib.patch
+patches    += $(CURDIR)/../patches/gcc-6.5.0-a9xx-newlib.patch
 patches    += $(CURDIR)/../patches/gcc-6.5.0-lpc17xx-multilib.patch
+patches    += $(CURDIR)/../patches/gcc-6.5.0-aarch64-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-6.5.0-ppc64-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-6.5.0-ppc64le-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-6.5.0-sparc-ada.patch
@@ -74,14 +70,10 @@ $(sha1s): $(tarballs)
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
 	 ( cd create-6.5.0-at91sam7s-newlib-patch  ; ./create.patch.sh ) ; \
-	 ( cd create-6.5.0-a1x-newlib-patch        ; ./create.patch.sh ) ; \
-	 ( cd create-6.5.0-a2x-newlib-patch        ; ./create.patch.sh ) ; \
-	 ( cd create-6.5.0-h3-multilib-patch       ; ./create.patch.sh ) ; \
-	 ( cd create-6.5.0-s8xx-multilib-patch     ; ./create.patch.sh ) ; \
-	 ( cd create-6.5.0-a9xx-multilib-patch     ; ./create.patch.sh ) ; \
-	 ( cd create-6.5.0-a33xx-multilib-patch    ; ./create.patch.sh ) ; \
-	 ( cd create-6.5.0-aarch64-multilib-patch  ; ./create.patch.sh ) ; \
+	 ( cd create-6.5.0-a33xx-newlib-patch      ; ./create.patch.sh ) ; \
+	 ( cd create-6.5.0-a9xx-newlib-patch       ; ./create.patch.sh ) ; \
 	 ( cd create-6.5.0-lpc17xx-multilib-patch  ; ./create.patch.sh ) ; \
+	 ( cd create-6.5.0-aarch64-multilib-patch  ; ./create.patch.sh ) ; \
 	 ( cd create-6.5.0-ppc64-multilib-patch    ; ./create.patch.sh ) ; \
 	 ( cd create-6.5.0-ppc64le-multilib-patch  ; ./create.patch.sh ) ; \
 	 ( cd create-6.5.0-sparc-ada-patch         ; ./create.patch.sh ) ; \

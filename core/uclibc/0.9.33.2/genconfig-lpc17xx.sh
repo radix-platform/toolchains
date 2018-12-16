@@ -30,53 +30,13 @@ for mlib in $multilibs ; do
       source_config_file=lpc17xx-config.arm
       target_config_file=.config.arm
       ;;
-    fpu)
-      runtime_prefix=/fpu/
-      dev_prefix=/fpu/usr
-      multilib_dir=lib
-      extra_cflags="-mfloat-abi=hard"
-      source_config_file=lpc17xx-config.fpu
-      target_config_file=.config.fpu
-      ;;
-    thumb)
-      runtime_prefix=/thumb/
-      dev_prefix=/thumb/usr
-      multilib_dir=lib
-      extra_cflags="-mthumb"
-      source_config_file=lpc17xx-config.thumb
-      target_config_file=.config.thumb
-      ;;
-    thumb1)
-      runtime_prefix=/thumb1/
-      dev_prefix=/thumb1/usr
-      multilib_dir=lib
-      extra_cflags="-mthumb -march=armv4t"
-      source_config_file=lpc17xx-config.thumb
-      target_config_file=.config.thumb1
-      ;;
-    thumb2)
-      runtime_prefix=/thumb2/
-      dev_prefix=/thumb2/usr
-      multilib_dir=lib
-      extra_cflags="-mthumb -march=armv6t2"
-      source_config_file=lpc17xx-config.thumb
-      target_config_file=.config.thumb2
-      ;;
     armv7-m)
-      runtime_prefix=/armv7-m/
-      dev_prefix=/armv7-m/usr
-      multilib_dir=lib
+      runtime_prefix=/
+      dev_prefix=/usr
+      multilib_dir=lib/thumb/armv7-m
       extra_cflags="-mthumb -march=armv7-m"
-      source_config_file=lpc17xx-config.thumb
+      source_config_file=lpc17xx-config.armv7-m
       target_config_file=.config.armv7-m
-      ;;
-    armv7e-m)
-      runtime_prefix=/armv7e-m/
-      dev_prefix=/armv7e-m/usr
-      multilib_dir=lib
-      extra_cflags="-mthumb -march=armv7e-m"
-      source_config_file=lpc17xx-config.thumb
-      target_config_file=.config.armv7e-m
       ;;
     *)
       runtime_prefix=/

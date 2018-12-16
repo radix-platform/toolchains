@@ -5,7 +5,8 @@
 export PATH=$TOOLCHAIN_PATH/bin:$PATH
 
 ARCH_FLAGS="-mthumb -march=armv7-m"
-FPU_FLAGS=" -mfloat-abi=softfp"
+FPU_FLAGS=" -mfloat-abi=soft"
+
 #NO_STD_FLAGS=" -nostdlib -nostartfiles"
 
 $TARGET-gcc -g -fomit-frame-pointer $ARCH_FLAGS $FPU_FLAGS  -c -o main.o main.c

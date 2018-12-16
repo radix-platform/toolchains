@@ -61,6 +61,16 @@ HOST_PATH = $(TOOLCHAINS_BASE_PATH)/$(HOST_DIR)
 ####### Additional Available Toolchains:
 #######
 
+# All ARM 32-bit series with Newlib
+TOOLCHAIN_ARM32_NEWLIB = arm32-newlib
+
+ARM32_NEWLIB_ARCH = arm-none-eabi
+ARM32_NEWLIB_DIR  = arm-NONE-eabi-newlib
+ARM32_NEWLIB_PATH = $(TOOLCHAINS_BASE_PATH)/$(ARM32_NEWLIB_DIR)
+###                |---Toolchain-spec-handy-ruler----------------|
+ARM32_NEWLIB_SPEC = All ARM 32-bit series newlib toolchain
+
+
 # AT91SAM7S
 TOOLCHAIN_AT91SAM7S_NEWLIB = at91sam7s-newlib
 
@@ -101,24 +111,6 @@ OMAP543X_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(OMAP543X_GLIBC_DIR)
 OMAP543X_GLIBC_SPEC = Texas OMAP543x GNU Libc toolchain
 
 
-# AllWinner A10
-TOOLCHAIN_A1X_NEWLIB = a1x-newlib
-
-A1X_NEWLIB_ARCH = arm-a1x-eabi
-A1X_NEWLIB_DIR  = arm-A1X-eabi-newlib
-A1X_NEWLIB_PATH = $(TOOLCHAINS_BASE_PATH)/$(A1X_NEWLIB_DIR)
-###              |---Toolchain-spec-handy-ruler----------------|
-A1X_NEWLIB_SPEC = Allwinner A1x newlib toolchain
-
-# AllWinner A20
-TOOLCHAIN_A2X_NEWLIB = a2x-newlib
-
-A2X_NEWLIB_ARCH = arm-a2x-eabi
-A2X_NEWLIB_DIR  = arm-A2X-eabi-newlib
-A2X_NEWLIB_PATH = $(TOOLCHAINS_BASE_PATH)/$(A2X_NEWLIB_DIR)
-###              |---Toolchain-spec-handy-ruler----------------|
-A2X_NEWLIB_SPEC = Allwinner A2x newlib toolchain
-
 # AllWinner A10-GLIBC
 TOOLCHAIN_A1X_GLIBC = a1x-glibc
 
@@ -138,15 +130,6 @@ A2X_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(A2X_GLIBC_DIR)
 ###             |---Toolchain-spec-handy-ruler----------------|
 A2X_GLIBC_SPEC = Allwinner A2x GNU Libc toolchain
 
-
-# AllWinner H3-NEWLIB
-TOOLCHAIN_H3_NEWLIB = h3-newlib
-
-H3_NEWLIB_ARCH = arm-h3-eabi
-H3_NEWLIB_DIR  = arm-H3-eabi-newlib
-H3_NEWLIB_PATH = $(TOOLCHAINS_BASE_PATH)/$(H3_NEWLIB_DIR)
-###             |---Toolchain-spec-handy-ruler----------------|
-H3_NEWLIB_SPEC = Allwinner H3 newlib toolchain
 
 # AllWinner H3-GLIBC
 TOOLCHAIN_H3_GLIBC = h3-glibc
@@ -176,15 +159,6 @@ H5_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(H5_GLIBC_DIR)
 ###            |---Toolchain-spec-handy-ruler----------------|
 H5_GLIBC_SPEC = Allwinner H5 GNU Libc toolchain
 
-
-# Amlogic S8XX
-TOOLCHAIN_S8XX_NEWLIB = s8xx-newlib
-
-S8XX_NEWLIB_ARCH = arm-s8xx-eabi
-S8XX_NEWLIB_DIR  = arm-S8XX-eabi-newlib
-S8XX_NEWLIB_PATH = $(TOOLCHAINS_BASE_PATH)/$(S8XX_NEWLIB_DIR)
-###               |---Toolchain-spec-handy-ruler----------------|
-S8XX_NEWLIB_SPEC = Amlogic S8xx newlib toolchain
 
 # Amlogic S8XX-GLIBC
 TOOLCHAIN_S8XX_GLIBC = s8xx-glibc
@@ -259,6 +233,15 @@ RK33XX_GLIBC_DIR  = aarch64-RK33XX-linux-glibc
 RK33XX_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(RK33XX_GLIBC_DIR)
 ###                |---Toolchain-spec-handy-ruler----------------|
 RK33XX_GLIBC_SPEC = Rockchip RK33xx GNU Libc toolchain
+
+# Rockchip RK339X-GLIBC
+TOOLCHAIN_RK339X_GLIBC = rk339x-glibc
+
+RK339X_GLIBC_ARCH = aarch64-rk339x-linux-gnu
+RK339X_GLIBC_DIR  = aarch64-RK339X-linux-glibc
+RK339X_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(RK339X_GLIBC_DIR)
+###                |---Toolchain-spec-handy-ruler----------------|
+RK339X_GLIBC_SPEC = Rockchip RK339x GNU Libc toolchain
 
 # Rockchip A33XX-GLIBC
 TOOLCHAIN_A33XX_GLIBC = a33xx-glibc

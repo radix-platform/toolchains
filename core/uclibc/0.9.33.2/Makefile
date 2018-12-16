@@ -51,7 +51,7 @@ endif
 
 ifneq ($(findstring lpc17xx, $(TOOLCHAIN)),)
 def_multilib = arm
-multilibs    = fpu thumb thumb1 thumb2 armv7-m armv7e-m
+multilibs    = armv7-m
 genconfigs   = $(CURDIR)/genconfig-lpc17xx.sh
 def_config   = $(CURDIR)/.config.arm
 endif
@@ -117,12 +117,6 @@ $(full_target): $(src_done) $(configs)
 	  $(LMAKE) O=$(CURDIR)/$(TARGET_BUILD_DIR)/$$mult all ;           \
 	  $(LMAKE) O=$(CURDIR)/$(TARGET_BUILD_DIR)/$$mult install ;       \
 	  $(LMAKE) O=$(CURDIR)/$(TARGET_BUILD_DIR)/$$mult install_utils ; \
-	 done
-	@for mult in $(multilibs) ; do                                                                         \
-	  ( cd $(sysroot_dir)/$$mult/usr ; rm -rf include ; ln -sf ../../usr/include include ) ;               \
-	  ( cd $(sysroot_dir)/lib ; mkdir -p ../$$mult/lib ; ln -sf ../$$mult/lib $$mult ) ;                   \
-	  ( cd $(sysroot_dir)/usr/bin ; mkdir -p ../../$$mult/usr/bin ; ln -sf ../../$$mult/usr/bin $$mult ) ; \
-	  ( cd $(sysroot_dir)/usr/lib ; mkdir -p ../../$$mult/usr/lib ; ln -sf ../../$$mult/usr/lib $$mult ) ; \
 	 done
 	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/README
 	@touch $@

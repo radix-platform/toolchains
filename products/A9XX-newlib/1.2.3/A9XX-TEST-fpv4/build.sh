@@ -7,6 +7,7 @@ export PATH=$TOOLCHAIN_PATH/bin:$PATH
 DEBUG_FLAGS="-gdwarf-2"
 ARCH_FLAGS="-march=armv7-m -mcpu=cortex-m3 -mthumb"
 FPU_FLAGS=" -mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+
 #NO_STD_FLAGS=" -nostdlib -nostartfiles"
 
 $TARGET-gcc -g $DEBUG_FLAGS -fomit-frame-pointer $ARCH_FLAGS $FPU_FLAGS  -c -o main.o main.c

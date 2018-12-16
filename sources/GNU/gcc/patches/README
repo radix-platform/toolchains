@@ -3,7 +3,7 @@
 
    gcc-6.5.0-at91sam7s-newlib.patch  -
 
-   gcc-6.5.0-lpc17xx-multilib.patch  - adds --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m configure switch.
+   gcc-6.5.0-lpc17xx-multilib.patch  - adds --with-extra-multilibs=armv7-m configure switch.
 
 
    README.TXT                        - this file.

@@ -1,13 +1,10 @@
 
 
-COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_A2X_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_H3_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_H5_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_NEWLIB)
+COMPONENT_TARGETS  = $(TOOLCHAIN_ARM32_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A33XX_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_H5_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK33XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 
@@ -26,6 +23,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK33XX_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_RK339X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A33XX_GLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_POWER8_GLIBC)
@@ -90,69 +88,13 @@ endif
 include ../../../build-system/core.mk
 
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB))
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_ARM32_NEWLIB))
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=https://radix.pro'
+extra_configure_switches += --disable-werror
 extra_configure_switches  = --enable-interwork
 extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-cpu=cortex-a8
-extra_configure_switches += --with-arch=armv7-a
-extra_configure_switches += --with-fpu=neon
 extra_configure_switches += --with-abi=aapcs
-endif
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A2X_NEWLIB))
-extra_configure_switches  = --enable-interwork
-extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-cpu=cortex-a7
-extra_configure_switches += --with-arch=armv7ve
-extra_configure_switches += --with-fpu=neon-vfpv4
-extra_configure_switches += --with-abi=aapcs
-endif
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_H3_NEWLIB))
-extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
-extra_configure_switches += '--with-bugurl=https://radix.pro'
-extra_configure_switches += --disable-werror
-extra_configure_switches += --enable-interwork
-extra_configure_switches += --enable-plugins
-extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
-endif
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_H5_NEWLIB))
-extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
-extra_configure_switches += '--with-bugurl=https://radix.pro'
-extra_configure_switches += --enable-multiarch
-extra_configure_switches += --disable-multilib
-extra_configure_switches += --with-cpu=cortex-a53
-extra_configure_switches += --with-arch=armv8-a
-extra_configure_switches += --enable-plugins
-extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
-endif
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_NEWLIB))
-extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
-extra_configure_switches += '--with-bugurl=https://radix.pro'
-extra_configure_switches += --disable-werror
-extra_configure_switches += --enable-interwork
-extra_configure_switches += --enable-plugins
-extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
-endif
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A9XX_NEWLIB))
-extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
-extra_configure_switches += '--with-bugurl=https://radix.pro'
-extra_configure_switches += --disable-werror
-extra_configure_switches += --enable-interwork
-extra_configure_switches += --enable-plugins
-extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
-endif
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB))
-extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
-extra_configure_switches += '--with-bugurl=https://radix.pro'
-extra_configure_switches += --enable-multiarch
-extra_configure_switches += --disable-multilib
-extra_configure_switches += --with-cpu=cortex-a53
-extra_configure_switches += --with-arch=armv8-a
 extra_configure_switches += --enable-plugins
 extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
 endif
@@ -162,8 +104,41 @@ extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches += --disable-werror
 extra_configure_switches += --enable-interwork
-extra_configure_switches += --with-cpu=cortex-m0
-extra_configure_switches += --with-arch=armv6-m
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-abi=aapcs
+extra_configure_switches += --enable-plugins
+extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A9XX_NEWLIB))
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=https://radix.pro'
+extra_configure_switches += --disable-werror
+extra_configure_switches += --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-abi=aapcs
+extra_configure_switches += --enable-plugins
+extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_H5_NEWLIB))
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=https://radix.pro'
+extra_configure_switches += --disable-multiarch
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-cpu=cortex-a53
+extra_configure_switches += --with-arch=armv8-a
+extra_configure_switches += --enable-plugins
+extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
+endif
+
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB))
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=https://radix.pro'
+extra_configure_switches += --disable-multiarch
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-cpu=cortex-a53
+extra_configure_switches += --with-arch=armv8-a
 extra_configure_switches += --enable-plugins
 extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
 endif
@@ -171,8 +146,8 @@ endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_RK33XX_NEWLIB))
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
-extra_configure_switches += --enable-multiarch
-extra_configure_switches += --disable-multilib
+extra_configure_switches += --disable-multiarch
+extra_configure_switches += --enable-multilib
 extra_configure_switches += --with-cpu=cortex-a53
 extra_configure_switches += --with-arch=armv8-a
 extra_configure_switches += --enable-plugins
@@ -180,6 +155,8 @@ extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_AT91SAM7S_NEWLIB))
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches  = --enable-interwork
 extra_configure_switches += --enable-multilib
 extra_configure_switches += --with-float=soft
@@ -324,6 +301,22 @@ extra_configure_switches += --with-abi=lp64
 extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_RK339X_GLIBC)),)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=https://radix.pro'
+# experimental gold linker( DEFAULT_LD=ld.bfd ):
+extra_configure_switches += --enable-gold=yes
+extra_configure_switches += --enable-ld=default
+extra_configure_switches += --enable-werror=no
+# standard options:
+extra_configure_switches += --disable-multilib
+extra_configure_switches += --with-cpu=cortex-a53
+extra_configure_switches += --with-arch=armv8-a
+extra_configure_switches += --with-fpu=neon-fp-armv8
+extra_configure_switches += --with-abi=lp64
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+endif
+
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A33XX_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
@@ -385,7 +378,7 @@ extra_configure_switches += --enable-werror=no
 # standard options:
 extra_configure_switches += --enable-interwork
 extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-arch=armv7ve
 extra_configure_switches += --with-tune=cortex-a15
 extra_configure_switches += --with-fpu=neon-vfpv4
 extra_configure_switches += --with-abi=aapcs-linux

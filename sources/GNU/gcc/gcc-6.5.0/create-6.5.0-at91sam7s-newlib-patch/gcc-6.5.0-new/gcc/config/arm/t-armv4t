@@ -1,0 +1,96 @@
+#
+# Build below library for ARMv4:
+# -----------------------------
+#
+#  armv4/    -m{arm,thumb} -march=armv4t -mcpu=arm7tdmi -m{big,little}-endian -m{no-,}thumb-interwork
+#
+#
+#   | marm | mthumb | march=armv4t | mlittle-endian | mbig-endian | mno-thumb-interwork | mthumb-interwork | multilib dir
+#  -+------+--------+--------------+----------------+-------------+---------------------+------------------+--------------
+#   |   -  |    -   |      -       |       -        |      -      |          -          |         -        | .
+#   |   -  |    -   |      -       |       +        |      -      |          -          |         -        | .
+#   |   +  |    -   |      -       |       -        |      -      |          -          |         -        | .
+#   |   +  |    -   |      -       |       +        |      -      |          -          |         -        | .
+#   |   +  |    -   |      +       |       -        |      -      |          -          |         -        | armv4t
+#   |   -  |    -   |      +       |       -        |      -      |          -          |         -        | armv4t
+#   |   -  |    -   |      +       |       +        |      -      |          -          |         -        | armv4t
+#  -+------+--------+--------------+----------------+-------------+---------------------+------------------+--------------
+#   |   -  |    -   |      -       |       -        |      +      |          -          |         -        | armv4t/be
+#   |   +  |    -   |      -       |       -        |      +      |          -          |         -        | armv4t/be
+#   |   -  |    -   |      +       |       -        |      +      |          -          |         -        | armv4t/be
+#   |   +  |    -   |      +       |       -        |      +      |          -          |         -        | armv4t/be
+#  -+------+--------+--------------+----------------+-------------+---------------------+------------------+--------------
+#   |   -  |    +   |      -       |       +        |      -      |          -          |         -        | thumb/armv4t
+#   |   -  |    +   |      +       |       +        |      -      |          -          |         -        | thumb/armv4t
+#   |   -  |    +   |      -       |       -        |      +      |          -          |         -        | thumb/armv4t/be
+#   |   -  |    +   |      +       |       -        |      +      |          -          |         -        | thumb/armv4t/be
+#  -+------+--------+--------------+----------------+-------------+---------------------+------------------+--------------
+#   |   -  |    +   |      +       |       +        |      -      |          +          |         -        | thumb/armv4t
+#   |   -  |    +   |      +       |       +        |      -      |          -          |         +        | thumb/armv4t/interwork
+#  -+------+--------+--------------+----------------+-------------+---------------------+------------------+--------------
+#   |   -  |    +   |      +       |       -        |      +      |          +          |         -        | thumb/armv4t/be
+#   |   -  |    +   |      +       |       -        |      +      |          -          |         +        | thumb/armv4t/be/interwork
+#  -+------+--------+--------------+----------------+-------------+---------------------+------------------+--------------
+#
+
+MULTILIB_OPTIONS     += march=armv4t
+MULTILIB_DIRNAMES    += armv4t
+
+MULTILIB_OPTIONS     += mlittle-endian/mbig-endian
+MULTILIB_DIRNAMES    += le be
+
+MULTILIB_OPTIONS     += mno-thumb-interwork/mthumb-interwork
+MULTILIB_DIRNAMES    += normal interwork
+
+MULTILIB_REQUIRED    += march=armv4t
+MULTILIB_REQUIRED    += march=armv4t/mbig-endian
+
+MULTILIB_REQUIRED    += mthumb/march=armv4t
+MULTILIB_REQUIRED    += mthumb/march=armv4t/mbig-endian
+
+MULTILIB_REQUIRED    += mthumb/march=armv4t/mthumb-interwork
+MULTILIB_REQUIRED    += mthumb/march=armv4t/mbig-endian/mthumb-interwork
+
+
+# CPU Matches
+MULTILIB_MATCHES     += march?armv4t=mcpu?arm7tdmi
+
+
+MULTILIB_REUSE       += march.armv4t=marm/march.armv4t
+MULTILIB_REUSE       += march.armv4t=marm/march.armv4t/mlittle-endian
+MULTILIB_REUSE       += march.armv4t=march.armv4t/mlittle-endian
+
+MULTILIB_REUSE       += march.armv4t/mbig-endian=mbig-endian
+
+MULTILIB_REUSE       += mthumb/march.armv4t=mthumb/march.armv4t/mlittle-endian
+MULTILIB_REUSE       += mthumb/march.armv4t=mthumb/mlittle-endian
+
+MULTILIB_REUSE       += mthumb/march.armv4t/mbig-endian=mthumb/mbig-endian
+
+MULTILIB_REUSE       += mthumb/march.armv4t=mthumb/march.armv4t/mno-thumb-interwork
+MULTILIB_REUSE       += mthumb/march.armv4t=mthumb/march.armv4t/mlittle-endian/mno-thumb-interwork
+MULTILIB_REUSE       += mthumb/march.armv4t/mbig-endian=mthumb/march.armv4t/mbig-endian/mno-thumb-interwork
+
+MULTILIB_REUSE       += mthumb/march.armv4t/mthumb-interwork=mthumb/march.armv4t/mlittle-endian/mthumb-interwork
+
+#
+# We have to match all the arm cpu variants which do not have the multiply instruction
+# and treat them as if the user had specified -mcpu=arm7.
+# Note that in the following the ? is interpreted as an = for the purposes of matching
+# command line options.
+#
+MULTILIB_MATCHES    += mcpu?arm7=mcpu?arm7d
+MULTILIB_MATCHES    += mcpu?arm7=mcpu?arm7di
+MULTILIB_MATCHES    += mcpu?arm7=mcpu?arm70
+MULTILIB_MATCHES    += mcpu?arm7=mcpu?arm700
+MULTILIB_MATCHES    += mcpu?arm7=mcpu?arm700i
+MULTILIB_MATCHES    += mcpu?arm7=mcpu?arm710
+MULTILIB_MATCHES    += mcpu?arm7=mcpu?arm710c
+MULTILIB_MATCHES    += mcpu?arm7=mcpu?arm7100
+MULTILIB_MATCHES    += mcpu?arm7=mcpu?arm7500
+MULTILIB_MATCHES    += mcpu?arm7=mcpu?arm7500fe
+MULTILIB_MATCHES    += mcpu?arm7=mcpu?arm6
+MULTILIB_MATCHES    += mcpu?arm7=mcpu?arm60
+MULTILIB_MATCHES    += mcpu?arm7=mcpu?arm600
+MULTILIB_MATCHES    += mcpu?arm7=mcpu?arm610
+MULTILIB_MATCHES    += mcpu?arm7=mcpu?arm620

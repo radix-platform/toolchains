@@ -1,0 +1,2 @@
+newlib-3.0.0.20180831/newlib/libc/sys/arm/crt0.S
+newlib-3.0.0.20180831/newlib/libc/sys/arm/trap.S

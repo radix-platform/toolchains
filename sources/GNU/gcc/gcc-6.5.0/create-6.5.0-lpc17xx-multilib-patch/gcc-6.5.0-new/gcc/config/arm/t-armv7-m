@@ -1,16 +1,38 @@
-#Build below library for ARM armv7-m architecture.
-#  armv7-m/     -mthumb -march=armv7-m
+#
+# Build below library for ARM armv7-m architecture:
+# ------------------------------------------------
+#
+#  armv7-m/    -mthumb -march=armv7-m -mcpu=coretex-m3
+#
+#
+#   | mthumb | march=armv7-m | mfloat-abi=soft | multilib directory
+#  -+--------+---------------+-----------------+--------------------
+#   |    -   |       -       |        -        |   .
+#   |    -   |       -       |        +        |   .
+#  -+--------+---------------+-----------------+--------------------
+#   |    -   |       +       |        -        |   thumb/armv7-m
+#   |    -   |       +       |        +        |   thumb/armv7-m
+#   |    +   |       +       |        -        |   thumb/armv7-m
+#   |    +   |       +       |        +        |   thumb/armv7-m
+#  -+--------+---------------+-----------------+--------------------
+#   |    +   |       -       |        -        |   thumb/armv7-m
+#   |    +   |       -       |        +        |   thumb/armv7-m
+#  -+--------+---------------+-----------------+--------------------
+#
 
 MULTILIB_OPTIONS      += march=armv7-m
-
 MULTILIB_DIRNAMES     += armv7-m
 
-MULTILIB_EXCEPTIONS   += march=armv7-m*
-MULTILIB_EXCEPTIONS   += marm*/march=armv7-m*
-MULTILIB_EXCEPTIONS   += mfloat-abi=hard/march=armv7-m*
-MULTILIB_EXCEPTIONS   += mthumb/mfloat-abi=hard/march=armv7-m*
-MULTILIB_EXCEPTIONS   += m*/march=armv7-m/march*
+# ARMv7-M profile (no fp)
+MULTILIB_REQUIRED     += mthumb/march=armv7-m
 
+# CPU Matches
 MULTILIB_MATCHES      += march?armv7-m=mcpu?cortex-m3
 
-MULTILIB_OSDIRNAMES   += mthumb/march.armv7-m=!armv7-m
+# Use soft ABI libraries for thumb, thumb/armv7-m, and armv7-m:
+MULTILIB_REUSE        += mthumb/march.armv7-m=march.armv7-m
+MULTILIB_REUSE        += mthumb/march.armv7-m=march.armv7-m/mfloat-abi.soft
+MULTILIB_REUSE        += mthumb/march.armv7-m=mthumb/march.armv7-m/mfloat-abi.soft
+
+MULTILIB_REUSE        += mthumb/march.armv7-m=mthumb
+MULTILIB_REUSE        += mthumb/march.armv7-m=mthumb/mfloat-abi.soft
