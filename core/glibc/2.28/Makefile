@@ -187,7 +187,7 @@ environment += CFLAGS="-g -O2 -march=mips32r5 -mtune=p5600 -mhard-float"
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_GLIBC))
-environment += CFLAGS="-g -O3 -march=armv7-a -mtune=cortex-a15 -mfpu=neon-vfpv4 -mfloat-abi=hard"
+environment += CFLAGS="-g -O3 -march=armv7ve -mtune=cortex-a15 -mfpu=neon-vfpv4 -mfloat-abi=hard"
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_RK328X_GLIBC))

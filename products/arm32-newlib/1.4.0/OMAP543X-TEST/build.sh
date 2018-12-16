@@ -4,7 +4,7 @@
 
 export PATH=$TOOLCHAIN_PATH/bin:$PATH
 
-ARCH_OPTIONS=" -march=armv7-a -mtune=cortex-a15 -mfpu=neon-vfpv4 -mfloat-abi=hard"
+ARCH_OPTIONS=" -march=armv7ve -mtune=cortex-a15 -mfpu=neon-vfpv4 -mfloat-abi=hard"
 
 $TARGET-gcc -g -gdwarf-2 -fomit-frame-pointer ${ARCH_OPTIONS} -mlittle-endian -I$TOOLCHAIN_PATH/$TARGET/include -c -o main.o main.c
 $TARGET-gcc ${ARCH_OPTIONS} -mlittle-endian  -o main main.o
