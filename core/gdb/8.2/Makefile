@@ -136,7 +136,7 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_H3_GLIBC)),)
 extra_configure_switches  = --enable-interwork
 extra_configure_switches += --enable-multilib
 extra_configure_switches += --disable-libssp
-extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-arch=armv7ve
 extra_configure_switches += --with-tune=cortex-a7
 extra_configure_switches += --with-fpu=neon-vfpv4
 extra_configure_switches += --with-abi=aapcs-linux
@@ -185,7 +185,7 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_GLIBC)),)
 extra_configure_switches  = --enable-interwork
 extra_configure_switches += --enable-multilib
 extra_configure_switches += --disable-libssp
-extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-arch=armv7ve
 extra_configure_switches += --with-tune=cortex-a15
 extra_configure_switches += --with-fpu=neon-vfpv4
 extra_configure_switches += --with-abi=aapcs-linux
