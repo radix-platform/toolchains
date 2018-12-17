@@ -120,7 +120,6 @@ A1X_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(A1X_GLIBC_DIR)
 ###             |---Toolchain-spec-handy-ruler----------------|
 A1X_GLIBC_SPEC = Allwinner A1x GNU Libc toolchain
 
-
 # AllWinner A20-GLIBC
 TOOLCHAIN_A2X_GLIBC = a2x-glibc
 

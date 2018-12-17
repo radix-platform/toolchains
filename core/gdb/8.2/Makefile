@@ -94,19 +94,19 @@ endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_H5_NEWLIB))
 extra_configure_switches  = --enable-multiarch
-extra_configure_switches += --disable-multilib
+extra_configure_switches += --enable-multilib
 extra_configure_switches += --with-arch=armv8-a
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB))
 extra_configure_switches  = --enable-multiarch
-extra_configure_switches += --disable-multilib
+extra_configure_switches += --enable-multilib
 extra_configure_switches += --with-arch=armv8-a
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_RK33XX_NEWLIB))
 extra_configure_switches  = --enable-multiarch
-extra_configure_switches += --disable-multilib
+extra_configure_switches += --enable-multilib
 extra_configure_switches += --with-arch=armv8-a
 endif
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ $# -lt 3 ]; then
   exit 1
@@ -16,7 +16,7 @@ multilib=lib
 extra_cflags=
 
 #
-# Valid multilibs="arm fpu thumb thumb1 thumb2 armv7-m armv7e-m"
+# Valid multilibs="arm armv7-m"
 #
 
 for mlib in $multilibs ; do

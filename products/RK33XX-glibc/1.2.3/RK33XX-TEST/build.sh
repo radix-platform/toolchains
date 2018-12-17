@@ -4,7 +4,7 @@
 
 export PATH=$TOOLCHAIN_PATH/bin:$PATH
 
-ARCH_FLAGS=" -march=armv8-a -mcpu=cortex-a53"
+ARCH_FLAGS=" -march=armv8-a -mcpu=cortex-a53 -mabi=lp64"
 
 $TARGET-gcc -g -O3 -gdwarf-2 -fomit-frame-pointer $ARCH_FLAGS -I$TOOLCHAIN_PATH/$TARGET/include -c -o main.o main.c
 $TARGET-gcc $ARCH_FLAGS $FPU_FLAGS -o main main.o
