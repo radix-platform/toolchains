@@ -4,7 +4,7 @@
 
 export PATH=$TOOLCHAIN_PATH/bin:$PATH
 
-ARCH_FLAGS=" -march=armv7-a -mtune=cortex-a15"
+ARCH_FLAGS=" -march=armv7ve -mtune=cortex-a15"
 
 
 $TARGET-gcc -g -O3 -fomit-frame-pointer $ARCH_FLAGS $FPU_FLAGS -I$TOOLCHAIN_PATH/$TARGET/include -c -o main.o main.c
