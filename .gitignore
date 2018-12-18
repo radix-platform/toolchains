@@ -1,6 +1,8 @@
 
 # Target bin dirs
+build-system/etc/
 build-system/gnattools/
+build-system/sbin/
 
 # Build system config files
 build-system/targets-config.mk
