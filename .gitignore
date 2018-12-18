@@ -13,6 +13,8 @@ build-system/targets-config.mk
 .a33xx-newlib/
 .a9xx-newlib/
 .h5-newlib/
+.s9xx-newlib/
+.rk33xx-newlib/
 .at91sam7s-newlib/
 
 .lpc17xx-uclibc/
@@ -21,25 +23,23 @@ build-system/targets-config.mk
 .a2x-glibc/
 .h3-glibc/
 .h5-glibc/
-.a9xx-glibc/
-.i686-glibc/
 .imx6-glibc/
 .jz47xx-glibc/
-.omap543x-glibc/
 .p5600-glibc/
-.power8-glibc/
-.power8le-glibc/
-.power9-glibc/
-.power9le-glibc/
-.r1000-glibc/
+.omap543x-glibc/
 .rk328x-glibc/
 .s8xx-glibc/
-.s8xx-newlib/
 .s9xx-glibc/
-.s9xx-newlib/
+.a9xx-glibc/
 .rk33xx-glibc/
 .rk339x-glibc/
-.rk33xx-newlib/
+.a33xx-glibc/
+.power8-glibc/
+.power9-glibc/
+.power8le-glibc/
+.power9le-glibc/
+.r1000-glibc/
+.i686-glibc/
 .x86_64-glibc/
 
 # Hidden files (each file)
