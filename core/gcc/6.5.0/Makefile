@@ -637,7 +637,7 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_H5_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
-extra_configure_switches += --disable-multiarch
+extra_configure_switches += --enable-multiarch
 extra_configure_switches += --disable-multilib
 extra_configure_switches += --with-arch=armv8-a
 extra_configure_switches += --with-cpu=cortex-a53
@@ -755,7 +755,7 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
-extra_configure_switches += --disable-multiarch
+extra_configure_switches += --enable-multiarch
 extra_configure_switches += --disable-multilib
 extra_configure_switches += --with-arch=armv8-a
 extra_configure_switches += --with-cpu=cortex-a53
@@ -873,7 +873,7 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_RK33XX_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
-extra_configure_switches += --disable-multiarch
+extra_configure_switches += --enable-multiarch
 extra_configure_switches += --disable-multilib
 extra_configure_switches += --with-arch=armv8-a
 extra_configure_switches += --with-cpu=cortex-a53
@@ -933,7 +933,7 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_RK339X_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
-extra_configure_switches += --disable-multiarch
+extra_configure_switches += --enable-multiarch
 extra_configure_switches += --disable-multilib
 extra_configure_switches += --with-arch=armv8-a
 extra_configure_switches += --with-cpu=cortex-a72.cortex-a53
