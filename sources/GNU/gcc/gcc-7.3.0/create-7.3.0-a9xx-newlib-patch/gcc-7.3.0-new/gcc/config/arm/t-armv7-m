@@ -1,0 +1,44 @@
+#
+# Build below library for ARM armv7-m architecture with FPv4-SP:
+# -------------------------------------------------------------
+#
+#  armv7-m/    -mthumb -march=armv7-m -mcpu=coretex-m3 -mfpu=fpv4-sp-d16 -mfloat-abi={soft,hard,softfp}
+#
+
+MULTILIB_OPTIONS      += march=armv7-m
+MULTILIB_DIRNAMES     += armv7-m
+
+MULTILIB_OPTIONS      += mfpu=fpv4-sp-d16
+MULTILIB_DIRNAMES     += fpv4-sp-d16
+
+MULTILIB_OPTIONS      += mfloat-abi=softfp/mfloat-abi=hard
+MULTILIB_DIRNAMES     += softfp hard
+
+MULTILIB_REQUIRED     += mthumb
+
+# ARMv7e-M Base M-profile (no fp)
+MULTILIB_REQUIRED     += mthumb/march=armv7-m
+
+# ARMv7e-M with FP (single and double precision variants)
+MULTILIB_REQUIRED     += mthumb/march=armv7-m/mfpu=fpv4-sp-d16/mfloat-abi=hard
+MULTILIB_REQUIRED     += mthumb/march=armv7-m/mfpu=fpv4-sp-d16/mfloat-abi=softfp
+
+# CPU Matches
+MULTILIB_MATCHES      += march?armv7-m=mcpu?cortex-m3
+
+# Use Thumb libraries for everything:
+MULTILIB_REUSE        += mthumb/march.armv7-m=marm/march.armv7-m
+MULTILIB_REUSE        += $(foreach ABI, hard softfp, \
+                           $(foreach ARCH, armv7-m,  \
+                             mthumb/march.$(ARCH)/mfpu.fpv4-sp-d16/mfloat-abi.$(ABI)=marm/march.$(ARCH)/mfpu.fpv4-sp-d16/mfloat-abi.$(ABI)))
+
+# Use fpv4-sp-d16 libraries for hard and softfp ABIs:
+MULTILIB_REUSE        += $(foreach ABI, hard softfp, \
+                           $(foreach ARCH, armv7-m,  \
+                             mthumb/march.$(ARCH)/mfpu.fpv4-sp-d16/mfloat-abi.$(ABI)=mthumb/march.$(ARCH)/mfloat-abi.$(ABI)))
+
+MULTILIB_REUSE        += mthumb/march.armv7-m/mfpu.fpv4-sp-d16/mfloat-abi.hard=marm/march.armv7-m/mfpu.fpv4-sp-d16
+MULTILIB_REUSE        += mthumb/march.armv7-m/mfpu.fpv4-sp-d16/mfloat-abi.hard=mthumb/march.armv7-m/mfpu.fpv4-sp-d16
+
+MULTILIB_REUSE        += mthumb/march.armv7-m/mfpu.fpv4-sp-d16/mfloat-abi.hard=marm/march.armv7-m/mfloat-abi.hard
+MULTILIB_REUSE        += mthumb/march.armv7-m/mfpu.fpv4-sp-d16/mfloat-abi.hard=mthumb/march.armv7-m/mfloat-abi.hard

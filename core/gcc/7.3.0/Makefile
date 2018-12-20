@@ -1,13 +1,10 @@
 
 
-COMPONENT_TARGETS  = $(TOOLCHAIN_A1X_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_A2X_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_H3_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_H5_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_NEWLIB)
-COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_NEWLIB)
+COMPONENT_TARGETS  = $(TOOLCHAIN_ARM32_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_A33XX_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_H5_NEWLIB)
+COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK33XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 
@@ -26,6 +23,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK33XX_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_RK339X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A33XX_GLIBC)
 
 COMPONENT_TARGETS += $(TOOLCHAIN_POWER8_GLIBC)
@@ -55,10 +53,10 @@ SOURCE_REQUIRES += sources/inria/isl
 
 ifneq ($(findstring newlib, $(TOOLCHAIN)),)
 ifeq ($(FLAVOUR),static)
-REQUIRES  = core/newlib/2.5.0-20170623^headers
+REQUIRES  = core/binutils/2.31.1
 endif
 ifeq ($(FLAVOUR),full)
-REQUIRES  = core/newlib/2.5.0-20170623^full
+REQUIRES  = core/newlib/3.0.0-20180831^full
 endif
 endif
 
@@ -106,59 +104,36 @@ ifneq ($(TOOLCHAIN),)
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_AT91SAM7S_NEWLIB)),)
 PATCHES = PATCHES.at91sam7s
 else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB)),)
-PATCHES = PATCHES.a1x
-else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A2X_NEWLIB)),)
-PATCHES = PATCHES.a2x
-else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_H3_NEWLIB)),)
-PATCHES = PATCHES.h3
-else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A9XX_NEWLIB)),)
 PATCHES = PATCHES.a9xx
 else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A33XX_NEWLIB)),)
 PATCHES = PATCHES.a33xx
 else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S8XX_NEWLIB)),)
-PATCHES = PATCHES.s8xx
-else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC)),)
 PATCHES = PATCHES.lpc17xx
 else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC)),)
-PATCHES = PATCHES.jz47xx
-else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_P5600_GLIBC)),)
-PATCHES = PATCHES.p5600
-else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) $(TOOLCHAIN_POWER9_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) \
+                             $(TOOLCHAIN_POWER9_GLIBC)),)
 PATCHES = PATCHES.powerpc
 else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8LE_GLIBC) $(TOOLCHAIN_POWER9LE_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8LE_GLIBC) \
+                             $(TOOLCHAIN_POWER9LE_GLIBC)),)
 PATCHES = PATCHES.powerpcle
 else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC)),)
 PATCHES = PATCHES.sparc
 else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_I686_GLIBC)),)
-PATCHES = PATCHES.i386
-else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC) $(TOOLCHAIN_H5_GLIBC) $(TOOLCHAIN_RK33XX_GLIBC)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC)   \
+                             $(TOOLCHAIN_H5_GLIBC)     \
+                             $(TOOLCHAIN_RK33XX_GLIBC) \
+                             $(TOOLCHAIN_RK339X_GLIBC)),)
 PATCHES = PATCHES.aarch64
 else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC)),)
 PATCHES = PATCHES.x86_64
 else
 PATCHES = PATCHES
-endif
-endif
-endif
-endif
-endif
-endif
-endif
 endif
 endif
 endif
@@ -217,51 +192,36 @@ endif
 include ../../../build-system/core.mk
 
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_NEWLIB))
-extra_configure_switches  = --enable-interwork
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_ARM32_NEWLIB))
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=https://radix.pro'
+extra_configure_switches += --enable-interwork
 extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-arch=armv7-a
-extra_configure_switches += --with-tune=cortex-a8
-extra_configure_switches += --with-fpu=neon
 extra_configure_switches += --with-abi=aapcs
 extra_configure_switches += --with-dwarf2
 extra_configure_switches += --disable-isl-version-check
-extra_configure_switches += --disable-libatomic
-extra_configure_switches += --disable-libgomp
-extra_configure_switches += --disable-libitm
-extra_configure_switches += --disable-libmudflap
-extra_configure_switches += --disable-libquadmath
-extra_configure_switches += --disable-libsanitizer
+extra_configure_switches += --disable-libstdcxx-pch
+extra_configure_switches += --disable-shared
+extra_configure_switches += --disable-threads
+extra_configure_switches += --disable-tls
+extra_configure_switches += --with-gnu-as
+extra_configure_switches += --with-gnu-ld
+ifeq ($(FLAVOUR),static)
 extra_configure_switches += --disable-libssp
 extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --without-headers
 extra_configure_switches += --enable-languages=c
-extra_configure_switches += --disable-shared
+else
+extra_configure_switches += --enable-plugins
+extra_configure_switches += --with-headers=yes
+extra_configure_switches += --enable-languages=c,c++
+endif
 extra_configure_switches += --with-newlib
+extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
+extra_configure_switches += --with-multilib-list=aprofile
 endif
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A2X_NEWLIB))
-extra_configure_switches  = --enable-interwork
-extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-arch=armv7ve
-extra_configure_switches += --with-tune=cortex-a7
-extra_configure_switches += --with-fpu=neon-vfpv4
-extra_configure_switches += --with-abi=aapcs
-extra_configure_switches += --with-dwarf2
-extra_configure_switches += --disable-isl-version-check
-extra_configure_switches += --disable-libatomic
-extra_configure_switches += --disable-libgomp
-extra_configure_switches += --disable-libitm
-extra_configure_switches += --disable-libmudflap
-extra_configure_switches += --disable-libquadmath
-extra_configure_switches += --disable-libsanitizer
-extra_configure_switches += --disable-libssp
-extra_configure_switches += --disable-libstdc++-v3
-extra_configure_switches += --enable-languages=c
-extra_configure_switches += --disable-shared
-extra_configure_switches += --with-newlib
-endif
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_H3_NEWLIB))
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A33XX_NEWLIB))
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches += --enable-interwork
@@ -285,61 +245,7 @@ extra_configure_switches += --enable-languages=c,c++
 endif
 extra_configure_switches += --with-newlib
 extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
-extra_configure_switches += --with-extra-multilibs=armv7-a
-endif
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_H5_NEWLIB))
-extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
-extra_configure_switches += '--with-bugurl=https://radix.pro'
-extra_configure_switches += --enable-multiarch
-extra_configure_switches += --disable-multilib
-extra_configure_switches += --with-arch=armv8-a
-extra_configure_switches += --disable-__cxa_atexit
-extra_configure_switches += --disable-isl-version-check
-extra_configure_switches += --disable-libstdcxx-pch
-extra_configure_switches += --disable-shared
-extra_configure_switches += --disable-threads
-extra_configure_switches += --with-gnu-as
-extra_configure_switches += --with-gnu-ld
-ifeq ($(FLAVOUR),static)
-extra_configure_switches += --disable-libssp
-extra_configure_switches += --disable-libstdc++-v3
-extra_configure_switches += --without-headers
-extra_configure_switches += --enable-languages=c
-else
-extra_configure_switches += --enable-plugins
-extra_configure_switches += --with-headers=yes
-extra_configure_switches += --enable-languages=c,c++
-endif
-extra_configure_switches += --with-newlib
-extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
-endif
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_NEWLIB))
-extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
-extra_configure_switches += '--with-bugurl=https://radix.pro'
-extra_configure_switches += --enable-interwork
-extra_configure_switches += --enable-multilib
-extra_configure_switches += --disable-isl-version-check
-extra_configure_switches += --disable-libstdcxx-pch
-extra_configure_switches += --disable-shared
-extra_configure_switches += --disable-threads
-extra_configure_switches += --disable-tls
-extra_configure_switches += --with-gnu-as
-extra_configure_switches += --with-gnu-ld
-ifeq ($(FLAVOUR),static)
-extra_configure_switches += --disable-libssp
-extra_configure_switches += --disable-libstdc++-v3
-extra_configure_switches += --without-headers
-extra_configure_switches += --enable-languages=c
-else
-extra_configure_switches += --enable-plugins
-extra_configure_switches += --with-headers=yes
-extra_configure_switches += --enable-languages=c,c++
-endif
-extra_configure_switches += --with-newlib
-extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
-extra_configure_switches += --with-extra-multilibs=armv7-a
+extra_configure_switches += --with-extra-multilibs=armv6-m
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A9XX_NEWLIB))
@@ -369,13 +275,17 @@ extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
 extra_configure_switches += --with-extra-multilibs=armv7-m
 endif
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB))
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_H5_NEWLIB))
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
-extra_configure_switches += --enable-multiarch
-extra_configure_switches += --disable-multilib
+extra_configure_switches += --disable-multiarch
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-multilib-list=lp64,ilp32
 extra_configure_switches += --with-arch=armv8-a
+extra_configure_switches += --with-cpu=cortex-a53
 extra_configure_switches += --disable-__cxa_atexit
+extra_configure_switches += --enable-fix-cortex-a53-835769
+extra_configure_switches += --enable-fix-cortex-a53-843419
 extra_configure_switches += --disable-isl-version-check
 extra_configure_switches += --disable-libstdcxx-pch
 extra_configure_switches += --disable-shared
@@ -396,17 +306,21 @@ extra_configure_switches += --with-newlib
 extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
 endif
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A33XX_NEWLIB))
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S9XX_NEWLIB))
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
-extra_configure_switches += --enable-interwork
+extra_configure_switches += --disable-multiarch
 extra_configure_switches += --enable-multilib
-extra_configure_switches += --disable-decimal-float
+extra_configure_switches += --with-multilib-list=lp64,ilp32
+extra_configure_switches += --with-arch=armv8-a
+extra_configure_switches += --with-cpu=cortex-a53
+extra_configure_switches += --disable-__cxa_atexit
+extra_configure_switches += --enable-fix-cortex-a53-835769
+extra_configure_switches += --enable-fix-cortex-a53-843419
 extra_configure_switches += --disable-isl-version-check
 extra_configure_switches += --disable-libstdcxx-pch
 extra_configure_switches += --disable-shared
 extra_configure_switches += --disable-threads
-extra_configure_switches += --disable-tls
 extra_configure_switches += --with-gnu-as
 extra_configure_switches += --with-gnu-ld
 ifeq ($(FLAVOUR),static)
@@ -421,16 +335,19 @@ extra_configure_switches += --enable-languages=c,c++
 endif
 extra_configure_switches += --with-newlib
 extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
-extra_configure_switches += --with-extra-multilibs=armv6-m
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_RK33XX_NEWLIB))
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
-extra_configure_switches += --enable-multiarch
-extra_configure_switches += --disable-multilib
+extra_configure_switches += --disable-multiarch
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --with-multilib-list=lp64,ilp32
 extra_configure_switches += --with-arch=armv8-a
+extra_configure_switches += --with-cpu=cortex-a53
 extra_configure_switches += --disable-__cxa_atexit
+extra_configure_switches += --enable-fix-cortex-a53-835769
+extra_configure_switches += --enable-fix-cortex-a53-843419
 extra_configure_switches += --disable-isl-version-check
 extra_configure_switches += --disable-libstdcxx-pch
 extra_configure_switches += --disable-shared
@@ -452,15 +369,24 @@ extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
 endif
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_AT91SAM7S_NEWLIB))
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches += --enable-interwork
 extra_configure_switches += --enable-multilib
 extra_configure_switches += --enable-fpu=no
 extra_configure_switches += --enable-nofmult=no
 extra_configure_switches += --enable-26bit=no
 extra_configure_switches += --enable-underscore=no
+extra_configure_switches += --enable-decimal-float=no
 extra_configure_switches += --with-float=soft
 extra_configure_switches += --with-dwarf2
 extra_configure_switches += --disable-isl-version-check
+extra_configure_switches += --disable-libstdcxx-pch
+extra_configure_switches += --disable-shared
+extra_configure_switches += --disable-threads
+extra_configure_switches += --disable-tls
+extra_configure_switches += --with-gnu-as
+extra_configure_switches += --with-gnu-ld
 extra_configure_switches += --disable-libatomic
 extra_configure_switches += --disable-libgomp
 extra_configure_switches += --disable-libitm
@@ -469,10 +395,11 @@ extra_configure_switches += --disable-libquadmath
 extra_configure_switches += --disable-libsanitizer
 extra_configure_switches += --disable-libssp
 extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --without-headers
 extra_configure_switches += --enable-languages=c
-extra_configure_switches += --disable-shared
-extra_configure_switches += --enable-decimal-float=no
 extra_configure_switches += --with-newlib
+extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
+extra_configure_switches += --with-extra-multilibs=armv4t
 endif
 
 
@@ -494,7 +421,7 @@ extra_configure_switches += --disable-threads
 extra_configure_switches += --enable-languages=c
 extra_configure_switches += --enable-interwork
 extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m
+extra_configure_switches += --with-extra-multilibs=armv7-m
 extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --disable-shared
 extra_configure_switches += --disable-nls
@@ -506,7 +433,7 @@ extra_configure_switches += --with-sysroot=$(sysroot_dir)
 extra_configure_switches += --enable-languages=c
 extra_configure_switches += --enable-interwork
 extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m
+extra_configure_switches += --with-extra-multilibs=armv7-m
 extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --disable-shared
 extra_configure_switches += --disable-nls
@@ -518,7 +445,7 @@ extra_configure_switches += --enable-libstdcxx-dual-abi
 extra_configure_switches += --with-default-libstdcxx-abi=new
 extra_configure_switches += --enable-interwork
 extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-extra-multilibs=thumb1,thumb2,armv7-m,armv7e-m
+extra_configure_switches += --with-extra-multilibs=armv7-m
 extra_configure_switches += --enable-__cxa_atexit
 extra_configure_switches += --disable-shared
 extra_configure_switches += --disable-nls
@@ -709,8 +636,8 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_H5_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches += --disable-multiarch
 extra_configure_switches += --disable-multilib
-extra_configure_switches += --enable-multiarch
 extra_configure_switches += --with-arch=armv8-a
 extra_configure_switches += --with-cpu=cortex-a53
 extra_configure_switches += --with-abi=lp64
@@ -827,8 +754,8 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches += --disable-multiarch
 extra_configure_switches += --disable-multilib
-extra_configure_switches += --enable-multiarch
 extra_configure_switches += --with-arch=armv8-a
 extra_configure_switches += --with-cpu=cortex-a53
 extra_configure_switches += --with-abi=lp64
@@ -887,8 +814,8 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A9XX_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches += --disable-multiarch
 extra_configure_switches += --disable-multilib
-extra_configure_switches += --enable-multiarch
 extra_configure_switches += --with-arch=armv8-a
 extra_configure_switches += --with-fpu=neon-fp-armv8
 # add
@@ -945,10 +872,70 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_RK33XX_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches += --disable-multiarch
 extra_configure_switches += --disable-multilib
-extra_configure_switches += --enable-multiarch
 extra_configure_switches += --with-arch=armv8-a
 extra_configure_switches += --with-cpu=cortex-a53
+extra_configure_switches += --with-abi=lp64
+extra_configure_switches += --enable-fix-cortex-a53-835769
+extra_configure_switches += --enable-fix-cortex-a53-843419
+# add
+extra_configure_switches += --enable-gold
+extra_configure_switches += --enable-c99
+extra_configure_switches += --enable-long-long
+extra_configure_switches += --disable-isl-version-check
+ifeq ($(FLAVOUR),static)
+extra_configure_switches += --disable-libatomic
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libitm
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-libsanitizer
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --disable-threads
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-shared
+extra_configure_switches += --disable-nls
+# without-headers replacement, to make libgcc independed from glibc:
+extra_configure_switches += --with-newlib
+endif
+ifeq ($(FLAVOUR),second)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --disable-libatomic
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libitm
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-libsanitizer
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-nls
+endif
+ifeq ($(FLAVOUR),full)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,fortran,go,lto,ada
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=new
+extra_configure_switches += --disable-libstdcxx-pch
+extra_configure_switches += --disable-libunwind-exceptions
+extra_configure_switches += --enable-__cxa_atexit
+extra_configure_switches += --enable-shared
+extra_configure_switches += --enable-nls
+extra_configure_switches += --with-included-gettext
+endif
+endif
+
+
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_RK339X_GLIBC)),)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=https://radix.pro'
+extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches += --disable-multiarch
+extra_configure_switches += --disable-multilib
+extra_configure_switches += --with-arch=armv8-a
+extra_configure_switches += --with-cpu=cortex-a72.cortex-a53
 extra_configure_switches += --with-abi=lp64
 extra_configure_switches += --enable-fix-cortex-a53-835769
 extra_configure_switches += --enable-fix-cortex-a53-843419
@@ -1005,8 +992,8 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A33XX_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches += --disable-multiarch
 extra_configure_switches += --disable-multilib
-extra_configure_switches += --enable-multiarch
 extra_configure_switches += --with-arch=armv8-a
 extra_configure_switches += --with-fpu=neon-fp-armv8
 # add
@@ -1184,7 +1171,7 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_GLIBC)),)
 extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
 extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
-extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-arch=armv7ve
 extra_configure_switches += --with-tune=cortex-a15
 extra_configure_switches += --with-fpu=neon-vfpv4
 extra_configure_switches += --with-abi=aapcs-linux

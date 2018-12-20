@@ -1,6 +1,8 @@
 
 
-COMPONENT_TARGETS  = $(TOOLCHAIN_RK33XX_GLIBC)
+COMPONENT_TARGETS  = $(TOOLCHAIN_RK328X_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_RK33XX_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_RK339X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A33XX_GLIBC)
 
 
@@ -26,10 +28,12 @@ sysroot_dir     = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 headers_target  = $(TARGET_BUILD_DIR)/.headers-installed
 
 
-ifneq ($(findstring rk33xx, $(TOOLCHAIN)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_RK33XX_GLIBC) \
+                             $(TOOLCHAIN_RK339X_GLIBC)),)
 arch = arm64
 endif
-ifneq ($(findstring a33xx, $(TOOLCHAIN)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A33XX_GLIBC)  \
+                             $(TOOLCHAIN_RK328X_GLIBC)),)
 arch = arm
 endif
 

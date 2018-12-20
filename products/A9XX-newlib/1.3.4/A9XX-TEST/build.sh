@@ -12,6 +12,8 @@ $TARGET-gcc -g $DEBUG_FLAGS $ARCH_FLAGS $FPU_FLAGS -I$TOOLCHAIN_PATH/$TARGET/inc
 
 $TARGET-gcc ${NO_STD_FLAGS} $ARCH_FLAGS $FPU_FLAGS $LDFLAGS -o main main.o
 
+$TARGET-objdump -x main > main.map
+
 $TARGET-strip main -o main.elf
 
 $TARGET-objcopy -O srec main.elf main.srec

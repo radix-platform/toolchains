@@ -1129,17 +1129,8 @@ arm*-*-uclinux*eabi*)		# ARM ucLinux
 	arm_multilibs=`echo $arm_multilibs | sed -e 's/,/ /g'`
 	  for arm_multilib in ${arm_multilibs}; do
 	    case ${arm_multilib} in
-	    thumb1)
-	      tmake_file="${tmake_file} arm/t-thumb1"
-	      ;;
-	    thumb2)
-	      tmake_file="${tmake_file} arm/t-thumb2"
-	      ;;
 	    armv7-m)
 	      tmake_file="${tmake_file} arm/t-armv7-m"
-	      ;;
-	    armv7e-m)
-	      tmake_file="${tmake_file} arm/t-armv7e-m"
 	      ;;
 	    *)
 	      echo "--with-extra-multilibs=${arm_multilib} not supported."
@@ -1174,17 +1165,8 @@ arm*-*-eabi* | arm*-*-symbianelf* | arm*-*-rtems* | arm*-*-fuchsia*)
 	  arm_multilibs=`echo $arm_multilibs | sed -e 's/,/ /g'`
 	    for arm_multilib in ${arm_multilibs}; do
 	      case ${arm_multilib} in
-	      thumb1)
-	        tmake_file="${tmake_file} arm/t-thumb1"
-	        ;;
-	      thumb2)
-	        tmake_file="${tmake_file} arm/t-thumb2"
-	        ;;
 	      armv7-m)
 	        tmake_file="${tmake_file} arm/t-armv7-m"
-	        ;;
-	      armv7e-m)
-	        tmake_file="${tmake_file} arm/t-armv7e-m"
 	        ;;
 	      *)
 	        echo "--with-extra-multilibs=${arm_multilib} not supported."

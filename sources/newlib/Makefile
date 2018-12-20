@@ -17,12 +17,12 @@ include ../../build-system/config.mk
 main_url    = ftp://sources.redhat.com/pub/newlib
 url         = $(DOWNLOAD_SERVER)/sources/newlib
 
-versions    = 2.5.0.20170623
+versions    = 3.0.0.20180831
 
 tarballs    = $(addsuffix .tar.gz, $(addprefix newlib-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
-patches     = $(CURDIR)/patches/newlib-2.5.0.20170623-runtime-exception-armv6s.patch
+patches     = $(CURDIR)/patches/newlib-3.0.0.20180831-armv8-m.patch
 
 .NOTPARALLEL: $(patches)
 
@@ -57,7 +57,7 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-2.5.0.20170623-runtime-exception-armv6s-patch ; ./create.patch.sh ) ; \
+	 ( cd create-3.0.0.20180831-armv8-m-patch ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:
