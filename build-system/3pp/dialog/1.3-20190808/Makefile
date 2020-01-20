@@ -9,12 +9,12 @@ SOURCE_REQUIRES = build-system/3pp/sources/packages/dialog
 # ======= __END_OF_REQUIRES__ =======
 
 
-tar_gz_archive  = $(BUILDSYSTEM)/3pp/sources/packages/dialog/dialog-1.3-20181107.tgz
-src_dir         = dialog-1.3-20181107
+tar_gz_archive  = $(BUILDSYSTEM)/3pp/sources/packages/dialog/dialog-1.3-20190808.tgz
+src_dir         = dialog-1.3-20190808
 build_dir       = $(TARGET_BUILD_DIR)/built
 
 src_done        = $(TARGET_BUILD_DIR)/.source-done
-SRC_DIR         = $(TARGET_BUILD_DIR)/dialog-1.3-20181107
+SRC_DIR         = $(TARGET_BUILD_DIR)/dialog-1.3-20190808
 SRC_ARCHIVE     = $(tar_gz_archive)
 
 DIALOGRC        = $(BUILDSYSTEM)/3pp/sources/packages/dialog/dialogrc

@@ -8,13 +8,13 @@ SOURCE_REQUIRES  = build-system/3pp/sources/GNU
 
 # ======= __END_OF_REQUIRES__ =======
 
-tar_xz_archive        = $(BUILDSYSTEM)/3pp/sources/GNU/gcc/gcc-8.2.0/gcc-8.2.0.tar.xz
+tar_xz_archive        = $(BUILDSYSTEM)/3pp/sources/GNU/gcc/gcc-9.2.0/gcc-9.2.0.tar.xz
 tar_xz_archive_gmp    = $(BUILDSYSTEM)/3pp/sources/GNU/gmp/gmp-6.1.2.tar.xz
-tar_xz_archive_mpfr   = $(BUILDSYSTEM)/3pp/sources/GNU/mpfr/mpfr-4.0.1.tar.xz
+tar_xz_archive_mpfr   = $(BUILDSYSTEM)/3pp/sources/GNU/mpfr/mpfr-4.0.2.tar.xz
 tar_gz_archive_mpc    = $(BUILDSYSTEM)/3pp/sources/GNU/mpc/mpc-1.1.0.tar.gz
 SRC_ARCHIVE           = $(tar_xz_archive)
-SRC_DIR               = $(TARGET_BUILD_DIR)/gcc-8.2.0
-src_dir_name          = gcc-8.2.0
+SRC_DIR               = $(TARGET_BUILD_DIR)/gcc-9.2.0
+src_dir_name          = gcc-9.2.0
 src_done              = $(TARGET_BUILD_DIR)/.source-done
 gmp_src_done          = $(TARGET_BUILD_DIR)/.gmp-source-done
 mpfr_src_done         = $(TARGET_BUILD_DIR)/.mpfr-source-done
@@ -43,7 +43,7 @@ environment += CC_FOR_BUILD="$(CCACHE)/usr/bin/gcc"
 environment += CXX_FOR_BUILD="$(CCACHE)/usr/bin/g++"
 
 
-GNATTOOLS_DEST_DIR = $(BUILDSYSTEM)/gnattools/8.2.0/usr
+GNATTOOLS_DEST_DIR = $(BUILDSYSTEM)/gnattools/9.2.0/usr
 
 extra_configure_switches  = --disable-bootstrap
 extra_configure_switches += --enable-languages=c,c++,ada
@@ -63,7 +63,7 @@ $(gmp_src_done): $(src_done)
 $(mpfr_src_done): $(src_done)
 	@echo "Expanding $(tar_xz_archive_mpfr)"
 	@tar xJf $(tar_xz_archive_mpfr) -C $(TARGET_BUILD_DIR)
-	@cd $(SRC_DIR); ln -sf ../mpfr-4.0.1 mpfr
+	@cd $(SRC_DIR); ln -sf ../mpfr-4.0.2 mpfr
 	@touch $@
 
 $(mpc_src_done): $(src_done)

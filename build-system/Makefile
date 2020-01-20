@@ -4,8 +4,8 @@ COMPONENT_TARGETS = $(TOOLCHAIN_HOST)
 
 include config.mk
 
-REQUIRES  = build-system/3pp/dialog/1.3-20181107
-REQUIRES += build-system/3pp/gnattools/8.2.0
+REQUIRES  = build-system/3pp/dialog/1.3-20190808
+REQUIRES += build-system/3pp/gnattools/9.2.0
 
 # ======= __END_OF_REQUIRES__ =======
 

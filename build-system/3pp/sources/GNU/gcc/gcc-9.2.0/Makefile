@@ -5,7 +5,7 @@ include ../../../../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/GNU/gcc/gcc-$(version)
 
-version     = 8.2.0
+version     = 9.2.0
 
 tarballs    = $(addsuffix .tar.xz, $(addprefix gcc-, $(version)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))

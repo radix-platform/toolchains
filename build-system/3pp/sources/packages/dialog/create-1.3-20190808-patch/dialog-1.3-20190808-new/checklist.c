@@ -1,9 +1,9 @@
 /*
- *  $Id: checklist.c,v 1.160 2018/06/19 22:57:01 tom Exp $
+ *  $Id: checklist.c,v 1.162 2019/08/05 09:14:59 tom Exp $
  *
  *  checklist.c -- implements the checklist box
  *
- *  Copyright 2000-2016,2018	Thomas E. Dickey
+ *  Copyright 2000-2018,2019	Thomas E. Dickey
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License, version 2.1
@@ -384,8 +384,10 @@ dlg_checklist(const char *title,
 	    wmove(dialog, all.box_y + choice + 1, all.box_x + all.check_x + 2);
 
 	key = dlg_mouse_wgetch(dialog, &fkey);
-	if (dlg_result_key(key, fkey, &result))
-	    break;
+	if (dlg_result_key(key, fkey, &result)) {
+	    if (!dlg_button_key(result, &button, &key, &fkey))
+		break;
+	}
 
 	was_mouse = (fkey && is_DLGK_MOUSE(key));
 	if (was_mouse)
@@ -592,7 +594,7 @@ dlg_checklist(const char *title,
 		    beep();
 		}
 	    }
-	} else {
+	} else if (key > 0) {
 	    beep();
 	}
     }
