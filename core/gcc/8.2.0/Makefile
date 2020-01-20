@@ -88,7 +88,7 @@ endif
 
 tar_xz_archive        = $(SRC_PACKAGE_PATH)/GNU/gcc/gcc-8.2.0/gcc-8.2.0.tar.xz
 tar_xz_archive_gmp    = $(SRC_PACKAGE_PATH)/GNU/gmp/gmp-6.1.2.tar.xz
-tar_xz_archive_mpfr   = $(SRC_PACKAGE_PATH)/GNU/mpfr/mpfr-4.0.1.tar.xz
+tar_xz_archive_mpfr   = $(SRC_PACKAGE_PATH)/GNU/mpfr/mpfr-4.0.2.tar.xz
 tar_gz_archive_mpc    = $(SRC_PACKAGE_PATH)/GNU/mpc/mpc-1.1.0.tar.gz
 tar_xz_archive_isl    = $(SRC_PACKAGE_PATH)/inria/isl/isl-0.20.tar.xz
 SRC_ARCHIVE           = $(tar_xz_archive)
@@ -1757,7 +1757,7 @@ $(gmp_src_done): $(src_done)
 $(mpfr_src_done): $(src_done)
 	@echo "Expanding $(tar_xz_archive_mpfr)"
 	@tar xJf $(tar_xz_archive_mpfr) -C $(TARGET_BUILD_DIR)
-	@cd $(SRC_DIR); ln -sf ../mpfr-4.0.1 mpfr
+	@cd $(SRC_DIR); ln -sf ../mpfr-4.0.2 mpfr
 	@touch $@
 
 $(mpc_src_done): $(src_done)
