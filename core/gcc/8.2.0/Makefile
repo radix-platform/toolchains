@@ -32,8 +32,6 @@ COMPONENT_TARGETS += $(TOOLCHAIN_POWER9_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_POWER8LE_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_POWER9LE_GLIBC)
 
-COMPONENT_TARGETS += $(TOOLCHAIN_R1000_GLIBC)
-
 COMPONENT_TARGETS += $(TOOLCHAIN_I686_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
 
@@ -121,9 +119,6 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8LE_GLIBC) \
                              $(TOOLCHAIN_POWER9LE_GLIBC)),)
 PATCHES = PATCHES.powerpcle
 else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC)),)
-PATCHES = PATCHES.sparc
-else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC)   \
                              $(TOOLCHAIN_H5_GLIBC)     \
                              $(TOOLCHAIN_RK33XX_GLIBC) \
@@ -134,7 +129,6 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC)),)
 PATCHES = PATCHES.x86_64
 else
 PATCHES = PATCHES
-endif
 endif
 endif
 endif
@@ -1537,61 +1531,6 @@ extra_configure_switches += --with-long-double-128
 extra_configure_switches += --enable-gnu-indirect-function
 extra_configure_switches += --enable-secureplt
 extra_configure_switches += --disable-isl-version-check
-ifeq ($(FLAVOUR),static)
-extra_configure_switches += --disable-libatomic
-extra_configure_switches += --disable-libgomp
-extra_configure_switches += --disable-libitm
-extra_configure_switches += --disable-libmudflap
-extra_configure_switches += --disable-libquadmath
-extra_configure_switches += --disable-libsanitizer
-extra_configure_switches += --disable-libssp
-extra_configure_switches += --disable-libstdc++-v3
-extra_configure_switches += --disable-threads
-extra_configure_switches += --enable-languages=c
-extra_configure_switches += --disable-shared
-extra_configure_switches += --enable-decimal-float=no
-extra_configure_switches += --disable-nls
-extra_configure_switches += --with-newlib
-endif
-ifeq ($(FLAVOUR),second)
-extra_configure_switches += --with-sysroot=$(sysroot_dir)
-extra_configure_switches += --disable-libatomic
-extra_configure_switches += --disable-libgomp
-extra_configure_switches += --disable-libitm
-extra_configure_switches += --disable-libmudflap
-extra_configure_switches += --disable-libquadmath
-extra_configure_switches += --disable-libsanitizer
-extra_configure_switches += --disable-libssp
-extra_configure_switches += --disable-libstdc++-v3
-extra_configure_switches += --enable-languages=c
-extra_configure_switches += --enable-decimal-float=no
-extra_configure_switches += --disable-nls
-endif
-ifeq ($(FLAVOUR),full)
-extra_configure_switches += --with-sysroot=$(sysroot_dir)
-extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,fortran,go,lto,ada
-extra_configure_switches += --enable-libstdcxx-dual-abi
-extra_configure_switches += --with-default-libstdcxx-abi=new
-extra_configure_switches += --disable-libstdcxx-pch
-extra_configure_switches += --disable-libunwind-exceptions
-extra_configure_switches += --enable-__cxa_atexit
-extra_configure_switches += --enable-shared
-extra_configure_switches += --enable-nls
-extra_configure_switches += --with-included-gettext
-endif
-endif
-
-
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC)),)
-extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
-extra_configure_switches += '--with-bugurl=https://radix.pro'
-extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
-extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-cpu=ultrasparc3
-extra_configure_switches += --with-tune=ultrasparc3
-extra_configure_switches += --with-long-double-128
-extra_configure_switches += --disable-isl-version-check
-extra_configure_switches += --disable-linux-futex
 ifeq ($(FLAVOUR),static)
 extra_configure_switches += --disable-libatomic
 extra_configure_switches += --disable-libgomp

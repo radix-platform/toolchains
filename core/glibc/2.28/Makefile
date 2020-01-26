@@ -22,8 +22,6 @@ COMPONENT_TARGETS += $(TOOLCHAIN_POWER9_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_POWER8LE_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_POWER9LE_GLIBC)
 
-COMPONENT_TARGETS += $(TOOLCHAIN_R1000_GLIBC)
-
 COMPONENT_TARGETS += $(TOOLCHAIN_I686_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
 
@@ -82,9 +80,6 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8LE_GLIBC) \
                              $(TOOLCHAIN_POWER9LE_GLIBC)),)
 REQUIRES  = core/linux/4.19.3
 endif
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC)),)
-REQUIRES  = core/glibc/2.28-sparc32^headers
-endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC))
 REQUIRES  = core/glibc/2.28-x86_32^headers
 endif
@@ -98,11 +93,7 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) \
                              $(TOOLCHAIN_POWER9_GLIBC)),)
 REQUIRES  = core/glibc/2.28-ppc32^full
 else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC)),)
-REQUIRES  = core/glibc/2.28-sparc32^full
-else
 REQUIRES  = core/gcc/8.2.0^second
-endif
 endif
 endif
 endif
@@ -231,10 +222,6 @@ ifeq ($(TOOLCHAIN),$(TOOLCHAIN_POWER9LE_GLIBC))
 environment += CFLAGS="-g -O3 -mcpu=power9 -mlong-double-128"
 endif
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC))
-environment += CFLAGS="-g -O3 -mcpu=ultrasparc3 -mhard-float -mlong-double-128 -mglibc"
-endif
-
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I686_GLIBC))
 environment += CFLAGS="-g -O2"
@@ -278,10 +265,6 @@ endif
 
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8LE_GLIBC) $(TOOLCHAIN_POWER9LE_GLIBC)),)
 LIB_NAMES_SUFFIX = 64-v2
-endif
-
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC)),)
-LIB_NAMES_SUFFIX = 64
 endif
 
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC)),)
@@ -597,26 +580,6 @@ endif
 
 
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8LE_GLIBC) $(TOOLCHAIN_POWER9LE_GLIBC)),)
-extra_configure_switches   = --libdir=/usr/lib$(LIBSUFFIX)
-extra_configure_switches  += --with-headers=$(sysroot_dir)/usr/include
-ifeq ($(FLAVOUR),headers)
-extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin
-extra_configure_switches  += --enable-kernel=3.2.0
-extra_configure_switches  += --disable-profile
-extra_configure_switches  += --without-gd
-extra_configure_switches  += --without-cvs
-endif
-ifeq ($(FLAVOUR),full)
-extra_configure_switches  += --with-binutils=$(TOOLCHAIN_PATH)/bin
-extra_configure_switches  += --enable-kernel=3.2.0
-extra_configure_switches  += --disable-profile
-extra_configure_switches  += --without-gd
-extra_configure_switches  += --without-cvs
-endif
-endif
-
-
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC)),)
 extra_configure_switches   = --libdir=/usr/lib$(LIBSUFFIX)
 extra_configure_switches  += --with-headers=$(sysroot_dir)/usr/include
 ifeq ($(FLAVOUR),headers)

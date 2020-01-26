@@ -29,8 +29,6 @@ COMPONENT_TARGETS += $(TOOLCHAIN_POWER9_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_POWER8LE_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_POWER9LE_GLIBC)
 
-COMPONENT_TARGETS += $(TOOLCHAIN_R1000_GLIBC)
-
 COMPONENT_TARGETS += $(TOOLCHAIN_I686_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
 
@@ -280,13 +278,6 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER9LE_GLIBC)),)
 extra_configure_switches += --disable-multilib
 extra_configure_switches += --with-cpu=power9
 extra_configure_switches += --with-tune=power9
-extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
-endif
-
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_R1000_GLIBC)),)
-extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-cpu=ultrasparc3
-extra_configure_switches += --with-tune=ultrasparc3
 extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
 endif
 

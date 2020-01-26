@@ -1,6 +1,0 @@
-
-../../../sources/GNU/glibc/patches/glibc-2.28-i18n.patch                -p0
-../../../sources/GNU/glibc/patches/glibc-2.28-malloc-hooks.patch        -p0
-../../../sources/GNU/glibc/patches/glibc-2.28-sparc32-atomics.patch     -p0
-# ../../../sources/GNU/glibc/patches/glibc-2.28-x86-IFUNC-revert.patch    -p0
-../../../sources/GNU/glibc/patches/glibc-2.28-c-utf8-locale.patch       -p0
