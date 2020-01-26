@@ -11,7 +11,7 @@ REQUIRES += tools/chrpath/0.16
 REQUIRES += tools/patchelf/0.10.1
 REQUIRES += tools/u-boot/denx/2014.01
 REQUIRES += tools/sunxi/sunxi-tools/1.3
-REQUIRES += core/gdb/8.2
+REQUIRES += core/gdb/8.3.1
 
 # ======= __END_OF_REQUIRES__ =======
 
