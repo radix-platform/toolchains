@@ -1,0 +1,9 @@
+
+../../../sources/GNU/glibc/patches/glibc-2.30-i18n.patch              -p0
+../../../sources/GNU/glibc/patches/glibc-2.30-locale-no-archive.patch -p0
+../../../sources/GNU/glibc/patches/glibc-2.30-malloc-hooks.patch      -p0
+../../../sources/GNU/glibc/patches/glibc-2.30-malloc.patch            -p0
+../../../sources/GNU/glibc/patches/glibc-2.30-posix-tempname.patch    -p0
+../../../sources/GNU/glibc/patches/glibc-2.30-regex-internal.patch    -p0
+../../../sources/GNU/glibc/patches/glibc-2.30-en_US-no-am-pm.patch    -p0
+../../../sources/GNU/glibc/patches/glibc-2.30-c-utf8-locale.patch     -p0

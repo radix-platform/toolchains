@@ -15,7 +15,7 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/GNU/glibc
 
-versions    = 2.28
+versions    = 2.30
 
 pkgname     = glibc
 suffix      = tar.xz
@@ -23,11 +23,14 @@ suffix      = tar.xz
 tarballs    = $(addsuffix .$(suffix), $(addprefix $(pkgname)-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
-patches     = $(CURDIR)/patches/glibc-2.28-c-utf8-locale.patch
-patches    += $(CURDIR)/patches/glibc-2.28-i18n.patch
-patches    += $(CURDIR)/patches/glibc-2.28-malloc-hooks.patch
-patches    += $(CURDIR)/patches/glibc-2.28-sparc32-atomics.patch
-patches    += $(CURDIR)/patches/glibc-2.28-x86-IFUNC-revert.patch
+patches     = $(CURDIR)/patches/glibc-2.30-c-utf8-locale.patch
+patches    += $(CURDIR)/patches/glibc-2.30-en_US-no-am-pm.patch
+patches    += $(CURDIR)/patches/glibc-2.30-i18n.patch
+patches    += $(CURDIR)/patches/glibc-2.30-locale-no-archive.patch
+patches    += $(CURDIR)/patches/glibc-2.30-malloc-hooks.patch
+patches    += $(CURDIR)/patches/glibc-2.30-malloc.patch
+patches    += $(CURDIR)/patches/glibc-2.30-posix-tempname.patch
+patches    += $(CURDIR)/patches/glibc-2.30-regex-internal.patch
 
 .NOTPARALLEL: $(patches)
 
@@ -62,11 +65,14 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-2.28-i18n-patch                ; ./create.patch.sh ) ; \
-	 ( cd create-2.28-malloc-hooks-patch        ; ./create.patch.sh ) ; \
-	 ( cd create-2.28-sparc32-atomics-patch     ; ./create.patch.sh ) ; \
-	 ( cd create-2.28-x86-IFUNC-revert-patch    ; ./create.patch.sh ) ; \
-	 ( cd create-2.28-c-utf8-locale-patch       ; ./create.patch.sh ) ; \
+	 ( cd create-2.30-c-utf8-locale-patch     ; ./create.patch.sh ) ; \
+	 ( cd create-2.30-en_US-no-am-pm-patch    ; ./create.patch.sh ) ; \
+	 ( cd create-2.30-i18n-patch              ; ./create.patch.sh ) ; \
+	 ( cd create-2.30-locale-no-archive-patch ; ./create.patch.sh ) ; \
+	 ( cd create-2.30-malloc-hooks-patch      ; ./create.patch.sh ) ; \
+	 ( cd create-2.30-malloc-patch            ; ./create.patch.sh ) ; \
+	 ( cd create-2.30-posix-tempname-patch    ; ./create.patch.sh ) ; \
+	 ( cd create-2.30-regex-internal-patch    ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:
