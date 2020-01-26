@@ -15,19 +15,18 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/GNU/binutils
 
-versions    = 2.31.1
+versions    = 2.33.1
 
 tarballs    = $(addsuffix .tar.xz, $(addprefix binutils-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
-patches     = $(CURDIR)/patches/binutils-2.31.1-cleansweep.patch
-patches    += $(CURDIR)/patches/binutils-2.31.1-copy-osabi.patch
-patches    += $(CURDIR)/patches/binutils-2.31.1-export-demangle.patch
-patches    += $(CURDIR)/patches/binutils-2.31.1-ldforcele.patch
-patches    += $(CURDIR)/patches/binutils-2.31.1-no-config-check.patch
-patches    += $(CURDIR)/patches/binutils-2.31.1-sec-merge-omit.patch
-patches    += $(CURDIR)/patches/binutils-2.31.1-set-long-long.patch
-patches    += $(CURDIR)/patches/binutils-2.31.1-verinfo-and-corrupt.patch
+patches     = $(CURDIR)/patches/binutils-2.33.1-cleansweep.patch
+patches    += $(CURDIR)/patches/binutils-2.33.1-copy-osabi.patch
+patches    += $(CURDIR)/patches/binutils-2.33.1-export-demangle.patch
+patches    += $(CURDIR)/patches/binutils-2.33.1-ldforcele.patch
+patches    += $(CURDIR)/patches/binutils-2.33.1-no-config-check.patch
+patches    += $(CURDIR)/patches/binutils-2.33.1-sec-merge-omit.patch
+patches    += $(CURDIR)/patches/binutils-2.33.1-set-long-long.patch
 
 
 .NOTPARALLEL: $(patches)
@@ -63,14 +62,13 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-2.31.1-cleansweep-patch          ; ./create.patch.sh ) ; \
-	 ( cd create-2.31.1-copy-osabi-patch          ; ./create.patch.sh ) ; \
-	 ( cd create-2.31.1-export-demangle-patch     ; ./create.patch.sh ) ; \
-	 ( cd create-2.31.1-ldforcele-patch           ; ./create.patch.sh ) ; \
-	 ( cd create-2.31.1-no-config-check-patch     ; ./create.patch.sh ) ; \
-	 ( cd create-2.31.1-sec-merge-emit-patch      ; ./create.patch.sh ) ; \
-	 ( cd create-2.31.1-set-long-long-patch       ; ./create.patch.sh ) ; \
-	 ( cd create-2.31.1-verinfo-and-corrupt-patch ; ./create.patch.sh ) ; \
+	 ( cd create-2.33.1-cleansweep-patch          ; ./create.patch.sh ) ; \
+	 ( cd create-2.33.1-copy-osabi-patch          ; ./create.patch.sh ) ; \
+	 ( cd create-2.33.1-export-demangle-patch     ; ./create.patch.sh ) ; \
+	 ( cd create-2.33.1-ldforcele-patch           ; ./create.patch.sh ) ; \
+	 ( cd create-2.33.1-no-config-check-patch     ; ./create.patch.sh ) ; \
+	 ( cd create-2.33.1-sec-merge-emit-patch      ; ./create.patch.sh ) ; \
+	 ( cd create-2.33.1-set-long-long-patch       ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:

@@ -1,21 +1,18 @@
 
 /* begin *
 
-   binutils-2.31.1-verinfo-and-corrupt.patch - Patch to Fix invalid version info and detect corrupted objects.
-                                               NOTE: this patch should be applyed first;
-
    Various upstream patches:
 
-     binutils-2.31.1-set-long-long.patch
-     binutils-2.31.1-copy-osabi.patch
-     binutils-2.31.1-sec-merge-omit.patch
-     binutils-2.31.1-ldforcele.patch
-     binutils-2.31.1-cleansweep.patch
+     binutils-2.33.1-set-long-long.patch
+     binutils-2.33.1-copy-osabi.patch
+     binutils-2.33.1-sec-merge-omit.patch
+     binutils-2.33.1-ldforcele.patch
+     binutils-2.33.1-cleansweep.patch
 
-   binutils-2.31.1-export-demangle.patch     - Export the demangle.h header file;
-   binutils-2.31.1-no-config-check.patch     - Don't check to see if 'config.h' was included in the installed headers;
+   binutils-2.33.1-export-demangle.patch     - Export the demangle.h header file;
+   binutils-2.33.1-no-config-check.patch     - Don't check to see if 'config.h' was included in the installed headers;
 
-   README.TXT                          - this file.
+   README.TXT                                - this file.
 
 
    NOTE:
