@@ -17,7 +17,7 @@ include ../../build-system/config.mk
 main_url    = ftp://sources.redhat.com/pub/newlib
 url         = $(DOWNLOAD_SERVER)/sources/newlib
 
-versions    = 3.0.0.20180831
+versions    = 3.0.0.20180831 3.3.0
 
 tarballs    = $(addsuffix .tar.gz, $(addprefix newlib-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
