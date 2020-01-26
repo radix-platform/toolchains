@@ -86,9 +86,6 @@ BUILD_POWER8LE_GLIBC = true
 # power9le-glibc:
 BUILD_POWER9LE_GLIBC = true
 
-# r1000-glibc:
-BUILD_R1000_GLIBC = true
-
 # i686-glibc:
 BUILD_I686_GLIBC = true
 
