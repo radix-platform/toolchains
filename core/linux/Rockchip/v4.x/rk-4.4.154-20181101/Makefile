@@ -12,7 +12,7 @@ include ../../../../../build-system/config.mk
 SOURCE_REQUIRES = sources/Linux/Rockchip/v4.x
 
 
-REQUIRES  = core/gcc/8.2.0^static
+REQUIRES  = core/gcc/9.2.0^static
 
 # ======= __END_OF_REQUIRES__ =======
 

@@ -93,7 +93,7 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) \
                              $(TOOLCHAIN_POWER9_GLIBC)),)
 REQUIRES  = core/glibc/2.30-ppc32^full
 else
-REQUIRES  = core/gcc/8.2.0^second
+REQUIRES  = core/gcc/9.2.0^second
 endif
 endif
 endif

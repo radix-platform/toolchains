@@ -1,0 +1,5 @@
+
+../../../sources/GNU/gcc/patches/gcc-9.2.0-a33xx-newlib.patch        -p0
+
+../../../sources/GNU/gcc/patches/gcc-9.2.0-libstdc++-docs.patch      -p0
+../../../sources/GNU/gcc/patches/gcc-9.2.0-libtool-no-rpath.patch    -p0

@@ -17,7 +17,7 @@ include ../../../build-system/config.mk
 SOURCE_REQUIRES = sources/newlib
 
 ifeq ($(FLAVOUR),nano)
-REQUIRES  = core/gcc/8.2.0^static
+REQUIRES  = core/gcc/9.2.0^static
 endif
 ifeq ($(FLAVOUR),full)
 REQUIRES  = core/newlib/3.0.0-20180831^nano

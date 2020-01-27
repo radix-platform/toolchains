@@ -1,9 +1,9 @@
 
 /* begin *
 
-   gcc-8.2.0-at91sam7s-newlib.patch  -
+   gcc-9.2.0-at91sam7s-newlib.patch  -
 
-   gcc-8.2.0-lpc17xx-multilib.patch  - adds --with-extra-multilibs=armv7-m configure switch.
+   gcc-9.2.0-lpc17xx-multilib.patch  - adds --with-extra-multilibs=armv7-m configure switch.
 
 
    README.TXT                        - this file.

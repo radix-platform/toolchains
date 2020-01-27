@@ -6,7 +6,7 @@ export TOOLCHAIN_VERSION = 1.5.0
 
 include ../../../build-system/config.mk
 
-REQUIRES  = core/gcc/8.2.0^full
+REQUIRES  = core/gcc/9.2.0^full
 REQUIRES += tools/chrpath/0.16
 REQUIRES += tools/patchelf/0.10.1
 REQUIRES += tools/u-boot/denx/2014.01
