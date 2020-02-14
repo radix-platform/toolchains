@@ -3,14 +3,14 @@
 
    Various upstream patches:
 
-     binutils-2.33.1-set-long-long.patch
-     binutils-2.33.1-copy-osabi.patch
-     binutils-2.33.1-sec-merge-omit.patch
-     binutils-2.33.1-ldforcele.patch
-     binutils-2.33.1-cleansweep.patch
+     binutils-2.34-set-long-long.patch
+     binutils-2.34-copy-osabi.patch
+     binutils-2.34-sec-merge-omit.patch
+     binutils-2.34-ldforcele.patch
+     binutils-2.34-cleansweep.patch
 
-   binutils-2.33.1-export-demangle.patch     - Export the demangle.h header file;
-   binutils-2.33.1-no-config-check.patch     - Don't check to see if 'config.h' was included in the installed headers;
+   binutils-2.34-export-demangle.patch     - Export the demangle.h header file;
+   binutils-2.34-no-config-check.patch     - Don't check to see if 'config.h' was included in the installed headers;
 
    README.TXT                                - this file.
 

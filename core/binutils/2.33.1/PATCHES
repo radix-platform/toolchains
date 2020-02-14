@@ -1,8 +1,0 @@
-
-../../../sources/GNU/binutils/patches/binutils-2.33.1-set-long-long.patch       -p0
-../../../sources/GNU/binutils/patches/binutils-2.33.1-copy-osabi.patch          -p0
-../../../sources/GNU/binutils/patches/binutils-2.33.1-sec-merge-omit.patch      -p0
-../../../sources/GNU/binutils/patches/binutils-2.33.1-ldforcele.patch           -p0
-../../../sources/GNU/binutils/patches/binutils-2.33.1-cleansweep.patch          -p0
-../../../sources/GNU/binutils/patches/binutils-2.33.1-export-demangle.patch     -p0
-../../../sources/GNU/binutils/patches/binutils-2.33.1-no-config-check.patch     -p0

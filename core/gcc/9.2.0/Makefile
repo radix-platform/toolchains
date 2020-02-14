@@ -51,7 +51,7 @@ SOURCE_REQUIRES += sources/inria/isl
 
 ifneq ($(findstring newlib, $(TOOLCHAIN)),)
 ifeq ($(FLAVOUR),static)
-REQUIRES  = core/binutils/2.33.1
+REQUIRES  = core/binutils/2.34
 endif
 ifeq ($(FLAVOUR),full)
 REQUIRES  = core/newlib/3.0.0-20180831^full
@@ -60,7 +60,7 @@ endif
 
 ifneq ($(findstring uclibc, $(TOOLCHAIN)),)
 ifeq ($(FLAVOUR),static)
-REQUIRES  = core/binutils/2.33.1^flat
+REQUIRES  = core/binutils/2.34^flat
 endif
 ifeq ($(FLAVOUR),second)
 REQUIRES  = core/uclibc/0.9.33.2^headers
@@ -72,7 +72,7 @@ endif
 
 ifneq ($(findstring -glibc, $(TOOLCHAIN)),)
 ifeq ($(FLAVOUR),static)
-REQUIRES  = core/binutils/2.33.1
+REQUIRES  = core/binutils/2.34
 endif
 ifeq ($(FLAVOUR),second)
 REQUIRES  = core/glibc/2.30^headers
