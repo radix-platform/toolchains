@@ -9,7 +9,7 @@ SOURCE_REQUIRES  = build-system/3pp/sources/GNU
 # ======= __END_OF_REQUIRES__ =======
 
 tar_xz_archive        = $(BUILDSYSTEM)/3pp/sources/GNU/gcc/gcc-9.2.0/gcc-9.2.0.tar.xz
-tar_xz_archive_gmp    = $(BUILDSYSTEM)/3pp/sources/GNU/gmp/gmp-6.1.2.tar.xz
+tar_xz_archive_gmp    = $(BUILDSYSTEM)/3pp/sources/GNU/gmp/gmp-6.2.0.tar.xz
 tar_xz_archive_mpfr   = $(BUILDSYSTEM)/3pp/sources/GNU/mpfr/mpfr-4.0.2.tar.xz
 tar_gz_archive_mpc    = $(BUILDSYSTEM)/3pp/sources/GNU/mpc/mpc-1.1.0.tar.gz
 SRC_ARCHIVE           = $(tar_xz_archive)
@@ -57,7 +57,7 @@ $(src_done): $(SRC_ARCHIVE) $(PATCHES_DEP)
 $(gmp_src_done): $(src_done)
 	@echo "Expanding $(tar_xz_archive_gmp)"
 	@tar xJf $(tar_xz_archive_gmp) -C $(TARGET_BUILD_DIR)
-	@cd $(SRC_DIR); ln -sf ../gmp-6.1.2 gmp
+	@cd $(SRC_DIR); ln -sf ../gmp-6.2.0 gmp
 	@touch $@
 
 $(mpfr_src_done): $(src_done)

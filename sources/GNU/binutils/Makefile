@@ -15,7 +15,7 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/GNU/binutils
 
-versions    = 2.33.1
+versions    = 2.33.1 2.34
 
 tarballs    = $(addsuffix .tar.xz, $(addprefix binutils-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))

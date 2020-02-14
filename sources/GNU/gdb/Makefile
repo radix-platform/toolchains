@@ -15,7 +15,7 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/GNU/gdb
 
-versions    = 8.3.1
+versions    = 9.1
 
 tarballs    = $(addsuffix .tar.xz, $(addprefix gdb-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
