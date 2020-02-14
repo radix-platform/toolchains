@@ -12,7 +12,7 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/Linux/v5.x
 
-versions    = 5.4.12 5.4.14 5.4.15
+versions    = 5.4.12 5.4.14 5.4.15 5.4.19
 
 tarballs    = $(addsuffix .tar.xz, $(addprefix linux-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
