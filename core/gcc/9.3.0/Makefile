@@ -54,7 +54,7 @@ ifeq ($(FLAVOUR),static)
 REQUIRES  = core/binutils/2.34
 endif
 ifeq ($(FLAVOUR),full)
-REQUIRES  = core/newlib/3.0.0-20180831^full
+REQUIRES  = core/newlib/3.3.0^full
 endif
 endif
 
