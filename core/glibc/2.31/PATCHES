@@ -1,0 +1,6 @@
+
+../../../sources/GNU/glibc/patches/glibc-2.31-i18n.patch              -p0
+../../../sources/GNU/glibc/patches/glibc-2.31-locale-no-archive.patch -p0
+../../../sources/GNU/glibc/patches/glibc-2.31-malloc-hooks.patch      -p0
+../../../sources/GNU/glibc/patches/glibc-2.31-en_US-no-am-pm.patch    -p0
+../../../sources/GNU/glibc/patches/glibc-2.31-c-utf8-locale.patch     -p0

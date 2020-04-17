@@ -7,7 +7,7 @@ export TOOLCHAIN_VERSION = 1.5.0
 include ../../../build-system/config.mk
 
 REQUIRES  = core/gcc/9.3.0^full
-REQUIRES += core/gdb/8.3.1
+REQUIRES += core/gdb/9.1
 
 # ======= __END_OF_REQUIRES__ =======
 

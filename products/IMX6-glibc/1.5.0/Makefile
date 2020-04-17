@@ -10,7 +10,7 @@ REQUIRES  = core/gcc/9.3.0^full
 REQUIRES += tools/chrpath/0.16
 REQUIRES += tools/patchelf/0.10.2
 REQUIRES += tools/u-boot/denx/2014.01
-REQUIRES += core/gdb/8.3.1
+REQUIRES += core/gdb/9.1
 
 # ======= __END_OF_REQUIRES__ =======
 

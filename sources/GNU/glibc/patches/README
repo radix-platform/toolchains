@@ -3,6 +3,6 @@
 
    NOTE:
    ====
-      The patch 'glibc-2.26-c-utf8-locale.patch' should be applyed after 'glibc-2.26-i18n.patch'.
+      The patch 'glibc-2.31-c-utf8-locale.patch' should be applyed after 'glibc-2.31-i18n.patch'.
 
  * end */
