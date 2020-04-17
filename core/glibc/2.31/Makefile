@@ -33,44 +33,52 @@ SOURCE_REQUIRES = sources/GNU/glibc
 
 ifeq ($(FLAVOUR),headers)
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A1X_GLIBC))
-REQUIRES  = core/linux/sunxi/sunxi-3.4-20140514
+# REQUIRES  = core/linux/sunxi/sunxi-3.4-20140514
+REQUIRES  = core/linux/5.4.33
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A2X_GLIBC))
-REQUIRES  = core/linux/sunxi/sunxi-3.4-20150315
+# REQUIRES  = core/linux/sunxi/sunxi-3.4-20150315
+REQUIRES  = core/linux/5.4.33
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_H3_GLIBC))
-REQUIRES  = core/linux/FriendlyARM/H3/h3-4.14.52-20180918
+# REQUIRES  = core/linux/FriendlyARM/H3/h3-4.14.52-20180918
+REQUIRES  = core/linux/5.4.33
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_H5_GLIBC))
-REQUIRES  = core/linux/FriendlyARM/H5/h5-4.14.52-20180628
+# REQUIRES  = core/linux/FriendlyARM/H5/h5-4.14.52-20180628
+REQUIRES  = core/linux/5.4.33
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_IMX6_GLIBC))
-REQUIRES  = core/linux/Freescale/Nit6Q/imx-3.14.28-20150320
+# REQUIRES  = core/linux/Freescale/Nit6Q/imx-3.14.28-20150320
+REQUIRES  = core/linux/5.4.33
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_JZ47XX_GLIBC))
-REQUIRES  = core/linux/Ingenic/CI20/ci20-3.18-20160210
+# REQUIRES  = core/linux/Ingenic/CI20/ci20-3.18-20160210
+REQUIRES  = core/linux/5.4.33
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_P5600_GLIBC))
-REQUIRES  = core/linux/Baikal/BFK/baikal-4.4.145-4.15.115
-endif
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I686_GLIBC))
-REQUIRES  = core/linux/4.19.3
+# REQUIRES  = core/linux/Baikal/BFK/baikal-4.4.145-4.15.115
+REQUIRES  = core/linux/5.4.33
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_OMAP543X_GLIBC))
-REQUIRES  = core/linux/TI/omap5/glsdk/3.14.57-20151211
+# REQUIRES  = core/linux/TI/omap5/glsdk/3.14.57-20151211
+REQUIRES  = core/linux/5.4.33
 endif
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_RK328X_GLIBC) \
                              $(TOOLCHAIN_RK33XX_GLIBC) \
                              $(TOOLCHAIN_RK339X_GLIBC) \
                              $(TOOLCHAIN_A33XX_GLIBC)),)
-REQUIRES  = core/linux/Rockchip/v4.x/rk-4.4.154-20181101
+# REQUIRES  = core/linux/Rockchip/v4.x/rk-4.4.154-20181101
+REQUIRES  = core/linux/5.4.33
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_S8XX_GLIBC))
-REQUIRES  = core/linux/Amlogic/M201/aml-3.10.33-20160716
+#REQUIRES  = core/linux/Amlogic/M201/aml-3.10.33-20160716
+REQUIRES  = core/linux/5.4.33
 endif
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC) \
                              $(TOOLCHAIN_A9XX_GLIBC)),)
-REQUIRES  = core/linux/Amlogic/P201/aml-3.14.29-20160818
+#REQUIRES  = core/linux/Amlogic/P201/aml-3.14.29-20160818
+REQUIRES  = core/linux/5.4.33
 endif
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) \
                              $(TOOLCHAIN_POWER9_GLIBC)),)
@@ -78,7 +86,10 @@ REQUIRES  = core/glibc/2.31-ppc32^headers
 endif
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8LE_GLIBC) \
                              $(TOOLCHAIN_POWER9LE_GLIBC)),)
-REQUIRES  = core/linux/4.19.3
+REQUIRES  = core/linux/5.4.33
+endif
+ifeq ($(TOOLCHAIN),$(TOOLCHAIN_I686_GLIBC))
+REQUIRES  = core/linux/5.4.33
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC))
 REQUIRES  = core/glibc/2.31-x86_32^headers
