@@ -38,27 +38,18 @@ include ../../../build-system/config.mk
 
 
 SOURCE_REQUIRES  = sources/GNU/binutils
-SOURCE_REQUIRES += sources/uClinux/elf2flt
 
 # ======= __END_OF_REQUIRES__ =======
 
 tar_xz_archive       = $(SRC_PACKAGE_PATH)/GNU/binutils/binutils-2.34.tar.xz
-tar_bz2_archive_flat = $(SRC_PACKAGE_PATH)/uClinux/elf2flt/elf2flt-1.64.tar.bz2
 SRC_ARCHIVE          = $(tar_xz_archive)
 SRC_DIR              = $(TARGET_BUILD_DIR)/binutils-2.34
 src_dir_name         = binutils-2.34
-flat_src_dir_name    = elf2flt-1.64
 src_done             = $(SRC_DIR)/.source-done
-flat_src_done        = $(SRC_DIR)/.flat-source-done
 
 PATCHES       = PATCHES
 
-ifeq ($(FLAVOUR),flat)
-OPT_PATCHES   = PATCHES.elf2flt
-endif
-
 build_dir            = $(TARGET_BUILD_DIR)/build
-flat_build_dir       = $(TARGET_BUILD_DIR)/build-flat
 install_dir          = $(TOOLCHAIN_PATH)
 
 sysroot_dir          = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
@@ -66,17 +57,9 @@ sysroot_dir          = $(TOOLCHAIN_PATH)/$(TARGET)/sys-root
 build_target         = $(TARGET_BUILD_DIR)/.built
 install_target       = $(TARGET_BUILD_DIR)/.installed
 
-flat_build_target    = $(TARGET_BUILD_DIR)/.flat-built
-flat_install_target  = $(TARGET_BUILD_DIR)/.flat-installed
 
-
-ifeq ($(FLAVOUR),flat)
-BUILD_TARGETS  = $(flat_build_target)
-BUILD_TARGETS += $(flat_install_target)
-else
 BUILD_TARGETS  = $(build_target)
 BUILD_TARGETS += $(install_target)
-endif
 
 include ../../../build-system/core.mk
 
@@ -508,12 +491,6 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC)),)
 endif
 	@touch $@
 
-$(flat_src_done): $(src_done)
-	@echo "Expanding $(tar_bz2_archive_flat)"
-	@tar xjf $(tar_bz2_archive_flat) -C $(TARGET_BUILD_DIR)
-	$(APPLY_OPT_PATCHES)
-	@touch $@
-
 $(build_target): $(src_done)
 	@mkdir -p $(build_dir)
 	@cd $(build_dir) && ../$(src_dir_name)/configure \
@@ -542,21 +519,4 @@ $(install_target): $(build_target)
 	@echo "-----------"                           >> $(TOOLCHAIN_PATH)/README
 	@echo ""                                      >> $(TOOLCHAIN_PATH)/README
 	@echo "  $(subst $(TOP_BUILD_DIR_ABS)/,,$(CURDIR))$(if $(FLAVOUR),:$(FLAVOUR),)" >> $(TOOLCHAIN_PATH)/README
-	@touch $@
-
-$(flat_build_target): $(flat_src_done) $(build_target)
-	@mkdir -p $(flat_build_dir)
-	@cd $(flat_build_dir) && LIBS=-ldl ../$(flat_src_dir_name)/configure \
-	  --prefix=$(TOOLCHAIN_PATH)                              \
-	  --target=$(TARGET)                                      \
-	  --with-binutils-include-dir=../$(src_dir_name)/include/ \
-	  --with-bfd-include-dir=../build/bfd/                    \
-	  --with-libbfd=../build/bfd/libbfd.a                     \
-	  --with-libiberty=../build/libiberty/libiberty.a         \
-	  --disable-got-check
-	@$(MAKE) -C $(flat_build_dir)
-	@touch $@
-
-$(flat_install_target): $(flat_build_target) $(install_target)
-	@$(MAKE) -j1 -C $(flat_build_dir) install
 	@touch $@
