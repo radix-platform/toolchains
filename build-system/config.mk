@@ -81,16 +81,6 @@ AT91SAM7S_NEWLIB_PATH = $(TOOLCHAINS_BASE_PATH)/$(AT91SAM7S_NEWLIB_DIR)
 AT91SAM7S_NEWLIB_SPEC = Atmel AT91SAM7S newlib toolchain
 
 
-# LPC17XX-UCLIBC
-TOOLCHAIN_LPC17XX_UCLIBC = lpc17xx-uclibc
-
-LPC17XX_UCLIBC_ARCH = arm-lpc17xx-uclinuxeabi
-LPC17XX_UCLIBC_DIR  = arm-LPC17XX-uclinuxeabi
-LPC17XX_UCLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(LPC17XX_UCLIBC_DIR)
-###                  |---Toolchain-spec-handy-ruler----------------|
-LPC17XX_UCLIBC_SPEC = NXP LPC17xx uclibc toolchain
-
-
 # IMX6-GLIBC
 TOOLCHAIN_IMX6_GLIBC = imx6-glibc
 

@@ -25,10 +25,6 @@ BUILD_RK33XX_NEWLIB = true
 BUILD_AT91SAM7S_NEWLIB = true
 
 
-# lpc17xx-uclibc:
-BUILD_LPC17XX_UCLIBC = true
-
-
 # a1x-glibc:
 BUILD_A1X_GLIBC = true
 

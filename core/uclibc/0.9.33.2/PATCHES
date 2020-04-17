@@ -1,6 +1,0 @@
-
-../../../sources/uClinux/uClibc/patches/uClibc-0.9.33.2-pth-spinlock.patch -p0
-../../../sources/uClinux/uClibc/patches/uClibc-0.9.33.2-out-of-tree.patch -p0
-../../../sources/uClinux/uClibc/patches/uClibc-0.9.33.2-locale.patch -p0
-../../../sources/uClinux/uClibc/patches/uClibc-0.9.33.2-reduce-execvp-env.patch -p0
-

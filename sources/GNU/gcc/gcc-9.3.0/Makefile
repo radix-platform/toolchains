@@ -24,7 +24,6 @@ sha1s       = $(addsuffix .sha1sum, $(tarballs))
 patches     = $(CURDIR)/../patches/gcc-9.3.0-at91sam7s-newlib.patch
 patches    += $(CURDIR)/../patches/gcc-9.3.0-a9xx-newlib.patch
 patches    += $(CURDIR)/../patches/gcc-9.3.0-a33xx-newlib.patch
-patches    += $(CURDIR)/../patches/gcc-9.3.0-lpc17xx-multilib.patch
 
 patches    += $(CURDIR)/../patches/gcc-9.3.0-aarch64-multilib.patch
 patches    += $(CURDIR)/../patches/gcc-9.3.0-ppc64-multilib.patch
@@ -71,7 +70,6 @@ $(patches): $(sha1s)
 	 ( cd create-9.3.0-at91sam7s-newlib-patch   ; ./create.patch.sh ) ; \
 	 ( cd create-9.3.0-a9xx-newlib-patch        ; ./create.patch.sh ) ; \
 	 ( cd create-9.3.0-a33xx-newlib-patch       ; ./create.patch.sh ) ; \
-	 ( cd create-9.3.0-lpc17xx-multilib-patch   ; ./create.patch.sh ) ; \
 	 ( cd create-9.3.0-aarch64-multilib-patch   ; ./create.patch.sh ) ; \
 	 ( cd create-9.3.0-ppc64-multilib-patch     ; ./create.patch.sh ) ; \
 	 ( cd create-9.3.0-ppc64le-multilib-patch   ; ./create.patch.sh ) ; \

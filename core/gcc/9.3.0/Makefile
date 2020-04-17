@@ -8,8 +8,6 @@ COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK33XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 
-COMPONENT_TARGETS += $(TOOLCHAIN_LPC17XX_UCLIBC)
-
 COMPONENT_TARGETS += $(TOOLCHAIN_A1X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_H3_GLIBC)
@@ -58,18 +56,6 @@ REQUIRES  = core/newlib/3.3.0^full
 endif
 endif
 
-ifneq ($(findstring uclibc, $(TOOLCHAIN)),)
-ifeq ($(FLAVOUR),static)
-REQUIRES  = core/binutils/2.34^flat
-endif
-ifeq ($(FLAVOUR),second)
-REQUIRES  = core/uclibc/0.9.33.2^headers
-endif
-ifeq ($(FLAVOUR),full)
-REQUIRES  = core/uclibc/0.9.33.2^full
-endif
-endif
-
 ifneq ($(findstring -glibc, $(TOOLCHAIN)),)
 ifeq ($(FLAVOUR),static)
 REQUIRES  = core/binutils/2.34
@@ -108,9 +94,6 @@ else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A33XX_NEWLIB)),)
 PATCHES = PATCHES.a33xx
 else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC)),)
-PATCHES = PATCHES.lpc17xx
-else
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) \
                              $(TOOLCHAIN_POWER9_GLIBC)),)
 PATCHES = PATCHES.powerpc
@@ -129,7 +112,6 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_X86_64_GLIBC)),)
 PATCHES = PATCHES.x86_64
 else
 PATCHES = PATCHES
-endif
 endif
 endif
 endif
@@ -394,56 +376,6 @@ extra_configure_switches += --enable-languages=c
 extra_configure_switches += --with-newlib
 extra_configure_switches += --with-sysroot=$(TOOLCHAIN_PATH)/$(TARGET)
 extra_configure_switches += --with-extra-multilibs=armv4t
-endif
-
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
-extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
-extra_configure_switches += '--with-bugurl=https://radix.pro'
-extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
-extra_configure_switches += --disable-isl-version-check
-ifeq ($(FLAVOUR),static)
-extra_configure_switches += --disable-libatomic
-extra_configure_switches += --disable-libgomp
-extra_configure_switches += --disable-libitm
-extra_configure_switches += --disable-libmudflap
-extra_configure_switches += --disable-libquadmath
-extra_configure_switches += --disable-libsanitizer
-extra_configure_switches += --disable-libssp
-extra_configure_switches += --disable-libstdc++-v3
-extra_configure_switches += --disable-threads
-extra_configure_switches += --enable-languages=c
-extra_configure_switches += --enable-interwork
-extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-extra-multilibs=armv7-m
-extra_configure_switches += --enable-__cxa_atexit
-extra_configure_switches += --disable-shared
-extra_configure_switches += --disable-nls
-# without-headers replacement, to make libgcc independed from glibc:
-extra_configure_switches += --without-headers
-endif
-ifeq ($(FLAVOUR),second)
-extra_configure_switches += --with-sysroot=$(sysroot_dir)
-extra_configure_switches += --enable-languages=c
-extra_configure_switches += --enable-interwork
-extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-extra-multilibs=armv7-m
-extra_configure_switches += --enable-__cxa_atexit
-extra_configure_switches += --disable-shared
-extra_configure_switches += --disable-nls
-endif
-ifeq ($(FLAVOUR),full)
-extra_configure_switches += --with-sysroot=$(sysroot_dir)
-extra_configure_switches += --enable-languages=c,c++
-extra_configure_switches += --enable-libstdcxx-dual-abi
-extra_configure_switches += --with-default-libstdcxx-abi=new
-extra_configure_switches += --enable-interwork
-extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-extra-multilibs=armv7-m
-extra_configure_switches += --enable-__cxa_atexit
-extra_configure_switches += --disable-shared
-extra_configure_switches += --disable-nls
-endif
 endif
 
 
@@ -1752,10 +1684,8 @@ $(second_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done) $(isl_s
 $(second_install_target): $(second_build_target)
 	@$(MAKE) $(environment) -j1 -C $(build_dir) install
 	@rm -f $(TOOLCHAIN_PATH)/share/info/dir
-ifneq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
 	@cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib/libgcc_s.so $(sysroot_dir)/usr/lib
 	@cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib/libgcc_s.so.1 $(sysroot_dir)/usr/lib
-endif
 ifneq ($(findstring x86_64, $(TOOLCHAIN)),)
 	@cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so $(sysroot_dir)/usr/lib32
 	@cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so.1 $(sysroot_dir)/usr/lib32

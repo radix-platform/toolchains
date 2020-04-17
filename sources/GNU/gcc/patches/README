@@ -3,9 +3,6 @@
 
    gcc-9.3.0-at91sam7s-newlib.patch  -
 
-   gcc-9.3.0-lpc17xx-multilib.patch  - adds --with-extra-multilibs=armv7-m configure switch.
-
-
    README.TXT                        - this file.
 
  * end */

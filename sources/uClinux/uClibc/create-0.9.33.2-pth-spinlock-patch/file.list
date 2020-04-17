@@ -1,4 +1,0 @@
-uClibc-0.9.33.2/libc/sysdeps/linux/arm/clone.S
-uClibc-0.9.33.2/libc/sysdeps/linux/arm/bits/arm_asm.h
-uClibc-0.9.33.2/libpthread/linuxthreads/sysdeps/arm/pspinlock.c
-uClibc-0.9.33.2/libpthread/linuxthreads/sysdeps/arm/pt-machine.h

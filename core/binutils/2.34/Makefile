@@ -8,8 +8,6 @@ COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK33XX_NEWLIB)
 COMPONENT_TARGETS += $(TOOLCHAIN_AT91SAM7S_NEWLIB)
 
-COMPONENT_TARGETS += $(TOOLCHAIN_LPC17XX_UCLIBC)
-
 COMPONENT_TARGETS += $(TOOLCHAIN_A1X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_H3_GLIBC)
@@ -38,9 +36,6 @@ COMPONENT_TARGETS += $(TOOLCHAIN_X86_64_GLIBC)
 
 include ../../../build-system/config.mk
 
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
-FLAVOURS = flat
-endif
 
 SOURCE_REQUIRES  = sources/GNU/binutils
 SOURCE_REQUIRES += sources/uClinux/elf2flt
@@ -158,14 +153,6 @@ extra_configure_switches += '--with-bugurl=https://radix.pro'
 extra_configure_switches  = --enable-interwork
 extra_configure_switches += --enable-multilib
 extra_configure_switches += --with-float=soft
-endif
-
-ifeq ($(TOOLCHAIN),$(TOOLCHAIN_LPC17XX_UCLIBC))
-extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
-extra_configure_switches += '--with-bugurl=https://radix.pro'
-extra_configure_switches += --enable-interwork
-extra_configure_switches += --enable-multilib
-extra_configure_switches += --with-sysroot=$(sysroot_dir)
 endif
 
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A1X_GLIBC)),)
