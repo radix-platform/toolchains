@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=0.10.1
+VERSION=0.10.2
 
 tar --files-from=file.list -xJvf ../patchelf-$VERSION.tar.xz
 mv patchelf-$VERSION patchelf-$VERSION-orig

@@ -35,10 +35,10 @@ REQUIRES  = core/gcc/9.3.0^full
 
 # ======= __END_OF_REQUIRES__ =======
 
-tar_xz_archive   = $(SRC_PACKAGE_PATH)/tools/patchelf/patchelf-0.10.1.tar.xz
+tar_xz_archive   = $(SRC_PACKAGE_PATH)/tools/patchelf/patchelf-0.10.2.tar.xz
 SRC_ARCHIVE      = $(tar_xz_archive)
-SRC_DIR          = $(TARGET_BUILD_DIR)/patchelf-0.10.1
-src_dir_name     = patchelf-0.10.1
+SRC_DIR          = $(TARGET_BUILD_DIR)/patchelf-0.10.2
+src_dir_name     = patchelf-0.10.2
 src_done         = $(TARGET_BUILD_DIR)/.source-done
 
 PATCHES          = PATCHES

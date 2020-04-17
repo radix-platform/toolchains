@@ -1,7 +1,7 @@
 
 /* begin *
 
-   patchelf-0.10.1-check-endianness.patch - Check ELF endianness before writing new runpath.
+   patchelf-0.10.2-check-endianness.patch - Check ELF endianness before writing new runpath.
 
                                             This patch makes a change to the way the RUNPATH field
                                             is updated in the dynamic section. Currently, patchelf does

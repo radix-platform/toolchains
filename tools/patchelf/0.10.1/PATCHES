@@ -1,2 +1,0 @@
-
-../../../sources/tools/patchelf/patches/patchelf-0.10.1-check-endianness.patch -p0

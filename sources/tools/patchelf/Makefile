@@ -7,14 +7,14 @@ include ../../../build-system/config.mk
 
 url         = $(DOWNLOAD_SERVER)/sources/packages/a/patchelf
 
-versions    = 0.10.1
+versions    = 0.10.2
 pkg_name    = patchelf
 suffix      = tar.xz
 
 tarballs    = $(addsuffix .$(suffix), $(addprefix $(pkg_name)-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
-patches     = $(CURDIR)/patches/patchelf-0.10.1-check-endianness.patch
+patches     = $(CURDIR)/patches/patchelf-0.10.2-check-endianness.patch
 
 .NOTPARALLEL: $(patches)
 
@@ -49,7 +49,7 @@ $(sha1s): $(tarballs)
 
 $(patches): $(sha1s)
 	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-0.10.1-check-endianness-patch  ; ./create.patch.sh ) ; \
+	 ( cd create-0.10.2-check-endianness-patch  ; ./create.patch.sh ) ; \
 	 echo -e "\n"
 
 download_clean:
