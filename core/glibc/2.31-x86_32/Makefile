@@ -51,10 +51,12 @@ env_sysroot     = install_root=$(sysroot_dir)
 
 
 CC           = $(CCACHE)$(TOOLCHAIN_PATH)/bin/$(TARGET)-gcc -m32
+CXX          = $(CCACHE)$(TOOLCHAIN_PATH)/bin/$(TARGET)-g++ -m32
 
 environment  = AS=$(TOOLCHAIN_PATH)/bin/$(TARGET)-as
 environment += LD=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ld
 environment += CC="$(CC)"
+environment += CXX="$(CXX)"
 environment += AR=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ar
 environment += RANLIB=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ranlib
 

@@ -144,10 +144,12 @@ env_sysroot     = install_root=$(sysroot_dir)
 
 
 CC           = $(CCACHE)$(TOOLCHAIN_PATH)/bin/$(TARGET)-gcc
+CXX          = $(CCACHE)$(TOOLCHAIN_PATH)/bin/$(TARGET)-g++
 
 environment  = AS=$(TOOLCHAIN_PATH)/bin/$(TARGET)-as
 environment += LD=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ld
 environment += CC="$(CC)"
+environment += CXX="$(CXX)"
 environment += AR=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ar
 environment += RANLIB=$(TOOLCHAIN_PATH)/bin/$(TARGET)-ranlib
 

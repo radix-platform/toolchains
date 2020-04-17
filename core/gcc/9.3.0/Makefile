@@ -74,7 +74,7 @@ tar_xz_archive        = $(SRC_PACKAGE_PATH)/GNU/gcc/gcc-9.3.0/gcc-9.3.0.tar.xz
 tar_xz_archive_gmp    = $(SRC_PACKAGE_PATH)/GNU/gmp/gmp-6.2.0.tar.xz
 tar_xz_archive_mpfr   = $(SRC_PACKAGE_PATH)/GNU/mpfr/mpfr-4.0.2.tar.xz
 tar_gz_archive_mpc    = $(SRC_PACKAGE_PATH)/GNU/mpc/mpc-1.1.0.tar.gz
-tar_xz_archive_isl    = $(SRC_PACKAGE_PATH)/inria/isl/isl-0.20.tar.xz
+tar_xz_archive_isl    = $(SRC_PACKAGE_PATH)/inria/isl/isl-0.22.1.tar.xz
 SRC_ARCHIVE           = $(tar_xz_archive)
 SRC_DIR               = $(TARGET_BUILD_DIR)/gcc-9.3.0
 src_dir_name          = gcc-9.3.0
@@ -1640,7 +1640,7 @@ $(mpc_src_done): $(src_done)
 $(isl_src_done): $(src_done)
 	@echo "Expanding $(tar_xz_archive_isl)"
 	@tar xJf $(tar_xz_archive_isl) -C $(TARGET_BUILD_DIR)
-	@cd $(SRC_DIR); ln -sf ../isl-0.20 isl
+	@cd $(SRC_DIR); ln -sf ../isl-0.22.1 isl
 	@touch $@
 
 $(static_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done) $(isl_src_done)
@@ -1686,7 +1686,8 @@ $(second_install_target): $(second_build_target)
 	@rm -f $(TOOLCHAIN_PATH)/share/info/dir
 	@cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib/libgcc_s.so $(sysroot_dir)/usr/lib
 	@cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib/libgcc_s.so.1 $(sysroot_dir)/usr/lib
-ifneq ($(findstring x86_64, $(TOOLCHAIN)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) $(TOOLCHAIN_POWER9_GLIBC) \
+                             $(TOOLCHAIN_X86_64_GLIBC)),)
 	@cp -d $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so $(sysroot_dir)/usr/lib32
 	@cp    $(TOOLCHAIN_PATH)/$(TARGET)/lib32/libgcc_s.so.1 $(sysroot_dir)/usr/lib32
 endif
@@ -1738,7 +1739,8 @@ $(full_build_target): $(gmp_src_done) $(mpfr_src_done) $(mpc_src_done) $(isl_src
 $(full_install_target): $(full_build_target)
 	@rm -f $(sysroot_dir)/usr/lib/libgcc_s.so
 	@rm -f $(sysroot_dir)/usr/lib/libgcc_s.so.1
-ifneq ($(findstring x86_64, $(TOOLCHAIN)),)
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8_GLIBC) $(TOOLCHAIN_POWER9_GLIBC) \
+                             $(TOOLCHAIN_X86_64_GLIBC)),)
 	@rm -f $(sysroot_dir)/usr/lib32/libgcc_s.so
 	@rm -f $(sysroot_dir)/usr/lib32/libgcc_s.so.1
 endif
