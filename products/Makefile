@@ -41,7 +41,7 @@ include ../build-system/config.mk
 
 
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_ARM32_NEWLIB))
-REQUIRES  = products/arm32-newlib/1.5.0
+REQUIRES  = products/ARM32-newlib/1.5.0
 endif
 ifeq ($(TOOLCHAIN),$(TOOLCHAIN_A33XX_NEWLIB))
 REQUIRES  = products/A33XX-newlib/1.5.0
