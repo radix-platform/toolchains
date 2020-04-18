@@ -17,17 +17,13 @@ include ../../build-system/config.mk
 main_url    = ftp://sources.redhat.com/pub/newlib
 url         = $(DOWNLOAD_SERVER)/sources/newlib
 
-versions    = 3.0.0.20180831 3.3.0
+versions    = 3.3.0
 
 tarballs    = $(addsuffix .tar.gz, $(addprefix newlib-, $(versions)))
 sha1s       = $(addsuffix .sha1sum, $(tarballs))
 
-patches     = $(CURDIR)/patches/newlib-3.0.0.20180831-armv8-m.patch
 
-.NOTPARALLEL: $(patches)
-
-
-BUILD_TARGETS = $(tarballs) $(sha1s) $(patches)
+BUILD_TARGETS = $(tarballs) $(sha1s)
 
 
 include ../../build-system/core.mk
@@ -55,10 +51,5 @@ $(sha1s): $(tarballs)
 	   fi ; \
 	 done
 
-$(patches): $(sha1s)
-	@echo -e "\n======= Create Patches =======\n" ; \
-	 ( cd create-3.0.0.20180831-armv8-m-patch ; ./create.patch.sh ) ; \
-	 echo -e "\n"
-
 download_clean:
-	@rm -f $(tarballs) $(sha1s) $(patches)
+	@rm -f $(tarballs) $(sha1s)

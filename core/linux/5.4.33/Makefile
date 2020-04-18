@@ -49,12 +49,12 @@ headers_target  = $(TARGET_BUILD_DIR)/.headers-installed
 ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A1X_GLIBC) $(TOOLCHAIN_A2X_GLIBC) \
                              $(TOOLCHAIN_H3_GLIBC) $(TOOLCHAIN_IMX6_GLIBC) \
                              $(TOOLCHAIN_OMAP543X_GLIBC) $(TOOLCHAIN_RK328X_GLIBC) \
-                             $(TOOLCHAIN_S8XX_GLIBC) $(TOOLCHAIN_A33XX_GLIBC)),)
+                             $(TOOLCHAIN_S8XX_GLIBC) $(TOOLCHAIN_A9XX_GLIBC) \
+                             $(TOOLCHAIN_A33XX_GLIBC)),)
 arch = arm
 endif
 
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_H5_GLIBC) \
-                             $(TOOLCHAIN_S9XX_GLIBC) $(TOOLCHAIN_A9XX_GLIBC) \
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_H5_GLIBC) $(TOOLCHAIN_S9XX_GLIBC) \
                              $(TOOLCHAIN_RK33XX_GLIBC) $(TOOLCHAIN_RK339X_GLIBC)),)
 arch = arm64
 endif
