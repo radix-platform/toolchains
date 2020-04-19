@@ -40,6 +40,9 @@ BUILD_H5_GLIBC = true
 # imx6-glibc:
 BUILD_IMX6_GLIBC = true
 
+# imx6ull-glibc:
+BUILD_IMX6ULL_GLIBC = true
+
 # jz47xx-glibc:
 BUILD_JZ47XX_GLIBC = true
 

@@ -91,6 +91,16 @@ IMX6_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(IMX6_GLIBC_DIR)
 IMX6_GLIBC_SPEC = Freescale i.MX6 GNU Libc toolchain
 
 
+# IMX6ULL-GLIBC
+TOOLCHAIN_IMX6ULL_GLIBC = imx6ull-glibc
+
+IMX6ULL_GLIBC_ARCH = arm-imx6ull-linux-gnueabihf
+IMX6ULL_GLIBC_DIR  = arm-IMX6ULL-linux-glibc
+IMX6ULL_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(IMX6ULL_GLIBC_DIR)
+###                 |---Toolchain-spec-handy-ruler----------------|
+IMX6ULL_GLIBC_SPEC = NXP i.MX6ULL GNU Libc toolchain
+
+
 # OMAP543X-GLIBC
 TOOLCHAIN_OMAP543X_GLIBC = omap543x-glibc
 

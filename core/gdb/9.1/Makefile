@@ -12,6 +12,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_A2X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_H3_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_H5_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_IMX6_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_IMX6ULL_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_JZ47XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_P5600_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_OMAP543X_GLIBC)
@@ -157,6 +158,17 @@ extra_configure_switches += --disable-libssp
 extra_configure_switches += --with-arch=armv7-a
 extra_configure_switches += --with-tune=cortex-a9
 extra_configure_switches += --with-fpu=vfpv3
+extra_configure_switches += --with-abi=aapcs-linux
+extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
+endif
+
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_IMX6ULL_GLIBC)),)
+extra_configure_switches  = --enable-interwork
+extra_configure_switches += --enable-multilib
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --with-arch=armv7-a
+extra_configure_switches += --with-tune=cortex-a7
+extra_configure_switches += --with-fpu=neon-vfpv4
 extra_configure_switches += --with-abi=aapcs-linux
 extra_configure_switches += --with-build-sysroot=$(sysroot_dir)
 endif
