@@ -21,6 +21,7 @@ COMPONENT_TARGETS += $(TOOLCHAIN_RK328X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_S8XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_S9XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A9XX_GLIBC)
+COMPONENT_TARGETS += $(TOOLCHAIN_A311X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK33XX_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_RK339X_GLIBC)
 COMPONENT_TARGETS += $(TOOLCHAIN_A33XX_GLIBC)
@@ -103,8 +104,9 @@ ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_POWER8LE_GLIBC) \
                              $(TOOLCHAIN_POWER9LE_GLIBC)),)
 PATCHES = PATCHES.powerpcle
 else
-ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_S9XX_GLIBC)   \
-                             $(TOOLCHAIN_H5_GLIBC)     \
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_H5_GLIBC)     \
+                             $(TOOLCHAIN_S9XX_GLIBC)   \
+                             $(TOOLCHAIN_A311X_GLIBC)  \
                              $(TOOLCHAIN_RK33XX_GLIBC) \
                              $(TOOLCHAIN_RK339X_GLIBC)),)
 PATCHES = PATCHES.aarch64
@@ -747,6 +749,66 @@ extra_configure_switches += --with-arch=armv8-a
 extra_configure_switches += --with-fpu=neon-fp-armv8
 # add
 extra_configure_switches += --with-float=hard
+extra_configure_switches += --enable-gold
+extra_configure_switches += --enable-c99
+extra_configure_switches += --enable-long-long
+extra_configure_switches += --disable-isl-version-check
+ifeq ($(FLAVOUR),static)
+extra_configure_switches += --disable-libatomic
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libitm
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-libsanitizer
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --disable-threads
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-shared
+extra_configure_switches += --disable-nls
+# without-headers replacement, to make libgcc independed from glibc:
+extra_configure_switches += --with-newlib
+endif
+ifeq ($(FLAVOUR),second)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --disable-libatomic
+extra_configure_switches += --disable-libgomp
+extra_configure_switches += --disable-libitm
+extra_configure_switches += --disable-libmudflap
+extra_configure_switches += --disable-libquadmath
+extra_configure_switches += --disable-libsanitizer
+extra_configure_switches += --disable-libssp
+extra_configure_switches += --disable-libstdc++-v3
+extra_configure_switches += --enable-languages=c
+extra_configure_switches += --disable-nls
+endif
+ifeq ($(FLAVOUR),full)
+extra_configure_switches += --with-sysroot=$(sysroot_dir)
+extra_configure_switches += --enable-languages=c,c++,objc,obj-c++,fortran,go,lto,ada
+extra_configure_switches += --enable-libstdcxx-dual-abi
+extra_configure_switches += --with-default-libstdcxx-abi=new
+extra_configure_switches += --disable-libstdcxx-pch
+extra_configure_switches += --disable-libunwind-exceptions
+extra_configure_switches += --enable-__cxa_atexit
+extra_configure_switches += --enable-shared
+extra_configure_switches += --enable-nls
+extra_configure_switches += --with-included-gettext
+endif
+endif
+
+
+ifneq ($(filter $(TOOLCHAIN),$(TOOLCHAIN_A311X_GLIBC)),)
+extra_configure_switches  = '--with-pkgversion=Radix $(TOOLCHAINS_VERSION)'
+extra_configure_switches += '--with-bugurl=https://radix.pro'
+extra_configure_switches += --libdir=$(TOOLCHAIN_PATH)/lib$(LIBSUFFIX)
+extra_configure_switches += --disable-multiarch
+extra_configure_switches += --disable-multilib
+extra_configure_switches += --with-arch=armv8-a
+extra_configure_switches += --with-cpu=cortex-a73.cortex-a53
+extra_configure_switches += --with-abi=lp64
+extra_configure_switches += --enable-fix-cortex-a53-835769
+extra_configure_switches += --enable-fix-cortex-a53-843419
+# add
 extra_configure_switches += --enable-gold
 extra_configure_switches += --enable-c99
 extra_configure_switches += --enable-long-long

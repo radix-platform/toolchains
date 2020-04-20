@@ -205,6 +205,15 @@ A9XX_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(A9XX_GLIBC_DIR)
 ###              |---Toolchain-spec-handy-ruler----------------|
 A9XX_GLIBC_SPEC = Amlogic S9xx armv8l GNU Libc toolchain
 
+# Amlogic A311X-GLIBC
+TOOLCHAIN_A311X_GLIBC = a311x-glibc
+
+A311X_GLIBC_ARCH = aarch64-a311x-linux-gnu
+A311X_GLIBC_DIR  = aarch64-A311X-linux-glibc
+A311X_GLIBC_PATH = $(TOOLCHAINS_BASE_PATH)/$(A311X_GLIBC_DIR)
+###               |---Toolchain-spec-handy-ruler----------------|
+A311X_GLIBC_SPEC = Amlogic A311X GNU Libc toolchain
+
 
 # Rockchip A33XX-NEWLIB (ARMv6-M Cortex-m0)
 TOOLCHAIN_A33XX_NEWLIB = a33xx-newlib

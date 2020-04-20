@@ -64,6 +64,9 @@ BUILD_S9XX_GLIBC = true
 # a9xx-glibc:
 BUILD_A9XX_GLIBC = true
 
+# a311x-glibc:
+BUILD_A311X_GLIBC = true
+
 # rk33xx-glibc:
 BUILD_RK33XX_GLIBC = true
 
